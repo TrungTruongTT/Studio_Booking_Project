@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryLight">#8b9dc3</color>
+    <color name="colorAccentDark">#dfe3ee</color>
+    <color name="colorAccentLight">#ffffff</color>
+    <color name="Custom_Color1">#38ef7d</color>
+    <color name="Custom_Color2">#11998e</color>
+    <color name="Custom_Color3">#75D39B</color>
+
+    <color name="colorPrimary">#38ef7d</color>
+    <color name="colorPrimaryDark">#11998e</color>
+    <color name="colorAccent">#75D39B</color>
+
+    <!--colors for modern ui-->
+    <color name="whiteTextColor">#fff</color>
+    <color name="primaryTextColor">#FF018786</color>
+    <color name="loginBkColor">#f0f0f0</color>
+
+    <!--colros for card-->
+    <color name="whiteCardColor">#fff</color>
+
+    <!--colors for Home-->
+    <color name="cardView">#70F6E9E9</color>
+
+    <!--ToolBar for App-->
+    <color name="toolBar">#5F4A97</color>
+
+</resources>

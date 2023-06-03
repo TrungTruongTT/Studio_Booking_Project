@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_home"
+        android:title="@string/action_home"
+        android:icon="@drawable/home_white_48dp"/>
+
+    <item android:id="@+id/action_booking"
+        android:title="@string/action_booking"
+        android:icon="@drawable/shopping_cart_white_48dp"/>
+
+    <item android:id="@+id/action_feed"
+        android:title="@string/action_feed"
+        android:icon="@drawable/feed_white_48dp"/>
+
+    <item android:id="@+id/action_chat"
+        android:title="@string/action_chat"
+        android:icon="@drawable/chat_white_48dp"/>
+
+    <item android:id="@+id/action_user"
+        android:title="@string/action_user"
+        android:icon="@drawable/account_circle_white_48dp"/>
+</menu>
