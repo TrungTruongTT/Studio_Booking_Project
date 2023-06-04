@@ -18,13 +18,6 @@
     android:background="@color/cardView"
     android:orientation="horizontal">
 
-<!--    <de.hdodenhof.circleimageview.CircleImageView-->
-<!--        android:id="@+id/imgListView"-->
-<!--        android:layout_width="120dp"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:src="@drawable/download"-->
-<!--        />-->
     <ImageView
         android:id="@+id/imgListView"
         android:layout_width="120dp"
@@ -33,8 +26,7 @@
         android:layout_marginBottom="5dp"
         android:src="@drawable/download"
         />
-    <!--    app:layout_constraintStart_toStartOf="@+id/guideline"-->
-    <!--    app:layout_constraintTop_toBottomOf="@id/imageView"-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -59,6 +51,7 @@
             android:layout_height="match_parent"
             android:textColor="#4B4B4B"
             android:textSize="15sp"
+            android:layout_marginBottom="5dp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed semper elit. Donec at luctus felis, id faucibus nibh. Aliquam."
             />
     </LinearLayout>
@@ -84,7 +77,8 @@
             android:layout_height="match_parent"
             android:text="Form: 500$"
             android:textSize="13sp"
-            android:layout_weight="5"/>
+            android:layout_marginBottom="5dp"
+            android:layout_weight="4"/>
     </LinearLayout>
 
 </LinearLayout>

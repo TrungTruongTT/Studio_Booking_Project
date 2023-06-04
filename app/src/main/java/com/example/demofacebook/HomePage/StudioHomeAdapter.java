@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,33 +15,36 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.MyArrayAdapterHolder>{
+public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.MyArrayAdapterHolder> implements Filterable {
 
     private Context mContext;
     private List<Studio> mListStudio;
+    private List<Studio> mListStudioOld;
 
     public StudioHomeAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void SetData(List<Studio> list){
+    public void SetData(List<Studio> list) {
         this.mListStudio = list;
+        this.mListStudioOld = mListStudio;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public MyArrayAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_studio_home_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_studio_home_item, parent, false);
         return new MyArrayAdapterHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyArrayAdapterHolder holder, int position) {
         Studio studio = mListStudio.get(position);
-        if(studio== null){
+        if (studio == null) {
             return;
         }
         holder.img_phone.setImageResource(studio.getImage());
@@ -51,41 +56,62 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
 
     @Override
     public int getItemCount() {
-        if(mListStudio!= null){
+        if (mListStudio != null) {
             return mListStudio.size();
         }
         return 0;
     }
 
-    public  class MyArrayAdapterHolder  extends RecyclerView.ViewHolder {
+
+    public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {
         ImageView img_phone;
         TextView txtTitle;
         TextView txtDescription;
         TextView txtPrice;
         TextView txtRating;
-    public MyArrayAdapterHolder(@NonNull View itemView) {
-        super(itemView);
-         img_phone = itemView.findViewById(R.id.imgListView);
-         txtTitle = itemView.findViewById(R.id.txtNameStudio);
-         txtDescription = itemView.findViewById(R.id.txtStudioDes);
-         txtPrice = itemView.findViewById(R.id.txtPrice);
-         txtRating = itemView.findViewById(R.id.txtRating);
+
+        public MyArrayAdapterHolder(@NonNull View itemView) {
+            super(itemView);
+            img_phone = itemView.findViewById(R.id.imgListView);
+            txtTitle = itemView.findViewById(R.id.txtNameStudio);
+            txtDescription = itemView.findViewById(R.id.txtStudioDes);
+            txtPrice = itemView.findViewById(R.id.txtPrice);
+            txtRating = itemView.findViewById(R.id.txtRating);
+        }
     }
-}
+
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
+
+                if (strSearch.isEmpty()) {
+                    mListStudio = mListStudioOld;
+                } else {
+                    List<Studio> list = new ArrayList<>();
+                    for (Studio studio : mListStudio) {
+                        if (studio.getTitle().toLowerCase().trim().contains(strSearch.toLowerCase().trim())) {
+                            list.add(studio);
+                        }
+                    }
+                    mListStudio = list;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mListStudio;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults results) {
+                mListStudio = (List<Studio>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
 }
 
 
-//    LayoutInflater myinflater = context.getLayoutInflater();
-//        convertView = myinflater.inflate(idLayout,null);
-//                Studio myStudio = myList.get(position);
-//                ImageView img_phone = convertView.findViewById(R.id.imgListView);
-//                img_phone.setImageResource(myStudio.getImage());
-//                TextView txtTitle = convertView.findViewById(R.id.txtNameStudio);
-//                txtTitle.setText(myStudio.getTitle());
-//                TextView txtDescription = convertView.findViewById(R.id.txtStudioDes);
-//
-//                TextView txtPrice = convertView.findViewById(R.id.txtPrice);
-//
-//                TextView txtRating = convertView.findViewById(R.id.txtRating);
-//

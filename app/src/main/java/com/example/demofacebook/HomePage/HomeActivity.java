@@ -2,10 +2,14 @@ package com.example.demofacebook.HomePage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,15 +21,18 @@ import com.example.demofacebook.Fragment.ChatFragment;
 import com.example.demofacebook.Fragment.HomeFragment;
 import com.example.demofacebook.Fragment.NewFeedFragment;
 import com.example.demofacebook.Fragment.UserFragment;
+import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class  HomeActivity extends AppCompatActivity {
     private Fragment selectedFragment = null;
     private Toolbar toolbar;
+    SearchView searchView;
+    StudioHomeAdapter studioHomeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,18 +78,5 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.appbar_menu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.search){
-            Toast.makeText(this, "Search Bottom", Toast.LENGTH_SHORT).show();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

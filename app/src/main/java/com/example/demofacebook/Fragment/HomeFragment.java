@@ -1,12 +1,18 @@
 package com.example.demofacebook.Fragment;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +41,8 @@ public class HomeFragment extends Fragment {
     //sort
     private RecyclerView recyclerViewSort;
     private SortHomeAdapter sortHomeAdapter;
+
+    SearchView searchView;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -75,17 +83,6 @@ public class HomeFragment extends Fragment {
         studioHomeAdapter.SetData(getStudioData());
         recyclerViewStudio.setAdapter(studioHomeAdapter);
 
-
-
-
-
-//lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Studio list = myList.get(position);
-//        Toast.makeText(getActivity(), list.getTitle(), Toast.LENGTH_SHORT).show();
-//    }
-//});
     }
     private List<Studio> getStudioData(){
         int[] image = {R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download};
@@ -113,7 +110,6 @@ public class HomeFragment extends Fragment {
 
         return myList;
     }
-
     private List<String> getSortData(){
         String[] sortList = {"Category 1","Category 2","Category 3","Category 4","Category 5","Category 6" };
         List<String> myList = new ArrayList<>();
@@ -125,10 +121,38 @@ public class HomeFragment extends Fragment {
         return myList;
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.appbar_menu, menu);
+        SearchManager searchManager = (SearchManager) this.getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getActivity().getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                studioHomeAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                studioHomeAdapter.getFilter().filter(newText);
+                Toast.makeText(getActivity(),newText, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container , false);
+        setHasOptionsMenu(true);
         return view;
     }
+
+
 }

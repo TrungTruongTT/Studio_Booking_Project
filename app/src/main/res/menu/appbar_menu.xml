@@ -4,11 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <item android:id="@+id/search"
+    <item
+        android:id="@+id/search"
         android:title="Search"
         android:icon="@drawable/search_white_48dp"
-        app:showAsAction="ifRoom"
-
+        app:showAsAction="always"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
         />
 
 <!--    <item android:id="@+id/action_booking"-->
