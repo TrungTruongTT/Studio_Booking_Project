@@ -70,7 +70,7 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
         }
         return 0;
     }
-    
+
     public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {
         private final ImageView img_phone;
         private final TextView txtTitle;
