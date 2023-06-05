@@ -18,8 +18,8 @@ import java.util.List;
 
 public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapter.MyArrayAdapterHolder> {
 
-    private IClickItemCategoryListener iClickItemCategoryListener;
-    private List<Category> mListCategory;
+    private final IClickItemCategoryListener iClickItemCategoryListener;
+    private final List<Category> mListCategory;
 
     public CategoryHomeAdapter(List<Category> mListCategory, IClickItemCategoryListener listener) {
         this.mListCategory = mListCategory;

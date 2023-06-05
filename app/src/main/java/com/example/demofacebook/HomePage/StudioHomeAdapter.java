@@ -24,9 +24,9 @@ import java.util.List;
 
 public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.MyArrayAdapterHolder> implements Filterable {
 
-    private IClickItemStudioListener iClickItemStudioListener;
+    private final IClickItemStudioListener iClickItemStudioListener;
     private List<Studio> mListStudio;
-    private List<Studio> mListStudioOld;
+    private final List<Studio> mListStudioOld;
 
 
     public StudioHomeAdapter(List<Studio> mListStudio, IClickItemStudioListener listener) {
@@ -70,14 +70,13 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
         }
         return 0;
     }
-
-
+    
     public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {
-        private ImageView img_phone;
-        private TextView txtTitle;
-        private TextView txtDescription;
-        private TextView txtPrice;
-        private TextView txtRating;
+        private final ImageView img_phone;
+        private final TextView txtTitle;
+        private final TextView txtDescription;
+        private final TextView txtPrice;
+        private final TextView txtRating;
 
         public MyArrayAdapterHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,7 +90,6 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
 
     @Override
     public Filter getFilter() {
-
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
@@ -101,23 +99,20 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
                 }
                 List<Studio> list = new ArrayList<>();
                 if (!strSearch.isEmpty()) {
-                    switch (strSearch) {
-                        //sortBy Category - sortByItem
-                        case "@!Sort 1": {
-                            for (Studio studio : mListStudioOld) {
-                                if (studio.getTitle().toLowerCase().trim().contains("1".toLowerCase().trim())) {
-                                    list.add(studio);
-                                }
+                    //sortBy Category - sortByItem
+                    if ("@!Sort 1".equals(strSearch)) {
+                        for (Studio studio : mListStudioOld) {
+                            if (studio.getTitle().toLowerCase().trim().contains("1".toLowerCase().trim())) {
+                                list.add(studio);
                             }
                         }
-                        break;
                         //Search bar
-                        default:
-                            for (Studio studio : mListStudioOld) {
-                                if (studio.getTitle().toLowerCase().trim().contains(strSearch.toLowerCase().trim())) {
-                                    list.add(studio);
-                                }
+                    } else {
+                        for (Studio studio : mListStudioOld) {
+                            if (studio.getTitle().toLowerCase().trim().contains(strSearch.toLowerCase().trim())) {
+                                list.add(studio);
                             }
+                        }
                     }
 
                 }
@@ -132,9 +127,7 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
                 mListStudio = (List<Studio>) results.values;
                 notifyDataSetChanged();
             }
-        }
-
-                ;
+        };
     }
 
 }

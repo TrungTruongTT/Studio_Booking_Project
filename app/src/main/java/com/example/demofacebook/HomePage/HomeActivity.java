@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -16,6 +17,9 @@ import android.view.MenuItem;
 
 import android.widget.Toast;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.example.demofacebook.Fragment.BookingFragment;
 import com.example.demofacebook.Fragment.ChatFragment;
 import com.example.demofacebook.Fragment.HomeFragment;
@@ -35,48 +39,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         toolbar = findViewById(R.id.myToolBar);
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                if (item.getItemId() == R.id.action_home) {
-                    selectedFragment = new HomeFragment();
-                    getSupportActionBar().setTitle("Studio Booking Service");
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Home_ToolBar)));
-                }
-                if (item.getItemId() == R.id.action_chat) {
-                    getSupportActionBar().setTitle("Chat");
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Chat_ToolBar)));
-                    selectedFragment = new ChatFragment();
-                }
-                if (item.getItemId() == R.id.action_feed) {
-                    getSupportActionBar().setTitle("New Feed");
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.NewFeed_ToolBar)));
-                    selectedFragment = new NewFeedFragment();
-                }
-                if (item.getItemId() == R.id.action_booking) {
-                    getSupportActionBar().setTitle("Booking");
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Booking_ToolBar)));
-                    selectedFragment = new BookingFragment();
-                }
-                if (item.getItemId() == R.id.action_user) {
-                    getSupportActionBar().setTitle("User");
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.User_ToolBar)));
-                    selectedFragment = new UserFragment();
-                }
-                if (selectedFragment != null) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
-                }
-                return true;
-            }
-        });
-
-        // Set the initial fragment as HomeFragment
-        selectedFragment = new HomeFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
-
         setSupportActionBar(toolbar);
+
+        loadBottomNavigationView();
+
     }
 
     @Override
@@ -97,5 +63,68 @@ public class HomeActivity extends AppCompatActivity {
     private void OpenSearchScreen() {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
+    }
+
+    private void loadBottomNavigationView() {
+        AHBottomNavigation bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        //Define Items
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.action_home, R.drawable.home_white_48dp, R.color.Home_ToolBar);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.action_chat, R.drawable.chat_white_48dp, R.color.Chat_ToolBar);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.action_feed, R.drawable.feed_white_48dp, R.color.NewFeed_ToolBar);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.action_booking, R.drawable.shopping_cart_white_48dp, R.color.Booking_ToolBar);
+        AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.action_user, R.drawable.account_circle_white_48dp, R.color.User_ToolBar);
+        // Add items
+        bottomNavigationView.addItem(item1);
+        bottomNavigationView.addItem(item2);
+        bottomNavigationView.addItem(item3);
+        bottomNavigationView.addItem(item4);
+        bottomNavigationView.addItem(item5);
+        //Style
+        bottomNavigationView.setColored(true);
+
+        //OnClickItem
+        bottomNavigationView.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+
+                if (position == 0) {
+                    selectedFragment = new HomeFragment();
+                    getSupportActionBar().setTitle("Studio Booking Service");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Home_ToolBar)));
+                }
+                if (position == 1) {
+                    getSupportActionBar().setTitle("Chat");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Chat_ToolBar)));
+                    selectedFragment = new ChatFragment();
+                }
+                if (position == 2) {
+                    getSupportActionBar().setTitle("New Feed");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.NewFeed_ToolBar)));
+                    selectedFragment = new NewFeedFragment();
+                }
+                if (position == 3) {
+                    getSupportActionBar().setTitle("Booking");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Booking_ToolBar)));
+                    selectedFragment = new BookingFragment();
+                }
+                if (position == 4) {
+                    getSupportActionBar().setTitle("User");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.User_ToolBar)));
+                    selectedFragment = new UserFragment();
+                }
+                if (selectedFragment != null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+                }
+                return true;
+            }
+        });
+
+        // Set the initial fragment as HomeFragment
+        selectedFragment = new HomeFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+
+        //Notification Icon
+        AHNotification notification = new AHNotification.Builder().setText("10").setBackgroundColor(ContextCompat.getColor(HomeActivity.this, R.color.colorAccent)).setTextColor(ContextCompat.getColor(HomeActivity.this, R.color.Home_ToolBar)).build();
+        bottomNavigationView.setNotification(notification, 1);
     }
 }

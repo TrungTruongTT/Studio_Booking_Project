@@ -20,8 +20,8 @@ import com.example.demofacebook.R;
 import java.util.List;
 
 public class SortHomeAdapter extends RecyclerView.Adapter<SortHomeAdapter.MyArrayAdapterHolder> {
-private IClickItemSortListener iClickItemSortListener;
-    private List<String> mSortList;
+private final IClickItemSortListener iClickItemSortListener;
+    private final List<String> mSortList;
 
     public SortHomeAdapter(List<String> mSortList, IClickItemSortListener listener) {
         this.mSortList = mSortList;
@@ -41,7 +41,7 @@ private IClickItemSortListener iClickItemSortListener;
         if (sortItem == null) {
             return;
         }
-        holder.txtSortBy.setText(sortItem.toString());
+        holder.txtSortBy.setText(sortItem);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
