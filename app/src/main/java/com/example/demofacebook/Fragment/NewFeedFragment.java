@@ -19,10 +19,11 @@ public class NewFeedFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_new_feed, container , false);
+        View view = inflater.inflate(R.layout.fragment_new_feed, container, false);
         return view;
     }
 }

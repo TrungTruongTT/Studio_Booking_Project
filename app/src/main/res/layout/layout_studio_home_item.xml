@@ -3,83 +3,81 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainListView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/MainListView"
-    android:orientation="horizontal"
-    android:layout_marginBottom="20dp"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
-    app:cardCornerRadius="8dp"
-    >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:background="@color/cardView"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/imgListView"
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/download"
-        />
+    android:layout_marginBottom="20dp"
+    android:orientation="horizontal"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="10dp"
-        android:layout_weight="4">
+        android:layout_height="120dp"
+        android:background="@color/cardView"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_weight="3"
-            android:id="@+id/txtNameStudio"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/imgListView"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:text="Name Studio 1" />
-
-        <TextView
-            android:layout_weight="1"
-            android:id="@+id/txtStudioDes"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="#4B4B4B"
-            android:textSize="15sp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed semper elit. Donec at luctus felis, id faucibus nibh. Aliquam."
-            />
-    </LinearLayout>
+            android:src="@drawable/download" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="6.5"
-        >
-        <TextView
-            android:id="@+id/txtRating"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="⭐: 5.0"
-            android:textColor="#B18709"
-            android:textSize="15sp"
-            android:layout_weight="1"/>
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="4"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtPrice"
+            <TextView
+                android:id="@+id/txtNameStudio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="Name Studio 1"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtStudioDes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed semper elit. Donec at luctus felis, id faucibus nibh. Aliquam."
+                android:textColor="#4B4B4B"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Form: 500$"
-            android:textSize="13sp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="4"/>
-    </LinearLayout>
+            android:layout_weight="6.5"
+            android:orientation="vertical">
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/txtRating"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="⭐: 5.0"
+                android:textColor="#B18709"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="4"
+                android:text="Form: 500$"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -6,14 +6,13 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
-import android.app.SearchManager;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
+
 import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
-import android.widget.ListView;
+
 import android.widget.Toast;
 
 import com.example.demofacebook.Fragment.BookingFragment;
@@ -21,18 +20,14 @@ import com.example.demofacebook.Fragment.ChatFragment;
 import com.example.demofacebook.Fragment.HomeFragment;
 import com.example.demofacebook.Fragment.NewFeedFragment;
 import com.example.demofacebook.Fragment.UserFragment;
-import com.example.demofacebook.Model.Studio;
+
 import com.example.demofacebook.R;
+import com.example.demofacebook.Search.SearchActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
-
-public class  HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     private Fragment selectedFragment = null;
     private Toolbar toolbar;
-    SearchView searchView;
-    StudioHomeAdapter studioHomeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,23 +39,23 @@ public class  HomeActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                if(item.getItemId() == R.id.action_home) {
+                if (item.getItemId() == R.id.action_home) {
                     selectedFragment = new HomeFragment();
                     toolbar.setTitle("Studio Booking Service");
                 }
-                if(item.getItemId() == R.id.action_chat) {
+                if (item.getItemId() == R.id.action_chat) {
                     toolbar.setTitle("Chat");
                     selectedFragment = new ChatFragment();
                 }
-                if(item.getItemId() == R.id.action_feed) {
+                if (item.getItemId() == R.id.action_feed) {
                     toolbar.setTitle("New Feed");
                     selectedFragment = new NewFeedFragment();
                 }
-                if(item.getItemId() == R.id.action_booking) {
+                if (item.getItemId() == R.id.action_booking) {
                     toolbar.setTitle("Booking");
                     selectedFragment = new BookingFragment();
                 }
-                if(item.getItemId() == R.id.action_user) {
+                if (item.getItemId() == R.id.action_user) {
                     toolbar.setTitle("User");
                     selectedFragment = new UserFragment();
                 }
@@ -78,5 +73,23 @@ public class  HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.search) {
+            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+            OpenSearchScreen();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void OpenSearchScreen() {
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+    }
 }

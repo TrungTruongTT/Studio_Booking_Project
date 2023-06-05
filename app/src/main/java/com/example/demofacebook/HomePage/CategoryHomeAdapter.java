@@ -15,31 +15,25 @@ import com.example.demofacebook.R;
 
 import java.util.List;
 
-public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapter.MyArrayAdapterHolder>{
+public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapter.MyArrayAdapterHolder> {
 
-    private Context mContext;
     private List<Category> mListCategory;
 
-    public CategoryHomeAdapter(Context mContext) {
-        this.mContext = mContext;
-    }
-
-    public void SetData(List<Category> list){
-        this.mListCategory = list;
-        notifyDataSetChanged();
+    public CategoryHomeAdapter(List<Category> mListCategory) {
+        this.mListCategory = mListCategory;
     }
 
     @NonNull
     @Override
     public MyArrayAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_category_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_category_item, parent, false);
         return new MyArrayAdapterHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyArrayAdapterHolder holder, int position) {
         Category category = mListCategory.get(position);
-        if(category== null){
+        if (category == null) {
             return;
         }
         holder.imageCategory.setImageResource(category.getImageCategory());
@@ -48,21 +42,22 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
 
     @Override
     public int getItemCount() {
-        if(mListCategory!= null){
+        if (mListCategory != null) {
             return mListCategory.size();
         }
         return 0;
     }
 
-    public  class MyArrayAdapterHolder  extends RecyclerView.ViewHolder {
+    public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {
         ImageView imageCategory;
         TextView categoryName;
-    public MyArrayAdapterHolder(@NonNull View itemView) {
-        super(itemView);
-        imageCategory = itemView.findViewById(R.id.ImageCategory);
-        categoryName = itemView.findViewById(R.id.CategoryName);
 
+        public MyArrayAdapterHolder(@NonNull View itemView) {
+            super(itemView);
+            imageCategory = itemView.findViewById(R.id.ImageCategory);
+            categoryName = itemView.findViewById(R.id.CategoryName);
+
+        }
     }
-}
 
 }

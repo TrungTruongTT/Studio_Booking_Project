@@ -20,19 +20,14 @@ import java.util.List;
 
 public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.MyArrayAdapterHolder> implements Filterable {
 
-    private Context mContext;
     private List<Studio> mListStudio;
     private List<Studio> mListStudioOld;
 
-    public StudioHomeAdapter(Context mContext) {
-        this.mContext = mContext;
+    public StudioHomeAdapter(List<Studio> mListStudio) {
+        this.mListStudio = mListStudio;
+        this.mListStudioOld = mListStudio;
     }
 
-    public void SetData(List<Studio> list) {
-        this.mListStudio = list;
-        this.mListStudioOld = mListStudio;
-        notifyDataSetChanged();
-    }
 
     @NonNull
     @Override
@@ -92,7 +87,7 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
                     mListStudio = mListStudioOld;
                 } else {
                     List<Studio> list = new ArrayList<>();
-                    for (Studio studio : mListStudio) {
+                    for (Studio studio : mListStudioOld) {
                         if (studio.getTitle().toLowerCase().trim().contains(strSearch.toLowerCase().trim())) {
                             list.add(studio);
                         }
