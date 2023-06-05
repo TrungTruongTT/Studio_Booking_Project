@@ -9,13 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
+import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.HomePage.StudioHomeAdapter;
+import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Studio;
+import com.example.demofacebook.MyInterface.IClickItemStudioListener;
 import com.example.demofacebook.R;
 
 import java.util.ArrayList;
@@ -34,12 +38,19 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         //ToolBar
         toolbar = findViewById(R.id.myToolBarSearch);
-        toolbar.setTitle("Search View");
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Search View");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Search_ToolBar)));
         //studioList
         recyclerViewStudio = findViewById(R.id.RecyclerViewStudioSearch);
-        studioHomeAdapter = new StudioHomeAdapter(getStudioData());
+        studioHomeAdapter = new StudioHomeAdapter(getStudioData(), new IClickItemStudioListener() {
+            @Override
+            public void onClickItemStudio(Studio studio) {
+                onClickItemGoDetail(studio);
+            }
+        });
         LinearLayoutManager linearLayoutManagerStudio = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerViewStudio.setLayoutManager(linearLayoutManagerStudio);
         recyclerViewStudio.setAdapter(studioHomeAdapter);
@@ -48,8 +59,10 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             finish();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -93,5 +106,13 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         return myList;
+    }
+
+    private void onClickItemGoDetail(Studio studio) {
+        Intent intent = new Intent(this, StudioPageActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Studio", studio);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

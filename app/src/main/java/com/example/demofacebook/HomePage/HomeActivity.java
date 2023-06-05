@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import android.view.Menu;
@@ -41,22 +42,27 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 if (item.getItemId() == R.id.action_home) {
                     selectedFragment = new HomeFragment();
-                    toolbar.setTitle("Studio Booking Service");
+                    getSupportActionBar().setTitle("Studio Booking Service");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Home_ToolBar)));
                 }
                 if (item.getItemId() == R.id.action_chat) {
-                    toolbar.setTitle("Chat");
+                    getSupportActionBar().setTitle("Chat");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Chat_ToolBar)));
                     selectedFragment = new ChatFragment();
                 }
                 if (item.getItemId() == R.id.action_feed) {
-                    toolbar.setTitle("New Feed");
+                    getSupportActionBar().setTitle("New Feed");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.NewFeed_ToolBar)));
                     selectedFragment = new NewFeedFragment();
                 }
                 if (item.getItemId() == R.id.action_booking) {
-                    toolbar.setTitle("Booking");
+                    getSupportActionBar().setTitle("Booking");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Booking_ToolBar)));
                     selectedFragment = new BookingFragment();
                 }
                 if (item.getItemId() == R.id.action_user) {
-                    toolbar.setTitle("User");
+                    getSupportActionBar().setTitle("User");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.User_ToolBar)));
                     selectedFragment = new UserFragment();
                 }
                 if (selectedFragment != null) {

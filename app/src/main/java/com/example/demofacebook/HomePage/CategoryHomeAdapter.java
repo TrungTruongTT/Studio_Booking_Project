@@ -11,16 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Model.Category;
+import com.example.demofacebook.MyInterface.IClickItemCategoryListener;
 import com.example.demofacebook.R;
 
 import java.util.List;
 
 public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapter.MyArrayAdapterHolder> {
 
+    private IClickItemCategoryListener iClickItemCategoryListener;
     private List<Category> mListCategory;
 
-    public CategoryHomeAdapter(List<Category> mListCategory) {
+    public CategoryHomeAdapter(List<Category> mListCategory, IClickItemCategoryListener listener) {
         this.mListCategory = mListCategory;
+        this.iClickItemCategoryListener = listener;
     }
 
     @NonNull
@@ -38,6 +41,13 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
         }
         holder.imageCategory.setImageResource(category.getImageCategory());
         holder.categoryName.setText(category.getCategoryName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemCategoryListener.onClickItemCategory(category);
+            }
+        });
     }
 
     @Override

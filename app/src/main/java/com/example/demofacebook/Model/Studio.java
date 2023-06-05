@@ -1,6 +1,8 @@
 package com.example.demofacebook.Model;
 
-public class Studio {
+import java.io.Serializable;
+
+public class Studio implements Serializable {
     private int image;
     private String title;
     private String description;

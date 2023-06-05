@@ -20,7 +20,8 @@
             android:layout_marginEnd="8dp"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:src="@drawable/download"/>
+            android:src="@drawable/download"
+            android:scaleType="centerCrop"/>
         <TextView
             android:id="@+id/CategoryName"
             android:layout_width="match_parent"

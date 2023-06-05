@@ -1,25 +1,31 @@
 package com.example.demofacebook.HomePage;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.demofacebook.MyInterface.IClickItemSortListener;
 import com.example.demofacebook.R;
 
 import java.util.List;
 
 public class SortHomeAdapter extends RecyclerView.Adapter<SortHomeAdapter.MyArrayAdapterHolder> {
-
+private IClickItemSortListener iClickItemSortListener;
     private List<String> mSortList;
 
-    public SortHomeAdapter(List<String> mSortList) {
+    public SortHomeAdapter(List<String> mSortList, IClickItemSortListener listener) {
         this.mSortList = mSortList;
+        this.iClickItemSortListener =listener;
     }
 
     @NonNull
@@ -36,6 +42,12 @@ public class SortHomeAdapter extends RecyclerView.Adapter<SortHomeAdapter.MyArra
             return;
         }
         holder.txtSortBy.setText(sortItem.toString());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemSortListener.onClickItemSort(sortItem);
+            }
+        });
 
     }
 
@@ -53,7 +65,6 @@ public class SortHomeAdapter extends RecyclerView.Adapter<SortHomeAdapter.MyArra
         public MyArrayAdapterHolder(@NonNull View itemView) {
             super(itemView);
             txtSortBy = itemView.findViewById(R.id.SortBy);
-
         }
     }
 

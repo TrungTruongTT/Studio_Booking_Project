@@ -6,13 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Model.Studio;
+import com.example.demofacebook.MyInterface.IClickItemStudioListener;
 import com.example.demofacebook.R;
 
 import java.util.ArrayList;
@@ -20,12 +24,15 @@ import java.util.List;
 
 public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.MyArrayAdapterHolder> implements Filterable {
 
+    private IClickItemStudioListener iClickItemStudioListener;
     private List<Studio> mListStudio;
     private List<Studio> mListStudioOld;
 
-    public StudioHomeAdapter(List<Studio> mListStudio) {
+
+    public StudioHomeAdapter(List<Studio> mListStudio, IClickItemStudioListener listener) {
         this.mListStudio = mListStudio;
         this.mListStudioOld = mListStudio;
+        this.iClickItemStudioListener = listener;
     }
 
 
@@ -47,6 +54,13 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
         holder.txtDescription.setText(studio.getDescription());
         holder.txtPrice.setText(studio.getPrice());
         holder.txtRating.setText(studio.getRating());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemStudioListener.onClickItemStudio(studio);
+            }
+        });
     }
 
     @Override
@@ -59,11 +73,11 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
 
 
     public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {
-        ImageView img_phone;
-        TextView txtTitle;
-        TextView txtDescription;
-        TextView txtPrice;
-        TextView txtRating;
+        private ImageView img_phone;
+        private TextView txtTitle;
+        private TextView txtDescription;
+        private TextView txtPrice;
+        private TextView txtRating;
 
         public MyArrayAdapterHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,18 +96,32 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String strSearch = charSequence.toString();
-
                 if (strSearch.isEmpty()) {
                     mListStudio = mListStudioOld;
-                } else {
-                    List<Studio> list = new ArrayList<>();
-                    for (Studio studio : mListStudioOld) {
-                        if (studio.getTitle().toLowerCase().trim().contains(strSearch.toLowerCase().trim())) {
-                            list.add(studio);
-                        }
-                    }
-                    mListStudio = list;
                 }
+                List<Studio> list = new ArrayList<>();
+                if (!strSearch.isEmpty()) {
+                    switch (strSearch) {
+                        //sortBy Category - sortByItem
+                        case "@!Sort 1": {
+                            for (Studio studio : mListStudioOld) {
+                                if (studio.getTitle().toLowerCase().trim().contains("1".toLowerCase().trim())) {
+                                    list.add(studio);
+                                }
+                            }
+                        }
+                        break;
+                        //Search bar
+                        default:
+                            for (Studio studio : mListStudioOld) {
+                                if (studio.getTitle().toLowerCase().trim().contains(strSearch.toLowerCase().trim())) {
+                                    list.add(studio);
+                                }
+                            }
+                    }
+
+                }
+                mListStudio = list;
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = mListStudio;
                 return filterResults;
@@ -104,7 +132,9 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
                 mListStudio = (List<Studio>) results.values;
                 notifyDataSetChanged();
             }
-        };
+        }
+
+                ;
     }
 
 }

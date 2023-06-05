@@ -18,7 +18,8 @@
         <!-- HomePage -->
         <activity
             android:name=".HomePage.StudioPageActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionbar"/>
         <activity
             android:name=".HomePage.HomeActivity"
             android:exported="false" /> <!-- login -->
