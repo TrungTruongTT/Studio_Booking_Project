@@ -10,4 +10,10 @@
         android:icon="@drawable/search_white_48dp"
         app:showAsAction="always"
         />
+    <item
+        android:id="@+id/ringtone"
+        android:title="Search"
+        android:icon="@drawable/baseline_notifications_24"
+        app:showAsAction="always"
+        />
 </menu>

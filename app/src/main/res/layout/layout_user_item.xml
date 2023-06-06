@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/cardView"
-        android:backgroundTint="#2A5A2C"
+        android:backgroundTint="#6EF674"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView

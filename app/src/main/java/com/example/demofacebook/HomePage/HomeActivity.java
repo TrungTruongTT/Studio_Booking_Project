@@ -2,7 +2,6 @@ package com.example.demofacebook.HomePage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -24,11 +23,11 @@ import com.example.demofacebook.Fragment.BookingFragment;
 import com.example.demofacebook.Fragment.ChatFragment;
 import com.example.demofacebook.Fragment.HomeFragment;
 import com.example.demofacebook.Fragment.NewFeedFragment;
+import com.example.demofacebook.Fragment.NotificationFragment;
 import com.example.demofacebook.Fragment.UserFragment;
 
 import com.example.demofacebook.R;
 import com.example.demofacebook.Search.SearchActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
     private Fragment selectedFragment = null;
@@ -51,6 +50,15 @@ public class HomeActivity extends AppCompatActivity {
             Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
             OpenSearchScreen();
         }
+        if (item.getItemId() == R.id.ringtone) {
+            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+            OpenNotificationScreen();
+        }
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -63,6 +71,16 @@ public class HomeActivity extends AppCompatActivity {
     private void OpenSearchScreen() {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
+    }
+
+    private void OpenNotificationScreen() {
+//        Intent intent = new Intent(this, SearchActivity.class);
+//        startActivity(intent);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Notification");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Home_ToolBar)));
+        selectedFragment = new NotificationFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
     }
 
     private void loadBottomNavigationView() {

@@ -20,7 +20,8 @@
     <color name="whiteCardColor">#fff</color>
 
     <!--colors for Home-->
-    <color name="cardView">#70F6E9E9</color>
+    <color name="cardView">#70FDDBDB</color>
+    <!--    <color name="cardView">#70E10000</color>-->
 
     <!--ToolBar for App-->
     <color name="ToolBar">#5F4A97</color>
@@ -30,7 +31,6 @@
     <color name="Chat_ToolBar">#02730A</color>
     <color name="User_ToolBar">#F29F05</color>
     <color name="Search_ToolBar">#963074</color>
-
 
 
 </resources>
