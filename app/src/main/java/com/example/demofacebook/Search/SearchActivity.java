@@ -14,6 +14,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.HomePage.StudioHomeAdapter;
@@ -54,6 +56,7 @@ public class SearchActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManagerStudio = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerViewStudio.setLayoutManager(linearLayoutManagerStudio);
         recyclerViewStudio.setAdapter(studioHomeAdapter);
+        recyclerViewStudio.setVisibility(View.GONE);
 
     }
 
@@ -85,6 +88,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                recyclerViewStudio.setVisibility(View.VISIBLE);
                 studioHomeAdapter.getFilter().filter(newText);
                 return false;
             }
@@ -96,8 +100,8 @@ public class SearchActivity extends AppCompatActivity {
         int[] image = {R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download};
         String[] studioName = {"Studio Name 1", "Studio Name 2", "Studio Name 3", "Studio Name 4", "Studio Name 5", "Studio Name 6"};
         String[] studioDescription = {"Studio Description 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed semper elit. Donec at luctus felis, id faucibus nibh. Aliquam.", "Studio Description 2", "Studio Description 3", "Studio Description 4", "Studio Description 5", "Studio Description 6"};
-        String[] price = {"Price: 500$", "Price: 500$", "Price: 500$", "Price: 500$", "Price: 500$", "Price: 500$"};
-        String[] rating = {"⭐: 5.0", "⭐: 5.0", "⭐: 5.0", "⭐: 5.0", "⭐: 5.0", "⭐: 5.0"};
+        Integer[] price = {500, 400, 300, 500, 100, 500};
+        Integer[] rating = {2, 1, 2, 4, 5, 6};
         List<Studio> myList = new ArrayList<>();
 
         for (int i = 0; i < studioName.length; i++) {

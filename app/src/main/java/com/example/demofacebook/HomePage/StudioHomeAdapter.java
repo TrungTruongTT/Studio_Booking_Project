@@ -52,8 +52,8 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
         holder.img_phone.setImageResource(studio.getImage());
         holder.txtTitle.setText(studio.getTitle());
         holder.txtDescription.setText(studio.getDescription());
-        holder.txtPrice.setText(studio.getPrice());
-        holder.txtRating.setText(studio.getRating());
+        holder.txtPrice.setText("Form: US$" + studio.getPrice());
+        holder.txtRating.setText("⭐: " + studio.getRating());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,16 +106,21 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
                                 list.add(studio);
                             }
                         }
-                        //Search bar
                     }
-                    if ("@!Sort 1".equals(strSearch)) {
-                        for (Studio studio : mListStudioOld) {
-                            if (studio.getTitle().toLowerCase().trim().contains("1".toLowerCase().trim())) {
-                                list.add(studio);
-                            }
-                        }
-                        //Search bar
-                    } else {
+                    if ("@!Rating".equals(strSearch)) {
+                        list = mListStudioOld;
+                        list.sort((studio, t1) -> {
+                            return t1.getRating() - studio.getRating();
+                        });
+                    }
+                    if ("@!Price".equals(strSearch)) {
+                        list = mListStudioOld;
+                        list.sort((t1, studio) -> {
+                            return studio.getPrice() - t1.getPrice();
+                        });
+                    }
+                    //Search bar
+                    else {
                         for (Studio studio : mListStudioOld) {
                             if (studio.getTitle().toLowerCase().trim().contains(strSearch.toLowerCase().trim())) {
                                 list.add(studio);
@@ -123,7 +128,6 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
                         }
                     }
                 }
-
                 mListStudio = list;
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = mListStudio;

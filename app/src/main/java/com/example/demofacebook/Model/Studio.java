@@ -6,10 +6,10 @@ public class Studio implements Serializable {
     private int image;
     private String title;
     private String description;
-    private String price;
-    private String rating;
+    private int price;
+    private int rating;
 
-    public Studio(int image, String title, String description, String price,  String rating) {
+    public Studio(int image, String title, String description, int price,  int rating) {
         this.image = image;
         this.title = title;
         this.description = description;
@@ -41,19 +41,19 @@ public class Studio implements Serializable {
         this.description = description;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public String getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 }

@@ -100,10 +100,9 @@ public class HomeFragment extends Fragment {
         int[] image = {R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download};
         String[] studioName = {"Studio Name 1", "Studio Name 2", "Studio Name 3", "Studio Name 4", "Studio Name 5", "Studio Name 6"};
         String[] studioDescription = {"Studio Description 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed semper elit. Donec at luctus felis, id faucibus nibh. Aliquam.", "Studio Description 2", "Studio Description 3", "Studio Description 4", "Studio Description 5", "Studio Description 6"};
-        String[] price = {"Price: 500$", "Price: 500$", "Price: 500$", "Price: 500$", "Price: 500$", "Price: 500$"};
-        String[] rating = {"⭐: 5.0", "⭐: 5.0", "⭐: 5.0", "⭐: 5.0", "⭐: 5.0", "⭐: 5.0"};
+        Integer[] price = {500, 400, 300, 500, 100, 500};
+        Integer[] rating = {2, 1, 2, 4, 5, 6};
         for (int i = 0; i < studioName.length; i++) {
-            myList.add(new Studio(image[i], studioName[i], studioDescription[i], price[i], rating[i]));
             myList.add(new Studio(image[i], studioName[i], studioDescription[i], price[i], rating[i]));
         }
 
@@ -124,7 +123,7 @@ public class HomeFragment extends Fragment {
     }
 
     private List<String> getSortData() {
-        String[] sortList = {"All", "Sort 1", "Sort 3", "Sort 4", "Sort 5", "Sort 6"};
+        String[] sortList = {"All", "Rating", "Price", "Newest", "Famous", "Sort 6"};
         List<String> myList = new ArrayList<>();
 
         Collections.addAll(myList, sortList);
