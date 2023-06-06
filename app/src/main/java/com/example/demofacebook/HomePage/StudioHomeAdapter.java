@@ -94,12 +94,20 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String strSearch = charSequence.toString();
+                List<Studio> list = new ArrayList<>();
                 if (strSearch.isEmpty()) {
                     mListStudio = mListStudioOld;
                 }
-                List<Studio> list = new ArrayList<>();
                 if (!strSearch.isEmpty()) {
                     //sortBy Category - sortByItem
+                    if ("@!All".equals(strSearch)) {
+                        for (Studio studio : mListStudioOld) {
+                            if (true) {
+                                list.add(studio);
+                            }
+                        }
+                        //Search bar
+                    }
                     if ("@!Sort 1".equals(strSearch)) {
                         for (Studio studio : mListStudioOld) {
                             if (studio.getTitle().toLowerCase().trim().contains("1".toLowerCase().trim())) {
@@ -114,8 +122,8 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
                             }
                         }
                     }
-
                 }
+
                 mListStudio = list;
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = mListStudio;

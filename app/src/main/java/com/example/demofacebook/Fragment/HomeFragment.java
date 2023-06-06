@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment {
     }
 
     private List<String> getSortData() {
-        String[] sortList = {"Sort 1", "Sort 2", "Sort 3", "Sort 4", "Sort 5", "Sort 6"};
+        String[] sortList = {"All", "Sort 1", "Sort 3", "Sort 4", "Sort 5", "Sort 6"};
         List<String> myList = new ArrayList<>();
 
         Collections.addAll(myList, sortList);
