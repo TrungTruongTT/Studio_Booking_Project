@@ -29,6 +29,8 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
     private final List<Studio> mListStudioOld;
 
 
+
+
     public StudioHomeAdapter(List<Studio> mListStudio, IClickItemStudioListener listener) {
         this.mListStudio = mListStudio;
         this.mListStudioOld = mListStudio;
@@ -59,8 +61,10 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
             @Override
             public void onClick(View view) {
                 iClickItemStudioListener.onClickItemStudio(studio);
+
             }
         });
+
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -22,6 +23,7 @@ import java.util.List;
 public class SortHomeAdapter extends RecyclerView.Adapter<SortHomeAdapter.MyArrayAdapterHolder> {
 private final IClickItemSortListener iClickItemSortListener;
     private final List<String> mSortList;
+    int row_index = -1;
 
     public SortHomeAdapter(List<String> mSortList, IClickItemSortListener listener) {
         this.mSortList = mSortList;
@@ -46,9 +48,15 @@ private final IClickItemSortListener iClickItemSortListener;
             @Override
             public void onClick(View view) {
                 iClickItemSortListener.onClickItemSort(sortItem);
+                row_index = holder.getAdapterPosition();
+                notifyDataSetChanged();
             }
         });
-
+        if(row_index == position){
+            holder.linearLayout.setBackgroundResource(R.color.Selected_Item);
+        }else {
+            holder.linearLayout.setBackgroundResource(R.color.cardView);
+        }
     }
 
     @Override
@@ -61,10 +69,12 @@ private final IClickItemSortListener iClickItemSortListener;
 
     public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {
         TextView txtSortBy;
+        LinearLayout linearLayout;
 
         public MyArrayAdapterHolder(@NonNull View itemView) {
             super(itemView);
             txtSortBy = itemView.findViewById(R.id.SortBy);
+            linearLayout = itemView.findViewById(R.id.LinearLayoutSort);
         }
     }
 
