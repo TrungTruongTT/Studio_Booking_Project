@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_navbar"
-    tools:context=".Fragment.NewFeedFragment">
+    tools:context=".Fragment.MainPageFragment.NewFeedFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

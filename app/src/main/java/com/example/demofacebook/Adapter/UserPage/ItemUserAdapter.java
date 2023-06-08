@@ -1,20 +1,14 @@
-package com.example.demofacebook.Adapter;
+package com.example.demofacebook.Adapter.UserPage;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.MyInterface.IClickItemSortListener;
 import com.example.demofacebook.MyInterface.IClickItemUserOptionListener;
 import com.example.demofacebook.R;
 

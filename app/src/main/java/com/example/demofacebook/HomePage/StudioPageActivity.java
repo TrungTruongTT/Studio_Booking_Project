@@ -1,22 +1,27 @@
 package com.example.demofacebook.HomePage;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.demofacebook.Adapter.PhotoAdapter;
+import com.example.demofacebook.Adapter.StudioDetail.PhotoAdapter;
+import com.example.demofacebook.Adapter.StudioDetail.StudioViewPagerAdapter;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.StudioToolBarPhoto;
 import com.example.demofacebook.R;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +38,9 @@ public class StudioPageActivity extends AppCompatActivity {
     private PhotoAdapter photoAdapter;
     private List<StudioToolBarPhoto> photoList;
     private Timer timer;
+    private TabLayout mTabLayout;
+    private ViewPager2 mViewPager;
+    private StudioViewPagerAdapter mStudioViewPagerAdapter;
 
 
     @Override
@@ -54,6 +62,34 @@ public class StudioPageActivity extends AppCompatActivity {
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
         //Auto SlideImages
         autoSlideImages();
+        //Fragment
+        mTabLayout = findViewById(R.id.TabLayout_Studio);
+        mViewPager = findViewById(R.id.ViewPager2_Studio);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        mViewPager.addItemDecoration(dividerItemDecoration);
+        mStudioViewPagerAdapter = new StudioViewPagerAdapter(this, studio);
+        mViewPager.setAdapter(mStudioViewPagerAdapter);
+
+        new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) -> {
+            switch (position) {
+                case 0:
+                    tab.setText("Gallery");
+                    break;
+                case 1:
+                    tab.setText("Service");
+                    break;
+                case 2:
+                    tab.setText("Feedback");
+                    break;
+            }
+        }).attach();
+        mTabLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(StudioPageActivity.this, "CHELCLLLLLLLLLLLLLLLLL", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private List<StudioToolBarPhoto> getPhotoList() {

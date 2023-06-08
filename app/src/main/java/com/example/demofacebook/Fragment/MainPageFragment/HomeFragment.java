@@ -1,34 +1,28 @@
-package com.example.demofacebook.Fragment;
+package com.example.demofacebook.Fragment.MainPageFragment;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.HomePage.CategoryHomeAdapter;
-import com.example.demofacebook.HomePage.SortHomeAdapter;
-import com.example.demofacebook.HomePage.StudioHomeAdapter;
+import com.example.demofacebook.Adapter.HomePage.CategoryHomeAdapter;
+import com.example.demofacebook.Adapter.HomePage.SortHomeAdapter;
+import com.example.demofacebook.Adapter.HomePage.StudioHomeAdapter;
 import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Category;
+import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.MyInterface.IClickItemCategoryListener;
 import com.example.demofacebook.MyInterface.IClickItemSortListener;
 import com.example.demofacebook.MyInterface.IClickItemStudioListener;
 import com.example.demofacebook.R;
-import com.example.demofacebook.Model.Studio;
 
 import java.util.ArrayList;
 import java.util.Collections;

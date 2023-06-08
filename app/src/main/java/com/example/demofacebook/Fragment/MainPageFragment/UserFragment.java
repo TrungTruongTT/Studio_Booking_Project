@@ -1,7 +1,11 @@
-package com.example.demofacebook.Fragment;
+package com.example.demofacebook.Fragment.MainPageFragment;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,17 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.example.demofacebook.Adapter.ItemUserAdapter;
-import com.example.demofacebook.Adapter.UserAdapter;
-import com.example.demofacebook.HomePage.CategoryHomeAdapter;
-import com.example.demofacebook.HomePage.StudioHomeAdapter;
-import com.example.demofacebook.Model.Studio;
-import com.example.demofacebook.MyInterface.IClickItemStudioListener;
+import com.example.demofacebook.Adapter.UserPage.ItemUserAdapter;
+import com.example.demofacebook.Adapter.UserPage.UserAdapter;
 import com.example.demofacebook.MyInterface.IClickItemUserListener;
 import com.example.demofacebook.MyInterface.IClickItemUserOptionListener;
 import com.example.demofacebook.R;

@@ -63,4 +63,15 @@
 \nI am looking forward to hearing your ideas and working with you:)
     </string>
 
+    <string name="feedbackString">This studio is a hidden gem! From the moment I walked in, I was captivated by the vibrant energy and creativity that filled the space. The instructors are knowledgeable and passionate, guiding me to unlock my artistic potential. I highly recommend this studio for a truly inspiring experience!
+    </string>
+
+    <string name="CopyRight">  ©2023 Booking Service.\n
+        All rights reserved. This material, including but not limited to text, graphics, images, and any other content, is protected by copyright laws and international treaties.
+        Unauthorized reproduction, distribution, or modification of this content is strictly prohibited without prior written permission from the copyright owner.
+        \nLegal action will be taken against any infringement.
+        \n
+        \n
+        \nFor permission requests or further inquiries, please contact BookingService@gmail.com.
+    </string>
 </resources>

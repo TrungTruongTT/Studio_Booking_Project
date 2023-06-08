@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.BookingFragment"
+    tools:context=".Fragment.MainPageFragment.BookingFragment"
     android:background="@drawable/background_navbar">
 
     <!-- TODO: Update blank fragment layout -->

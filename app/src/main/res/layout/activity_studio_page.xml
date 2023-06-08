@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_navbar"
     android:orientation="vertical"
     tools:context=".HomePage.StudioPageActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        app:statusBarBackground="@color/ToolBar">
 
 
         <com.google.android.material.appbar.AppBarLayout
@@ -43,7 +43,6 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:layout_marginBottom="1dp"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -53,10 +52,11 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
+                android:layout_marginBottom="100dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -99,7 +99,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:orientation="vertical">
@@ -107,7 +107,7 @@
 
                     <TextView
                         android:id="@+id/TitleDescription"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="Title Description"
@@ -115,12 +115,31 @@
 
                     <TextView
                         android:id="@+id/Description"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/dummy_text"
                         android:textSize="20sp" />
 
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/TabLayout_Studio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        app:tabSelectedTextColor="@color/Selected_Tab" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/ViewPager2_Studio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="@string/CopyRight"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
             </LinearLayout>

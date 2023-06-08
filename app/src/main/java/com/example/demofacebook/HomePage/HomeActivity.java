@@ -1,31 +1,27 @@
 package com.example.demofacebook.HomePage;
 
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-
-import android.view.Menu;
-
-import android.view.MenuItem;
-
-import android.widget.Toast;
-
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
-import com.example.demofacebook.Fragment.BookingFragment;
-import com.example.demofacebook.Fragment.ChatFragment;
-import com.example.demofacebook.Fragment.HomeFragment;
-import com.example.demofacebook.Fragment.NewFeedFragment;
-import com.example.demofacebook.Fragment.NotificationFragment;
-import com.example.demofacebook.Fragment.UserFragment;
-
+import com.example.demofacebook.Fragment.MainPageFragment.BookingFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.ChatFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.HomeFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.NewFeedFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.NotificationFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.UserFragment;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Search.SearchActivity;
 

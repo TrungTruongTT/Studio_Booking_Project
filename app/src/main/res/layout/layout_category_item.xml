@@ -28,6 +28,7 @@
             android:layout_height="30dp"
             android:gravity="center"
             android:textSize="6pt"
+            android:maxLines="1"
             android:layout_marginBottom="5dp"
             android:text="2D Animated"/>
     </LinearLayout>

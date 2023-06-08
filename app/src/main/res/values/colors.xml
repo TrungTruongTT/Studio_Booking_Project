@@ -20,8 +20,8 @@
     <color name="whiteCardColor">#fff</color>
 
     <!--colors for Home-->
+    <!--    <color name="cardView">#2C4F2D</color>-->
     <color name="cardView">#FAF5F0</color>
-    <!--    <color name="cardView">#70E10000</color>-->
 
     <!--ToolBar for App-->
     <color name="ToolBar">#5F4A97</color>
@@ -33,7 +33,17 @@
     <color name="Search_ToolBar">#963074</color>
 
     <!--Selected Item for App-->
-    <color name="Selected_Item">#7FD1AE</color>
+    <color name="Selected_Item">#97BC62</color>
+
+
+    <!--TabLayout Item for Selected-->
+    <color name="UnSelected_Tab">#FEEDDA</color>
+    <color name="Selected_Tab">#EE4E34</color>
+
+    <!--Gallery Item for StudioDetail-->
+    <color name="BackgroundText_Gallery">#99303030</color>
+    <color name="TextColor_Gallery">#242526</color>
+    <color name="SubTextColor_Gallery">#AEAFB1</color>
 
 
 </resources>

@@ -1,12 +1,5 @@
 package com.example.demofacebook.Search;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -15,10 +8,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.demofacebook.Adapter.HomePage.StudioHomeAdapter;
 import com.example.demofacebook.HomePage.HomeActivity;
-import com.example.demofacebook.HomePage.StudioHomeAdapter;
 import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.MyInterface.IClickItemStudioListener;

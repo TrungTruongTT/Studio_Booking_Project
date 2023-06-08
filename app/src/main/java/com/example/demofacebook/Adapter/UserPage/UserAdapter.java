@@ -1,4 +1,4 @@
-package com.example.demofacebook.Adapter;
+package com.example.demofacebook.Adapter.UserPage;
 
 
 import android.view.LayoutInflater;
