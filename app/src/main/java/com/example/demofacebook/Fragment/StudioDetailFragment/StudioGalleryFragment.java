@@ -60,8 +60,6 @@ public class StudioGalleryFragment extends Fragment {
         myList.add(new Gallery(R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
         myList.add(new Gallery(R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
         myList.add(new Gallery(R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
-
-
         return myList;
     }
 
