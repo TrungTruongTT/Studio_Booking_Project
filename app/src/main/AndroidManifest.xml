@@ -12,15 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DemoFaceBook"
         tools:targetApi="31">
-
-        <!--        HomePage-->
+        <activity
+            android:name=".Search.SearchActivity"
+            android:exported="false" />
+        <!-- HomePage -->
         <activity
             android:name=".HomePage.StudioPageActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionbar"/>
         <activity
             android:name=".HomePage.HomeActivity"
-            android:exported="false" />
-        <!--        login-->
+            android:exported="false" /> <!-- login -->
         <activity android:name=".Login.ForgotPassword_Activity" />
         <activity android:name=".Login.Register_Activity" />
         <activity
