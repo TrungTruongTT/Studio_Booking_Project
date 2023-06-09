@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".HomePage.HomeActivity">
 
-    <include layout="@layout/appbar"></include>
+    <include layout="@layout/appbar" />
 
     <FrameLayout
         android:id="@+id/frame_container"
