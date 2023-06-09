@@ -4,22 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <item android:id="@+id/search"
+    <item
+        android:id="@+id/search"
         android:title="Search"
         android:icon="@drawable/search_white_48dp"
-        app:showAsAction="ifRoom"
-
+        app:showAsAction="always"
         />
-
-<!--    <item android:id="@+id/action_booking"-->
-<!--        android:title="@string/action_booking"-->
-<!--        android:icon="@drawable/shopping_cart_white_48dp"-->
-<!--        app:showAsAction="ifRoom"/>-->
-
-<!--    <item android:id="@+id/action_feed"-->
-<!--        android:title="@string/action_feed"-->
-<!--        android:icon="@drawable/feed_white_48dp"-->
-<!--        app:showAsAction="ifRoom"-->
-<!--        />-->
-
+    <item
+        android:id="@+id/ringtone"
+        android:title="Search"
+        android:icon="@drawable/baseline_notifications_24"
+        app:showAsAction="always"
+        />
 </menu>

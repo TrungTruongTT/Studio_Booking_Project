@@ -16,13 +16,34 @@
     <color name="primaryTextColor">#FF018786</color>
     <color name="loginBkColor">#f0f0f0</color>
 
-    <!--colros for card-->
+    <!--color for card-->
     <color name="whiteCardColor">#fff</color>
 
     <!--colors for Home-->
-    <color name="cardView">#70F6E9E9</color>
+    <!--    <color name="cardView">#2C4F2D</color>-->
+    <color name="cardView">#FAF5F0</color>
 
     <!--ToolBar for App-->
-    <color name="toolBar">#5F4A97</color>
+    <color name="ToolBar">#5F4A97</color>
+    <color name="Home_ToolBar">#F68BA8</color>
+    <color name="Booking_ToolBar">#426695</color>
+    <color name="NewFeed_ToolBar">#048ABF</color>
+    <color name="Chat_ToolBar">#02730A</color>
+    <color name="User_ToolBar">#F29F05</color>
+    <color name="Search_ToolBar">#963074</color>
+
+    <!--Selected Item for App-->
+    <color name="Selected_Item">#97BC62</color>
+
+
+    <!--TabLayout Item for Selected-->
+    <color name="UnSelected_Tab">#FEEDDA</color>
+    <color name="Selected_Tab">#EE4E34</color>
+
+    <!--Gallery Item for StudioDetail-->
+    <color name="BackgroundText_Gallery">#99303030</color>
+    <color name="TextColor_Gallery">#242526</color>
+    <color name="SubTextColor_Gallery">#AEAFB1</color>
+
 
 </resources>

@@ -1,27 +1,29 @@
 package com.example.demofacebook.HomePage;
 
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import com.example.demofacebook.Fragment.BookingFragment;
-import com.example.demofacebook.Fragment.ChatFragment;
-import com.example.demofacebook.Fragment.HomeFragment;
-import com.example.demofacebook.Fragment.NewFeedFragment;
-import com.example.demofacebook.Fragment.UserFragment;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
+import com.example.demofacebook.Fragment.MainPageFragment.BookingFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.ChatFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.HomeFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.NewFeedFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.NotificationFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.UserFragment;
 import com.example.demofacebook.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-
-import java.util.ArrayList;
+import com.example.demofacebook.Search.SearchActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private Fragment selectedFragment = null;
@@ -32,29 +34,96 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         toolbar = findViewById(R.id.myToolBar);
+        setSupportActionBar(toolbar);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        loadBottomNavigationView();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.search) {
+            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+            OpenSearchScreen();
+        }
+        if (item.getItemId() == R.id.ringtone) {
+            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+            OpenNotificationScreen();
+        }
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void OpenSearchScreen() {
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+    }
+
+    private void OpenNotificationScreen() {
+//        Intent intent = new Intent(this, SearchActivity.class);
+//        startActivity(intent);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Notification");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Home_ToolBar)));
+        selectedFragment = new NotificationFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+    }
+
+    private void loadBottomNavigationView() {
+        AHBottomNavigation bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        //Define Items
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.action_home, R.drawable.home_white_48dp, R.color.Home_ToolBar);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.action_chat, R.drawable.chat_white_48dp, R.color.Chat_ToolBar);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.action_feed, R.drawable.feed_white_48dp, R.color.NewFeed_ToolBar);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.action_booking, R.drawable.shopping_cart_white_48dp, R.color.Booking_ToolBar);
+        AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.action_user, R.drawable.account_circle_white_48dp, R.color.User_ToolBar);
+        // Add items
+        bottomNavigationView.addItem(item1);
+        bottomNavigationView.addItem(item2);
+        bottomNavigationView.addItem(item3);
+        bottomNavigationView.addItem(item4);
+        bottomNavigationView.addItem(item5);
+        //Style
+        bottomNavigationView.setColored(true);
+
+        //OnClickItem
+        bottomNavigationView.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                if(item.getItemId() == R.id.action_home) {
+            public boolean onTabSelected(int position, boolean wasSelected) {
+
+                if (position == 0) {
                     selectedFragment = new HomeFragment();
-                    toolbar.setTitle("Studio Booking Service");
+                    getSupportActionBar().setTitle("Studio Booking Service");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Home_ToolBar)));
                 }
-                if(item.getItemId() == R.id.action_chat) {
-                    toolbar.setTitle("Chat");
+                if (position == 1) {
+                    getSupportActionBar().setTitle("Chat");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Chat_ToolBar)));
                     selectedFragment = new ChatFragment();
                 }
-                if(item.getItemId() == R.id.action_feed) {
-                    toolbar.setTitle("New Feed");
+                if (position == 2) {
+                    getSupportActionBar().setTitle("New Feed");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.NewFeed_ToolBar)));
                     selectedFragment = new NewFeedFragment();
                 }
-                if(item.getItemId() == R.id.action_booking) {
-                    toolbar.setTitle("Booking");
+                if (position == 3) {
+                    getSupportActionBar().setTitle("Booking");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Booking_ToolBar)));
                     selectedFragment = new BookingFragment();
                 }
-                if(item.getItemId() == R.id.action_user) {
-                    toolbar.setTitle("User");
+                if (position == 4) {
+                    getSupportActionBar().setTitle("User");
+                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.User_ToolBar)));
                     selectedFragment = new UserFragment();
                 }
                 if (selectedFragment != null) {
@@ -68,21 +137,8 @@ public class HomeActivity extends AppCompatActivity {
         selectedFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
 
-        setSupportActionBar(toolbar);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.appbar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.search){
-            Toast.makeText(this, "Search Bottom", Toast.LENGTH_SHORT).show();
-        }
-        return super.onOptionsItemSelected(item);
+        //Notification Icon
+        AHNotification notification = new AHNotification.Builder().setText("10").setBackgroundColor(ContextCompat.getColor(HomeActivity.this, R.color.colorAccent)).setTextColor(ContextCompat.getColor(HomeActivity.this, R.color.Home_ToolBar)).build();
+        bottomNavigationView.setNotification(notification, 1);
     }
 }
