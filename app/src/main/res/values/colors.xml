@@ -41,7 +41,8 @@
     <color name="Selected_Tab">#EE4E34</color>
 
     <!--Gallery Item for StudioDetail-->
-    <color name="BackgroundText_Gallery">#99303030</color>
+    <color name="AppBarColor">#85FF85</color>
+    <color name="BackgroundText_Gallery">#930330</color>
     <color name="TextColor_Gallery">#242526</color>
     <color name="SubTextColor_Gallery">#AEAFB1</color>
 

@@ -175,8 +175,9 @@ public class UserUpdateActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.UserToolBar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.AppBarColor)));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("");
+            getSupportActionBar().setTitle("User Information");
         }
     }
 
