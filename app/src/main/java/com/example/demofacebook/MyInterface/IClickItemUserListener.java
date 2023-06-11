@@ -1,8 +1,9 @@
 package com.example.demofacebook.MyInterface;
 
 import com.example.demofacebook.Model.Category;
+import com.example.demofacebook.Model.User;
 
 public interface IClickItemUserListener {
-    void onClickItemUser(String user);
+    void onClickItemUser(User user);
 
 }

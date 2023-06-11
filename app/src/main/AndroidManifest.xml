@@ -13,13 +13,15 @@
         android:theme="@style/Theme.DemoFaceBook"
         tools:targetApi="31">
         <activity
-            android:name=".Search.SearchActivity"
+            android:name=".UserPage.UserUpdateActivity"
             android:exported="false" />
-        <!-- HomePage -->
+        <activity
+            android:name=".Search.SearchActivity"
+            android:exported="false" /> <!-- HomePage -->
         <activity
             android:name=".HomePage.StudioPageActivity"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionbar"/>
+            android:theme="@style/AppTheme.NoActionbar" />
         <activity
             android:name=".HomePage.HomeActivity"
             android:exported="false" /> <!-- login -->

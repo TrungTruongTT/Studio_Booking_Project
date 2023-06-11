@@ -45,5 +45,8 @@
     <color name="TextColor_Gallery">#242526</color>
     <color name="SubTextColor_Gallery">#AEAFB1</color>
 
+    <!--Gallery Item for Dialog-->
+    <color name="DialogBar">#FFC488</color>
+
 
 </resources>
