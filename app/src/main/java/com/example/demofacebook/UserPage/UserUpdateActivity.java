@@ -65,7 +65,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.layout_dialog_update_user);
         Window window = dialog.getWindow();
         if (window == null) {
-            Toast.makeText(this, "Loix", Toast.LENGTH_SHORT).show();
             return;
         }
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
@@ -91,14 +90,21 @@ public class UserUpdateActivity extends AppCompatActivity {
         EditText editTextPassword = dialog.findViewById(R.id.UserPassword);
         //set data to edit text
         userImage.setImageResource(user.getImage());
-        editTextUserName.setText(user.getName());
+        userImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(UserUpdateActivity.this, "Image clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        editTextUserName.setText(user.getName());
 
         String str = user.getDateOfBirth().toString();
         String[] arrOfStr = str.split("-", 3);
         editTextDay.setText(arrOfStr[2]);
         editTextMonth.setText(arrOfStr[1]);
         editTextYear.setText(arrOfStr[0]);
+
         editTextPhone.setText(user.getPhone());
         editTextEmail.setText(user.getEmail());
         editTextPassword.setText(user.getPassword());
@@ -110,9 +116,9 @@ public class UserUpdateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 user.setName(editTextUserName.getText().toString());
 
-                int day = Integer.valueOf(editTextDay.getText().toString());
-                int month = Integer.valueOf(editTextMonth.getText().toString());
-                int year = Integer.valueOf(editTextYear.getText().toString());
+                int day = Integer.parseInt(editTextDay.getText().toString());
+                int month = Integer.parseInt(editTextMonth.getText().toString());
+                int year = Integer.parseInt(editTextYear.getText().toString());
 
 
                 String str = year + "-" + month + "-" + day;
