@@ -17,7 +17,7 @@ import com.example.demofacebook.R;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyArrayAdapterHolder> {
 
-    private IClickItemUserListener iClickItemUserListener;
+    private final IClickItemUserListener iClickItemUserListener;
     private final User mUser;
     private final Context context;
 

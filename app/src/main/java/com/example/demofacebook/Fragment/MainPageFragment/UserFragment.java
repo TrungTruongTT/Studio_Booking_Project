@@ -117,6 +117,7 @@ public class UserFragment extends Fragment {
     }
 
     private User getUser() {
+        Integer userId = 1;
         Integer userImage = R.drawable.download;
         String userName = "PhiPhiPhi";
         String str = "2001-06-15";
@@ -127,7 +128,7 @@ public class UserFragment extends Fragment {
         String password = "Phinhse150972";
 
 
-        User user = new User(userImage, userName, dateOfBirth, phone, email, password);
+        User user = new User(userId, userImage, userName, dateOfBirth, phone, email, password);
 
         return user;
     }

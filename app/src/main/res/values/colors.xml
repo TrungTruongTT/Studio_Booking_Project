@@ -50,4 +50,21 @@
     <color name="DialogBar">#FFC488</color>
     <color name="TextColor_Dialog">#000000</color>
 
+    <!--Booking Page -->
+    <color name="Selected_Tab_Layout">#FF0000</color>
+    <color name="UnSelected_Tab_Layout">#3700B2</color>
+    <color name="Background_Tab_Layout">#87d3f8</color>
+
+
+
+
+    <!--Service Page -->
+    <color name="Title">#000000</color>
+    <color name="Description">#000000</color>
+    <color name="Price">#FF0000</color>
+    <color name="Discount">#FF4141</color>
+    <color name="cardView2">#FDFCFB</color>
+
+
+
 </resources>

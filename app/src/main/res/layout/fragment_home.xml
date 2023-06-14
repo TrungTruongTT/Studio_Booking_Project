@@ -4,7 +4,7 @@
     android:id="@+id/layout_studio_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_navbar"
+    android:background="@drawable/chat_white_48dp"
     android:orientation="vertical"
     tools:context=".Fragment.MainPageFragment.HomeFragment">
 
@@ -23,14 +23,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RecyclerViewCategory"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="30dp" />
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/RecyclerViewCategory"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:paddingBottom="30dp" />-->
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RecyclerViewStudio"
+                android:id="@+id/RecyclerViewService"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

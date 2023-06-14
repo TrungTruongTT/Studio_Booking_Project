@@ -1,14 +1,12 @@
-package com.example.demofacebook.Fragment.StudioDetailFragment;
+package com.example.demofacebook.Fragment.Service;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,32 +20,34 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudioFeedbackFragment extends Fragment {
-    final private Studio studio;
+public class FeedbackActivity extends AppCompatActivity {
+    private Studio studio;
     private RecyclerView recyclerViewFeedback;
     private FeedbackAdapter feedbackAdapter;
     private List<Feedback> mFeedbackList;
 
-    public StudioFeedbackFragment(Studio studio) {
-        this.studio = studio;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_feedback);
+        loadData();
+        initToolBar();
+        loadFeedback();
     }
 
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        recyclerViewFeedback = view.findViewById(R.id.FeedbackRecyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+    private void loadFeedback() {
+        recyclerViewFeedback = findViewById(R.id.ListFeedbackServiceRecyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewFeedback.setLayoutManager(linearLayoutManager);
         mFeedbackList = getFeedbackData();
-        feedbackAdapter = new FeedbackAdapter(getActivity() ,mFeedbackList, new IClickItemFeedbackListener() {
+        feedbackAdapter = new FeedbackAdapter(this, mFeedbackList, new IClickItemFeedbackListener() {
             @Override
             public void onClickItemFeedback(Feedback feedback) {
-                Toast.makeText(getActivity(), feedback.getFeedbackUserName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), feedback.getFeedbackUserName(), Toast.LENGTH_SHORT).show();
             }
         });
         recyclerViewFeedback.setAdapter(feedbackAdapter);
-
     }
 
     private List<Feedback> getFeedbackData() {
@@ -64,11 +64,27 @@ public class StudioFeedbackFragment extends Fragment {
         return myList;
     }
 
+    private void loadData() {
+        if (getIntent().getExtras() != null) {
+            studio = (Studio) getIntent().getExtras().get("studio");
+        }
+    }
 
-    @Nullable
+    private void initToolBar() {
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.ToolBarFeedbackService);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(studio.getTitle());
+        }
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_studio_feedback, container, false);
-        return view;
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

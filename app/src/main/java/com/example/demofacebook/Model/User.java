@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class User implements Serializable {
+    private int userId;
     private int image;
     private String Name;
     private Date dateOfBirth;
@@ -11,7 +12,8 @@ public class User implements Serializable {
     private String email;
     private String password;
 
-    public User(int image, String name, Date dateOfBirth, String phone, String email, String password) {
+    public User(int userId, int image, String name, Date dateOfBirth, String phone, String email, String password) {
+        this.userId = userId;
         this.image = image;
         Name = name;
         this.dateOfBirth = dateOfBirth;

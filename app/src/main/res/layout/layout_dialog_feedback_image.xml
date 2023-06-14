@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/MainListView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:background="@color/Description"
+        android:id="@+id/FeedbackImage_View"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/download"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:id="@+id/CloseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:textSize="20sp"
+        android:textColor="@color/whiteCardColor"
+        app:layout_constraintTop_toTopOf="@id/FeedbackImage_View"
+        app:layout_constraintStart_toStartOf="@id/FeedbackImage_View"
+        app:layout_constraintEnd_toEndOf="@id/FeedbackImage_View"
+        app:layout_constraintBottom_toBottomOf="@id/FeedbackImage_View" />
+
+</RelativeLayout>
