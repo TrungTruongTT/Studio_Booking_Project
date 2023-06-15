@@ -21,7 +21,8 @@
 
     <!--colors for Home-->
     <!--    <color name="cardView">#2C4F2D</color>-->
-    <color name="cardView">#FAF5F0</color>
+    <color name="cardView">#FFFFFF</color>
+    <color name="backgroundColor">#B8BFC3</color>
 
     <!--ToolBar for App-->
     <color name="ToolBar">#5F4A97</color>
