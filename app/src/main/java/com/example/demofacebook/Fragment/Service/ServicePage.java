@@ -223,9 +223,9 @@ public class ServicePage extends AppCompatActivity {
                 TextView serviceName = findViewById(R.id.ServiceNameDetail);
                 serviceName.setText(service.getServiceName());
                 TextView servicePrice = findViewById(R.id.ServicePriceDetail);
-                servicePrice.setText(String.valueOf(service.getPriceService()));
+                servicePrice.setText("Price " + String.valueOf(service.getPriceService()) + "$");
                 TextView serviceDiscount = findViewById(R.id.ServicePriceDiscountDetail);
-                serviceDiscount.setText(String.valueOf(service.getPriceService()));
+                serviceDiscount.setText("Discount " + String.valueOf(service.getPriceService() + "$"));
                 TextView serviceDescription = findViewById(R.id.ServiceDescription);
                 serviceDescription.setText(service.getServiceDescription());
 

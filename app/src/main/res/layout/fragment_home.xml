@@ -4,7 +4,7 @@
     android:id="@+id/layout_studio_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/chat_white_48dp"
+    android:background="@color/backgroundColor"
     android:orientation="vertical"
     tools:context=".Fragment.MainPageFragment.HomeFragment">
 
