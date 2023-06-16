@@ -3,6 +3,7 @@ package com.example.demofacebook.Model;
 import java.sql.Date;
 
 public class Feedback {
+    private int feedbackId;
     private int avatarUser;
     private String feedbackUserName;
     private int rating;
@@ -11,13 +12,28 @@ public class Feedback {
     private Date feedbackDate;
 
 
-    public Feedback(int avatarUser, String feedbackUserName, int rating, String feedbackDescription, int feedbackImage, Date feedbackDate) {
+
+
+    public Feedback(int feedbackId, int avatarUser, String feedbackUserName, int rating, String feedbackDescription, int feedbackImage, Date feedbackDate) {
+        this.feedbackId = feedbackId;
         this.avatarUser = avatarUser;
         this.feedbackUserName = feedbackUserName;
         this.rating = rating;
         this.feedbackDescription = feedbackDescription;
         this.feedbackImage = feedbackImage;
         this.feedbackDate = feedbackDate;
+    }
+
+    public int getFeedbackId() {
+        return feedbackId;
+    }
+
+    public void setFeedbackId(int feedbackId) {
+        this.feedbackId = feedbackId;
+    }
+
+    public void setFeedbackUserName(String feedbackUserName) {
+        this.feedbackUserName = feedbackUserName;
     }
 
     public int getAvatarUser() {

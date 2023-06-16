@@ -13,15 +13,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.Adapter.HomePage.CategoryHomeAdapter;
 import com.example.demofacebook.Adapter.HomePage.SortHomeAdapter;
-import com.example.demofacebook.Adapter.HomePage.StudioHomeAdapter;
-import com.example.demofacebook.HomePage.StudioPageActivity;
-import com.example.demofacebook.Model.Category;
+import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
+import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
+import com.example.demofacebook.Fragment.Service.ServicePage;
+import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
-import com.example.demofacebook.MyInterface.IClickItemCategoryListener;
 import com.example.demofacebook.MyInterface.IClickItemSortListener;
-import com.example.demofacebook.MyInterface.IClickItemStudioListener;
 import com.example.demofacebook.R;
 
 import java.util.ArrayList;
@@ -31,12 +29,12 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     //Studio
-    private RecyclerView recyclerViewStudio;
-    private StudioHomeAdapter studioHomeAdapter;
+//    private RecyclerView recyclerViewStudio;
+//    private StudioHomeAdapter studioHomeAdapter;
 
-    //category
-    private RecyclerView recyclerViewCategory;
-    private CategoryHomeAdapter categoryHomeAdapter;
+    private RecyclerView recyclerViewService;
+    private ServiceAdapter serviceAdapter;
+    private List<Service> mServiceList;
 
     //sort
     private RecyclerView recyclerViewSort;
@@ -55,82 +53,85 @@ public class HomeFragment extends Fragment {
         sortHomeAdapter = new SortHomeAdapter(getSortData(), new IClickItemSortListener() {
             @Override
             public void onClickItemSort(String sortBy) {
-                Toast.makeText(getActivity(), sortBy, Toast.LENGTH_SHORT).show();
-                studioHomeAdapter.getFilter().filter("@!" + sortBy);
+//                Toast.makeText(getActivity(), sortBy, Toast.LENGTH_SHORT).show();
+//                studioHomeAdapter.getFilter().filter("@!" + sortBy);
 
             }
         });
         recyclerViewSort.setAdapter(sortHomeAdapter);
-        //Category list home page
-        recyclerViewCategory = view.findViewById(R.id.RecyclerViewCategory);
-        LinearLayoutManager linearLayoutManagerCategory = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
-        recyclerViewCategory.setLayoutManager(linearLayoutManagerCategory);
-        categoryHomeAdapter = new CategoryHomeAdapter(getCategoryData(), new IClickItemCategoryListener() {
-            @Override
-            public void onClickItemCategory(Category category) {
-                Toast.makeText(getActivity(), category.getCategoryName(), Toast.LENGTH_SHORT).show();
-                studioHomeAdapter.getFilter().filter("@!" + category.getCategoryName());
-            }
-        });
-        recyclerViewCategory.setAdapter(categoryHomeAdapter);
 
         //Studio list home page
-        recyclerViewStudio = view.findViewById(R.id.RecyclerViewStudio);
-        LinearLayoutManager linearLayoutManagerStudio = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
-        recyclerViewStudio.setLayoutManager(linearLayoutManagerStudio);
-        studioHomeAdapter = new StudioHomeAdapter(getStudioData(), new IClickItemStudioListener() {
+//        recyclerViewStudio = view.findViewById(R.id.RecyclerViewStudio);
+//        LinearLayoutManager linearLayoutManagerStudio = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+//        recyclerViewStudio.setLayoutManager(linearLayoutManagerStudio);
+//        studioHomeAdapter = new StudioHomeAdapter(getStudioData(), new IClickItemStudioListener() {
+//            @Override
+//            public void onClickItemStudio(Studio studio) {
+//                onClickItemGoDetail(studio);
+//            }
+//        });
+//        recyclerViewStudio.setAdapter(studioHomeAdapter);
+        //Service List
+
+        recyclerViewService = view.findViewById(R.id.RecyclerViewService);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerViewService.setLayoutManager(linearLayoutManager2);
+        mServiceList = getServiceData();
+        serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
             @Override
-            public void onClickItemStudio(Studio studio) {
-                onClickItemGoDetail(studio);
+            public void onClickItemService(Service service) {
+                goDetailService(service);
+                Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerViewStudio.setAdapter(studioHomeAdapter);
+        recyclerViewService.setAdapter(serviceAdapter);
 
     }
 
-    private List<Studio> getStudioData() {
-        List<Studio> myList = new ArrayList<>();
-
-        int[] image = {R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download};
-        String[] studioName = {"Studio Name 1", "Studio Name 2", "Studio Name 3", "Studio Name 4", "Studio Name 5", "Studio Name 6"};
-        String[] studioDescription = {"Studio Description 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed semper elit. Donec at luctus felis, id faucibus nibh. Aliquam.", "Studio Description 2", "Studio Description 3", "Studio Description 4", "Studio Description 5", "Studio Description 6"};
-        Integer[] price = {500, 400, 300, 500, 100, 500};
-        Integer[] rating = {2, 1, 2, 4, 5, 6};
-        for (int i = 0; i < studioName.length; i++) {
-            myList.add(new Studio(image[i], studioName[i], studioDescription[i], price[i], rating[i]));
-        }
-
-
-        return myList;
+    private void goDetailService(Service service) {
+        Intent intent = new Intent(getActivity(), ServicePage.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("service", service);
+        Studio studio = new Studio(1, R.drawable.download, "Studio 1", 40, 5);
+        bundle.putSerializable("studio", studio);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
-    private List<Category> getCategoryData() {
-        int[] image = {R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download};
-        String[] categoryName = {"Category 1", "Category 2", "Category 3", "Category 4", "Category 5", "Category 6"};
-        List<Category> myList = new ArrayList<>();
+//    private List<Studio> getStudioData() {
+//        List<Studio> myList = new ArrayList<>();
+//        int[] id = {1, 2, 3, 4, 5, 6};
+//        int[] image = {R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download};
+//        String[] studioName = {"Studio Name 1", "Studio Name 2", "Studio Name 3", "Studio Name 4", "Studio Name 5", "Studio Name 6"};
+//        Integer[] totalAlbum = {2, 1, 2, 4, 5, 6};
+//        Integer[] rating = {2, 1, 2, 4, 5, 6};
+//        for (int i = 0; i < studioName.length; i++) {
+//            myList.add(new Studio(id[i], image[i], studioName[i], totalAlbum[i], rating[i]));
+//            myList.add(new Studio(id[i], image[i], studioName[i], totalAlbum[i], rating[i]));
+//        }
+//        return myList;
+//    }
 
-        for (int i = 0; i < categoryName.length; i++) {
-            myList.add(new Category(image[i], categoryName[i]));
-        }
-
+    private List<Service> getServiceData() {
+        List<Service> myList = new ArrayList<>();
+        myList.add(new Service(1, R.drawable.download, 4, "Service 1",
+                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
+        myList.add(new Service(2, R.drawable.download, 4, "Service 2",
+                "Service Description 1\nService Description 2\nService Description 3", 4, 500));
+        myList.add(new Service(3, R.drawable.download, 4, "Service 3",
+                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
+        myList.add(new Service(4, R.drawable.download, 4, "Service 4",
+                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
+        myList.add(new Service(5, R.drawable.download, 4, "Service 5",
+                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
         return myList;
     }
 
     private List<String> getSortData() {
         String[] sortList = {"All", "Rating", "Price", "Newest", "Famous", "Sort 6"};
         List<String> myList = new ArrayList<>();
-
         Collections.addAll(myList, sortList);
-
         return myList;
-    }
-
-    private void onClickItemGoDetail(Studio studio) {
-        Intent intent = new Intent(getActivity(), StudioPageActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Studio", studio);
-        intent.putExtras(bundle);
-        startActivity(intent);
     }
 
 

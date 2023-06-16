@@ -4,16 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/MainListView"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
+    android:layout_height="100dp"
     android:layout_marginBottom="20dp"
     android:orientation="horizontal"
     app:cardCornerRadius="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:background="@color/cardView"
         android:orientation="horizontal">
 
@@ -32,50 +30,79 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/NameService"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Explored"
-                android:textColor="@color/TextColor_Gallery"
-                android:textSize="20sp" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/ServiceDescription"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:ellipsize="end"
-                android:gravity="left"
-                android:maxLines="3"
-                android:text="16/12/2022"
-                android:textColor="@color/TextColor_Gallery"
-                android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/NameService"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center|start"
+                    android:maxLines="2"
+                    android:text="Explored"
+                    android:textColor="@color/TextColor_Gallery"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/ServicePrice"
+                <TextView
+                    android:id="@+id/ServiceRating"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="center|end"
+                    android:text="⭐: 5.0"
+                    android:textColor="#EFA632"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:gravity="left|center_vertical"
-                android:lines="1"
-                android:text="Form: US$500"
-                android:textColor="@color/TextColor_Gallery"
-                android:textSize="15sp" />
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/ServiceView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="start|center"
+                    android:lines="1"
+                    android:text="Views: 5000"
+                    android:textColor="@color/SubTextColor_Gallery"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/ServicePrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:gravity="end|center"
+                    android:lines="1"
+                    android:text="Form: US$500"
+                    android:textColor="@color/SubTextColor_Gallery"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2.5">
+            android:layout_weight="2.4"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:drawableStart="@drawable/baseline_navigate_next_24" />
-
+                android:gravity="center"
+                app:drawableStartCompat="@drawable/baseline_navigate_next_24" />
         </LinearLayout>
 
     </LinearLayout>

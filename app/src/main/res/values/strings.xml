@@ -74,4 +74,9 @@
         \n
         \nFor permission requests or further inquiries, please contact BookingService@gmail.com.
     </string>
+    <string name="update_user_information">Update User Information</string>
+    <string name="lbNameDialog">Name</string>
+    <string name="lbDOBDialog">Birth Day</string>
+    <string name="lbPhoneDialog">0966324244</string>
+    <string name="lbEmailDialog">Phinhse150972@gmail.com</string>
 </resources>

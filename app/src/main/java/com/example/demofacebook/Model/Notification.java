@@ -3,16 +3,27 @@ package com.example.demofacebook.Model;
 import java.sql.Date;
 
 public class Notification {
+    private int notificationId;
     private int image;
     private String notificationTitle;
     private String notification;
     private Date date;
 
-    public Notification(int image, String notificationTitle, String notification, Date date) {
+
+    public Notification(int notificationId, int image, String notificationTitle, String notification, Date date) {
+        this.notificationId = notificationId;
         this.image = image;
         this.notificationTitle = notificationTitle;
         this.notification = notification;
         this.date = date;
+    }
+
+    public int getNotificationId() {
+        return notificationId;
+    }
+
+    public void setNotificationId(int notificationId) {
+        this.notificationId = notificationId;
     }
 
     public int getImage() {

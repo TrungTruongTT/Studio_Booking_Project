@@ -47,10 +47,9 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
         if (studio == null) {
             return;
         }
-        holder.img_phone.setImageResource(studio.getImage());
+        holder.imgStudioAvatar.setImageResource(studio.getImage());
         holder.txtTitle.setText(studio.getTitle());
-        holder.txtDescription.setText(studio.getDescription());
-        holder.txtPrice.setText("Form: US$" + studio.getPrice());
+        holder.totalAlbum.setText("Album: " + studio.getTotalAlbum());
         holder.txtRating.setText("⭐: " + studio.getRating());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -72,19 +71,18 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
     }
 
     public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {
-        private final ImageView img_phone;
+        private final ImageView imgStudioAvatar;
         private final TextView txtTitle;
-        private final TextView txtDescription;
-        private final TextView txtPrice;
         private final TextView txtRating;
+
+        private final TextView totalAlbum;
 
         public MyArrayAdapterHolder(@NonNull View itemView) {
             super(itemView);
-            img_phone = itemView.findViewById(R.id.imgListView);
+            imgStudioAvatar = itemView.findViewById(R.id.StudioAvatarImage);
             txtTitle = itemView.findViewById(R.id.txtNameStudio);
-            txtDescription = itemView.findViewById(R.id.txtStudioDes);
-            txtPrice = itemView.findViewById(R.id.txtPrice);
             txtRating = itemView.findViewById(R.id.txtRating);
+            totalAlbum = itemView.findViewById(R.id.TotalAlbum);
         }
     }
 
@@ -111,12 +109,6 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
                         list = mListStudioOld;
                         list.sort((studio, t1) -> {
                             return t1.getRating() - studio.getRating();
-                        });
-                    }
-                    if ("@!Price".equals(strSearch)) {
-                        list = mListStudioOld;
-                        list.sort((t1, studio) -> {
-                            return studio.getPrice() - t1.getPrice();
                         });
                     }
                     //Search bar

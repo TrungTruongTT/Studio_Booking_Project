@@ -1,5 +1,6 @@
 package com.example.demofacebook.Fragment.MainPageFragment;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,14 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.UserPage.ItemUserAdapter;
 import com.example.demofacebook.Adapter.UserPage.UserAdapter;
+import com.example.demofacebook.Model.User;
 import com.example.demofacebook.MyInterface.IClickItemUserListener;
 import com.example.demofacebook.MyInterface.IClickItemUserOptionListener;
 import com.example.demofacebook.R;
+import com.example.demofacebook.UserPage.UserUpdateActivity;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserFragment extends Fragment {
+    User user;
     //User RecyclerView
     private RecyclerView recyclerViewUser;
     private UserAdapter userAdapter;
@@ -33,6 +38,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        user = getUser();
         loadUser();
         loadUserOption();
 
@@ -45,10 +51,10 @@ public class UserFragment extends Fragment {
         recyclerViewUser.setLayoutManager(linearLayoutManagerUser);
         userAdapter = new UserAdapter(new IClickItemUserListener() {
             @Override
-            public void onClickItemUser(String user) {
-                Toast.makeText(getActivity(), "UserSelected", Toast.LENGTH_SHORT).show();
+            public void onClickItemUser(User user) {
+                Toast.makeText(getActivity(), user.getEmail(), Toast.LENGTH_SHORT).show();
             }
-        }, getUserImage(), getUserName());
+        }, getUser(), getContext());
         recyclerViewUser.setAdapter(userAdapter);
     }
 
@@ -57,11 +63,11 @@ public class UserFragment extends Fragment {
         recyclerViewUserOption = getActivity().findViewById(R.id.Recycler1);
         LinearLayoutManager linearLayoutManagerOption = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerViewUserOption.setLayoutManager(linearLayoutManagerOption);
-
         itemUserAdapter = new ItemUserAdapter(new IClickItemUserOptionListener() {
             @Override
             public void onClickItemUserOptionListener(String option) {
                 Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
+                clickGoOption(option);
             }
         }, getListOptionName(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
@@ -70,7 +76,6 @@ public class UserFragment extends Fragment {
         recyclerViewUserOption = getActivity().findViewById(R.id.RecyclerSetting);
         LinearLayoutManager linearLayoutManagerOption2 = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerViewUserOption.setLayoutManager(linearLayoutManagerOption2);
-
         itemUserAdapter = new ItemUserAdapter(new IClickItemUserOptionListener() {
             @Override
             public void onClickItemUserOptionListener(String option) {
@@ -79,18 +84,29 @@ public class UserFragment extends Fragment {
         }, getListOptionName(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
 
-        //User Option Resource
+        //User Option 3
         recyclerViewUserOption = getActivity().findViewById(R.id.RecyclerResource);
         LinearLayoutManager linearLayoutManagerOption3 = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerViewUserOption.setLayoutManager(linearLayoutManagerOption3);
-
         itemUserAdapter = new ItemUserAdapter(new IClickItemUserOptionListener() {
             @Override
             public void onClickItemUserOptionListener(String option) {
                 Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
+
+
             }
         }, getListOptionName(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
+    }
+
+    private void clickGoOption(String option) {
+        if (option.equals("Update Information")) {
+            Intent intent = new Intent(getActivity(), UserUpdateActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("User", user);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 
     @Nullable
@@ -100,27 +116,27 @@ public class UserFragment extends Fragment {
         return view;
     }
 
-    private List<String> getUserName() {
-        List<String> myList = new ArrayList<>();
-        String[] userName = {"PhiPhiPhi"};
-        for (int i = 0; i < userName.length; i++) {
-            myList.add(userName[i]);
-        }
-        return myList;
+    private User getUser() {
+        Integer userId = 1;
+        Integer userImage = R.drawable.download;
+        String userName = "PhiPhiPhi";
+        String str = "2001-06-15";
+        Date dateOfBirth = Date.valueOf(str);
+
+        String phone = "0966324244";
+        String email = "Phinhse150972@fpt.edu.vn";
+        String password = "Phinhse150972";
+
+
+        User user = new User(userId, userImage, userName, dateOfBirth, phone, email, password);
+
+        return user;
     }
 
-    private List<Integer> getUserImage() {
-        List<Integer> myList = new ArrayList<>();
-        Integer[] userImage = {R.drawable.download};
-        for (int i = 0; i < userImage.length; i++) {
-            myList.add(userImage[i]);
-        }
-        return myList;
-    }
 
     private List<String> getListOptionName() {
         List<String> myList = new ArrayList<>();
-        String[] optionName = {"Option 1", "Option 2"};
+        String[] optionName = {"Update Information", "Option 2"};
         for (int i = 0; i < optionName.length; i++) {
             myList.add(optionName[i]);
         }
