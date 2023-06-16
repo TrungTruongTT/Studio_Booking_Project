@@ -1,6 +1,7 @@
 package com.example.demofacebook.Model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Studio implements Serializable {
     private int studioId;
@@ -9,8 +10,24 @@ public class Studio implements Serializable {
     private int totalAlbum;
     private int rating;
     private String description;
+    private List<Service> serviceList;
 
-//    public Studio(int image, String title, int totalAlbum, int rating) {
+    public List<Service> getServiceList() {
+        return serviceList;
+    }
+
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
+    }
+
+    public Studio(int studioId, int image, String title, int rating, List<Service> serviceList) {
+        this.studioId = studioId;
+        this.image = image;
+        this.title = title;
+        this.rating = rating;
+        this.serviceList = serviceList;
+    }
+    //    public Studio(int image, String title, int totalAlbum, int rating) {
 //        this.image = image;
 //        this.title = title;
 //        this.totalAlbum = totalAlbum;

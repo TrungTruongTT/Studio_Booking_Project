@@ -1,19 +1,39 @@
 package com.example.demofacebook.Model;
 
+import java.util.Date;
+
 public class Order {
 
     private int orderId;
-    private int orderImage;
-    private String orderDate;
-    private String status;
-    private String totalPrice;
+    private Date orderDate;
+    private int status;
+    private int totalPrice;
+    private int totalOrderDetail;
+    private String urlImageService;
+    private String serviceName;
 
-    public Order(int orderId, int orderImage, String orderDate, String status, String totalPrice) {
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", orderDate=" + orderDate +
+                ", status=" + status +
+                ", totalPrice=" + totalPrice +
+                ", totalOrderDetail=" + totalOrderDetail +
+                ", urlImageService='" + urlImageService + '\'' +
+                ", serviceName='" + serviceName + '\'' +
+                '}';
+    }
+
+    public Order(int orderId, Date orderDate, int status, int totalPrice,
+                 int totalOrderDetail, String urlImageService, String serviceName) {
         this.orderId = orderId;
-        this.orderImage = orderImage;
         this.orderDate = orderDate;
         this.status = status;
         this.totalPrice = totalPrice;
+        this.totalOrderDetail = totalOrderDetail;
+        this.urlImageService = urlImageService;
+        this.serviceName = serviceName;
     }
 
     public int getOrderId() {
@@ -24,35 +44,51 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public int getOrderImage() {
-        return orderImage;
-    }
-
-    public void setOrderImage(int orderImage) {
-        this.orderImage = orderImage;
-    }
-
-    public String getOrderDate() {
+    public Date getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(String orderDate) {
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public String getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(String totalPrice) {
+    public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public int getTotalOrderDetail() {
+        return totalOrderDetail;
+    }
+
+    public void setTotalOrderDetail(int totalOrderDetail) {
+        this.totalOrderDetail = totalOrderDetail;
+    }
+
+    public String getUrlImageService() {
+        return urlImageService;
+    }
+
+    public void setUrlImageService(String urlImageService) {
+        this.urlImageService = urlImageService;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 }

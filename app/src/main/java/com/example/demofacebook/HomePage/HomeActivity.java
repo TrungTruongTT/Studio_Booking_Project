@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
+import com.example.demofacebook.FavoriteActivity;
 import com.example.demofacebook.Fragment.MainPageFragment.BookingFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.ChatFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.HomeFragment;
@@ -50,6 +51,10 @@ public class HomeActivity extends AppCompatActivity {
             Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
             OpenNotificationScreen();
         }
+        if (item.getItemId() == R.id.favorite) {
+            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+            OpenFavoriteScreen();
+        }
         if (item.getItemId() == android.R.id.home) {
             finish();
             Intent intent = new Intent(this, HomeActivity.class);
@@ -63,7 +68,10 @@ public class HomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.appbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+    private void OpenFavoriteScreen() {
+        Intent intent = new Intent(this, FavoriteActivity.class);
+        startActivity(intent);
+    }
     private void OpenSearchScreen() {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
