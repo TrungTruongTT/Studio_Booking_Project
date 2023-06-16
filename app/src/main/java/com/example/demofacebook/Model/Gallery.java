@@ -3,16 +3,28 @@ package com.example.demofacebook.Model;
 import java.sql.Date;
 
 public class Gallery {
+    private int galleryId;
     private int imageGallery;
     private String GalleryName;
     private Date createDate;
     private int totalImage;
 
-    public Gallery(int imageGallery, String galleryName, Date createDate, int totalImage) {
+
+
+    public Gallery(int galleryId, int imageGallery, String galleryName, Date createDate, int totalImage) {
+        this.galleryId = galleryId;
         this.imageGallery = imageGallery;
         GalleryName = galleryName;
         this.createDate = createDate;
         this.totalImage = totalImage;
+    }
+
+    public int getGalleryId() {
+        return galleryId;
+    }
+
+    public void setGalleryId(int galleryId) {
+        this.galleryId = galleryId;
     }
 
     public int getImageGallery() {

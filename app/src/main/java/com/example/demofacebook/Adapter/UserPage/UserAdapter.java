@@ -1,6 +1,7 @@
 package com.example.demofacebook.Adapter.UserPage;
 
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,22 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.demofacebook.Model.User;
 import com.example.demofacebook.MyInterface.IClickItemUserListener;
 import com.example.demofacebook.R;
 
-import java.util.List;
-
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyArrayAdapterHolder> {
 
-    private IClickItemUserListener iClickItemUserListener;
-    private final List<Integer> userImage;
-    private final List<String> userName;
+    private final IClickItemUserListener iClickItemUserListener;
+    private final User mUser;
+    private final Context context;
 
-
-    public UserAdapter(IClickItemUserListener iClickItemUserListener, List<Integer> userImage, List<String> userName) {
+    public UserAdapter(IClickItemUserListener iClickItemUserListener, User mUser, Context context) {
         this.iClickItemUserListener = iClickItemUserListener;
-        this.userImage = userImage;
-        this.userName = userName;
+        this.mUser = mUser;
+        this.context = context;
     }
 
     @NonNull
@@ -37,25 +36,25 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyArrayAdapter
 
     @Override
     public void onBindViewHolder(@NonNull MyArrayAdapterHolder holder, int position) {
-        String Name = userName.get(position);
-        if (Name == null) {
+        User user = mUser;
+        if (user == null) {
             return;
         }
-        holder.userImage.setImageResource(userImage.get(position));
-        holder.userName.setText(Name);
+        holder.userImage.setImageResource(user.getImage());
+        holder.userName.setText(user.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickItemUserListener.onClickItemUser(Name);
+                iClickItemUserListener.onClickItemUser(user);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if (userName != null) {
-            return userImage.size();
+        if (mUser != null) {
+            return 1;
         }
         return 0;
     }

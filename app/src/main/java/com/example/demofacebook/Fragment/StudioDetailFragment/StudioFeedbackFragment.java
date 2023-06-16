@@ -40,7 +40,7 @@ public class StudioFeedbackFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewFeedback.setLayoutManager(linearLayoutManager);
         mFeedbackList = getFeedbackData();
-        feedbackAdapter = new FeedbackAdapter(mFeedbackList, new IClickItemFeedbackListener() {
+        feedbackAdapter = new FeedbackAdapter(getActivity() ,mFeedbackList, new IClickItemFeedbackListener() {
             @Override
             public void onClickItemFeedback(Feedback feedback) {
                 Toast.makeText(getActivity(), feedback.getFeedbackUserName(), Toast.LENGTH_SHORT).show();
@@ -54,12 +54,12 @@ public class StudioFeedbackFragment extends Fragment {
         List<Feedback> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Feedback(R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
+        myList.add(new Feedback(1, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
+        myList.add(new Feedback(2, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
+        myList.add(new Feedback(3, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
+        myList.add(new Feedback(4, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
+        myList.add(new Feedback(5, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
+        myList.add(new Feedback(6, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
 
         return myList;
     }

@@ -40,9 +40,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyArrayA
         }
         holder.imageGallery.setImageResource(gallery.getImageGallery());
         holder.galleryName.setText(gallery.getGalleryName());
-        holder.dateCreate.setText("Create at" + gallery.getCreateDate().toString());
+        holder.dateCreate.setText("Create at " + gallery.getCreateDate().toString());
         String totalImage = String.valueOf(gallery.getTotalImage());
-        holder.totalItem.setText("Items" + totalImage);
+        holder.totalItem.setText("Items " + totalImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,18 +3,42 @@ package com.example.demofacebook.Model;
 import java.io.Serializable;
 
 public class Studio implements Serializable {
+    private int studioId;
     private int image;
     private String title;
-    private String description;
-    private int price;
+    private int totalAlbum;
     private int rating;
+    private String description;
 
-    public Studio(int image, String title, String description, int price,  int rating) {
+//    public Studio(int image, String title, int totalAlbum, int rating) {
+//        this.image = image;
+//        this.title = title;
+//        this.totalAlbum = totalAlbum;
+//        this.rating = rating;
+//    }
+
+    public Studio(int studioId, int image, String title, int totalAlbum, int rating) {
+        this.studioId = studioId;
         this.image = image;
         this.title = title;
-        this.description = description;
-        this.price = price;
+        this.totalAlbum = totalAlbum;
         this.rating = rating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getStudioId() {
+        return studioId;
+    }
+
+    public void setStudioId(int studioId) {
+        this.studioId = studioId;
     }
 
     public int getImage() {
@@ -33,20 +57,12 @@ public class Studio implements Serializable {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public int getTotalAlbum() {
+        return totalAlbum;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
+    public void setTotalAlbum(int totalAlbum) {
+        this.totalAlbum = totalAlbum;
     }
 
     public int getRating() {
@@ -56,4 +72,6 @@ public class Studio implements Serializable {
     public void setRating(int rating) {
         this.rating = rating;
     }
+
+
 }

@@ -17,7 +17,6 @@ import java.util.List;
 public class ItemUserAdapter extends RecyclerView.Adapter<ItemUserAdapter.MyArrayAdapterHolder> {
     private final IClickItemUserOptionListener iClickItemUserOptionListener;
     private final List<String> mOptionList;
-
     private final List<Drawable> mIconList;
 
 
