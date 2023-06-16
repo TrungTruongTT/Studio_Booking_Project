@@ -96,16 +96,16 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private List<Studio> getStudioData() {
+        int[] id = {1, 2, 3, 4, 5, 6};
         int[] image = {R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download};
         String[] studioName = {"Studio Name 1", "Studio Name 2", "Studio Name 3", "Studio Name 4", "Studio Name 5", "Studio Name 6"};
-        String[] studioDescription = {"Studio Description 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed semper elit. Donec at luctus felis, id faucibus nibh. Aliquam.", "Studio Description 2", "Studio Description 3", "Studio Description 4", "Studio Description 5", "Studio Description 6"};
-        Integer[] price = {500, 400, 300, 500, 100, 500};
         Integer[] rating = {2, 1, 2, 4, 5, 6};
+        Integer[] totalAlbum = {2, 1, 2, 4, 5, 6};
         List<Studio> myList = new ArrayList<>();
 
         for (int i = 0; i < studioName.length; i++) {
-            myList.add(new Studio(image[i], studioName[i], studioDescription[i], price[i], rating[i]));
-            myList.add(new Studio(image[i], studioName[i], studioDescription[i], price[i], rating[i]));
+            myList.add(new Studio(id[i], image[i], studioName[i], totalAlbum[i], rating[i]));
+            myList.add(new Studio(id[i], image[i], studioName[i], totalAlbum[i], rating[i]));
         }
 
         return myList;

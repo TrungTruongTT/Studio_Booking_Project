@@ -55,11 +55,11 @@ public class StudioGalleryFragment extends Fragment {
         List<Gallery> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Gallery(R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
-        myList.add(new Gallery(R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
-        myList.add(new Gallery(R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
-        myList.add(new Gallery(R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
-        myList.add(new Gallery(R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
+        myList.add(new Gallery(1, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
+        myList.add(new Gallery(2, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
+        myList.add(new Gallery(3, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
+        myList.add(new Gallery(4, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
+        myList.add(new Gallery(5, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
         return myList;
     }
 
