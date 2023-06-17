@@ -80,7 +80,7 @@
                     android:layout_marginBottom="15dp"
                     android:gravity="start"
                     android:hint="Please enter a comment here"
-                    android:textColor="@color/SubTextColor_Gallery"
+                    android:textColor="@color/BackText"
                     android:textSize="15sp" />
 
                 <TextView

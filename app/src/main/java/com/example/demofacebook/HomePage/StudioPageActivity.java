@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,12 +82,6 @@ public class StudioPageActivity extends AppCompatActivity {
                     break;
             }
         }).attach();
-        mTabLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(StudioPageActivity.this, "CHELCLLLLLLLLLLLLLLLLL", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private List<StudioToolBarPhoto> getPhotoList() {

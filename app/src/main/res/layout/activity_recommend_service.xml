@@ -14,6 +14,7 @@
         android:layout_height="?attr/actionBarSize"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
         android:id="@+id/ListRecommendServiceRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

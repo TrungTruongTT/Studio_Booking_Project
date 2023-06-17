@@ -43,7 +43,8 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Search View");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Search_ToolBar)));
+        getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+
         //studioList
         recyclerViewStudio = findViewById(R.id.RecyclerViewStudioSearch);
         studioHomeAdapter = new StudioHomeAdapter(getStudioData(), new IClickItemStudioListener() {

@@ -66,7 +66,6 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
     public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {
         ImageView imageService;
         TextView serviceName;
-        TextView serviceDescription;
         TextView ratingService;
         TextView views;
         TextView servicePrice;
@@ -75,7 +74,6 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
             super(itemView);
             imageService = itemView.findViewById(R.id.ServiceImage);
             serviceName = itemView.findViewById(R.id.NameService);
-//            serviceDescription = itemView.findViewById(R.id.ServiceShortDescription);
             ratingService = itemView.findViewById(R.id.ServiceRating);
             views = itemView.findViewById(R.id.ServiceView);
             servicePrice = itemView.findViewById(R.id.ServicePrice);

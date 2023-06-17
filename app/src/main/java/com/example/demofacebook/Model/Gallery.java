@@ -1,8 +1,9 @@
 package com.example.demofacebook.Model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Gallery {
+public class Gallery implements Serializable {
     private int galleryId;
     private int imageGallery;
     private String GalleryName;

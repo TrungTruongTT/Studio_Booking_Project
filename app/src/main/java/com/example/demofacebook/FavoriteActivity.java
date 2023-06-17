@@ -1,11 +1,14 @@
 package com.example.demofacebook;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.demofacebook.Adapter.Favorite.StudioAdapter;
@@ -26,6 +29,7 @@ public class FavoriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+        initToolBar();
 
         recyclerView = (RecyclerView) findViewById(R.id.favoriteRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -33,6 +37,24 @@ public class FavoriteActivity extends AppCompatActivity {
         mList = getListStudioData();
         studioAdapter = new StudioAdapter(mList, this);
         recyclerView.setAdapter(studioAdapter);
+    }
+    private void initToolBar() {
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.favoriteToolBar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Favorite");
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private List<Studio> getListStudioData() {

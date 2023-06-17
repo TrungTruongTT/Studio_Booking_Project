@@ -1,9 +1,11 @@
 package com.example.demofacebook.Fragment.StudioDetailFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.FeedbackAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackListener;
+import com.example.demofacebook.Fragment.Service.FeedbackActivity;
+import com.example.demofacebook.Fragment.Service.RecommendServiceActivity;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
@@ -48,6 +52,14 @@ public class StudioFeedbackFragment extends Fragment {
         });
         recyclerViewFeedback.setAdapter(feedbackAdapter);
 
+        Button button = view.findViewById(R.id.ViewMoreFeedback);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickViewMoreFeedback();
+            }
+        });
+
     }
 
     private List<Feedback> getFeedbackData() {
@@ -63,6 +75,14 @@ public class StudioFeedbackFragment extends Fragment {
 
         return myList;
     }
+    private void onClickViewMoreFeedback() {
+        Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("studio", studio);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
 
 
     @Nullable

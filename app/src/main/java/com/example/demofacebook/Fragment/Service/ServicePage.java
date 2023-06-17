@@ -111,14 +111,13 @@ public class ServicePage extends AppCompatActivity {
     private void onClickItemGoDetail(Studio studio) {
         Intent intent = new Intent(this, StudioPageActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("Studio", studio);
+        bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
     }
     private void onClickViewMoreService() {
         Intent intent = new Intent(this, RecommendServiceActivity.class);
         Bundle bundle = new Bundle();
-
         bundle.putSerializable("service", service);
         Studio studio = new Studio(1, R.drawable.download, "Studio 1", 40, 5);
         bundle.putSerializable("studio", studio);
@@ -223,9 +222,9 @@ public class ServicePage extends AppCompatActivity {
                 TextView serviceName = findViewById(R.id.ServiceNameDetail);
                 serviceName.setText(service.getServiceName());
                 TextView servicePrice = findViewById(R.id.ServicePriceDetail);
-                servicePrice.setText("Price " + String.valueOf(service.getPriceService()) + "$");
+                servicePrice.setText("Price: " + String.valueOf(service.getPriceService()) + "$");
                 TextView serviceDiscount = findViewById(R.id.ServicePriceDiscountDetail);
-                serviceDiscount.setText("Discount " + String.valueOf(service.getPriceService() + "$"));
+                serviceDiscount.setText("Discount: " + String.valueOf(service.getPriceService() + "$"));
                 TextView serviceDescription = findViewById(R.id.ServiceDescription);
                 serviceDescription.setText(service.getServiceDescription());
 

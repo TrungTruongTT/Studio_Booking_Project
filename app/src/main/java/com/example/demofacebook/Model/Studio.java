@@ -27,12 +27,6 @@ public class Studio implements Serializable {
         this.rating = rating;
         this.serviceList = serviceList;
     }
-    //    public Studio(int image, String title, int totalAlbum, int rating) {
-//        this.image = image;
-//        this.title = title;
-//        this.totalAlbum = totalAlbum;
-//        this.rating = rating;
-//    }
 
     public Studio(int studioId, int image, String title, int totalAlbum, int rating) {
         this.studioId = studioId;

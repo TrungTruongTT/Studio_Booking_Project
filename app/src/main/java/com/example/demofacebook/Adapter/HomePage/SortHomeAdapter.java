@@ -1,5 +1,6 @@
 package com.example.demofacebook.Adapter.HomePage;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,8 @@ private final IClickItemSortListener iClickItemSortListener;
             }
         });
         if(row_index == position){
-            holder.linearLayout.setBackgroundResource(R.color.Selected_Item);
+            holder.linearLayout.setBackgroundResource(R.drawable.background_navbar);
+
         }else {
             holder.linearLayout.setBackgroundResource(R.color.cardView);
         }

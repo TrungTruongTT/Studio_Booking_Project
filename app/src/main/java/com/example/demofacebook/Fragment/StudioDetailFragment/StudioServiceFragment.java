@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
+import com.example.demofacebook.Fragment.Service.FeedbackActivity;
+import com.example.demofacebook.Fragment.Service.RecommendServiceActivity;
 import com.example.demofacebook.Fragment.Service.ServicePage;
 import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Service;
@@ -49,7 +52,13 @@ public class StudioServiceFragment extends Fragment {
             }
         });
         recyclerViewService.setAdapter(serviceAdapter);
-
+        Button button = view.findViewById(R.id.ViewMoreStudioService);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickViewMoreService();
+            }
+        });
     }
 
     private void goDetailService(Service service) {
@@ -61,19 +70,33 @@ public class StudioServiceFragment extends Fragment {
         startActivity(intent);
     }
 
+    private void onClickViewMoreService() {
+        Intent intent = new Intent(getActivity(), RecommendServiceActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("studio", studio);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
 
     private List<Service> getServiceData() {
         List<Service> myList = new ArrayList<>();
         myList.add(new Service(1, R.drawable.download, 4,"Service " + studio.getTitle(),
                 "", 350, 500));
         myList.add(new Service(2,R.drawable.download, 4, "Service " + studio.getTitle(),
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(3,R.drawable.download, 4, "Service " + studio.getTitle(),
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
+                 350, 500));
+        myList.add(new Service(3, R.drawable.download, 4,"Service " + studio.getTitle(),
+                "", 350, 500));
         myList.add(new Service(4,R.drawable.download, 4, "Service " + studio.getTitle(),
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(5,R.drawable.download, 4, "Service " + studio.getTitle(),
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
+                350, 500));
+        myList.add(new Service(5, R.drawable.download, 4,"Service " + studio.getTitle(),
+                "", 350, 500));
+        myList.add(new Service(6,R.drawable.download, 4, "Service " + studio.getTitle(),
+                350, 500));
+        myList.add(new Service(7,R.drawable.download, 4, "Service " + studio.getTitle(),
+                350, 500));
+        myList.add(new Service(8,R.drawable.download, 4, "Service2222 " + studio.getTitle(),
+                350, 500));
         return myList;
     }
 

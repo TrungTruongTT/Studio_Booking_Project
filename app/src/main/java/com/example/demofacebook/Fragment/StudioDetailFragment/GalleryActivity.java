@@ -2,14 +2,11 @@ package com.example.demofacebook.Fragment.StudioDetailFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,23 +20,24 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class StudioGalleryFragment extends Fragment {
-    private final Studio studio;
+public class GalleryActivity extends AppCompatActivity {
+    private Studio studio;
     private RecyclerView recyclerViewGallery;
     private GalleryAdapter galleryAdapter;
     private List<Gallery> mGalleryList;
 
-    public StudioGalleryFragment(Studio studio) {
-        this.studio = studio;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_gallery);
+        loadData();
+        initToolBar();
+        loadGallery();
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        recyclerViewGallery = view.findViewById(R.id.GalleryRecyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+    private void loadGallery() {
+        recyclerViewGallery = findViewById(R.id.ListGalleryServiceRecyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewGallery.setLayoutManager(linearLayoutManager);
         mGalleryList = getGalleryData();
         galleryAdapter = new GalleryAdapter(mGalleryList, new IClickItemGalleryListener() {
@@ -50,19 +48,10 @@ public class StudioGalleryFragment extends Fragment {
         });
         recyclerViewGallery.setAdapter(galleryAdapter);
 
-        Button button = view.findViewById(R.id.ViewMoreGallery);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickViewMoreGallery();
-            }
-        });
-
-
     }
 
     private void onClickGoGalleryDetail(Gallery gallery) {
-        Intent intent = new Intent(getActivity(), GalleryItemActivity.class);
+        Intent intent = new Intent(this, GalleryItemActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("gallery", gallery);
         intent.putExtras(bundle);
@@ -81,18 +70,27 @@ public class StudioGalleryFragment extends Fragment {
         return myList;
     }
 
-    private void onClickViewMoreGallery() {
-        Intent intent = new Intent(getActivity(), GalleryActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("studio", studio);
-        intent.putExtras(bundle);
-        startActivity(intent);
+    private void loadData() {
+        if (getIntent().getExtras() != null) {
+            studio = (Studio) getIntent().getExtras().get("studio");
+        }
     }
 
-    @Nullable
+    private void initToolBar() {
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.ToolBarGalleryService);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(studio.getTitle());
+        }
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_studio_gallery, container, false);
-        return view;
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

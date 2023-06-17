@@ -32,6 +32,7 @@
     <color name="Chat_ToolBar">#02730A</color>
     <color name="User_ToolBar">#F29F05</color>
     <color name="Search_ToolBar">#963074</color>
+    <color name="ToolBar_Color">#25c685</color>
 
     <!--Selected Item for App-->
     <color name="Selected_Item">#97BC62</color>
@@ -65,6 +66,17 @@
     <color name="Price">#FF0000</color>
     <color name="Discount">#FF4141</color>
     <color name="cardView2">#FDFCFB</color>
+
+    <!--Text Page -->
+    <color name="BackText">#000000</color>
+    <color name="GrayText">#AEAFB1</color>
+    <color name="RedText">#FF4141</color>
+
+    <!--ViewMoreItemBtnColor Page -->
+    <color name="btnViewMoreItem">#D6D5D5</color>
+
+
+
 
 
 

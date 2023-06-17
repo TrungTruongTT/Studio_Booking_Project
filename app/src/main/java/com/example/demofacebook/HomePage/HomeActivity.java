@@ -21,7 +21,7 @@ import com.example.demofacebook.Fragment.MainPageFragment.BookingFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.ChatFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.HomeFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.NewFeedFragment;
-import com.example.demofacebook.Fragment.MainPageFragment.NotificationFragment;
+import com.example.demofacebook.Fragment.MainPageFragment.NotificationActivity;
 import com.example.demofacebook.Fragment.MainPageFragment.UserFragment;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Search.SearchActivity;
@@ -78,13 +78,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void OpenNotificationScreen() {
-//        Intent intent = new Intent(this, SearchActivity.class);
-//        startActivity(intent);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Notification");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Home_ToolBar)));
-        selectedFragment = new NotificationFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+        Intent intent = new Intent(this, NotificationActivity.class);
+        startActivity(intent);
     }
 
     private void loadBottomNavigationView() {
@@ -112,26 +107,26 @@ public class HomeActivity extends AppCompatActivity {
                 if (position == 0) {
                     selectedFragment = new HomeFragment();
                     getSupportActionBar().setTitle("Studio Booking Service");
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Home_ToolBar)));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
                 }
                 if (position == 1) {
                     getSupportActionBar().setTitle("Chat");
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Chat_ToolBar)));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
                     selectedFragment = new ChatFragment();
                 }
                 if (position == 2) {
                     getSupportActionBar().setTitle("New Feed");
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.NewFeed_ToolBar)));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
                     selectedFragment = new NewFeedFragment();
                 }
                 if (position == 3) {
                     getSupportActionBar().setTitle("Booking");
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.Booking_ToolBar)));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
                     selectedFragment = new BookingFragment();
                 }
                 if (position == 4) {
                     getSupportActionBar().setTitle("User");
-                    getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.User_ToolBar)));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
                     selectedFragment = new UserFragment();
                 }
                 if (selectedFragment != null) {

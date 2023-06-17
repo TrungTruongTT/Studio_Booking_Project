@@ -266,6 +266,7 @@
                         android:layout_gravity="center_horizontal">
 
                         <Button
+                            android:background="@color/SubTextColor_Gallery"
                             android:id="@+id/CancelDialog"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -274,6 +275,7 @@
                             android:text="Cancel" />
 
                         <Button
+                            android:background="@color/DialogBar"
                             android:id="@+id/UpdateDialog"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

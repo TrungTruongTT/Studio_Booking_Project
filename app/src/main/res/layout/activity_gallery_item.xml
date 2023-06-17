@@ -8,13 +8,12 @@
     tools:context=".Fragment.Service.FeedbackActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/ToolBarFeedbackService"
+        android:id="@+id/ToolBarGalleryItemService"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="10dp"
-        android:id="@+id/ListFeedbackServiceRecyclerView"
+        android:id="@+id/ListGalleryItemRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
