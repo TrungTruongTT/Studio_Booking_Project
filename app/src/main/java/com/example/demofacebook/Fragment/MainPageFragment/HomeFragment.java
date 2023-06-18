@@ -60,19 +60,6 @@ public class HomeFragment extends Fragment {
         });
         recyclerViewSort.setAdapter(sortHomeAdapter);
 
-        //Studio list home page
-//        recyclerViewStudio = view.findViewById(R.id.RecyclerViewStudio);
-//        LinearLayoutManager linearLayoutManagerStudio = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
-//        recyclerViewStudio.setLayoutManager(linearLayoutManagerStudio);
-//        studioHomeAdapter = new StudioHomeAdapter(getStudioData(), new IClickItemStudioListener() {
-//            @Override
-//            public void onClickItemStudio(Studio studio) {
-//                onClickItemGoDetail(studio);
-//            }
-//        });
-//        recyclerViewStudio.setAdapter(studioHomeAdapter);
-        //Service List
-
         recyclerViewService = view.findViewById(R.id.RecyclerViewService);
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewService.setLayoutManager(linearLayoutManager2);
@@ -92,7 +79,7 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent(getActivity(), ServicePage.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1", 40, 5);
+        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 40, 5);
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);

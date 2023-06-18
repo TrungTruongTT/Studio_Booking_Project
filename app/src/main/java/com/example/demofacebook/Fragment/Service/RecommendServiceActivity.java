@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecommendServiceActivity extends AppCompatActivity {
-
+    private Studio studio;
     List<Service> recommendService;
     private RecyclerView recyclerViewService;
     private ServiceAdapter serviceAdapter;
@@ -30,6 +30,7 @@ public class RecommendServiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend_service);
+        loadData();
         initToolBar();
         loadRecommendService();
     }
@@ -103,6 +104,11 @@ public class RecommendServiceActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+    private void loadData() {
+        if (getIntent().getExtras() != null) {
+            studio = (Studio) getIntent().getExtras().get("studio");
+        }
+    }
 
     private void initToolBar() {
         Toolbar toolbar;
@@ -110,7 +116,7 @@ public class RecommendServiceActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("");
+            getSupportActionBar().setTitle(studio.getTitle());
         }
     }
 

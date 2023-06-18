@@ -1,14 +1,12 @@
 package com.example.demofacebook.Fragment.MainPageFragment;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,33 +19,47 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+public class NotificationActivity extends AppCompatActivity {
 
-public class NotificationFragment extends Fragment {
     private RecyclerView recyclerViewNofication;
     private NotificationAdapter notificationAdapter;
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_notification);
+        initToolBar();
 
-        recyclerViewNofication = getActivity().findViewById(R.id.RecyclerNotification);
-        LinearLayoutManager linearLayoutManagerOption = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        recyclerViewNofication = findViewById(R.id.RecyclerNotification);
+        LinearLayoutManager linearLayoutManagerOption = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerViewNofication.setLayoutManager(linearLayoutManagerOption);
 
         notificationAdapter = new NotificationAdapter(new IClickItemNotificationListener() {
             @Override
             public void onClickItemNotification(Notification notification) {
-                Toast.makeText(getActivity(), notification.getNotificationTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), notification.getNotificationTitle(), Toast.LENGTH_SHORT).show();
             }
         }, getNotificationData());
         recyclerViewNofication.setAdapter(notificationAdapter);
     }
 
-    @Nullable
+    private void initToolBar() {
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.NotificationToolBar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Favorite");
+        }
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notification, container, false);
-        return view;
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private List<Notification> getNotificationData() {

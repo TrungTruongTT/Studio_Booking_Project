@@ -57,34 +57,23 @@ public class ServicePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_page);
-        //loadService Data
+        //load Service Page Data (Studio + Service)
         loadData();
         //LoadAppBar
         initToolBar();
         //Slide Image
-        viewPager = findViewById(R.id.ViewPagerService);
-        CircleIndicator circleIndicator = findViewById(R.id.Circle_Indicator_Service);
-        photoList = getPhotoList();
-        PhotoAdapter photoAdapter = new PhotoAdapter(this, photoList);
-        viewPager.setAdapter(photoAdapter);
-
-        circleIndicator.setViewPager(viewPager);
-        photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
+        slideImage();
         //Auto SlideImages
         autoSlideImages();
         //onClickAddToCart
         Button button = findViewById(R.id.AddToCartBtn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ServicePage.this, String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
-            }
-        });
+        button.setOnClickListener(view -> Toast.makeText(ServicePage.this, String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show());
+        //Click on studio
         LinearLayout linearLayout = findViewById(R.id.userLayout);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickItemGoDetail(studio);
+                onClickItemGoStudioDetail(studio);
             }
         });
         //load Feedback list
@@ -108,22 +97,31 @@ public class ServicePage extends AppCompatActivity {
             }
         });
     }
-    private void onClickItemGoDetail(Studio studio) {
+
+    private void slideImage() {
+        viewPager = findViewById(R.id.ViewPagerService);
+        CircleIndicator circleIndicator = findViewById(R.id.Circle_Indicator_Service);
+        photoList = getPhotoList();
+        PhotoAdapter photoAdapter = new PhotoAdapter(this, photoList);
+        viewPager.setAdapter(photoAdapter);
+        circleIndicator.setViewPager(viewPager);
+        photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
+    }
+
+    private void onClickItemGoStudioDetail(Studio studio) {
         Intent intent = new Intent(this, StudioPageActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("Studio", studio);
+        bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
     }
     private void onClickViewMoreService() {
         Intent intent = new Intent(this, RecommendServiceActivity.class);
         Bundle bundle = new Bundle();
-
         bundle.putSerializable("service", service);
         Studio studio = new Studio(1, R.drawable.download, "Studio 1", 40, 5);
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
-
         startActivity(intent);
     }
 
@@ -223,9 +221,9 @@ public class ServicePage extends AppCompatActivity {
                 TextView serviceName = findViewById(R.id.ServiceNameDetail);
                 serviceName.setText(service.getServiceName());
                 TextView servicePrice = findViewById(R.id.ServicePriceDetail);
-                servicePrice.setText(String.valueOf(service.getPriceService()));
+                servicePrice.setText("Price: " + String.valueOf(service.getPriceService()) + "$");
                 TextView serviceDiscount = findViewById(R.id.ServicePriceDiscountDetail);
-                serviceDiscount.setText(String.valueOf(service.getPriceService()));
+                serviceDiscount.setText("Discount: " + String.valueOf(service.getPriceService() + "$"));
                 TextView serviceDescription = findViewById(R.id.ServiceDescription);
                 serviceDescription.setText(service.getServiceDescription());
 

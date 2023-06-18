@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,12 +83,6 @@ public class StudioPageActivity extends AppCompatActivity {
                     break;
             }
         }).attach();
-        mTabLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(StudioPageActivity.this, "CHELCLLLLLLLLLLLLLLLLL", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private List<StudioToolBarPhoto> getPhotoList() {
@@ -104,7 +97,11 @@ public class StudioPageActivity extends AppCompatActivity {
 
     private void loadStudioInfo() {
         if (getIntent().getExtras() != null) {
-            studio = (Studio) getIntent().getExtras().get("Studio");
+            studio = (Studio) getIntent().getExtras().get("studio");
+            if(studio == null){
+                Toast.makeText(this, "LoadStudio Fail", Toast.LENGTH_SHORT).show();
+                return;
+            }
             TextView studioName = findViewById(R.id.StudioName);
             studioName.setText(studio.getTitle());
 

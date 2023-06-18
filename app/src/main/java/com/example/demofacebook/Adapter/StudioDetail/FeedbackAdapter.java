@@ -57,7 +57,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
         holder.feedbackImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openUpdateUserDialog(Gravity.TOP, feedback);
+                openViewImageFeedbackDialog(Gravity.TOP, feedback);
             }
         });
         holder.feedbackDate.setText("Create at " + feedback.getFeedbackDate().toString());
@@ -70,7 +70,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
         });
     }
 
-    private void openUpdateUserDialog(int gravity, Feedback feedback) {
+    private void openViewImageFeedbackDialog(int gravity, Feedback feedback) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_feedback_image);

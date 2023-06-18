@@ -1,10 +1,11 @@
 package com.example.demofacebook.Fragment.StudioDetailFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,11 +45,28 @@ public class StudioGalleryFragment extends Fragment {
         galleryAdapter = new GalleryAdapter(mGalleryList, new IClickItemGalleryListener() {
             @Override
             public void onClickItemGallery(Gallery gallery) {
-                Toast.makeText(getActivity(), gallery.getGalleryName(), Toast.LENGTH_SHORT).show();
+                onClickGoGalleryDetail(gallery);
             }
         });
         recyclerViewGallery.setAdapter(galleryAdapter);
 
+        Button button = view.findViewById(R.id.ViewMoreGallery);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickViewMoreGallery();
+            }
+        });
+
+
+    }
+
+    private void onClickGoGalleryDetail(Gallery gallery) {
+        Intent intent = new Intent(getActivity(), GalleryItemActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("gallery", gallery);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private List<Gallery> getGalleryData() {
@@ -61,6 +79,14 @@ public class StudioGalleryFragment extends Fragment {
         myList.add(new Gallery(4, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
         myList.add(new Gallery(5, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
         return myList;
+    }
+
+    private void onClickViewMoreGallery() {
+        Intent intent = new Intent(getActivity(), GalleryActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("studio", studio);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Nullable

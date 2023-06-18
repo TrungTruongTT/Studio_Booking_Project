@@ -13,9 +13,10 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:paddingStart="5dp"
             android:id="@+id/UserAvatar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="top"
             android:layout_marginTop="5dp"
             android:scaleType="centerCrop"
@@ -29,6 +30,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/BackText"
                 android:id="@+id/FeedbackUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,6 +47,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:textColor="@color/BackText"
                 android:id="@+id/FeedbackDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,6 +65,7 @@
                 android:src="@drawable/download" />
 
             <TextView
+                android:paddingBottom="10dp"
                 android:id="@+id/FeedbackDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -16,4 +16,10 @@
         android:icon="@drawable/baseline_notifications_24"
         app:showAsAction="always"
         />
+    <item
+        android:id="@+id/favorite"
+        android:title="Favorite"
+        android:icon="@drawable/cute_heart"
+        app:showAsAction="always"
+        />
 </menu>
