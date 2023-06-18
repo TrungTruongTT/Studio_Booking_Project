@@ -2,11 +2,13 @@ package com.example.demofacebook;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +28,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.demofacebook.Adapter.Booking.OrderDetailAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackOrderDetailListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderDetailListener;
@@ -34,6 +35,7 @@ import com.example.demofacebook.Fragment.Service.ServicePage;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +48,9 @@ public class OrderDetailActivity extends AppCompatActivity {
     private OrderDetailAdapter orderDetailAdapter;
     private List<Service> mList;
     //Upload Image
-    public static final int MY_REQUEST_CODE = 10;
     private static final int GALLERY_REQUEST_CODE = 123;
-    ImageView imageView;
+    ImageView uploadImage_Feedback;
+    Bitmap bitmap;
 
 
     @Override
@@ -171,16 +173,13 @@ public class OrderDetailActivity extends AppCompatActivity {
         EditText feedbackFormDescription = dialog.findViewById(R.id.FeedbackFormDescription);
         configEditText(feedbackFormDescription);
 
-
-        ImageView imageView = dialog.findViewById(R.id.ImageViewFeedback);
-        ImageView uploadImage_Feedback = dialog.findViewById(R.id.UploadImage_Feedback);
+        uploadImage_Feedback = dialog.findViewById(R.id.UploadImage_Feedback);
         uploadImage_Feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadFeedbackImage();
             }
         });
-
 
         Button updateDialog = dialog.findViewById(R.id.SubmitFeedbackDialog);
         updateDialog.setOnClickListener(new View.OnClickListener() {
@@ -222,13 +221,16 @@ public class OrderDetailActivity extends AppCompatActivity {
             // You can retrieve the image URI or perform further operations here.
 
             // Example: Retrieving the image URI
-            String imageUri = data.getData().toString();
-            Log.d("check",imageUri);
+//            String imageUri = data.getData().toString();
+            Uri uri = data.getData();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                uploadImage_Feedback.setImageBitmap(bitmap);
+                //Glide.with(this).load(uri).into(uploadImage_Feedback);
 
-            //Glide.with(this).load("imageUri").into(imageView);
-            Toast.makeText(this, imageUri, Toast.LENGTH_SHORT).show();
-            // Do something with the image URI
-            // ...
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
