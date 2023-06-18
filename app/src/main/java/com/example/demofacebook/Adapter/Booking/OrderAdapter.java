@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
 import com.example.demofacebook.Model.Order;
-import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.R;
 
-import java.util.Date;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
@@ -44,9 +42,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 //        holder.imageGallery.setImageResource(gallery.getImageGallery());
         Log.d("a", order.toString());
         holder.status.setText(String.valueOf(order.getStatus()));
-        holder.totalPrice.setText(String.valueOf(order.getTotalPrice()));
-        holder.totalOrderDetail.setText(String.valueOf(order.getTotalOrderDetail()));
+        holder.totalPrice.setText("Total Price: $" + String.valueOf(order.getTotalPrice()));
+        holder.totalOrderDetail.setText("Service: " + String.valueOf(order.getTotalOrderDetail()));
         holder.serviceName.setText(order.getServiceName());
+        holder.orderDate.setText(order.getOrderDate().toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +81,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             totalPrice = itemView.findViewById(R.id.orderTotalPrice);
             totalOrderDetail = itemView.findViewById(R.id.orderTotalOrderDetail);
             serviceName = itemView.findViewById(R.id.orderServiceName);
+            orderDate = itemView.findViewById(R.id.orderDate);
 
         }
     }

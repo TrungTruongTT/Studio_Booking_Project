@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
+    android:layout_marginBottom="30dp"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -15,6 +14,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
@@ -27,10 +27,9 @@
                 android:maxLines="1"
                 android:text="Shop name"
                 android:textStyle="bold"
-                android:paddingStart="10dp"
                 android:textColor="@color/TextColor_Gallery"
                 android:textSize="20sp"
-                android:gravity="left|center"/>
+                android:gravity="start|center" />
 
             <TextView
                 android:id="@+id/orderStatus"
@@ -48,7 +47,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="90dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -82,8 +81,8 @@
                     android:layout_height="40dp"
                     android:gravity="end|center"
                     android:lines="1"
-                    android:text="90.000 USD"
-                    android:textColor="@color/Price"
+                    android:text="$90.000"
+                    android:textColor="@color/GrayText"
                     android:textSize="18sp"/>
             </LinearLayout>
         </LinearLayout>
@@ -99,7 +98,7 @@
             android:ellipsize="end"
             android:text="count"
             android:gravity="start|center"
-            android:textColor="@color/TextColor_Gallery"
+            android:textColor="@color/BackText"
             android:textSize="15sp"/>
 
         <TextView
@@ -109,28 +108,46 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="Total: 100.000 USD"
+            android:textColor="@color/Price"
             android:gravity="end|center"
-            android:textColor="@color/TextColor_Gallery"
             android:textSize="18sp" />
     </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="10dp"
+            android:gravity="end"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="10dp"
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/orderDate"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
+                android:gravity="center|start"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
-            <Button
+                android:text="Date"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Chat"
-                android:textSize="15sp"
-                android:textAllCaps="false"
-                />
+                android:gravity="end">
+
+
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/Feedback_btn"
+                    android:gravity="center"
+                    android:text="Chat"
+                    android:textAllCaps="false"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

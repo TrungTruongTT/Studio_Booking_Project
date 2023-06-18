@@ -75,6 +75,10 @@
     <!--ViewMoreItemBtnColor Page -->
     <color name="btnViewMoreItem">#D6D5D5</color>
 
+    <!--OrderBtnColor Page -->
+    <color name="Chat_btn">#FFC488</color>
+    <color name="Feedback_btn">#FD8080</color>
+
 
 
 

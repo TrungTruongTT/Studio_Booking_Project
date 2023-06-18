@@ -65,21 +65,21 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="80dp">
 
                     <LinearLayout
+                        android:id="@+id/userLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="70dp"
                         android:layout_gravity="center"
-                        android:background="@color/cardView"
                         android:orientation="horizontal">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="3"
-                            android:paddingTop="3dp"
-                            android:paddingBottom="3dp"
                             android:src="@drawable/download" />
 
                         <LinearLayout
@@ -90,18 +90,22 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:textColor="@color/BackText"
                                 android:id="@+id/StudioName"
                                 android:layout_width="match_parent"
                                 android:layout_height="27.5dp"
+                                android:ellipsize="end"
                                 android:text="Studio Name"
-                                android:textColor="@color/BackText" />
+                                android:textSize="20sp" />
 
                             <TextView
+                                android:textColor="@color/BackText"
                                 android:id="@+id/StudioRating"
                                 android:layout_width="match_parent"
                                 android:layout_height="27.5dp"
                                 android:text="Rating"
-                                android:textColor="@color/BackText" />
+                                android:textSize="20sp" />
+
 
                         </LinearLayout>
                     </LinearLayout>

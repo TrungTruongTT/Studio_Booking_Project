@@ -47,12 +47,14 @@ private final IClickItemSortListener iClickItemSortListener;
                 notifyDataSetChanged();
             }
         });
+
         if(row_index == position){
             holder.linearLayout.setBackgroundResource(R.drawable.background_navbar);
 
         }else {
             holder.linearLayout.setBackgroundResource(R.color.cardView);
         }
+
     }
 
     @Override

@@ -12,6 +12,7 @@ public class Studio implements Serializable {
     private String description;
     private List<Service> serviceList;
 
+
     public List<Service> getServiceList() {
         return serviceList;
     }
@@ -34,6 +35,19 @@ public class Studio implements Serializable {
         this.title = title;
         this.totalAlbum = totalAlbum;
         this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "Studio{" +
+                "studioId=" + studioId +
+                ", image=" + image +
+                ", title='" + title + '\'' +
+                ", totalAlbum=" + totalAlbum +
+                ", rating=" + rating +
+                ", description='" + description + '\'' +
+                ", serviceList=" + serviceList +
+                '}';
     }
 
     public String getDescription() {
