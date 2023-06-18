@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Model.Message;
@@ -16,10 +17,11 @@ import java.util.List;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
 private List<Message> sListMessage;
-public void setDate(List<Message> list){
+public void setData(List<Message> list){
 this.sListMessage = list;
 notifyDataSetChanged();
 }
+
     @NonNull
     @Override
     public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,7 +32,11 @@ notifyDataSetChanged();
     @Override
     public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
         Message message = sListMessage.get(position);
-        //9:46
+
+        if(message==null){
+            return;
+        }
+        holder.tvMessage.setText(message.getMessage());
     }
 
     @Override
