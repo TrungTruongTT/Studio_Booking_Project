@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/MainListView"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp"
-    android:layout_marginBottom="20dp"
-    android:orientation="horizontal"
-    app:cardCornerRadius="8dp">
+    android:layout_marginBottom="40dp"
+    android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:background="@color/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/StudioBanner"
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -26,14 +26,14 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/StudioAvatarImage"
+                    android:id="@+id/StudioAvatarOrderImage"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/download" />
 
                 <TextView
-                    android:id="@+id/txtNameStudio"
-                    android:paddingStart="10dp"
+                    android:id="@+id/txtNameOrderStudio"
+                    android:paddingStart="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1.5"
@@ -43,10 +43,10 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/txtRating"
+                    android:id="@+id/txtOrderStudioRating"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingEnd="10dp"
+                    android:paddingEnd="15dp"
                     android:layout_weight="3"
                     android:gravity="end|center"
                     android:text="⭐ 5.0"
@@ -59,16 +59,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/serviceFavoriteRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <Button
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:background="#361974"
+                    android:gravity="center"
+                    android:text="Booking"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
         </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

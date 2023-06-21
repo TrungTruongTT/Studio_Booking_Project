@@ -3,6 +3,7 @@ package com.example.demofacebook.HomePage;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -98,7 +99,7 @@ public class StudioPageActivity extends AppCompatActivity {
     private void loadStudioInfo() {
         if (getIntent().getExtras() != null) {
             studio = (Studio) getIntent().getExtras().get("studio");
-            if(studio == null){
+            if (studio == null) {
                 Toast.makeText(this, "LoadStudio Fail", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -108,6 +109,12 @@ public class StudioPageActivity extends AppCompatActivity {
             TextView studioRating = findViewById(R.id.StudioRating);
             String rating = "⭐: " + String.valueOf(studio.getRating());
             studioRating.setText(rating);
+
+            TextView studioTitleDescription = findViewById(R.id.TitleDescription);
+            studioTitleDescription.setText(studio.getTitle());
+            TextView studioDescription = findViewById(R.id.Description);
+            studioDescription.setText(Html.fromHtml(studio.getDescription()));
+
         }
     }
 

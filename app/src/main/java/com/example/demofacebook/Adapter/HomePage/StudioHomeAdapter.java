@@ -25,8 +25,6 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
     private final List<Studio> mListStudioOld;
 
 
-
-
     public StudioHomeAdapter(List<Studio> mListStudio, IClickItemStudioListener listener) {
         this.mListStudio = mListStudio;
         this.mListStudioOld = mListStudio;
@@ -74,7 +72,6 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
         private final ImageView imgStudioAvatar;
         private final TextView txtTitle;
         private final TextView txtRating;
-
         private final TextView totalAlbum;
 
         public MyArrayAdapterHolder(@NonNull View itemView) {

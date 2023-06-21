@@ -14,10 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Booking.OrderAdapter;
-import com.example.demofacebook.Adapter.StudioDetail.GalleryAdapter;
-import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemGalleryListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
-import com.example.demofacebook.Model.Gallery;
 import com.example.demofacebook.Model.Order;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;

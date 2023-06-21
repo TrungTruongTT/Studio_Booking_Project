@@ -1,19 +1,23 @@
 package com.example.demofacebook.Adapter.Favorite;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
+import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
+import com.example.demofacebook.Fragment.Service.ServicePage;
+import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
@@ -48,26 +52,40 @@ public class StudioAdapter extends RecyclerView.Adapter<StudioAdapter.StudioView
         if (studio == null) {
             return;
         }
-//        holder.imageGallery.setImageResource(gallery.getImageGallery());
-//        Log.d("a", order.toString());
-//        holder.status.setText(String.valueOf(order.getStatus()));
-//        holder.totalPrice.setText(String.valueOf(order.getTotalPrice()));
-//        holder.totalOrderDetail.setText(String.valueOf(order.getTotalOrderDetail()));
-//        holder.serviceName.setText(order.getServiceName());
         holder.mList = studio.getServiceList();
         Log.d("a", String.valueOf(studio.getServiceList().size()));
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        holder.serviceAdapter = new ServiceAdapter(studio.getServiceList());
+
+        holder.serviceAdapter = new ServiceAdapter(studio.getServiceList(), new IClickItemServiceListener() {
+            @Override
+            public void onClickItemService(Service Service) {
+                Intent intent = new Intent(mContext, ServicePage.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("service", Service);
+                Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500,5 ,"Title Description", "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
+                bundle.putSerializable("studio", studio);
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+        });
         holder.recyclerView.setAdapter(holder.serviceAdapter);
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                iClickItemOrderListenerListener.onClickItemOrder(order);
-//            }
-//        });
+        holder.studioName.setText(studio.getTitle());
+        holder.studioAvatar.setImageResource(studio.getImage());
+        holder.rating.setText("⭐: " + studio.getRating());
+
+        holder.studioBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, StudioPageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("studio", studio);
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
@@ -81,28 +99,23 @@ public class StudioAdapter extends RecyclerView.Adapter<StudioAdapter.StudioView
 
 
     public class StudioViewHolder extends RecyclerView.ViewHolder {
-//        ImageView imageOrder;
-
-        private int orderId;
-        public TextView orderDate;
-        public TextView status;
-        public TextView totalPrice;
-        public TextView totalOrderDetail;
-        public ImageView urlImageService;
-        public TextView serviceName;
         List<Service> mList;
         RecyclerView recyclerView;
         ServiceAdapter serviceAdapter;
+        TextView studioName;
+        ImageView studioAvatar;
+        TextView rating;
+        LinearLayout studioBanner;
         Context context;
 
         public StudioViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
-//            status = itemView.findViewById(R.id.orderStatus);
-//            totalPrice = itemView.findViewById(R.id.orderTotalPrice);
-//            totalOrderDetail = itemView.findViewById(R.id.orderTotalOrderDetail);
-//            serviceName = itemView.findViewById(R.id.orderServiceName);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.serviceFavoriteRecyclerView);
+            studioName = itemView.findViewById(R.id.txtNameOrderStudio);
+            studioAvatar = itemView.findViewById(R.id.StudioAvatarOrderImage);
+            rating = itemView.findViewById(R.id.txtOrderStudioRating);
+            studioBanner = itemView.findViewById(R.id.StudioBanner);
 
         }
     }
