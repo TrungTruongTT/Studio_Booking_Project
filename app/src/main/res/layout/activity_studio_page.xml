@@ -24,10 +24,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 app:contentScrim="@color/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap"
                 app:toolbarId="@id/toolbar">
 
                 <androidx.viewpager.widget.ViewPager
+                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="parallax"
                     android:id="@+id/ViewPager"
                     android:layout_width="match_parent"
                     android:layout_height="220dp" />
@@ -55,7 +57,6 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="60dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
