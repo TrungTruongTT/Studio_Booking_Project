@@ -14,10 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Booking.OrderAdapter;
-import com.example.demofacebook.Adapter.StudioDetail.GalleryAdapter;
-import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemGalleryListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
-import com.example.demofacebook.Model.Gallery;
 import com.example.demofacebook.Model.Order;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
@@ -45,6 +42,7 @@ public class ScheduledFragment extends Fragment {
                 Toast.makeText(getActivity(),String.valueOf(order.getOrderId()) , Toast.LENGTH_SHORT).show();
                 Intent it = new Intent(view.getContext(), OrderDetailActivity.class);
                 it.putExtra("orderId", order.getOrderId());
+                it.putExtra("orderStatus", order.getStatus());
                 view.getContext().startActivity(it);
             }
         });
@@ -57,11 +55,11 @@ public class ScheduledFragment extends Fragment {
         List<Order> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Order(1, dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(2, dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(3, dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(4, dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(5, dateChange, 1, 100000, 4, "", "Ten ne"));
+        myList.add(new Order(1, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
+        myList.add(new Order(2, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
+        myList.add(new Order(3, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
+        myList.add(new Order(4, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
+        myList.add(new Order(5, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
         return myList;
     }
 

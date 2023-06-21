@@ -23,13 +23,15 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
     private final List<Service> mList;
     private final IClickItemOrderDetailListener iClickItemOrderDetailListener;
     private final IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener;
+    private final int orderStatus;
 
 
-    public OrderDetailAdapter(Context context, List<Service> mList, IClickItemOrderDetailListener iClickItemOrderDetailListener, IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener) {
+    public OrderDetailAdapter(Context context, List<Service> mList, IClickItemOrderDetailListener iClickItemOrderDetailListener, IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener, int orderStatus) {
         this.context = context;
         this.mList = mList;
         this.iClickItemOrderDetailListener = iClickItemOrderDetailListener;
         this.iClickItemFeedbackOrderDetailListener = iClickItemFeedbackOrderDetailListener;
+        this.orderStatus = orderStatus;
     }
 
     @NonNull
@@ -49,14 +51,18 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         holder.servicePrice.setText("Price: US$" + service.getPriceService());
 //        holder.urlImageService.setImageResource(orderDetail.getServiceName());
 
-        holder.feedbackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                iClickItemFeedbackOrderDetailListener.onClickItemFeedbackOrderDetail(service, holder.feedbackButton);
-                notifyDataSetChanged();
-            }
-        });
-
+        if (orderStatus == 1 || orderStatus == 3) {
+            holder.feedbackButton.setEnabled(false);
+            holder.feedbackButton.setVisibility(View.INVISIBLE);
+        } else {
+            holder.feedbackButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    iClickItemFeedbackOrderDetailListener.onClickItemFeedbackOrderDetail(service, holder.feedbackButton);
+                    notifyDataSetChanged();
+                }
+            });
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

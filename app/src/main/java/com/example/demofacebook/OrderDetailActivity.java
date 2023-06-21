@@ -44,12 +44,15 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private Studio studio;
     private int orderId;
+    private int orderStatus;
     private RecyclerView recyclerView;
     private OrderDetailAdapter orderDetailAdapter;
     private List<Service> mList;
     //Upload Image
     private static final int GALLERY_REQUEST_CODE = 123;
     ImageView uploadImage_Feedback;
+    Button cancalOrderBtn;
+    Button repurchaseOrderBtn;
     Bitmap bitmap;
 
 
@@ -57,6 +60,8 @@ public class OrderDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
+        cancalOrderBtn = findViewById(R.id.CancelOrderBtn);
+        repurchaseOrderBtn = findViewById(R.id.RepurchaseBtn);
         //Load Studio, OrderId
         loadData();
         //Init ToolBar
@@ -85,7 +90,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                 Toast.makeText(OrderDetailActivity.this, "feedback " + String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
                 openViewImageFeedbackDialog(Gravity.CENTER, studio, service, button);
             }
-        });
+        }, orderStatus);
         recyclerView.setAdapter(orderDetailAdapter);
     }
 
@@ -94,6 +99,24 @@ public class OrderDetailActivity extends AppCompatActivity {
 //            studio = (Studio) getIntent().getExtras().get("studio");
             studio = new Studio(1, R.drawable.download, "Studio 122", 40, 5);
             orderId = (int) getIntent().getExtras().get("orderId");
+            orderStatus = (int) getIntent().getExtras().get("orderStatus");
+
+
+            switch (orderStatus) {
+                case 1:
+                    cancalOrderBtn.setEnabled(true);
+                    repurchaseOrderBtn.setVisibility(View.VISIBLE);
+                    repurchaseOrderBtn.setEnabled(false);
+                    repurchaseOrderBtn.setVisibility(View.INVISIBLE);
+                    break;
+                case 2:
+                case 3:
+                    cancalOrderBtn.setEnabled(false);
+                    cancalOrderBtn.setVisibility(View.INVISIBLE);
+                    repurchaseOrderBtn.setEnabled(true);
+                    repurchaseOrderBtn.setVisibility(View.VISIBLE);
+                    break;
+            }
         }
     }
 
@@ -104,7 +127,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(String.valueOf("Order Number: " + orderId));
+            getSupportActionBar().setTitle(String.valueOf("Order Number: " + orderId + " Order Status: " + orderStatus));
         }
     }
 
@@ -236,7 +259,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private void configEditText(EditText editText) {
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        editText.requestFocus();
+        //editText.requestFocus();
         InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
     }

@@ -41,6 +41,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
 //        holder.imageGallery.setImageResource(gallery.getImageGallery());
         Log.d("a", order.toString());
+        holder.studioName.setText(order.getStudioName());
         holder.status.setText(String.valueOf(order.getStatus()));
         holder.totalPrice.setText("Total Price: $" + String.valueOf(order.getTotalPrice()));
         holder.totalOrderDetail.setText("Service: " + String.valueOf(order.getTotalOrderDetail()));
@@ -69,6 +70,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         private int orderId;
         public TextView orderDate;
+        public TextView studioName;
         public TextView status;
         public TextView totalPrice;
         public TextView totalOrderDetail;
@@ -77,6 +79,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
+            studioName = itemView.findViewById(R.id.OrderStudio);
             status = itemView.findViewById(R.id.orderStatus);
             totalPrice = itemView.findViewById(R.id.orderTotalPrice);
             totalOrderDetail = itemView.findViewById(R.id.orderTotalOrderDetail);
