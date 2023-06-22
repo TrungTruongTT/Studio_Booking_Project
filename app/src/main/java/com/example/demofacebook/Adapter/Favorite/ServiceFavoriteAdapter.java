@@ -1,5 +1,6 @@
 package com.example.demofacebook.Adapter.Favorite;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,34 +13,44 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayAdapterHolder> {
+public class ServiceFavoriteAdapter extends RecyclerView.Adapter<ServiceFavoriteAdapter.MyArrayAdapterHolder> {
+    private final Context mContext;
     private final List<Service> mListService;
     private final IClickItemServiceListener iClickItemServiceListener;
+    private final IClickItemServiceDeleteListener iClickItemServiceDeleteListener;
 
 
-    public ServiceAdapter(List<Service> mListService, IClickItemServiceListener iClickItemServiceListener) {
-
+    public ServiceFavoriteAdapter(Context mContext, List<Service> mListService, IClickItemServiceListener iClickItemServiceListener, IClickItemServiceDeleteListener iClickItemServiceDeleteListener) {
+        this.mContext = mContext;
         this.mListService = mListService;
         this.iClickItemServiceListener = iClickItemServiceListener;
+        this.iClickItemServiceDeleteListener = iClickItemServiceDeleteListener;
     }
 
     @NonNull
     @Override
     public MyArrayAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_service_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.delete_service_item, parent, false);
         return new MyArrayAdapterHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyArrayAdapterHolder holder, int position) {
         Service service = mListService.get(position);
+        int indexDelelte = position;
         if (service == null) {
             return;
         }
-        holder.imageService.setImageResource(service.getImageService());
+        Picasso.get()
+                .load(service.getImageService())
+                .placeholder(R.drawable.download)
+                .error(R.drawable.download)
+                .into(holder.imageService);
+
         holder.serviceName.setText(service.getServiceName());
         holder.ratingService.setText("⭐: " + service.getServiceRating());
         holder.views.setText("View: " + service.getView());
@@ -52,7 +63,16 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
                 iClickItemServiceListener.onClickItemService(service);
             }
         });
+
+        holder.buttonDeleteService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemServiceDeleteListener.onItemServiceDelete(service, indexDelelte);
+            }
+        });
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -62,6 +82,10 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         return 0;
     }
 
+    public void removeItem(int index) {
+        mListService.remove(index);
+        notifyItemRemoved(index);
+    }
 
     public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {
         ImageView imageService;
@@ -69,6 +93,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         TextView ratingService;
         TextView views;
         TextView servicePrice;
+        TextView buttonDeleteService;
 
         public MyArrayAdapterHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,8 +102,8 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
             ratingService = itemView.findViewById(R.id.ServiceRating);
             views = itemView.findViewById(R.id.ServiceView);
             servicePrice = itemView.findViewById(R.id.ServicePrice);
-
-
+            buttonDeleteService = itemView.findViewById(R.id.DeleteItem);
         }
+
     }
 }

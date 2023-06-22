@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.bumptech.glide.Glide;
 import com.example.demofacebook.Model.StudioToolBarPhoto;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,7 +32,11 @@ public class PhotoAdapter extends PagerAdapter {
         ImageView imageView = view.findViewById(R.id.ImagePhoto);
         StudioToolBarPhoto photo = mListPhoto.get(position);
         if (photo != null) {
-            Glide.with(mContext).load(photo.getResourceId()).into(imageView);
+            Picasso.get()
+                    .load("https://i.imgur.com/DvpvklR.png")
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download)
+                    .into(imageView);
         }
 
         container.addView(view);

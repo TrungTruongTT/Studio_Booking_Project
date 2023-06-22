@@ -24,8 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FinishedFragment extends Fragment {
-
+public class CompletedFragment extends Fragment {
     private RecyclerView recyclerViewOrder;
     private OrderAdapter orderAdapter;
     private List<Order> mList;
@@ -33,14 +32,14 @@ public class FinishedFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerViewOrder = view.findViewById(R.id.orderFinishRecyclerView);
+        recyclerViewOrder = view.findViewById(R.id.orderCompletedRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewOrder.setLayoutManager(linearLayoutManager);
         mList = getOrderData();
         orderAdapter = new OrderAdapter(mList, new IClickItemOrderListener() {
             @Override
             public void onClickItemOrder(Order order) {
-                Toast.makeText(getActivity(),String.valueOf(order.getOrderId()) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), String.valueOf(order.getOrderId()), Toast.LENGTH_SHORT).show();
                 Intent it = new Intent(view.getContext(), OrderDetailActivity.class);
                 it.putExtra("orderId", order.getOrderId());
                 it.putExtra("orderStatus", order.getStatus());
@@ -56,18 +55,18 @@ public class FinishedFragment extends Fragment {
         List<Order> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Order(1, "Studio Name", dateChange, 3, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(2, "Studio Name", dateChange, 3, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(3, "Studio Name", dateChange, 3, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(4, "Studio Name", dateChange, 3, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(5, "Studio Name", dateChange, 3, 100000, 4, "", "Ten ne"));
+        myList.add(new Order(1, "Studio Name", dateChange, 4, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(2, "Studio Name", dateChange, 4, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(3, "Studio Name", dateChange, 4, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(4, "Studio Name", dateChange, 4, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(5, "Studio Name", dateChange, 4, 100000, 4, "", "Ten service dau tien"));
         return myList;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_finished, container, false);
+        View view = inflater.inflate(R.layout.fragment_completed, container, false);
         return view;
     }
 }

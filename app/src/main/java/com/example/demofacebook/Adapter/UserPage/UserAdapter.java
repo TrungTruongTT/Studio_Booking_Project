@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.MyInterface.IClickItemUserListener;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyArrayAdapterHolder> {
 
@@ -40,7 +41,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyArrayAdapter
         if (user == null) {
             return;
         }
-        holder.userImage.setImageResource(user.getImage());
+//        holder.userImage.setImageResource(user.getImage());
+        Picasso.get()
+                .load(user.getImage())
+                .placeholder(R.drawable.download)
+                .error(R.drawable.download)
+                .into(holder.userImage);
         holder.userName.setText(user.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

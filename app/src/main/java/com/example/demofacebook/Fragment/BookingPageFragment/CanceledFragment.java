@@ -54,11 +54,11 @@ public class CanceledFragment extends Fragment {
         List<Order> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Order(1,"Studio Name", dateChange, 3, 100000, 4, "", "Ten service dau tien"));
-        myList.add(new Order(2,"Studio Name", dateChange, 3, 100000, 4, "", "Ten service dau tien"));
-        myList.add(new Order(3,"Studio Name", dateChange, 3, 100000, 4, "", "Ten service dau tien"));
-        myList.add(new Order(4,"Studio Name", dateChange, 3, 100000, 4, "", "Ten service dau tien"));
-        myList.add(new Order(5,"Studio Name", dateChange, 3, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(1, "Studio Name", dateChange, 5, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(2, "Studio Name", dateChange, 5, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(3, "Studio Name", dateChange, 5, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(4, "Studio Name", dateChange, 5, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(5, "Studio Name", dateChange, 5, 100000, 4, "", "Ten service dau tien"));
         return myList;
     }
 

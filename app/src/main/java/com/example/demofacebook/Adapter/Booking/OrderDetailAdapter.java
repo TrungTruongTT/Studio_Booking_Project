@@ -1,6 +1,5 @@
 package com.example.demofacebook.Adapter.Booking;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +18,13 @@ import com.example.demofacebook.R;
 import java.util.List;
 
 public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.OrderViewHolder> {
-    private final Context context;
     private final List<Service> mList;
     private final IClickItemOrderDetailListener iClickItemOrderDetailListener;
     private final IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener;
     private final int orderStatus;
 
 
-    public OrderDetailAdapter(Context context, List<Service> mList, IClickItemOrderDetailListener iClickItemOrderDetailListener, IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener, int orderStatus) {
-        this.context = context;
+    public OrderDetailAdapter(List<Service> mList, IClickItemOrderDetailListener iClickItemOrderDetailListener, IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener, int orderStatus) {
         this.mList = mList;
         this.iClickItemOrderDetailListener = iClickItemOrderDetailListener;
         this.iClickItemFeedbackOrderDetailListener = iClickItemFeedbackOrderDetailListener;
@@ -51,7 +48,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         holder.servicePrice.setText("Price: US$" + service.getPriceService());
 //        holder.urlImageService.setImageResource(orderDetail.getServiceName());
 
-        if (orderStatus == 1 || orderStatus == 3) {
+        if (orderStatus == 1 || orderStatus == 2 || orderStatus == 3 || orderStatus == 5) {
             holder.feedbackButton.setEnabled(false);
             holder.feedbackButton.setVisibility(View.INVISIBLE);
         } else {

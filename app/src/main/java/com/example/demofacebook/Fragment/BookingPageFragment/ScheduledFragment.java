@@ -32,7 +32,7 @@ public class ScheduledFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerViewOrder = view.findViewById(R.id.OrderRecyclerView);
+        recyclerViewOrder = view.findViewById(R.id.OrderScheduleRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewOrder.setLayoutManager(linearLayoutManager);
         mList = getOrderData();

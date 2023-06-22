@@ -42,7 +42,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 //        holder.imageGallery.setImageResource(gallery.getImageGallery());
         Log.d("a", order.toString());
         holder.studioName.setText(order.getStudioName());
-        holder.status.setText(String.valueOf(order.getStatus()));
+        holder.status.setText("Status: " + String.valueOf(order.getStatus()));
         holder.totalPrice.setText("Total Price: $" + String.valueOf(order.getTotalPrice()));
         holder.totalOrderDetail.setText("Service: " + String.valueOf(order.getTotalOrderDetail()));
         holder.serviceName.setText(order.getServiceName());
