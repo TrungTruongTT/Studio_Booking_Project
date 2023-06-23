@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Nếu thông tin đăng nhập hợp lệ, chuyển đến màn hình chính
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("user", new User(1, R.drawable.download, "phi", null, "", "", ""));
+                    bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();

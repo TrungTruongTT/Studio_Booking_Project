@@ -1,6 +1,5 @@
 package com.example.demofacebook.Adapter.Favorite;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ServiceFavoriteAdapter extends RecyclerView.Adapter<ServiceFavoriteAdapter.MyArrayAdapterHolder> {
-    private final Context mContext;
     private final List<Service> mListService;
     private final IClickItemServiceListener iClickItemServiceListener;
     private final IClickItemServiceDeleteListener iClickItemServiceDeleteListener;
 
 
-    public ServiceFavoriteAdapter(Context mContext, List<Service> mListService, IClickItemServiceListener iClickItemServiceListener, IClickItemServiceDeleteListener iClickItemServiceDeleteListener) {
-        this.mContext = mContext;
+    public ServiceFavoriteAdapter(List<Service> mListService, IClickItemServiceListener iClickItemServiceListener, IClickItemServiceDeleteListener iClickItemServiceDeleteListener) {
         this.mListService = mListService;
         this.iClickItemServiceListener = iClickItemServiceListener;
         this.iClickItemServiceDeleteListener = iClickItemServiceDeleteListener;

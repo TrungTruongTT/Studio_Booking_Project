@@ -140,6 +140,7 @@
 
 
                 <Button
+                    android:id="@+id/OrderChatBtn"
                     android:layout_width="120dp"
                     android:layout_height="35dp"
                     android:background="@color/Chat_btn"

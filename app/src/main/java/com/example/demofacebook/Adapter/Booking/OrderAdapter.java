@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
+import com.example.demofacebook.Fragment.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Model.Order;
 import com.example.demofacebook.R;
 
@@ -19,11 +21,13 @@ import java.util.List;
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
     private final List<Order> mList;
     private final IClickItemOrderListener iClickItemOrderListenerListener;
+    private final IClickItemChatOrderListener iClickItemChatOrderListener;
 
 
-    public OrderAdapter(List<Order> mListOrder, IClickItemOrderListener iClickItemOrderListenerListener) {
+    public OrderAdapter(List<Order> mListOrder, IClickItemOrderListener iClickItemOrderListenerListener, IClickItemChatOrderListener iClickItemChatOrderListener) {
         this.mList = mListOrder;
         this.iClickItemOrderListenerListener = iClickItemOrderListenerListener;
+        this.iClickItemChatOrderListener = iClickItemChatOrderListener;
     }
 
     @NonNull
@@ -54,6 +58,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 iClickItemOrderListenerListener.onClickItemOrder(order);
             }
         });
+
+        holder.chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemChatOrderListener.onClickItemChatOrder(order);
+            }
+        });
     }
 
     @Override
@@ -75,6 +86,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public TextView totalPrice;
         public TextView totalOrderDetail;
         public ImageView urlImageService;
+        public Button chatButton;
         public TextView serviceName;
 
         public OrderViewHolder(@NonNull View itemView) {
@@ -85,6 +97,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             totalOrderDetail = itemView.findViewById(R.id.orderTotalOrderDetail);
             serviceName = itemView.findViewById(R.id.orderServiceName);
             orderDate = itemView.findViewById(R.id.orderDate);
+            chatButton = itemView.findViewById(R.id.OrderChatBtn);
 
         }
     }

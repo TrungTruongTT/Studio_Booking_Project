@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Booking.OrderAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
+import com.example.demofacebook.Fragment.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Model.Order;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
@@ -44,6 +45,11 @@ public class CompletedFragment extends Fragment {
                 it.putExtra("orderId", order.getOrderId());
                 it.putExtra("orderStatus", order.getStatus());
                 view.getContext().startActivity(it);
+            }
+        }, new IClickItemChatOrderListener() {
+            @Override
+            public void onClickItemChatOrder(Order order) {
+                Toast.makeText(view.getContext(), "Chat with order id: " + order.getOrderId(), Toast.LENGTH_SHORT).show();
             }
         });
         recyclerViewOrder.setAdapter(orderAdapter);

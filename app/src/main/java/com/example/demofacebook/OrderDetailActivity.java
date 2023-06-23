@@ -57,15 +57,16 @@ public class OrderDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
-        cancelOrderBtn = findViewById(R.id.CancelOrderBtn);
-        depositOrderBtn = findViewById(R.id.DepositOrderBtn);
-        paidTheRestOrderBtn = findViewById(R.id.PaidTheRestOrderBtn);
         //Load Studio, OrderId
         loadData();
         //Init ToolBar
         initToolBar();
         //LoadServiceList
         loadServiceList();
+        //Action Button
+        cancelOrderBtn = findViewById(R.id.CancelOrderBtn);
+        depositOrderBtn = findViewById(R.id.DepositOrderBtn);
+        paidTheRestOrderBtn = findViewById(R.id.PaidTheRestOrderBtn);
 
     }
 

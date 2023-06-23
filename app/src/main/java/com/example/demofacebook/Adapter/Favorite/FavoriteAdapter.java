@@ -59,7 +59,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Studio
         holder.mList = studio.getServiceList();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
-        holder.serviceFavoriteAdapter = new ServiceFavoriteAdapter(mContext, studio.getServiceList(), new IClickItemServiceListener() {
+        holder.serviceFavoriteAdapter = new ServiceFavoriteAdapter(studio.getServiceList(), new IClickItemServiceListener() {
             @Override
             public void onClickItemService(Service Service) {
                 Intent intent = new Intent(mContext, ServicePage.class);
@@ -95,10 +95,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Studio
                 mContext.startActivity(intent);
             }
         });
-        //Booking Service Item
+
+        //Booking Service Item (Booking btn)
         holder.bookingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                removeItem(studioIndex);
                 Toast.makeText(mContext, "Total Service: " + holder.serviceFavoriteAdapter.getItemCount() + studio.toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -139,6 +141,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Studio
             if (serviceFavoriteAdapter.getItemCount() == 0) {
                 removeItem(studioIndex);
             }
+
             dialog.dismiss();
         });
         dialog.show();
@@ -172,7 +175,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Studio
         public StudioViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
-            recyclerView = (RecyclerView) itemView.findViewById(R.id.serviceFavoriteRecyclerView);
+            recyclerView = itemView.findViewById(R.id.serviceFavoriteRecyclerView);
             studioName = itemView.findViewById(R.id.txtNameOrderStudio);
             studioAvatar = itemView.findViewById(R.id.StudioAvatarOrderImage);
             rating = itemView.findViewById(R.id.txtOrderStudioRating);

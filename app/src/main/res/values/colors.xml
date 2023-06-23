@@ -82,6 +82,10 @@
     <color name="Gray_btn">#AEAFB1</color>
     <color name="Booking_btn">#0283df</color>
     <color name="Booking_text_btn">#ffffff</color>
+    <!--OrderBtnColor Page -->
+    <color name="Button_1">#FFC488</color>
+    <color name="Button_2">#BAFC6060</color>
+    <color name="Button_3">#AEAFB1</color>
 
 
 </resources>
