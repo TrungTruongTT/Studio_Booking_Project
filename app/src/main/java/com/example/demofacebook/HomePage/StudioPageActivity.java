@@ -18,7 +18,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.demofacebook.Adapter.StudioDetail.PhotoAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.StudioViewPagerAdapter;
 import com.example.demofacebook.Model.Studio;
-import com.example.demofacebook.Model.StudioToolBarPhoto;
 import com.example.demofacebook.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -36,7 +35,7 @@ public class StudioPageActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
     private PhotoAdapter photoAdapter;
-    private List<StudioToolBarPhoto> photoList;
+    private List<String> photoList;
     private Timer timer;
     private TabLayout mTabLayout;
     private ViewPager2 mViewPager;
@@ -86,13 +85,13 @@ public class StudioPageActivity extends AppCompatActivity {
         }).attach();
     }
 
-    private List<StudioToolBarPhoto> getPhotoList() {
-        List<StudioToolBarPhoto> myList = new ArrayList<>();
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
+    private List<String> getPhotoList() {
+        List<String> myList = new ArrayList<>();
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
         return myList;
     }
 

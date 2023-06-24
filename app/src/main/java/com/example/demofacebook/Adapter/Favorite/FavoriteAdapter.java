@@ -65,7 +65,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Studio
                 Intent intent = new Intent(mContext, ServicePage.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("service", Service);
-                Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Title Description",
+                Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5,
                         "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
                 bundle.putSerializable("studio", studio);
                 intent.putExtras(bundle);

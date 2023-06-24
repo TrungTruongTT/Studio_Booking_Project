@@ -28,7 +28,6 @@ import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
-import com.example.demofacebook.Model.StudioToolBarPhoto;
 import com.example.demofacebook.R;
 
 import java.sql.Date;
@@ -43,7 +42,7 @@ public class ServicePage extends AppCompatActivity {
     private Studio studio;
     private Service service;
     private ViewPager viewPager;
-    private List<StudioToolBarPhoto> photoList;
+    private List<String> photoList;
     private Timer timer;
     //feedback
     private RecyclerView recyclerViewFeedback;
@@ -123,7 +122,8 @@ public class ServicePage extends AppCompatActivity {
         Intent intent = new Intent(this, RecommendServiceActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Title Description", "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
+        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5,
+                "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -134,7 +134,7 @@ public class ServicePage extends AppCompatActivity {
         Bundle bundle = new Bundle();
 
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Title Description", "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
+        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -174,7 +174,7 @@ public class ServicePage extends AppCompatActivity {
         Intent intent = new Intent(this, ServicePage.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Title Description", "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
+        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -247,13 +247,13 @@ public class ServicePage extends AppCompatActivity {
         }
     }
 
-    private List<StudioToolBarPhoto> getPhotoList() {
-        List<StudioToolBarPhoto> myList = new ArrayList<>();
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
+    private List<String> getPhotoList() {
+        List<String> myList = new ArrayList<>();
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
         return myList;
     }
 

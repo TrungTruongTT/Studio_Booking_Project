@@ -1,4 +1,4 @@
-package com.example.demofacebook.Adapter.StudioDetail;
+package com.example.demofacebook.Adapter.NewFeed;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -21,11 +21,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class PhotoAdapter extends PagerAdapter {
+public class SlideImageAdapter extends PagerAdapter {
     private Context mContext;
     private List<String> mListPhoto;
 
-    public PhotoAdapter(Context mContext, List<String> mListPhoto) {
+    public SlideImageAdapter(Context mContext, List<String> mListPhoto) {
         this.mContext = mContext;
         this.mListPhoto = mListPhoto;
     }
@@ -33,9 +33,9 @@ public class PhotoAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.layout_studio_photo_item, container, false);
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.layout_image_slide_item, container, false);
 
-        ImageView imageView = view.findViewById(R.id.ImagePhoto);
+        ImageView imageView = view.findViewById(R.id.NewFeedImageSlide);
         String photo = mListPhoto.get(position);
         if (photo != null) {
             Picasso.get()

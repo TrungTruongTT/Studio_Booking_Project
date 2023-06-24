@@ -9,8 +9,6 @@ public class Studio implements Serializable {
     private String title;
     private int totalAlbum;
     private int rating;
-
-    private String titleDescription;
     private String description;
     private List<Service> serviceList;
 
@@ -26,13 +24,12 @@ public class Studio implements Serializable {
     }
 
 
-    public Studio(int studioId, int image, String title, int totalAlbum, int rating, String titleDescription, String description) {
+    public Studio(int studioId, int image, String title, int totalAlbum, int rating, String description) {
         this.studioId = studioId;
         this.image = image;
         this.title = title;
         this.totalAlbum = totalAlbum;
         this.rating = rating;
-        this.titleDescription = titleDescription;
         this.description = description;
     }
 
