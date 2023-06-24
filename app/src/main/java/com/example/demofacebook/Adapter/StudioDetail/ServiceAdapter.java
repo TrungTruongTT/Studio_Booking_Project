@@ -3,6 +3,8 @@ package com.example.demofacebook.Adapter.StudioDetail;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,16 +15,18 @@ import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemService
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayAdapterHolder> {
-    private final List<Service> mListService;
+public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayAdapterHolder> implements Filterable {
+    private List<Service> mListService;
+    private final List<Service> mListServiceOld;
     private final IClickItemServiceListener iClickItemServiceListener;
 
 
     public ServiceAdapter(List<Service> mListService, IClickItemServiceListener iClickItemServiceListener) {
-
         this.mListService = mListService;
+        this.mListServiceOld = mListService;
         this.iClickItemServiceListener = iClickItemServiceListener;
     }
 
@@ -62,6 +66,78 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         return 0;
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
+                List<Service> list = new ArrayList<>();
+                if (strSearch.isEmpty()) {
+                    mListService = mListServiceOld;
+                }
+                if (!strSearch.isEmpty()) {
+                    //sortBy Category - sortByItem
+                    if ("@!All".equals(strSearch)) {
+                        for (Service service : mListServiceOld) {
+                            if (true) {
+                                list.add(service);
+                            }
+                        }
+                    }
+                    if ("@!Top Rating".equals(strSearch)) {
+                        list = mListServiceOld;
+                        list.sort((service, t1) -> {
+                            return (int) (t1.getServiceRating() - service.getServiceRating());
+                        });
+                    }
+                    if ("@!Low Price".equals(strSearch)) {
+                        list = mListServiceOld;
+                        list.sort((service, t1) -> {
+                            return (int) (service.getPriceService() - t1.getPriceService());
+                        });
+                    }
+                    if ("@!High Price".equals(strSearch)) {
+                        list = mListServiceOld;
+                        list.sort((service, t1) -> {
+                            return (int) (t1.getPriceService() - service.getPriceService());
+                        });
+                    }
+                    if ("@!Top View".equals(strSearch)) {
+                        list = mListServiceOld;
+                        list.sort((service, t1) -> {
+                            return (int) (t1.getView() - service.getView());
+                        });
+                    }
+                    if ("@!Low View".equals(strSearch)) {
+                        list = mListServiceOld;
+                        list.sort((service, t1) -> {
+                            return (int) (service.getView() - t1.getView());
+                        });
+                    }
+                    //Search bar
+                    else {
+                        for (Service service : mListServiceOld) {
+                            if (service.getServiceName().toLowerCase().trim().contains(strSearch.toLowerCase().trim())) {
+                                list.add(service);
+                            }
+                        }
+                    }
+                }
+                mListService = list;
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mListService;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults results) {
+                mListService = (List<Service>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 
     public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {
         ImageView imageService;
@@ -77,8 +153,6 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
             ratingService = itemView.findViewById(R.id.ServiceRating);
             views = itemView.findViewById(R.id.ServiceView);
             servicePrice = itemView.findViewById(R.id.ServicePrice);
-
-
         }
     }
 }

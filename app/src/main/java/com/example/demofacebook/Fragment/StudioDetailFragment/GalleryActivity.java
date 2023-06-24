@@ -82,6 +82,7 @@ public class GalleryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
             getSupportActionBar().setTitle(studio.getTitle());
         }
     }

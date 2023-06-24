@@ -41,10 +41,10 @@ public class ChatFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         /*layoutTop.findViewById(R.id.layout_top_chat);*/
-        layoutBottom = view.findViewById(R.id.layout_bottom_chat);
-        editMessage= view.findViewById(R.id.edit_message);
-        btnSend= view.findViewById(R.id.btn_send);
-        rcvMessage= getActivity().findViewById(R.id.rcv_message);
+//        layoutBottom = view.findViewById(R.id.layout_bottom_chat);
+//        editMessage= view.findViewById(R.id.edit_message);
+//        btnSend= view.findViewById(R.id.btn_send);
+//        rcvMessage= getActivity().findViewById(R.id.rcv_message);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rcvMessage.setLayoutManager(linearLayoutManager);

@@ -17,7 +17,8 @@
         app:tabBackground="@color/Background_Tab_Layout"
         app:tabTextColor="@color/UnSelected_Tab_Layout"
         android:layout_width="match_parent"
-        app:tabMode="fixed"
+        app:tabGravity="center"
+        app:tabMode="scrollable"
         android:layout_height="wrap_content" />
 
     <androidx.viewpager2.widget.ViewPager2
