@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +28,6 @@ import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
-import com.example.demofacebook.Model.StudioToolBarPhoto;
 import com.example.demofacebook.R;
 
 import java.sql.Date;
@@ -42,7 +42,7 @@ public class ServicePage extends AppCompatActivity {
     private Studio studio;
     private Service service;
     private ViewPager viewPager;
-    private List<StudioToolBarPhoto> photoList;
+    private List<String> photoList;
     private Timer timer;
     //feedback
     private RecyclerView recyclerViewFeedback;
@@ -67,7 +67,10 @@ public class ServicePage extends AppCompatActivity {
         autoSlideImages();
         //onClickAddToCart
         Button button = findViewById(R.id.AddToCartBtn);
-        button.setOnClickListener(view -> Toast.makeText(ServicePage.this, String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show());
+        button.setOnClickListener(view -> {
+            Toast.makeText(ServicePage.this, String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+            button.setBackgroundResource(R.drawable.love_heart_svg);
+        });
         //Click on studio
         LinearLayout linearLayout = findViewById(R.id.userLayout);
         linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +122,8 @@ public class ServicePage extends AppCompatActivity {
         Intent intent = new Intent(this, RecommendServiceActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1", 40, 5);
+        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5,
+                "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -130,7 +134,7 @@ public class ServicePage extends AppCompatActivity {
         Bundle bundle = new Bundle();
 
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1", 40, 5);
+        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -170,7 +174,7 @@ public class ServicePage extends AppCompatActivity {
         Intent intent = new Intent(this, ServicePage.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1", 40, 5);
+        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -225,7 +229,7 @@ public class ServicePage extends AppCompatActivity {
                 TextView serviceDiscount = findViewById(R.id.ServicePriceDiscountDetail);
                 serviceDiscount.setText("Discount: " + String.valueOf(service.getPriceService() + "$"));
                 TextView serviceDescription = findViewById(R.id.ServiceDescription);
-                serviceDescription.setText(service.getServiceDescription());
+                serviceDescription.setText(Html.fromHtml(service.getServiceDescription()));
 
             }
         }
@@ -243,13 +247,13 @@ public class ServicePage extends AppCompatActivity {
         }
     }
 
-    private List<StudioToolBarPhoto> getPhotoList() {
-        List<StudioToolBarPhoto> myList = new ArrayList<>();
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
-        myList.add(new StudioToolBarPhoto(R.drawable.download));
+    private List<String> getPhotoList() {
+        List<String> myList = new ArrayList<>();
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
+        myList.add("https://i.imgur.com/DvpvklR.png");
         return myList;
     }
 

@@ -1,7 +1,6 @@
 package com.example.demofacebook.HomePage;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,12 +22,14 @@ import com.example.demofacebook.Fragment.MainPageFragment.HomeFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.NewFeedFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.NotificationActivity;
 import com.example.demofacebook.Fragment.MainPageFragment.UserFragment;
+import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Search.SearchActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private Fragment selectedFragment = null;
     private Toolbar toolbar;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,9 +126,11 @@ public class HomeActivity extends AppCompatActivity {
                     selectedFragment = new BookingFragment();
                 }
                 if (position == 4) {
-                    getSupportActionBar().setTitle("User");
+
+                    getSupportActionBar().setTitle("Profile");
                     getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
                     selectedFragment = new UserFragment();
+
                 }
                 if (selectedFragment != null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();

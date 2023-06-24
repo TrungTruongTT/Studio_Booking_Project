@@ -5,12 +5,24 @@ import java.util.Date;
 public class Order {
 
     private int orderId;
+    private String StudioName;
     private Date orderDate;
     private int status;
     private int totalPrice;
     private int totalOrderDetail;
     private String urlImageService;
     private String serviceName;
+
+    public Order(int orderId, String studioName, Date orderDate, int status, int totalPrice, int totalOrderDetail, String urlImageService, String serviceName) {
+        this.orderId = orderId;
+        StudioName = studioName;
+        this.orderDate = orderDate;
+        this.status = status;
+        this.totalPrice = totalPrice;
+        this.totalOrderDetail = totalOrderDetail;
+        this.urlImageService = urlImageService;
+        this.serviceName = serviceName;
+    }
 
     @Override
     public String toString() {
@@ -34,6 +46,14 @@ public class Order {
         this.totalOrderDetail = totalOrderDetail;
         this.urlImageService = urlImageService;
         this.serviceName = serviceName;
+    }
+
+    public String getStudioName() {
+        return StudioName;
+    }
+
+    public void setStudioName(String studioName) {
+        StudioName = studioName;
     }
 
     public int getOrderId() {

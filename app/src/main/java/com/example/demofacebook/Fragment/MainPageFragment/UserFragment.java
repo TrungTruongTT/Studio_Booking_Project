@@ -1,5 +1,6 @@
 package com.example.demofacebook.Fragment.MainPageFragment;
 
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -52,9 +53,9 @@ public class UserFragment extends Fragment {
         userAdapter = new UserAdapter(new IClickItemUserListener() {
             @Override
             public void onClickItemUser(User user) {
-                Toast.makeText(getActivity(), user.getEmail(), Toast.LENGTH_SHORT).show();
+                clickGoOption("Update Information");
             }
-        }, getUser(), getContext());
+        }, getUser());
         recyclerViewUser.setAdapter(userAdapter);
     }
 
@@ -67,7 +68,6 @@ public class UserFragment extends Fragment {
             @Override
             public void onClickItemUserOptionListener(String option) {
                 Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
-                clickGoOption(option);
             }
         }, getListOptionName(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
@@ -103,7 +103,7 @@ public class UserFragment extends Fragment {
         if (option.equals("Update Information")) {
             Intent intent = new Intent(getActivity(), UserUpdateActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("User", user);
+            bundle.putSerializable("user", user);
             intent.putExtras(bundle);
             startActivity(intent);
         }
@@ -117,18 +117,10 @@ public class UserFragment extends Fragment {
     }
 
     private User getUser() {
-        Integer userId = 1;
-        Integer userImage = R.drawable.download;
-        String userName = "PhiPhiPhi";
         String str = "2001-06-15";
         Date dateOfBirth = Date.valueOf(str);
-
-        String phone = "0966324244";
-        String email = "Phinhse150972@fpt.edu.vn";
-        String password = "Phinhse150972";
-
-
-        User user = new User(userId, userImage, userName, dateOfBirth, phone, email, password);
+        String url = "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg";
+        User user = new User(1, url, "PhiPhiPhi", dateOfBirth, "0966324244", "Phinhse150972@fpt.edu.vn", "Phinhse150972");
 
         return user;
     }
@@ -136,7 +128,7 @@ public class UserFragment extends Fragment {
 
     private List<String> getListOptionName() {
         List<String> myList = new ArrayList<>();
-        String[] optionName = {"Update Information", "Option 2"};
+        String[] optionName = {"Option 1", "Option 2"};
         for (int i = 0; i < optionName.length; i++) {
             myList.add(optionName[i]);
         }

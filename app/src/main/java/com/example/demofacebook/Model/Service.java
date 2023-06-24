@@ -11,14 +11,14 @@ public class Service implements Serializable {
     private int priceService;
     private int view;
 
-    public Service(int serviceId, int imageService, double serviceRating, String serviceName, int priceService, int view) {
-        this.serviceId = serviceId;
-        this.imageService = imageService;
-        this.serviceRating = serviceRating;
-        ServiceName = serviceName;
-        this.priceService = priceService;
-        this.view = view;
-    }
+//    public Service(int serviceId, int imageService, double serviceRating, String serviceName, int priceService, int view) {
+//        this.serviceId = serviceId;
+//        this.imageService = imageService;
+//        this.serviceRating = serviceRating;
+//        ServiceName = serviceName;
+//        this.priceService = priceService;
+//        this.view = view;
+//    }
 
     public Service(int serviceId, int imageService, double serviceRating, String serviceName, String serviceDescription, int priceService, int view) {
         this.serviceId = serviceId;

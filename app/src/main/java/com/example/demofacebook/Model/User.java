@@ -5,14 +5,14 @@ import java.sql.Date;
 
 public class User implements Serializable {
     private int userId;
-    private int image;
+    private String image;
     private String Name;
     private Date dateOfBirth;
     private String phone;
     private String email;
     private String password;
 
-    public User(int userId, int image, String name, Date dateOfBirth, String phone, String email, String password) {
+    public User(int userId, String image, String name, Date dateOfBirth, String phone, String email, String password) {
         this.userId = userId;
         this.image = image;
         Name = name;
@@ -22,11 +22,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

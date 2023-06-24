@@ -70,7 +70,7 @@
                         android:layout_width="200dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="@color/Chat_btn"
+                        android:background="@color/Feedback_btn"
                         android:text="Feedback"
                         android:textAllCaps="false"
                         android:textSize="15sp" />

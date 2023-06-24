@@ -13,28 +13,24 @@ public class Studio implements Serializable {
     private List<Service> serviceList;
 
 
-    public List<Service> getServiceList() {
-        return serviceList;
-    }
-
-    public void setServiceList(List<Service> serviceList) {
-        this.serviceList = serviceList;
-    }
-
-    public Studio(int studioId, int image, String title, int rating, List<Service> serviceList) {
-        this.studioId = studioId;
-        this.image = image;
-        this.title = title;
-        this.rating = rating;
-        this.serviceList = serviceList;
-    }
-
-    public Studio(int studioId, int image, String title, int totalAlbum, int rating) {
+    public Studio(int studioId, int image, String title, int totalAlbum, int rating, String description, List<Service> serviceList) {
         this.studioId = studioId;
         this.image = image;
         this.title = title;
         this.totalAlbum = totalAlbum;
         this.rating = rating;
+        this.description = description;
+        this.serviceList = serviceList;
+    }
+
+
+    public Studio(int studioId, int image, String title, int totalAlbum, int rating, String description) {
+        this.studioId = studioId;
+        this.image = image;
+        this.title = title;
+        this.totalAlbum = totalAlbum;
+        this.rating = rating;
+        this.description = description;
     }
 
     @Override
@@ -48,6 +44,13 @@ public class Studio implements Serializable {
                 ", description='" + description + '\'' +
                 ", serviceList=" + serviceList +
                 '}';
+    }
+    public List<Service> getServiceList() {
+        return serviceList;
+    }
+
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
     }
 
     public String getDescription() {

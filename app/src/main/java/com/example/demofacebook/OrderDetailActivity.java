@@ -2,12 +2,9 @@ package com.example.demofacebook;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -34,8 +31,8 @@ import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderDe
 import com.example.demofacebook.Fragment.Service.ServicePage;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
+import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +41,16 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private Studio studio;
     private int orderId;
+    private int orderStatus;
     private RecyclerView recyclerView;
     private OrderDetailAdapter orderDetailAdapter;
     private List<Service> mList;
     //Upload Image
     private static final int GALLERY_REQUEST_CODE = 123;
     ImageView uploadImage_Feedback;
-    Bitmap bitmap;
+    Button cancelOrderBtn;
+    Button depositOrderBtn;
+    Button paidTheRestOrderBtn;
 
 
     @Override
@@ -63,6 +63,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         initToolBar();
         //LoadServiceList
         loadServiceList();
+        //Action Button
+        cancelOrderBtn = findViewById(R.id.CancelOrderBtn);
+        depositOrderBtn = findViewById(R.id.DepositOrderBtn);
+        paidTheRestOrderBtn = findViewById(R.id.PaidTheRestOrderBtn);
 
     }
 
@@ -71,7 +75,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         mList = getOrderDetailData();
-        orderDetailAdapter = new OrderDetailAdapter(this, mList, new IClickItemOrderDetailListener() {
+        orderDetailAdapter = new OrderDetailAdapter(mList, new IClickItemOrderDetailListener() {
             @Override
             public void onClickItemOrderDetail(Service service) {
                 //click on service
@@ -85,15 +89,53 @@ public class OrderDetailActivity extends AppCompatActivity {
                 Toast.makeText(OrderDetailActivity.this, "feedback " + String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
                 openViewImageFeedbackDialog(Gravity.CENTER, studio, service, button);
             }
-        });
+        }, orderStatus);
         recyclerView.setAdapter(orderDetailAdapter);
     }
 
     private void loadData() {
         if (getIntent().getExtras() != null) {
 //            studio = (Studio) getIntent().getExtras().get("studio");
-            studio = new Studio(1, R.drawable.download, "Studio 122", 40, 5);
+            studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
             orderId = (int) getIntent().getExtras().get("orderId");
+            orderStatus = (int) getIntent().getExtras().get("orderStatus");
+
+
+            switch (orderStatus) {
+                case 1:
+                    cancelOrderBtn.setEnabled(true);
+                    cancelOrderBtn.setVisibility(View.VISIBLE);
+                    depositOrderBtn.setEnabled(true);
+                    depositOrderBtn.setVisibility(View.VISIBLE);
+                    paidTheRestOrderBtn.setEnabled(false);
+                    paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
+                    break;
+                case 2:
+                    cancelOrderBtn.setEnabled(true);
+                    cancelOrderBtn.setVisibility(View.VISIBLE);
+                    depositOrderBtn.setEnabled(false);
+                    depositOrderBtn.setVisibility(View.INVISIBLE);
+                    paidTheRestOrderBtn.setEnabled(false);
+                    paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
+                    break;
+                case 3:
+                    cancelOrderBtn.setEnabled(false);
+                    cancelOrderBtn.setVisibility(View.INVISIBLE);
+                    depositOrderBtn.setEnabled(false);
+                    depositOrderBtn.setVisibility(View.INVISIBLE);
+                    paidTheRestOrderBtn.setEnabled(true);
+                    paidTheRestOrderBtn.setVisibility(View.VISIBLE);
+                    break;
+                case 4:
+                case 5:
+                    cancelOrderBtn.setEnabled(false);
+                    cancelOrderBtn.setVisibility(View.INVISIBLE);
+                    depositOrderBtn.setEnabled(false);
+                    depositOrderBtn.setVisibility(View.INVISIBLE);
+                    paidTheRestOrderBtn.setEnabled(false);
+                    paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
+                    break;
+            }
         }
     }
 
@@ -104,7 +146,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(String.valueOf("Order Number: " + orderId));
+            getSupportActionBar().setTitle(String.valueOf("Order Number: " + orderId + " Order Status: " + orderStatus));
         }
     }
 
@@ -137,7 +179,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ServicePage.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 122", 40, 5);
+        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -172,7 +214,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         RatingBar ratingStar = dialog.findViewById(R.id.RatingStarFeedback);
         EditText feedbackFormDescription = dialog.findViewById(R.id.FeedbackFormDescription);
         configEditText(feedbackFormDescription);
-
+//
         uploadImage_Feedback = dialog.findViewById(R.id.UploadImage_Feedback);
         uploadImage_Feedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +232,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                         ratingStar.getRating(), "");
                 if (checkSubmission) {
                     buttonFeedback.setBackgroundResource(R.color.colorAccent);
+                    dialog.dismiss();
                 }
             }
         });
@@ -222,23 +265,23 @@ public class OrderDetailActivity extends AppCompatActivity {
 
             // Example: Retrieving the image URI
 //            String imageUri = data.getData().toString();
-            Uri uri = data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                uploadImage_Feedback.setImageBitmap(bitmap);
-                //Glide.with(this).load(uri).into(uploadImage_Feedback);
+//            Uri uri = data.getData();
+//            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            String url = "https://i.imgur.com/DvpvklR.png";
+            Picasso.get()
+                    .load(url)
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download)
+                    .into(uploadImage_Feedback);
+
         }
     }
 
     private void configEditText(EditText editText) {
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        editText.requestFocus();
+        //editText.requestFocus();
         InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
     }
-
 }

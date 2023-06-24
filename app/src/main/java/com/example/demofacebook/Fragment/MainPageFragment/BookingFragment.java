@@ -34,8 +34,10 @@ public class BookingFragment extends Fragment {
         ).attach();
 
         tabLayout.getTabAt(0).setText("Scheduled");
-        tabLayout.getTabAt(1).setText("Finished");
-        tabLayout.getTabAt(2).setText("Canceled");
+        tabLayout.getTabAt(1).setText("Deposited");
+        tabLayout.getTabAt(2).setText("Finished");
+        tabLayout.getTabAt(3).setText("Completed");
+        tabLayout.getTabAt(4).setText("Canceled");
 
     }
 
