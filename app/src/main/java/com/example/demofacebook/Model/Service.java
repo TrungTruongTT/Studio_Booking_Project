@@ -3,26 +3,86 @@ package com.example.demofacebook.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class Service implements Serializable {
 
+
+/*
     @SerializedName("serviceId")
     private int serviceId;
+
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("createDate")
+    private Timestamp createDate;
+
+    @SerializedName("price")
+    private int price;
+
+    @SerializedName("description")
+    private String description;
+
+    @SerializedName("soldCount")
+    private int soldCount;
+
+    @SerializedName("status")
+    private String status;
+
+    @SerializedName("updateDate")
+    private Timestamp updateDate;
+
+    @SerializedName("view")
+    private Integer view;
+
+    @SerializedName("discount")
+    private Integer discount;
+
+    @SerializedName("rating")
+    private double rating;
+
+    @SerializedName("updateBy")
+    private String updateBy;
+
+    @SerializedName("createBy")
+    private String createBy;
+
+    @SerializedName("studio")
+    private String studio;
+
+    @SerializedName("servicePack_mediaService")
+    private List<ServicePackMediaService> servicePackMediaService;
+
+    @SerializedName("servicePack_orderDetail")
+    private List<ServicePackOrderDetail> servicePackOrderDetail;
+
+    @SerializedName("servicePack_favorite")
+    private List<ServicePackFavorite> servicePackFavorite;
+*/
+
+
+
+    @SerializedName("serviceId")
+    private int serviceId;
+    @SerializedName("name")
+    private String ServiceName;
+
+    @SerializedName("description")
+    private String serviceDescription;
     @SerializedName("servicePack_mediaService")
     private int imageService;
     @SerializedName("rating")
     private double serviceRating;
-    @SerializedName("name")
-    private String ServiceName;
-    @SerializedName("description")
-    private String serviceDescription;
     @SerializedName("price")
     private int priceService;
     @SerializedName("view")
     private int view;
 
-    /*@SerializedName("updateDate")
+    /*
+    @SerializedName("createDate")
+    @SerializedName("updateDate")
     @SerializedName("soldCount")
     @SerializedName("status")
     @SerializedName("discount")
@@ -60,11 +120,13 @@ public class Service implements Serializable {
         this.view = view;
     }
 
-    public int getView() {
-        return view;
-    }
-
-    public void setView(int view) {
+    public Service(int serviceId, String serviceName, String serviceDescription, int imageService, double serviceRating, int priceService, int view) {
+        this.serviceId = serviceId;
+        ServiceName = serviceName;
+        this.serviceDescription = serviceDescription;
+        this.imageService = imageService;
+        this.serviceRating = serviceRating;
+        this.priceService = priceService;
         this.view = view;
     }
 
@@ -74,22 +136,6 @@ public class Service implements Serializable {
 
     public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
-    }
-
-    public int getImageService() {
-        return imageService;
-    }
-
-    public void setImageService(int imageService) {
-        this.imageService = imageService;
-    }
-
-    public double getServiceRating() {
-        return serviceRating;
-    }
-
-    public void setServiceRating(double serviceRating) {
-        this.serviceRating = serviceRating;
     }
 
     public String getServiceName() {
@@ -108,6 +154,22 @@ public class Service implements Serializable {
         this.serviceDescription = serviceDescription;
     }
 
+    public int getImageService() {
+        return imageService;
+    }
+
+    public void setImageService(int imageService) {
+        this.imageService = imageService;
+    }
+
+    public double getServiceRating() {
+        return serviceRating;
+    }
+
+    public void setServiceRating(double serviceRating) {
+        this.serviceRating = serviceRating;
+    }
+
     public int getPriceService() {
         return priceService;
     }
@@ -116,16 +178,12 @@ public class Service implements Serializable {
         this.priceService = priceService;
     }
 
-    @Override
-    public String toString() {
-        return "Service{" +
-                "serviceId=" + serviceId +
-                ", imageService=" + imageService +
-                ", serviceRating=" + serviceRating +
-                ", ServiceName='" + ServiceName + '\'' +
-                ", serviceDescription='" + serviceDescription + '\'' +
-                ", priceService=" + priceService +
-                ", view=" + view +
-                '}';
+    public int getView() {
+        return view;
     }
+
+    public void setView(int view) {
+        this.view = view;
+    }
+
 }

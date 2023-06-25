@@ -26,6 +26,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
 
     public ServiceAdapter(List<Service> mListService){
         this.mListService = mListService;
+        this.mListServiceOld = mListService;
     }
     public ServiceAdapter(List<Service> mListService, IClickItemServiceListener iClickItemServiceListener) {
         this.mListService = mListService;

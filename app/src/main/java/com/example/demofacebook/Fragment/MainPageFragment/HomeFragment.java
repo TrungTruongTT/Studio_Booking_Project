@@ -64,8 +64,10 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewService.setLayoutManager(linearLayoutManager2);
         //hàm set đổ API lên RCVIEW
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
-        recyclerViewService.addItemDecoration(itemDecoration);
+
+        /*DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        recyclerViewService.addItemDecoration(itemDecoration);*/
+
         callApiGetServicePack();
 
         mServiceList = getServiceData();
@@ -125,10 +127,9 @@ public class HomeFragment extends Fragment {
         ApiService.apiService.serviceCall().enqueue(new Callback<List<Service>>() {
             @Override
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
-                mServiceList = response.body();
-                if (mServiceList == null) {
-                    Toast.makeText(getActivity(), "CallFail", Toast.LENGTH_SHORT).show();
-                } else {
+                if(response.isSuccessful()){
+                    mServiceList = response.body();
+                    serviceAdapter = new ServiceAdapter(mServiceList);
                     serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
                         @Override
                         public void onClickItemService(Service service) {
@@ -137,7 +138,9 @@ public class HomeFragment extends Fragment {
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
-                    Toast.makeText(getActivity(), "CallSuccess", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "ResponseFail", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
