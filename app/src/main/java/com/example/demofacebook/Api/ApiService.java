@@ -20,8 +20,6 @@ public interface ApiService {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
-
-
     @GET("/services") // services of API
     Call<List<Service>> serviceCall(); //@query("param)
 

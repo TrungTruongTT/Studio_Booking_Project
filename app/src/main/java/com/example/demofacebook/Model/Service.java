@@ -71,8 +71,10 @@ public class Service implements Serializable {
 
     @SerializedName("description")
     private String serviceDescription;
-    @SerializedName("servicePack_mediaService")
-    private int imageService;
+
+    /*@SerializedName("servicePack_mediaService")
+    private int imageService;*/
+
     @SerializedName("rating")
     private double serviceRating;
     @SerializedName("price")
@@ -101,9 +103,8 @@ public class Service implements Serializable {
         this.view = view;
     }
 
-    public Service(int serviceId, int imageService, double serviceRating, String serviceName, int priceService, int view) {
+    public Service(int serviceId, double serviceRating, String serviceName, int priceService, int view) {
         this.serviceId = serviceId;
-        this.imageService = imageService;
         this.serviceRating = serviceRating;
         this.ServiceName = serviceName;
         this.priceService = priceService;
@@ -112,7 +113,7 @@ public class Service implements Serializable {
 
     public Service(int serviceId, int imageService, double serviceRating, String serviceName, String serviceDescription, int priceService, int view) {
         this.serviceId = serviceId;
-        this.imageService = imageService;
+        //this.imageService = imageService;
         this.serviceRating = serviceRating;
         this.ServiceName = serviceName;
         this.serviceDescription = serviceDescription;
@@ -124,7 +125,7 @@ public class Service implements Serializable {
         this.serviceId = serviceId;
         ServiceName = serviceName;
         this.serviceDescription = serviceDescription;
-        this.imageService = imageService;
+        //this.imageService = imageService;
         this.serviceRating = serviceRating;
         this.priceService = priceService;
         this.view = view;
@@ -154,13 +155,13 @@ public class Service implements Serializable {
         this.serviceDescription = serviceDescription;
     }
 
-    public int getImageService() {
+    /*public int getImageService() {
         return imageService;
     }
 
     public void setImageService(int imageService) {
         this.imageService = imageService;
-    }
+    }*/
 
     public double getServiceRating() {
         return serviceRating;
