@@ -30,8 +30,6 @@ import vn.zalopay.sdk.ZaloPaySDK;
 import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class PaymentActivity extends AppCompatActivity {
-
-
     TextView lblZpTransToken;
     TextView txtToken;
     Button btnCreateOrder;
@@ -53,7 +51,7 @@ public class PaymentActivity extends AppCompatActivity {
         BindView();
 
         // handle CreateOrder for Zalo API
-        btnPay.setOnClickListener(new View.OnClickListener() {
+        btnCreateOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requestZalo();
