@@ -1,5 +1,6 @@
 package com.example.demofacebook.Fragment.MainPageFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Chat.ChatAdapter;
+import com.example.demofacebook.Fragment.Service.PaymentActivity;
 import com.example.demofacebook.Model.Message;
 import com.example.demofacebook.R;
 
@@ -29,22 +31,26 @@ public class ChatFragment extends Fragment{
 
 
     private RelativeLayout layoutBottom;
-   /* private FrameLayout layoutTop;*/
+    private RelativeLayout layoutTop;
     private RecyclerView rcvMessage;
     private EditText editMessage;
     private Button btnSend;
     private ChatAdapter messageAdapter;
     private List<Message> sListMessage;
 
+    //zalo Pay in chat
+    private Button btnZaloPay;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*layoutTop.findViewById(R.id.layout_top_chat);*/
-//        layoutBottom = view.findViewById(R.id.layout_bottom_chat);
-//        editMessage= view.findViewById(R.id.edit_message);
-//        btnSend= view.findViewById(R.id.btn_send);
-//        rcvMessage= getActivity().findViewById(R.id.rcv_message);
+        layoutTop= view.findViewById(R.id.layout_top_chat);
+        layoutBottom = view.findViewById(R.id.layout_bottom_chat);
+        editMessage= view.findViewById(R.id.edit_message);
+        btnSend= view.findViewById(R.id.btn_send);
+        rcvMessage= getActivity().findViewById(R.id.rcv_message);
+        btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rcvMessage.setLayoutManager(linearLayoutManager);
@@ -63,6 +69,22 @@ public class ChatFragment extends Fragment{
                 sendMessage();
             }
         });
+
+        btnZaloPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnClickPayZalo();
+            }
+        });
+
+    }
+
+    private void OnClickPayZalo(){
+        Intent intent = new Intent(getActivity(), PaymentActivity.class);
+        Bundle bundle = new Bundle();
+        //bundle.putSerializable("order", order); //gửi dữ liệu qua payment
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     //hàm xử lý send chat
