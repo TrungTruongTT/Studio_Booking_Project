@@ -20,10 +20,13 @@ import java.util.List;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayAdapterHolder> implements Filterable {
     private List<Service> mListService;
-    private final List<Service> mListServiceOld;
-    private final IClickItemServiceListener iClickItemServiceListener;
+    private List<Service> mListServiceOld;
+    private IClickItemServiceListener iClickItemServiceListener;
 
 
+    public ServiceAdapter(List<Service> mListService){
+        this.mListService = mListService;
+    }
     public ServiceAdapter(List<Service> mListService, IClickItemServiceListener iClickItemServiceListener) {
         this.mListService = mListService;
         this.mListServiceOld = mListService;

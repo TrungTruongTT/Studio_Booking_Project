@@ -126,7 +126,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
                 mServiceList = response.body();
-                if (mServiceList != null) {
+                if (mServiceList == null) {
                     Toast.makeText(getActivity(), "CallFail", Toast.LENGTH_SHORT).show();
                 } else {
                     serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
