@@ -42,11 +42,11 @@ public class ServiceFavoriteAdapter extends RecyclerView.Adapter<ServiceFavorite
         if (service == null) {
             return;
         }
-        Picasso.get()
+        /*Picasso.get()
                 .load(service.getImageService())
                 .placeholder(R.drawable.download)
                 .error(R.drawable.download)
-                .into(holder.imageService);
+                .into(holder.imageService);*/
 
         holder.serviceName.setText(service.getServiceName());
         holder.ratingService.setText("⭐: " + service.getServiceRating());
