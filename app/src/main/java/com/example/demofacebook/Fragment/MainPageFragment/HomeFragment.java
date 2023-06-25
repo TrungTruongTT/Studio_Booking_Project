@@ -10,12 +10,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.HomePage.SortHomeAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Fragment.Service.ServicePage;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
@@ -25,6 +27,10 @@ import com.example.demofacebook.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class HomeFragment extends Fragment {
@@ -57,6 +63,11 @@ public class HomeFragment extends Fragment {
         recyclerViewService = view.findViewById(R.id.RecyclerViewService);
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewService.setLayoutManager(linearLayoutManager2);
+        //hàm set đổ API lên RCVIEW
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        recyclerViewService.addItemDecoration(itemDecoration);
+        callApiGetServicePack();
+
         mServiceList = getServiceData();
         serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
             @Override
@@ -107,6 +118,33 @@ public class HomeFragment extends Fragment {
         myList.add(new Service(5, R.drawable.download, 1, "Service 5",
                 "Service Description 1\nService Description 2\nService Description 3", 350, 500));
         return myList;
+    }
+
+    //lấy API services
+    private void callApiGetServicePack() {
+        ApiService.apiService.serviceCall().enqueue(new Callback<List<Service>>() {
+            @Override
+            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                mServiceList = response.body();
+                if (mServiceList != null) {
+                    Toast.makeText(getActivity(), "CallFail", Toast.LENGTH_SHORT).show();
+                } else {
+                    serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
+                        @Override
+                        public void onClickItemService(Service service) {
+                            goDetailService(service);
+                            Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    recyclerViewService.setAdapter(serviceAdapter);
+                    Toast.makeText(getActivity(), "CallSuccess", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Service>> call, Throwable t) {
+                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private List<String> getSortData() {
