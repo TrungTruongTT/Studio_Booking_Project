@@ -20,10 +20,14 @@ import java.util.List;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayAdapterHolder> implements Filterable {
     private List<Service> mListService;
-    private final List<Service> mListServiceOld;
-    private final IClickItemServiceListener iClickItemServiceListener;
+    private List<Service> mListServiceOld;
+    private IClickItemServiceListener iClickItemServiceListener;
 
 
+    public ServiceAdapter(List<Service> mListService){
+        this.mListService = mListService;
+        this.mListServiceOld = mListService;
+    }
     public ServiceAdapter(List<Service> mListService, IClickItemServiceListener iClickItemServiceListener) {
         this.mListService = mListService;
         this.mListServiceOld = mListService;
@@ -43,7 +47,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         if (service == null) {
             return;
         }
-        holder.imageService.setImageResource(service.getImageService());
+        /*holder.imageService.setImageResource(service.getImageService());*/
         holder.serviceName.setText(service.getServiceName());
         holder.ratingService.setText("⭐: " + service.getServiceRating());
         holder.views.setText("View: " + service.getView());

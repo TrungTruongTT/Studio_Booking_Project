@@ -1,4 +1,4 @@
-package com.example.demofacebook.Fragment.BookingPageFragment;
+package com.example.demofacebook.Adapter.Favorite.BookingPageFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Booking.OrderAdapter;
+import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
-import com.example.demofacebook.Fragment.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Model.Order;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ScheduledFragment extends Fragment {
+public class DepositedFragment extends Fragment {
     private RecyclerView recyclerViewOrder;
     private OrderAdapter orderAdapter;
     private List<Order> mList;
@@ -33,7 +33,7 @@ public class ScheduledFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerViewOrder = view.findViewById(R.id.OrderScheduleRecyclerView);
+        recyclerViewOrder = view.findViewById(R.id.orderDepositedRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewOrder.setLayoutManager(linearLayoutManager);
         mList = getOrderData();
@@ -61,19 +61,18 @@ public class ScheduledFragment extends Fragment {
         List<Order> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Order(1, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(2, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(3, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(4, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(5, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
+        myList.add(new Order(1, "Studio Name", dateChange, 2, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(2, "Studio Name", dateChange, 2, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(3, "Studio Name", dateChange, 2, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(4, "Studio Name", dateChange, 2, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(5, "Studio Name", dateChange, 2, 100000, 4, "", "Ten service dau tien"));
         return myList;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_scheduled, container, false);
+        View view = inflater.inflate(R.layout.fragment_deposited, container, false);
         return view;
     }
-
 }

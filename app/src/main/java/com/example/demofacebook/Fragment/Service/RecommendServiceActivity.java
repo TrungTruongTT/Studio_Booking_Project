@@ -50,6 +50,7 @@ public class RecommendServiceActivity extends AppCompatActivity {
         recyclerViewService.setAdapter(serviceAdapter);
     }
 
+
     private List<Service> getServiceData() {
         List<Service> myList = new ArrayList<>();
         myList.add(new Service(1, R.drawable.download, 4, "Service 1",

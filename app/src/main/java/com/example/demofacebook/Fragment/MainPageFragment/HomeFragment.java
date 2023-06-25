@@ -64,11 +64,13 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerViewService.setLayoutManager(linearLayoutManager2);
         //hàm set đổ API lên RCVIEW
+
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         recyclerViewService.addItemDecoration(itemDecoration);
+
         callApiGetServicePack();
 
-        mServiceList = getServiceData();
+/*        mServiceList = getServiceData();
         serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
             @Override
             public void onClickItemService(Service service) {
@@ -76,7 +78,7 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerViewService.setAdapter(serviceAdapter);
+        recyclerViewService.setAdapter(serviceAdapter);*/
     }
 
     private void sortItemData(@NonNull View view) {
@@ -106,7 +108,6 @@ public class HomeFragment extends Fragment {
 
     private List<Service> getServiceData() {
         List<Service> myList = new ArrayList<>();
-
         myList.add(new Service(1, R.drawable.download, 4, "Service 1",
                 "<p>Please contact me first before starting order.</p><p><br></p><p>Hello, I'm Lana, I will be happy to shoot <strong>professional photo</strong> with your product and my adorable models)</p><p>I specialize in creating professional, high quality and selling product images.&nbsp;I have the&nbsp;models for your product (baby, mom and dad, toddler, and dog).</p><p>I live in Florida, so can use a beautiful nature to create an amazing lifestyle photos. Also I will be happy to create studio high quality photos for your brand.</p><p><br></p><p><strong>What you'll get:</strong></p><ul><li>High quality JPEG image</li><li>Images taken with professional high end SLRs and equipment (inc. Canon 6D mark ii)&nbsp;</li><li>Free image enhancement and editing to polish off the final product.</li></ul><p><br></p><p><strong>If you're an e-commerce seller on platforms such as eBay, Amazon, Shopify or Etsy, then&nbsp;this is the gig for you!</strong></p><p><br></p><p><strong>Why me?&nbsp;</strong>I'm hardworking and always aim for a quality results. You'll get the cheapest deal from me right now whilst I'm building my Fiverr reviews! If you are interested, write to me and we will discuss the details of the order.&nbsp;</p><p><strong>I</strong>&nbsp;<strong>would be</strong>&nbsp;<strong>really</strong>&nbsp;<strong>glad to work with you!&nbsp;</strong></p>", 350, 500));
         myList.add(new Service(2, R.drawable.download, 3, "Service 2",
@@ -125,10 +126,9 @@ public class HomeFragment extends Fragment {
         ApiService.apiService.serviceCall().enqueue(new Callback<List<Service>>() {
             @Override
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
-                mServiceList = response.body();
-                if (mServiceList != null) {
-                    Toast.makeText(getActivity(), "CallFail", Toast.LENGTH_SHORT).show();
-                } else {
+                if(response.isSuccessful()){
+                    mServiceList = response.body();
+                    serviceAdapter = new ServiceAdapter(mServiceList);
                     serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
                         @Override
                         public void onClickItemService(Service service) {
@@ -137,7 +137,9 @@ public class HomeFragment extends Fragment {
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
-                    Toast.makeText(getActivity(), "CallSuccess", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "ResponseFail", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
