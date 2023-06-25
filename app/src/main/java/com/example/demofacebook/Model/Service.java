@@ -35,7 +35,7 @@ public class Service implements Serializable {
     public Service(int serviceId, double serviceRating, String serviceName, String serviceDescription, int priceService, int view) {
         this.serviceId = serviceId;
         this.serviceRating = serviceRating;
-        ServiceName = serviceName;
+        this.ServiceName = serviceName;
         this.serviceDescription = serviceDescription;
         this.priceService = priceService;
         this.view = view;
@@ -45,7 +45,7 @@ public class Service implements Serializable {
         this.serviceId = serviceId;
         this.imageService = imageService;
         this.serviceRating = serviceRating;
-        ServiceName = serviceName;
+        this.ServiceName = serviceName;
         this.priceService = priceService;
         this.view = view;
     }
@@ -54,7 +54,7 @@ public class Service implements Serializable {
         this.serviceId = serviceId;
         this.imageService = imageService;
         this.serviceRating = serviceRating;
-        ServiceName = serviceName;
+        this.ServiceName = serviceName;
         this.serviceDescription = serviceDescription;
         this.priceService = priceService;
         this.view = view;
