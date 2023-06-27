@@ -127,22 +127,22 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
                 mServiceList = response.body();
                 if (mServiceList == null) {
-                    Toast.makeText(getActivity(), "CallFail", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "CallFail", Toast.LENGTH_SHORT).show();
                 } else {
                     serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
                         @Override
                         public void onClickItemService(Service service) {
                             goDetailService(service);
-                            Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
-                    Toast.makeText(getActivity(), "CallSuccess", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "CallSuccess", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<List<Service>> call, Throwable t) {
-                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
             }
         });
     }

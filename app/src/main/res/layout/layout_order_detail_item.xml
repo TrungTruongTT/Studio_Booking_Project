@@ -63,17 +63,18 @@
                         android:lines="1"
                         android:text="90.000 USD"
                         android:textColor="@color/Price"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                     <Button
+                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:id="@+id/feedbackBtn"
-                        android:layout_width="200dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@color/Feedback_btn"
+                        android:layout_weight="1.5"
+                        android:background="#E4E3E3"
                         android:text="Feedback"
                         android:textAllCaps="false"
-                        android:textSize="15sp" />
+                        android:textSize="13sp" />
 
                 </LinearLayout>
             </LinearLayout>

@@ -27,7 +27,7 @@
 
 
     <!--ToolBar for App-->
-    <color name="ToolBar">#5F4A97</color>
+    <color name="ToolBar">#11988D</color>
     <color name="Home_ToolBar">#F68BA8</color>
     <color name="Booking_ToolBar">#426695</color>
     <color name="NewFeed_ToolBar">#048ABF</color>

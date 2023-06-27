@@ -32,8 +32,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation fileTree(dir: 'D:\\PRM_Project\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
     //thư mục libs zalo zpdk (add bằng file-project structure - dependencies)
-    implementation fileTree(dir: 'D:\\PRM392\\Studio_Booking_Project_Trung_2\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
+//    implementation fileTree(dir: 'D:\\PRM392\\Studio_Booking_Project_Trung_2\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

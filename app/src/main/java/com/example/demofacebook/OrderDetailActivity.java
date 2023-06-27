@@ -64,9 +64,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         //LoadServiceList
         loadServiceList();
         //Action Button
-        cancelOrderBtn = findViewById(R.id.CancelOrderBtn);
-        depositOrderBtn = findViewById(R.id.DepositOrderBtn);
-        paidTheRestOrderBtn = findViewById(R.id.PaidTheRestOrderBtn);
+
 
     }
 
@@ -100,6 +98,10 @@ public class OrderDetailActivity extends AppCompatActivity {
             orderId = (int) getIntent().getExtras().get("orderId");
             orderStatus = (int) getIntent().getExtras().get("orderStatus");
 
+
+            cancelOrderBtn = findViewById(R.id.CancelOrderBtn);
+            depositOrderBtn = findViewById(R.id.DepositOrderBtn);
+            paidTheRestOrderBtn = findViewById(R.id.PaidTheRestOrderBtn);
 
             switch (orderStatus) {
                 case 1:
@@ -231,7 +233,9 @@ public class OrderDetailActivity extends AppCompatActivity {
                         feedbackFormDescription.getText().toString(),
                         ratingStar.getRating(), "");
                 if (checkSubmission) {
-                    buttonFeedback.setBackgroundResource(R.color.colorAccent);
+//                    buttonFeedback.setBackgroundResource(R.color.colorAccent);
+                    buttonFeedback.setEnabled(false);
+                    buttonFeedback.setVisibility(View.INVISIBLE);
                     dialog.dismiss();
                 }
             }

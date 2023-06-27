@@ -138,7 +138,7 @@
                                     android:textColor="@color/BackText"
                                     android:id="@+id/ServiceNameDetail"
                                     android:layout_width="match_parent"
-                                    android:layout_height="60dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
                                     android:gravity="center|start"
                                     android:paddingStart="10dp"
@@ -173,8 +173,8 @@
 
                                         <Button
                                             android:id="@+id/AddToCartBtn"
-                                            android:layout_width="40dp"
-                                            android:layout_height="40dp"
+                                            android:layout_width="30dp"
+                                            android:layout_height="30dp"
                                             android:layout_marginEnd="30dp"
                                             android:background="@drawable/heart_black" />
                                     </LinearLayout>
