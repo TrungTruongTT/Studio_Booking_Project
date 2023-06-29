@@ -71,7 +71,9 @@ public class PaymentActivity extends AppCompatActivity {
                 CreateOrder orderApi = new CreateOrder();
 
                 try {
+                    //txtAmount.getText() lấy số dư
                     JSONObject data = orderApi.createOrder(txtAmount.getText().toString());
+                    //bắt log check
                     Log.d("Amount", txtAmount.getText().toString());
                     lblZpTransToken.setVisibility(View.VISIBLE);
                     String code = data.getString("returncode");

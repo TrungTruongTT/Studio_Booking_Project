@@ -18,6 +18,7 @@ import com.example.demofacebook.Adapter.HomePage.SortHomeAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
 import com.example.demofacebook.Api.ApiService;
+import com.example.demofacebook.DAO.ServiceDAO;
 import com.example.demofacebook.Fragment.Service.ServicePage;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment {
     //Studio
 //    private RecyclerView recyclerViewStudio;
 //    private StudioHomeAdapter studioHomeAdapter;
+
+    private ServiceDAO serDao = new ServiceDAO();
 
     private RecyclerView recyclerViewService;
     private ServiceAdapter serviceAdapter;
@@ -68,9 +71,9 @@ public class HomeFragment extends Fragment {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         recyclerViewService.addItemDecoration(itemDecoration);
 
-        callApiGetServicePack();
-
-/*        mServiceList = getServiceData();
+        //callApiGetServicePack();
+        mServiceList = serDao.getListService();
+        //mServiceList = getServiceData();
         serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
             @Override
             public void onClickItemService(Service service) {
@@ -78,7 +81,7 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerViewService.setAdapter(serviceAdapter);*/
+        recyclerViewService.setAdapter(serviceAdapter);
     }
 
     private void sortItemData(@NonNull View view) {
