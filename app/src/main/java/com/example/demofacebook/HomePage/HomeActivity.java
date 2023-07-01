@@ -1,6 +1,7 @@
 package com.example.demofacebook.HomePage;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -99,6 +100,9 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.addItem(item5);
         //Style
         bottomNavigationView.setColored(true);
+        // Change colors
+        bottomNavigationView.setAccentColor(Color.parseColor("#F63D2B"));
+        bottomNavigationView.setInactiveColor(Color.parseColor("#747474"));
 
         //OnClickItem
         bottomNavigationView.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
@@ -144,7 +148,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
 
         //Notification Icon
-        AHNotification notification = new AHNotification.Builder().setText("10").setBackgroundColor(ContextCompat.getColor(HomeActivity.this, R.color.colorAccent)).setTextColor(ContextCompat.getColor(HomeActivity.this, R.color.Home_ToolBar)).build();
-        bottomNavigationView.setNotification(notification, 1);
+//        AHNotification notification = new AHNotification.Builder().setText("10").setBackgroundColor(ContextCompat.getColor(HomeActivity.this, R.color.colorAccent)).setTextColor(ContextCompat.getColor(HomeActivity.this, R.color.Home_ToolBar)).build();
+//        bottomNavigationView.setNotification(notification, 1);
     }
 }

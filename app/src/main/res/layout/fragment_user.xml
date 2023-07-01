@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="My Fiver"
+                android:text="Title 1"
                 android:textSize="30sp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Setting"
+                android:text="Title 2"
                 android:textSize="30sp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Resource"
+                android:text="Title 3"
                 android:textSize="30sp" />
 
             <androidx.recyclerview.widget.RecyclerView
