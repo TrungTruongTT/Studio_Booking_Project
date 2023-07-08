@@ -8,34 +8,6 @@
     android:orientation="horizontal"
     app:cardCornerRadius="0dp">
 
-    <!--    <RelativeLayout-->
-    <!--        android:id="@+id/RootView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:background="@android:color/holo_red_dark">-->
-
-    <!--        <ImageView-->
-    <!--            android:id="@+id/deleteIcon"-->
-    <!--            android:layout_width="50dp"-->
-    <!--            android:layout_height="50dp"-->
-    <!--            android:layout_alignParentEnd="true"-->
-    <!--            android:layout_centerVertical="true"-->
-    <!--            android:layout_marginEnd="10dp"-->
-    <!--            android:src="@drawable/delete_black_24dp" />-->
-
-    <!--        <TextView-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_centerVertical="true"-->
-    <!--            android:layout_toStartOf="@+id/deleteIcon"-->
-    <!--            android:src="@drawable/delete_black_24dp"-->
-    <!--            android:text="Delete"-->
-    <!--            android:textColor="@android:color/black"-->
-    <!--            android:textSize="18dp"-->
-    <!--            android:textStyle="bold" />-->
-
-    <!--    </RelativeLayout>-->
-
     <LinearLayout
         android:paddingEnd="10dp"
         android:layout_width="match_parent"

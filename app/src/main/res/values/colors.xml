@@ -55,7 +55,10 @@
     <color name="SubTextColor_Gallery">#AEAFB1</color>
 
     <!--Gallery Item for Dialog-->
-    <color name="DialogBar">#FFC488</color>
+
+    FFD154
+    <color name="DialogBar">#FFD154</color>
+<!--    <color name="DialogBar">#FFC488</color>-->
     <color name="TextColor_Dialog">#000000</color>
 
     <!--Booking Page -->
