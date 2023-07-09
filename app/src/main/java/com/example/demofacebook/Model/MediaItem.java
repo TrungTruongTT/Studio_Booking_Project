@@ -13,6 +13,10 @@ public class MediaItem {
     private List<String> imageResourceUrlList;
     private String videoUrl;
 
+
+
+    //////////////////
+    ///list của Studio
     public MediaItem(int type, Studio studio, String imageResourceUrl, List<String> imageResourceUrlList, String videoUrl) {
         this.type = type;
         this.studio = studio;
@@ -60,4 +64,7 @@ public class MediaItem {
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
     }
+
+
+
 }
