@@ -26,6 +26,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
 
     public ServiceAdapter(List<Service> mListService){
         this.mListService = mListService;
+        this.mListServiceOld = mListService;
     }
     public ServiceAdapter(List<Service> mListService, IClickItemServiceListener iClickItemServiceListener) {
         this.mListService = mListService;
@@ -46,7 +47,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         if (service == null) {
             return;
         }
-        holder.imageService.setImageResource(service.getImageService());
+        /*holder.imageService.setImageResource(service.getImageService());*/
         holder.serviceName.setText(service.getServiceName());
         holder.ratingService.setText("⭐: " + service.getServiceRating());
         holder.views.setText("View: " + service.getView());
