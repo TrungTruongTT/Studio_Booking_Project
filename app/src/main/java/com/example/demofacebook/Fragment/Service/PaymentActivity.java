@@ -69,7 +69,6 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //CreateOrder Model in Api Package
                 CreateOrder orderApi = new CreateOrder();
-
                 try {
                     //txtAmount.getText() lấy số dư
                     JSONObject data = orderApi.createOrder(txtAmount.getText().toString());

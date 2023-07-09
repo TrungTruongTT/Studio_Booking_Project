@@ -1,17 +1,35 @@
 package com.example.demofacebook.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class Studio implements Serializable {
+    @SerializedName("studio_id")
     private int studioId;
+    @SerializedName("avatar_studio")
     private int image;
+    @SerializedName("name")
     private String title;
+    @SerializedName("address")
+
+    private String address_Studio;
     private int totalAlbum;
+    @SerializedName("total_rating")
     private int rating;
+    @SerializedName("description")
     private String description;
     private List<Service> serviceList;
 
+    public Studio(int studioId, int image, String title, String address_Studio, int rating, String description) {
+        this.studioId = studioId;
+        this.image = image;
+        this.title = title;
+        this.address_Studio = address_Studio;
+        this.rating = rating;
+        this.description = description;
+    }
 
     public Studio(int studioId, int image, String title, int totalAlbum, int rating, String description, List<Service> serviceList) {
         this.studioId = studioId;
@@ -33,6 +51,14 @@ public class Studio implements Serializable {
         this.description = description;
     }
 
+    public Studio(int studioId, int image, String title, int rating, String description) {
+        this.studioId = studioId;
+        this.image = image;
+        this.title = title;
+        this.rating = rating;
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Studio{" +
@@ -45,6 +71,15 @@ public class Studio implements Serializable {
                 ", serviceList=" + serviceList +
                 '}';
     }
+
+    public String getAddress_Studio() {
+        return address_Studio;
+    }
+
+    public void setAddress_Studio(String address_Studio) {
+        this.address_Studio = address_Studio;
+    }
+
     public List<Service> getServiceList() {
         return serviceList;
     }

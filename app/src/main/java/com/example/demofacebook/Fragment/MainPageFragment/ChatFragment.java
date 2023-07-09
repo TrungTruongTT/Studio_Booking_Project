@@ -50,12 +50,13 @@ public class ChatFragment extends Fragment{
         editMessage= view.findViewById(R.id.edit_message);
         btnSend= view.findViewById(R.id.btn_send);
         rcvMessage= getActivity().findViewById(R.id.rcv_message);
-        btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
+        //btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rcvMessage.setLayoutManager(linearLayoutManager);
 
         sListMessage= new ArrayList<>();
+
         messageAdapter = new ChatAdapter();
 
         messageAdapter.setData(sListMessage);
@@ -70,12 +71,12 @@ public class ChatFragment extends Fragment{
             }
         });
 
-        btnZaloPay.setOnClickListener(new View.OnClickListener() {
+       /* btnZaloPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OnClickPayZalo();
             }
-        });
+        });*/
 
     }
 

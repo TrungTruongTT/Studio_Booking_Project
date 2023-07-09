@@ -3,7 +3,6 @@ package com.example.demofacebook.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.List;
 
 public class Service implements Serializable {
@@ -71,28 +70,43 @@ public class Service implements Serializable {
 
     @SerializedName("description")
     private String serviceDescription;
-
-    /*@SerializedName("servicePack_mediaService")
-    private int imageService;*/
-
+    @SerializedName("soldCount")
+    private int soldCount;
     @SerializedName("rating")
     private double serviceRating;
     @SerializedName("price")
     private int priceService;
     @SerializedName("view")
     private int view;
-
+    @SerializedName("status")
+    private String statusService;
+    @SerializedName("studio")
+    private Studio studio;
+    @SerializedName("servicePack_mediaService")
+    private List<Media_ServicePack> mediaServicePackList;
     /*
     @SerializedName("createDate")
     @SerializedName("updateDate")
-    @SerializedName("soldCount")
-    @SerializedName("status")
+
     @SerializedName("discount")
     @SerializedName("updateBy")
     @SerializedName("createBy")
-    @SerializedName("studio")
+
     @SerializedName("servicePack_orderDetail")
     @SerializedName("servicePack_favorite")*/
+
+    public Service(int serviceId, String serviceName, String serviceDescription, int soldCount, double serviceRating, int priceService, int view, String statusService, Studio studio_id,List<Media_ServicePack> mediaServicePackList) {
+        this.serviceId = serviceId;
+        ServiceName = serviceName;
+        this.serviceDescription = serviceDescription;
+        this.soldCount = soldCount;
+        this.serviceRating = serviceRating;
+        this.priceService = priceService;
+        this.view = view;
+        this.statusService = statusService;
+        this.studio = studio_id;
+        this.mediaServicePackList = mediaServicePackList;
+    }
 
     public Service(int serviceId, double serviceRating, String serviceName, String serviceDescription, int priceService, int view) {
         this.serviceId = serviceId;
@@ -130,6 +144,50 @@ public class Service implements Serializable {
         this.priceService = priceService;
         this.view = view;
     }
+
+    public Service(int serviceId, String serviceName, String serviceDescription, int soldCount, double serviceRating, int priceService, int view, String statusService) {
+        this.serviceId = serviceId;
+        ServiceName = serviceName;
+        this.serviceDescription = serviceDescription;
+        this.soldCount = soldCount;
+        this.serviceRating = serviceRating;
+        this.priceService = priceService;
+        this.view = view;
+        this.statusService = statusService;
+    }
+
+    public List<Media_ServicePack> getMediaServicePackList() {
+        return mediaServicePackList;
+    }
+
+    public void setMediaServicePackList(List<Media_ServicePack> mediaServicePackList) {
+        this.mediaServicePackList = mediaServicePackList;
+    }
+
+    public Studio getStudio() {
+        return studio;
+    }
+
+    public void setStudio(Studio studio) {
+        this.studio = studio;
+    }
+
+    public int getSoldCount() {
+        return soldCount;
+    }
+
+    public void setSoldCount(int soldCount) {
+        this.soldCount = soldCount;
+    }
+
+    public String getStatusService() {
+        return statusService;
+    }
+
+    public void setStatusService(String statusService) {
+        this.statusService = statusService;
+    }
+
 
     public int getServiceId() {
         return serviceId;

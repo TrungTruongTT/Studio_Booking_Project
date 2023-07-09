@@ -5,12 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
+import com.example.demofacebook.Model.Login_Request;
+import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -70,7 +78,28 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private boolean isValidCredentials(String email, String password) {
+    private boolean isValidCredentials(String credential, String password) {
+        Login_Request loginAccount = new Login_Request(credential,password);
+/*
+        ApiService.apiService.login(loginAccount).enqueue(new Callback<TokenResponse>() {
+            @Override
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                if(response.isSuccessful()){
+                    // success se tra ve TOKEN
+                    TokenResponse tokenResponse = response.body();
+                    String accessToken = tokenResponse.getAccessToken();
+                    String refreshToken = tokenResponse.getRefreshToken();
+                }
+            }
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+                String errorMessage = "Login Fail";
+                // Trả về thông báo lỗi cho ứng dụng
+                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+*/
+
         // Thực hiện kiểm tra thông tin đăng nhập
         // (thông thường, bạn sẽ kiểm tra với cơ sở dữ liệu hoặc API)
         return true; //email.equals("admin@gmail.com") && password.equals("admin123");
