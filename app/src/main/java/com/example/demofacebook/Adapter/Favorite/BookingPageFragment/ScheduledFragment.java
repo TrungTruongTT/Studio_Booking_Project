@@ -61,11 +61,11 @@ public class ScheduledFragment extends Fragment {
         List<Order> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Order(1, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(2, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(3, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(4, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
-        myList.add(new Order(5, "Studio Name", dateChange, 1, 100000, 4, "", "Ten ne"));
+        myList.add(new Order(1, "Studio 1", dateChange, 1, 100000, 4, "", "Service 1"));
+        myList.add(new Order(2, "Studio 2", dateChange, 1, 100000, 4, "", "Service 1"));
+        myList.add(new Order(3, "Studio 3", dateChange, 1, 100000, 4, "", "Service 1"));
+        myList.add(new Order(4, "Studio 4", dateChange, 1, 100000, 4, "", "Service 1"));
+        myList.add(new Order(5, "Studio 5", dateChange, 1, 100000, 4, "", "Service 1"));
         return myList;
     }
 

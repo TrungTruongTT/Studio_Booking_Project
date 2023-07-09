@@ -158,7 +158,7 @@ public class ServicePage extends AppCompatActivity {
     private List<Service> getServiceData() {
         List<Service> myList = new ArrayList<>();
         myList.add(new Service(1, R.drawable.download, 4, "Service 1",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
+                "Service Description 1", 350, 500));
         myList.add(new Service(2, R.drawable.download, 4, "Service 2",
                 "Service Description 1\nService Description 2\nService Description 3", 4, 500));
         myList.add(new Service(3, R.drawable.download, 4, "Service 3",

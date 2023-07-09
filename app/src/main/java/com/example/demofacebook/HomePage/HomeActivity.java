@@ -1,6 +1,7 @@
 package com.example.demofacebook.HomePage;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -86,11 +87,11 @@ public class HomeActivity extends AppCompatActivity {
     private void loadBottomNavigationView() {
         AHBottomNavigation bottomNavigationView = findViewById(R.id.bottomNavigationView);
         //Define Items
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.action_home, R.drawable.home_white_48dp, R.color.Home_ToolBar);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.action_chat, R.drawable.chat_white_48dp, R.color.Chat_ToolBar);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.action_feed, R.drawable.feed_white_48dp, R.color.NewFeed_ToolBar);
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.action_booking, R.drawable.shopping_cart_white_48dp, R.color.Booking_ToolBar);
-        AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.action_user, R.drawable.account_circle_white_48dp, R.color.User_ToolBar);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.action_home, R.drawable.home_white_48dp, R.color.ToolBar);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.action_chat, R.drawable.chat_white_48dp, R.color.ToolBar);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.action_feed, R.drawable.feed_white_48dp, R.color.ToolBar);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.action_booking, R.drawable.shopping_cart_white_48dp, R.color.ToolBar);
+        AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.action_user, R.drawable.account_circle_white_48dp, R.color.ToolBar);
         // Add items
         bottomNavigationView.addItem(item1);
         bottomNavigationView.addItem(item2);
@@ -99,6 +100,9 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.addItem(item5);
         //Style
         bottomNavigationView.setColored(true);
+        // Change colors
+        bottomNavigationView.setAccentColor(Color.parseColor("#F63D2B"));
+        bottomNavigationView.setInactiveColor(Color.parseColor("#747474"));
 
         //OnClickItem
         bottomNavigationView.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
@@ -144,7 +148,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
 
         //Notification Icon
-        AHNotification notification = new AHNotification.Builder().setText("10").setBackgroundColor(ContextCompat.getColor(HomeActivity.this, R.color.colorAccent)).setTextColor(ContextCompat.getColor(HomeActivity.this, R.color.Home_ToolBar)).build();
-        bottomNavigationView.setNotification(notification, 1);
+//        AHNotification notification = new AHNotification.Builder().setText("10").setBackgroundColor(ContextCompat.getColor(HomeActivity.this, R.color.colorAccent)).setTextColor(ContextCompat.getColor(HomeActivity.this, R.color.Home_ToolBar)).build();
+//        bottomNavigationView.setNotification(notification, 1);
     }
 }
