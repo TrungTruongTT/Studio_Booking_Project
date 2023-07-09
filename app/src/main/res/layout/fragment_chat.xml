@@ -14,18 +14,18 @@
            android:layout_height="match_parent"
            android:text="Chat Fragment" />-->
 
-    <RelativeLayout
+    <WebView
+        android:id="@+id/talkjs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <!--<RelativeLayout
         android:id="@+id/layout_top_chat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@drawable/radius_relativelayout">
-
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name_Studio"
-            android:textSize="24dp"/>-->
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/studioAvatar_chat"
@@ -79,7 +79,7 @@
             android:layout_alignParentEnd="true"
             android:text="send"/>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <!--<Button
         android:id="@+id/btnZaloPayChat"

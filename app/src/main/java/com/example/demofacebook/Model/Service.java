@@ -84,6 +84,7 @@ public class Service implements Serializable {
     private Studio studio;
     @SerializedName("servicePack_mediaService")
     private List<Media_ServicePack> mediaServicePackList;
+
     /*
     @SerializedName("createDate")
     @SerializedName("updateDate")
