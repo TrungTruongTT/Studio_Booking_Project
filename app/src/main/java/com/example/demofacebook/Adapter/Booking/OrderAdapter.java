@@ -1,5 +1,6 @@
 package com.example.demofacebook.Adapter.Booking;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
 import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
+import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
 import com.example.demofacebook.Model.Order;
 import com.example.demofacebook.R;
 
@@ -46,7 +47,31 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 //        holder.imageGallery.setImageResource(gallery.getImageGallery());
         Log.d("a", order.toString());
         holder.studioName.setText(order.getStudioName());
-        holder.status.setText("Status: " + String.valueOf(order.getStatus()));
+        int status = order.getStatus();
+        switch (status) {
+            case 1:
+                holder.status.setText("Scheduled");
+                holder.status.setTextColor(Color.parseColor("#DAA520"));
+                break;
+            case 2:
+                holder.status.setText("Deposited");
+                holder.status.setTextColor(Color.parseColor("#9370DB"));
+                break;
+            case 3:
+                holder.status.setText("Finished");
+                holder.status.setTextColor(Color.parseColor("#0000CD"));
+                break;
+            case 4:
+                holder.status.setText("Completed");
+                holder.status.setTextColor(Color.parseColor("#228B22"));
+                break;
+            case 5:
+                holder.status.setText("Canceled");
+                holder.status.setTextColor(Color.parseColor("#C71585"));
+                break;
+
+        }
+
         holder.totalPrice.setText("Total Price: $" + String.valueOf(order.getTotalPrice()));
         holder.totalOrderDetail.setText("Service: " + String.valueOf(order.getTotalOrderDetail()));
         holder.serviceName.setText(order.getServiceName());

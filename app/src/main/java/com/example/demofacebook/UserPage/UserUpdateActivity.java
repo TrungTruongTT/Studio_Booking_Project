@@ -184,17 +184,14 @@ public class UserUpdateActivity extends AppCompatActivity {
     }
 
     private Boolean invalidateMenuInput(String name, String date, String month, String year, String phone, String email, String password1, String password2) {
-        if (name.isEmpty() || name.isBlank()
+        if (name.isEmpty()
                 || date.isEmpty()
-                || date.isBlank()
                 || month.isEmpty()
-                || month.isBlank()
                 || year.isEmpty()
-                || year.isBlank()
-                || phone.isEmpty() || phone.isBlank()
-                || email.isEmpty() || email.isBlank()
-                || password1.isEmpty() || password1.isBlank()
-                || password2.isBlank() || password2.isEmpty()) {
+                || phone.isEmpty()
+                || email.isEmpty()
+                || password1.isEmpty()
+                || password2.isEmpty()) {
             return false;
         }
         if (!password1.equals(password2)) {
@@ -289,7 +286,7 @@ public class UserUpdateActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.UserToolBar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.AppBarColor)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ToolBar)));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("User Information");
         }
