@@ -68,7 +68,6 @@ public interface ApiService {
     Call<List<Studio>> getStudioByName(
             @Query("name") String studioName
     );
-
     @POST("/api/auth/login")
     Call<TokenResponse> login(@Body Login_Request login);
 
