@@ -27,7 +27,9 @@
 
 
     <!--ToolBar for App-->
-    <color name="ToolBar">#5F4A97</color>
+    <color name="ToolBar">#FFD154</color>
+
+<!--    <color name="ToolBar">#11988D</color>-->
     <color name="Home_ToolBar">#F68BA8</color>
     <color name="Booking_ToolBar">#426695</color>
     <color name="NewFeed_ToolBar">#048ABF</color>
@@ -44,6 +46,8 @@
     <color name="UnSelected_Tab">#FEEDDA</color>
     <color name="Selected_Tab">#EE4E34</color>
 
+    #3D3D3D
+    #FFD154
     <!--Gallery Item for StudioDetail-->
     <color name="AppBarColor">#85FF85</color>
     <color name="BackgroundText_Gallery">#930330</color>
@@ -51,7 +55,10 @@
     <color name="SubTextColor_Gallery">#AEAFB1</color>
 
     <!--Gallery Item for Dialog-->
-    <color name="DialogBar">#FFC488</color>
+
+    FFD154
+    <color name="DialogBar">#FFD154</color>
+<!--    <color name="DialogBar">#FFC488</color>-->
     <color name="TextColor_Dialog">#000000</color>
 
     <!--Booking Page -->
@@ -86,6 +93,8 @@
     <color name="Button_1">#FFC488</color>
     <color name="Button_2">#BAFC6060</color>
     <color name="Button_3">#AEAFB1</color>
+
+
 
 
 </resources>

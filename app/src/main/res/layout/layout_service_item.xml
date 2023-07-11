@@ -6,9 +6,10 @@
     android:layout_height="100dp"
     android:layout_marginBottom="20dp"
     android:orientation="horizontal"
-    app:cardCornerRadius="0dp">
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
+        android:paddingEnd="10dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/cardView"
@@ -30,6 +31,8 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:paddingTop="10dp"
+                android:gravity="top"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -41,7 +44,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:gravity="center|start"
+                    android:gravity="start"
                     android:maxLines="2"
                     android:text="Explored"
                     android:textColor="@color/TextColor_Gallery"
@@ -50,9 +53,9 @@
                 <TextView
                     android:id="@+id/ServiceRating"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center|end"
+                    android:gravity="top|end"
                     android:text="⭐: 5.0"
                     android:textColor="#EFA632"
                     android:textSize="20sp" />
@@ -61,14 +64,15 @@
             <LinearLayout
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/ServiceView"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
                     android:gravity="start|center"
                     android:lines="1"
                     android:text="Views: 5000"
@@ -78,7 +82,7 @@
                 <TextView
                     android:id="@+id/ServicePrice"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center"
                     android:lines="1"
@@ -92,16 +96,17 @@
 
 
         <LinearLayout
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2.4"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                app:drawableStartCompat="@drawable/baseline_navigate_next_24" />
+            <Button
+                android:background="@drawable/baseline_navigate_next_24"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#F49A3E"
+                android:background="#FFD154"
                 android:gravity="center"
                 android:text="@string/feedback_form_text"
                 android:textColor="@color/TextColor_Gallery"
@@ -149,7 +149,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="20dp"
                         android:layout_weight="1"
-                        android:background="#E8FF8000"
+                        android:background="#FFD154"
                         android:text="Submit" />
 
                 </LinearLayout>

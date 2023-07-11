@@ -40,6 +40,7 @@
                 android:ellipsize="end"
                 android:gravity="right|center"
                 android:maxLines="1"
+                android:textStyle="bold"
                 android:paddingEnd="10dp"
                 android:text="Explored"
                 android:textColor="@color/TextColor_Gallery"

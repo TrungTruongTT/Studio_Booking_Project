@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onClickItemService(Service service) {
                             goDetailService(service);
-                            Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
@@ -144,7 +144,7 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<List<Service>> call, Throwable t) {
-                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
             }
         });
     }
