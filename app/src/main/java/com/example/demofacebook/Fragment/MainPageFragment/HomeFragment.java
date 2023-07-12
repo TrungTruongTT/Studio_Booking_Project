@@ -61,11 +61,11 @@ public class HomeFragment extends Fragment {
 
     private void serviceItemData(@NonNull View view) {
         recyclerViewService = view.findViewById(R.id.RecyclerViewService);
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewService.setLayoutManager(linearLayoutManager2);
         //hàm set đổ API lên RCVIEW
 
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
         recyclerViewService.addItemDecoration(itemDecoration);
 
         callApiGetServicePack();
@@ -83,14 +83,13 @@ public class HomeFragment extends Fragment {
 
     private void sortItemData(@NonNull View view) {
         recyclerViewSort = view.findViewById(R.id.RecyclerSort);
-        LinearLayoutManager linearLayoutManagerSort = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+        LinearLayoutManager linearLayoutManagerSort = new LinearLayoutManager(view.getContext(), RecyclerView.HORIZONTAL, false);
         recyclerViewSort.setLayoutManager(linearLayoutManagerSort);
         sortHomeAdapter = new SortHomeAdapter(getSortData(), new IClickItemSortListener() {
             @Override
             public void onClickItemSort(String sortBy) {
                 Toast.makeText(getActivity(), sortBy, Toast.LENGTH_SHORT).show();
                 serviceAdapter.getFilter().filter("@!" + sortBy);
-
             }
         });
         recyclerViewSort.setAdapter(sortHomeAdapter);

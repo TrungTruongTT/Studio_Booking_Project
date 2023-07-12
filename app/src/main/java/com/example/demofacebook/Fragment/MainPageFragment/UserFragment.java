@@ -30,24 +30,23 @@ import java.util.List;
 public class UserFragment extends Fragment {
     User user;
     //User RecyclerView
-    private RecyclerView recyclerViewUser;
-    private UserAdapter userAdapter;
+    RecyclerView recyclerViewUser;
+    UserAdapter userAdapter;
     //User Option RecyclerView
-    private RecyclerView recyclerViewUserOption;
-    private ItemUserAdapter itemUserAdapter;
+    RecyclerView recyclerViewUserOption;
+    ItemUserAdapter itemUserAdapter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         user = getUser();
-        loadUser();
-        loadUserOption();
-
+        loadUser(view);
+        loadUserOption(view);
     }
 
-    private void loadUser() {
+    private void loadUser(View view) {
         //User Information
-        recyclerViewUser = getActivity().findViewById(R.id.RecyclerUser);
+        recyclerViewUser = view.findViewById(R.id.RecyclerUser);
         LinearLayoutManager linearLayoutManagerUser = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerViewUser.setLayoutManager(linearLayoutManagerUser);
         userAdapter = new UserAdapter(new IClickItemUserListener() {
@@ -59,21 +58,22 @@ public class UserFragment extends Fragment {
         recyclerViewUser.setAdapter(userAdapter);
     }
 
-    private void loadUserOption() {
+    private void loadUserOption(View view) {
         //User Option 1
-        recyclerViewUserOption = getActivity().findViewById(R.id.Recycler1);
+        recyclerViewUserOption = view.findViewById(R.id.Recycler1);
         LinearLayoutManager linearLayoutManagerOption = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerViewUserOption.setLayoutManager(linearLayoutManagerOption);
         itemUserAdapter = new ItemUserAdapter(new IClickItemUserOptionListener() {
             @Override
             public void onClickItemUserOptionListener(String option) {
+                clickGoOption(option);
                 Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
             }
-        }, getListOptionName(), getListOptionIcon());
+        }, getListOptionName1(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
 
         //User Option 2
-        recyclerViewUserOption = getActivity().findViewById(R.id.RecyclerSetting);
+        recyclerViewUserOption = view.findViewById(R.id.RecyclerSetting);
         LinearLayoutManager linearLayoutManagerOption2 = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerViewUserOption.setLayoutManager(linearLayoutManagerOption2);
         itemUserAdapter = new ItemUserAdapter(new IClickItemUserOptionListener() {
@@ -81,21 +81,7 @@ public class UserFragment extends Fragment {
             public void onClickItemUserOptionListener(String option) {
                 Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
             }
-        }, getListOptionName(), getListOptionIcon());
-        recyclerViewUserOption.setAdapter(itemUserAdapter);
-
-        //User Option 3
-        recyclerViewUserOption = getActivity().findViewById(R.id.RecyclerResource);
-        LinearLayoutManager linearLayoutManagerOption3 = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
-        recyclerViewUserOption.setLayoutManager(linearLayoutManagerOption3);
-        itemUserAdapter = new ItemUserAdapter(new IClickItemUserOptionListener() {
-            @Override
-            public void onClickItemUserOptionListener(String option) {
-                Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
-
-
-            }
-        }, getListOptionName(), getListOptionIcon());
+        }, getListOptionName2(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
     }
 
@@ -126,7 +112,16 @@ public class UserFragment extends Fragment {
     }
 
 
-    private List<String> getListOptionName() {
+    private List<String> getListOptionName1() {
+        List<String> myList = new ArrayList<>();
+        String[] optionName = {"Update Information", "Option 2"};
+        for (int i = 0; i < optionName.length; i++) {
+            myList.add(optionName[i]);
+        }
+        return myList;
+    }
+
+    private List<String> getListOptionName2() {
         List<String> myList = new ArrayList<>();
         String[] optionName = {"Option 1", "Option 2"};
         for (int i = 0; i < optionName.length; i++) {
