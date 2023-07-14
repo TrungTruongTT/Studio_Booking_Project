@@ -33,8 +33,9 @@
                     android:src="@drawable/name_icon" />
 
                 <EditText
+                    android:id="@+id/textUserName"
                     style="@style/modifiedEditText"
-                    android:hint="Name"
+                    android:hint="User Name"
                     android:inputType="text"
                     android:maxLines="1" />
             </LinearLayout>
@@ -54,6 +55,7 @@
                     android:src="@drawable/phone_icon" />
 
                 <EditText
+                    android:id="@+id/textPhoneNum"
                     style="@style/modifiedEditText"
                     android:hint="Mobile Number"
                     android:inputType="text"
@@ -75,6 +77,7 @@
                     android:src="@drawable/mail_icon" />
 
                 <EditText
+                    android:id="@+id/textEmail"
                     style="@style/modifiedEditText"
                     android:hint="@string/login_email_hint"
                     android:inputType="textEmailAddress"
@@ -96,6 +99,7 @@
                     android:src="@drawable/password_icon" />
 
                 <EditText
+                    android:id="@+id/textPass"
                     style="@style/modifiedEditText"
                     android:hint="@string/login_password_hint"
                     android:inputType="textPassword"
@@ -114,6 +118,7 @@
             android:textSize="@dimen/newsMoreTextSize" />
 
         <Button
+            android:id="@+id/btnRegister"
             style="@style/loginButton"
             android:layout_gravity="center"
             android:text="Register" />
