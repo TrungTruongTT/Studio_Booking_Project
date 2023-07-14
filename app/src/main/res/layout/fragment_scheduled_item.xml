@@ -100,7 +100,7 @@
             android:ellipsize="end"
             android:text="count"
             android:gravity="start|center"
-            android:textColor="@color/BackText"
+            android:textColor="@color/BlackText"
             android:textSize="15sp"/>
 
         <TextView

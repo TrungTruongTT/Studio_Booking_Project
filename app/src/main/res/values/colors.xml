@@ -75,7 +75,7 @@
     <color name="cardView2">#FDFCFB</color>
 
     <!--Text Page -->
-    <color name="BackText">#000000</color>
+    <color name="BlackText">#000000</color>
     <color name="GrayText">#AEAFB1</color>
     <color name="GrayText2">#6D6D6D</color>
     <color name="RedText">#FF4141</color>
@@ -84,15 +84,21 @@
     <color name="btnViewMoreItem">#D6D5D5</color>
 
     <!--OrderBtnColor Page -->
-    <color name="Chat_btn">#FFC488</color>
+    <color name="Chat_btn">#FFD154</color>
     <color name="Feedback_btn">#BAFC6060</color>
     <color name="Gray_btn">#AEAFB1</color>
     <color name="Booking_btn">#0283df</color>
     <color name="Booking_text_btn">#ffffff</color>
     <!--OrderBtnColor Page -->
-    <color name="Button_1">#FFC488</color>
+    <color name="Button_1">#FFD154</color>
     <color name="Button_2">#BAFC6060</color>
     <color name="Button_3">#AEAFB1</color>
+
+    <!--Chat Page -->
+    <color name="Text_Chat_Color">#3D3D3D</color>
+    <color name="Background_Chat_Color">#FFD154</color>
+
+
 
 
 

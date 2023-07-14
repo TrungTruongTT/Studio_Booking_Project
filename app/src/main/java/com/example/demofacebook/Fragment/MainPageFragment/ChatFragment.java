@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -28,14 +29,8 @@ import java.util.List;
 
 
 public class ChatFragment extends Fragment{
-
-
-
-    private RelativeLayout layoutBottom;
-    private RelativeLayout layoutTop;
     private RecyclerView rcvMessage;
     private EditText editMessage;
-    private Button btnSend;
     private ChatAdapter messageAdapter;
     private List<Message> sListMessage;
 
@@ -43,11 +38,15 @@ public class ChatFragment extends Fragment{
     private Button btnZaloPay;
 
     private WebView talkJsUI;
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        editMessage= view.findViewById(R.id.edit_message);
+        Button btnSend = view.findViewById(R.id.btn_send);
+        rcvMessage= view.findViewById(R.id.rcv_message);
+        //zalo Pay in chat
+        Button btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
         initLoadView(view);
 
        /* LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
