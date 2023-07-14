@@ -1,12 +1,19 @@
 package com.example.demofacebook.Fragment.MainPageFragment;
 
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -52,7 +59,7 @@ public class UserFragment extends Fragment {
         userAdapter = new UserAdapter(new IClickItemUserListener() {
             @Override
             public void onClickItemUser(User user) {
-                clickGoOption("Update Information");
+                clickGoOption("Update Information", view);
             }
         }, getUser());
         recyclerViewUser.setAdapter(userAdapter);
@@ -66,7 +73,7 @@ public class UserFragment extends Fragment {
         itemUserAdapter = new ItemUserAdapter(new IClickItemUserOptionListener() {
             @Override
             public void onClickItemUserOptionListener(String option) {
-                clickGoOption(option);
+                clickGoOption(option, view);
                 Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
             }
         }, getListOptionName1(), getListOptionIcon());
@@ -85,21 +92,69 @@ public class UserFragment extends Fragment {
         recyclerViewUserOption.setAdapter(itemUserAdapter);
     }
 
-    private void clickGoOption(String option) {
+    private void clickGoOption(String option, View view) {
         if (option.equals("Update Information")) {
-            Intent intent = new Intent(getActivity(), UserUpdateActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("user", user);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            openEnterPasswordDialog(Gravity.CENTER, view);
         }
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user, container, false);
-        return view;
+    private void openEnterPasswordDialog(int gravity, View view) {
+        final Dialog dialog = new Dialog(view.getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_dialog_password_check);
+
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = gravity;
+        window.setAttributes(windowAttributes);
+        if (Gravity.BOTTOM == gravity) {
+            dialog.setCancelable(true);
+        } else {
+            dialog.setCancelable(false);
+        }
+        //Update
+        Button btnOpenUpdateDialog = dialog.findViewById(R.id.send_Authentication_button);
+        btnOpenUpdateDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String token = null, password = null;
+                if (checkPassword(token, password)) {
+                    Intent intent = new Intent(getActivity(), UserUpdateActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("user", user);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(view.getContext(), "Password Not Correct", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                dialog.dismiss();
+            }
+        });
+
+        //Cancel
+        Button btnOpenCancelDialog = dialog.findViewById(R.id.cancel_Authentication_button);
+        btnOpenCancelDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private boolean checkPassword(String token, String password) {
+        //Api check password
+        if (true) {
+            return true;
+        }
+        return false;
     }
 
     private User getUser() {
@@ -140,4 +195,10 @@ public class UserFragment extends Fragment {
         return myList;
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_user, container, false);
+        return view;
+    }
 }

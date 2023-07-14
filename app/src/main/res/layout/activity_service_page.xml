@@ -91,7 +91,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:textColor="@color/BackText"
+                                android:textColor="@color/BlackText"
                                 android:id="@+id/StudioName"
                                 android:layout_width="match_parent"
                                 android:layout_height="27.5dp"
@@ -100,7 +100,7 @@
                                 android:textSize="20sp" />
 
                             <TextView
-                                android:textColor="@color/BackText"
+                                android:textColor="@color/BlackText"
                                 android:id="@+id/StudioRating"
                                 android:layout_width="match_parent"
                                 android:layout_height="27.5dp"
@@ -150,7 +150,7 @@
                                         android:layout_weight="1"
                                         android:gravity="center|start"
                                         android:text="Service Name"
-                                        android:textColor="@color/BackText"
+                                        android:textColor="@color/BlackText"
                                         android:textSize="35sp" />
 
                                     <Button
@@ -225,7 +225,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp">
                                 <TextView
-                                    android:textColor="@color/BackText"
+                                    android:textColor="@color/BlackText"
                                     android:id="@+id/ServiceDescription"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -261,7 +261,7 @@
                                 android:paddingEnd="10dp">
 
                                 <TextView
-                                    android:textColor="@color/BackText"
+                                    android:textColor="@color/BlackText"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:paddingTop="20dp"
@@ -305,7 +305,7 @@
                                 android:paddingEnd="10dp">
 
                                 <TextView
-                                    android:textColor="@color/BackText"
+                                    android:textColor="@color/BlackText"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:paddingTop="20dp"

@@ -1,10 +1,5 @@
 package com.example.demofacebook.Fragment.Service;
 
-import static com.example.demofacebook.Ultils.AppInfo.APP_ID;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,15 +8,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.Api.CreateOrder;
 import com.example.demofacebook.R;
+
 import org.json.JSONObject;
 
 import vn.zalopay.sdk.Environment;
@@ -36,11 +37,15 @@ public class PaymentActivity extends AppCompatActivity {
     Button btnPay;
     EditText txtAmount;
 
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        //Load toolbar
+        initToolBar();
         //khởi tạo
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -59,6 +64,23 @@ public class PaymentActivity extends AppCompatActivity {
         });
 
 
+    }
+    private void initToolBar() {
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.Payment_Toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void requestZalo() {

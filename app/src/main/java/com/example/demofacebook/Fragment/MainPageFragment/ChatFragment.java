@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -27,30 +28,20 @@ import java.util.List;
 
 
 public class ChatFragment extends Fragment{
-
-
-
-    private RelativeLayout layoutBottom;
-    private RelativeLayout layoutTop;
     private RecyclerView rcvMessage;
     private EditText editMessage;
-    private Button btnSend;
     private ChatAdapter messageAdapter;
     private List<Message> sListMessage;
-
-    //zalo Pay in chat
-    private Button btnZaloPay;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        layoutTop= view.findViewById(R.id.layout_top_chat);
-        layoutBottom = view.findViewById(R.id.layout_bottom_chat);
         editMessage= view.findViewById(R.id.edit_message);
-        btnSend= view.findViewById(R.id.btn_send);
-        rcvMessage= getActivity().findViewById(R.id.rcv_message);
-        btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
+        Button btnSend = view.findViewById(R.id.btn_send);
+        rcvMessage= view.findViewById(R.id.rcv_message);
+        //zalo Pay in chat
+        Button btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rcvMessage.setLayoutManager(linearLayoutManager);
