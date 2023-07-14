@@ -30,7 +30,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:textColor="@color/BackText"
+                android:textColor="@color/BlackText"
                 android:id="@+id/FeedbackUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:textColor="@color/BackText"
+                android:textColor="@color/BlackText"
                 android:id="@+id/FeedbackDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

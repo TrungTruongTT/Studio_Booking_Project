@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Model.Message;
@@ -48,7 +47,7 @@ notifyDataSetChanged();
     }
 
     public class ChatViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvMessage;
+        private final TextView tvMessage;
 
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);

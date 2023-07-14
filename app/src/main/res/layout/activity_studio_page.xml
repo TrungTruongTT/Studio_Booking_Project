@@ -92,7 +92,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:textColor="@color/BackText"
+                                android:textColor="@color/BlackText"
                                 android:id="@+id/StudioName"
                                 android:layout_width="match_parent"
                                 android:layout_height="27.5dp"
@@ -101,7 +101,7 @@
                                 android:textSize="20sp" />
 
                             <TextView
-                                android:textColor="@color/BackText"
+                                android:textColor="@color/BlackText"
                                 android:id="@+id/StudioRating"
                                 android:layout_width="match_parent"
                                 android:layout_height="27.5dp"
@@ -137,7 +137,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:text="Title Description"
-                                android:textColor="@color/BackText"
+                                android:textColor="@color/BlackText"
                                 android:textSize="35sp" />
 
                             <TextView
@@ -146,7 +146,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:text="@string/dummy_text"
-                                android:textColor="@color/BackText"
+                                android:textColor="@color/BlackText"
                                 android:textSize="20sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -182,7 +182,7 @@
 
 
                         <TextView
-                            android:textColor="@color/BackText"
+                            android:textColor="@color/BlackText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"

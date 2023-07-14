@@ -27,8 +27,6 @@ import com.example.demofacebook.R;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserUpdateActivity extends AppCompatActivity {
     User user;
@@ -98,10 +96,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         EditText editTextDay = dialog.findViewById(R.id.UserDialogDay);
         EditText editTextMonth = dialog.findViewById(R.id.UserDialogMonth);
         EditText editTextYear = dialog.findViewById(R.id.UserDialogYear);
-        EditText editTextPhone = dialog.findViewById(R.id.UserDialogPhone);
-        configEditPhoneText(editTextPhone);
-        EditText editTextEmail = dialog.findViewById(R.id.UserDialogEmail);
-        configEditEmailText(editTextEmail);
 
         EditText editTextPassword = dialog.findViewById(R.id.UserDialogPassword);
         configEditPasswordText(editTextPassword);
@@ -128,8 +122,7 @@ public class UserUpdateActivity extends AppCompatActivity {
         editTextDay.setText(arrOfStr[2]);
         editTextMonth.setText(arrOfStr[1]);
         editTextYear.setText(arrOfStr[0]);
-        editTextPhone.setText(user.getPhone());
-        editTextEmail.setText(user.getEmail());
+
         editTextPassword.setText(user.getPassword());
         editTextRePassword.setText(user.getPassword());
 
@@ -146,14 +139,10 @@ public class UserUpdateActivity extends AppCompatActivity {
                 String month = editTextMonth.getText().toString();
                 String year = editTextYear.getText().toString();
 
-
-                String phone = editTextPhone.getText().toString();
-                String email = editTextEmail.getText().toString();
-
                 String password1 = String.valueOf(editTextPassword.getText());
                 String password2 = String.valueOf(editTextRePassword.getText());
 
-                Boolean validation = invalidateMenuInput(name, day, month, year, phone, email, password1, password2);
+                Boolean validation = invalidateMenuInput(name, day, month, year, password1, password2);
 
                 if (validation) {
                     String str = year + "-" + month + "-" + day;
@@ -163,8 +152,6 @@ public class UserUpdateActivity extends AppCompatActivity {
                     String url = "https://i.imgur.com/DvpvklR.png";
                     user.setImage(url);
                     user.setDateOfBirth(dateOfBirth);
-                    user.setPhone(editTextPhone.getText().toString());
-                    user.setEmail(editTextEmail.getText().toString());
                     user.setPassword(editTextPassword.getText().toString());
                     updateUserInfo();
                     Toast.makeText(UserUpdateActivity.this, "Update Success", Toast.LENGTH_SHORT).show();
@@ -183,13 +170,17 @@ public class UserUpdateActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private Boolean invalidateMenuInput(String name, String date, String month, String year, String phone, String email, String password1, String password2) {
+    private Boolean invalidateMenuInput(String name, String date, String month, String year, String password1, String password2) {
         if (name.isEmpty()
                 || date.isEmpty()
+                || Integer.parseInt(date) < 0
+                || Integer.parseInt(date) > 31
                 || month.isEmpty()
+                || Integer.parseInt(month) < 0
+                || Integer.parseInt(month) > 12
                 || year.isEmpty()
-                || phone.isEmpty()
-                || email.isEmpty()
+                || Integer.parseInt(year) < 1900
+                || Integer.parseInt(year) >= 2024
                 || password1.isEmpty()
                 || password2.isEmpty()) {
             return false;
@@ -197,14 +188,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         if (!password1.equals(password2)) {
             return false;
         }
-
-        String regex = "^(.+)@(.+)$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-        if (!matcher.matches()) {
-            return false;
-        }
-
         return true;
     }
 
@@ -302,13 +285,6 @@ public class UserUpdateActivity extends AppCompatActivity {
 
     private void configEditPhoneText(EditText editText) {
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
-        //editText.requestFocus();
-        InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
-    }
-
-    private void configEditEmailText(EditText editText) {
-        editText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         //editText.requestFocus();
         InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);

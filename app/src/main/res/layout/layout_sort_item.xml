@@ -21,7 +21,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:textColor="@color/BackText"
+            android:textColor="@color/BlackText"
             android:maxLines="1"
             android:id="@+id/SortBy"
             android:layout_width="wrap_content"
