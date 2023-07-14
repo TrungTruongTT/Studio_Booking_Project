@@ -4,7 +4,9 @@
     android:orientation="vertical"
     android:gravity="end"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:gravity="end"
+    android:paddingTop="10dp">
 
     <androidx.cardview.widget.CardView
         android:layout_height="wrap_content"

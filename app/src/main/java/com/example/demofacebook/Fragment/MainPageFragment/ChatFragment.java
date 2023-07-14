@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -33,6 +34,10 @@ public class ChatFragment extends Fragment{
     private ChatAdapter messageAdapter;
     private List<Message> sListMessage;
 
+    //zalo Pay in chat
+    private Button btnZaloPay;
+
+    private WebView talkJsUI;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -42,11 +47,13 @@ public class ChatFragment extends Fragment{
         rcvMessage= view.findViewById(R.id.rcv_message);
         //zalo Pay in chat
         Button btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
+        initLoadView(view);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+       /* LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rcvMessage.setLayoutManager(linearLayoutManager);
 
         sListMessage= new ArrayList<>();
+
         messageAdapter = new ChatAdapter();
 
         messageAdapter.setData(sListMessage);
@@ -59,15 +66,27 @@ public class ChatFragment extends Fragment{
             public void onClick(View v) {
                 sendMessage();
             }
-        });
+        });*/
 
-        btnZaloPay.setOnClickListener(new View.OnClickListener() {
+       /* btnZaloPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OnClickPayZalo();
             }
-        });
+        });*/
 
+    }
+    private void initLoadView(View view){
+        talkJsUI = view.findViewById(R.id.talkjs);
+        talkJsUI.getSettings().setJavaScriptEnabled(true); // Cho phép chạy mã JavaScript
+        talkJsUI.loadUrl("file:///android_asset/talkjs.html");
+
+        //layoutTop= view.findViewById(R.id.layout_top_chat);
+        //layoutBottom = view.findViewById(R.id.layout_bottom_chat);
+        //editMessage= view.findViewById(R.id.edit_message);
+        //btnSend= view.findViewById(R.id.btn_send);
+        //rcvMessage= getActivity().findViewById(R.id.rcv_message);
+        //btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
     }
 
     private void OnClickPayZalo(){

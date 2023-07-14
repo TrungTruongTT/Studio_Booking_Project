@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,10 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         if (service == null) {
             return;
         }
-        /*holder.imageService.setImageResource(service.getImageService());*/
+       /* Picasso.get()
+                .load(service.getMediaServicePack().getFilePath())
+                .into(holder.imageService);*/
+        //holder.imageService.setImageResource(service.getMediaServicePack().getFilePath());
         holder.serviceName.setText(service.getServiceName());
         holder.ratingService.setText("⭐: " + service.getServiceRating());
         holder.views.setText("View: " + service.getView());
