@@ -52,7 +52,8 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-   <!-- <LinearLayout
+
+    <!--<LinearLayout
     android:padding="@dimen/headerTextSize"
     android:background="@color/backgroundColor">-->
 
