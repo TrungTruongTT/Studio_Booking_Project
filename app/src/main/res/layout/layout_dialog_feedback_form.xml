@@ -83,7 +83,7 @@
                     android:maxLength="50"
                     android:gravity="start"
                     android:hint="Please enter a comment here"
-                    android:textColor="@color/BackText"
+                    android:textColor="@color/BlackText"
                     android:textSize="15sp" />
 
                 <TextView

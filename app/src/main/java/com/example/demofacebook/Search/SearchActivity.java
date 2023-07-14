@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
-    private Toolbar toolbar;
+    Toolbar toolbar;
     SearchView searchView;
 
     private RecyclerView recyclerViewStudio;
