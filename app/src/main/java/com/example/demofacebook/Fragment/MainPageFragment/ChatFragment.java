@@ -42,11 +42,11 @@ public class ChatFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        editMessage= view.findViewById(R.id.edit_message);
+       /* editMessage= view.findViewById(R.id.edit_message);
         Button btnSend = view.findViewById(R.id.btn_send);
-        rcvMessage= view.findViewById(R.id.rcv_message);
+        rcvMessage= view.findViewById(R.id.rcv_message);*/
         //zalo Pay in chat
-        Button btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
+        //Button btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
         initLoadView(view);
 
        /* LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
