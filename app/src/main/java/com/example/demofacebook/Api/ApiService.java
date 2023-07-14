@@ -70,7 +70,8 @@ public interface ApiService {
     );
     @POST("/api/auth/login")
     Call<TokenResponse> login(@Body Login_Request login);
-
+    @POST("/api/customers")
+    Call<User> createCustomer(@Body User user);
     //@Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")
     //@GET("/v1/{appId}/conversations/{conversationId}/messages")
 
