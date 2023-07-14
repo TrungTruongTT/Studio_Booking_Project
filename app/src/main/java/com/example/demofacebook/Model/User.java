@@ -7,10 +7,19 @@ public class User implements Serializable {
     private int userId;
     private String image;
     private String Name;
+
+    private String userName;
+
     private Date dateOfBirth;
     private String phone;
     private String email;
     private String password;
+
+    //registerModel
+    public User (String userName, String phone, String Email, String password)
+    {
+
+    }
 
     public User(int userId, String image, String name, Date dateOfBirth, String phone, String email, String password) {
         this.userId = userId;
