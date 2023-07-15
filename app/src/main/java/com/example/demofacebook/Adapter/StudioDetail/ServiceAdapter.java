@@ -59,10 +59,19 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         //holder.imageService.setImageResource(service.getMediaServicePack().getFilePath());
 
 
-        Picasso.get().load(service.getMediaServicePackList().get(1).getFilePath()).into(holder.imageService);
-
-
-
+        //Picasso.get().load(service.getMediaServicePackList().get(1).getFilePath()).into(holder.imageService);
+        if(!service.getMediaServicePackList().isEmpty()){
+            Picasso.get().load(service.getMediaServicePackList().get(0).getFilePath())
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download)
+                    .into(holder.imageService);
+        }
+        else{
+            Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download)
+                    .into(holder.imageService);
+        }
 
 
         holder.serviceName.setText(service.getServiceName());

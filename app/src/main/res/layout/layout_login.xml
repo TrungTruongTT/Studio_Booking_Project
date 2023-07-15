@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/loginCard"
     android:layout_width="match_parent"
@@ -69,6 +70,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/tvForgotPass"
             style="@style/viewParent"
             android:layout_gravity="end"
             android:layout_marginTop="10dp"
@@ -85,6 +87,7 @@
             android:text="Login" />
 
         <TextView
+            android:id="@+id/tvRegister"
             style="@style/parent"
             android:layout_marginTop="@dimen/loginViewsMargin"
             android:onClick="viewRegisterClicked"
