@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Html;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,7 @@ public class StudioPageActivity extends AppCompatActivity {
         //LoadAppBar
         initToolBar();
         //Slide Image
+
         viewPager = findViewById(R.id.ViewPager);
         circleIndicator = findViewById(R.id.Circle_Indicator);
         photoList = getPhotoList();
@@ -87,11 +90,13 @@ public class StudioPageActivity extends AppCompatActivity {
 
     private List<String> getPhotoList() {
         List<String> myList = new ArrayList<>();
-        myList.add("https://i.imgur.com/DvpvklR.png");
-        myList.add("https://i.imgur.com/DvpvklR.png");
-        myList.add("https://i.imgur.com/DvpvklR.png");
-        myList.add("https://i.imgur.com/DvpvklR.png");
-        myList.add("https://i.imgur.com/DvpvklR.png");
+        if (studio.getCoverImage() != null) {
+            myList.add(studio.getCoverImage());
+            return myList;
+        } else {
+            myList.add("https://i.imgur.com/DvpvklR.png");
+            myList.add("https://i.imgur.com/DvpvklR.png");
+        }
         return myList;
     }
 
@@ -102,6 +107,20 @@ public class StudioPageActivity extends AppCompatActivity {
                 Toast.makeText(this, "LoadStudio Fail", Toast.LENGTH_SHORT).show();
                 return;
             }
+            ImageView textView = findViewById(R.id.StudioAvatarImage_Main);
+            if (studio.getImage() != null) {
+                Picasso.get().load(studio.getImage())
+                        .placeholder(R.drawable.download)
+                        .error(R.drawable.download)
+                        .into(textView);
+            } else {
+                Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                        .placeholder(R.drawable.download)
+                        .error(R.drawable.download)
+                        .into(textView);
+            }
+
+
             TextView studioName = findViewById(R.id.StudioName);
             studioName.setText(studio.getTitle());
 

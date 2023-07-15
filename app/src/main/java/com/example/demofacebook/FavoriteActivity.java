@@ -70,8 +70,8 @@ public class FavoriteActivity extends AppCompatActivity {
         listSevice2.add(new Service(1, R.drawable.download, 4, "Service 1", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
         listSevice2.add(new Service(1, R.drawable.download, 4, "Service 2", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
         listSevice2.add(new Service(1, R.drawable.download, 4, "Service 3", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Studio(1, R.drawable.download, "Studio 1 test", 40, 5, "22", listSevice));
-        myList.add(new Studio(2, R.drawable.download, "Studio 2 test", 40, 5, "22", listSevice2));
+        myList.add(new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 40, 5, "22", null, listSevice));
+        myList.add(new Studio(2, "https://i.imgur.com/DvpvklR.png", "Studio 2 test", 40, 5, "22", null, listSevice2));
 
 
         for (Studio s : myList) {

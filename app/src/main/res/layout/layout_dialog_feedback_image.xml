@@ -19,7 +19,6 @@
 
     <Button
         android:layout_width="30dp"
-        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_marginTop="10dp"
         android:id="@+id/CloseBtn"
         android:layout_height="30dp"

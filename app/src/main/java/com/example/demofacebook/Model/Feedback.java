@@ -1,20 +1,29 @@
 package com.example.demofacebook.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.sql.Date;
+import java.util.List;
 
 public class Feedback {
+
+    @SerializedName("orderDetailId")
     private int feedbackId;
-    private int avatarUser;
+    private String avatarUser;
     private String feedbackUserName;
+    @SerializedName("rating")
     private int rating;
+    @SerializedName("content")
     private String feedbackDescription;
-    private int feedbackImage;
+    //    @SerializedName("servicePack_mediaService")
+    //    private int feedbackImage;
+    @SerializedName("servicePack_mediaService")
+    private List<Media_ServicePack> feedbackImage;
+    @SerializedName("postDate")
     private Date feedbackDate;
 
 
-
-
-    public Feedback(int feedbackId, int avatarUser, String feedbackUserName, int rating, String feedbackDescription, int feedbackImage, Date feedbackDate) {
+    public Feedback(int feedbackId, String avatarUser, String feedbackUserName, int rating, String feedbackDescription, List<Media_ServicePack> feedbackImage, Date feedbackDate) {
         this.feedbackId = feedbackId;
         this.avatarUser = avatarUser;
         this.feedbackUserName = feedbackUserName;
@@ -36,11 +45,11 @@ public class Feedback {
         this.feedbackUserName = feedbackUserName;
     }
 
-    public int getAvatarUser() {
+    public String getAvatarUser() {
         return avatarUser;
     }
 
-    public void setAvatarUser(int avatarUser) {
+    public void setAvatarUser(String avatarUser) {
         this.avatarUser = avatarUser;
     }
 
@@ -68,11 +77,11 @@ public class Feedback {
         this.feedbackDescription = feedbackDescription;
     }
 
-    public int getFeedbackImage() {
+    public List<Media_ServicePack> getFeedbackImage() {
         return feedbackImage;
     }
 
-    public void setFeedbackImage(int feedbackImage) {
+    public void setFeedbackImage(List<Media_ServicePack> feedbackImage) {
         this.feedbackImage = feedbackImage;
     }
 

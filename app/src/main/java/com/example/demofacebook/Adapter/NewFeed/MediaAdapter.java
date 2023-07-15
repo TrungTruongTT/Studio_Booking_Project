@@ -217,13 +217,11 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = gravity;
         window.setAttributes(windowAttributes);
-
         if (Gravity.BOTTOM == gravity) {
             dialog.setCancelable(true);
         } else {
             dialog.setCancelable(false);
         }
-
         ImageView feedbackImage = dialog.findViewById(R.id.FeedbackImage_View);
         Button closeBtn = dialog.findViewById(R.id.CloseBtn);
 
@@ -234,7 +232,6 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .into(feedbackImage);
 
         closeBtn.setOnClickListener(view -> dialog.dismiss());
-
         dialog.show();
     }
 

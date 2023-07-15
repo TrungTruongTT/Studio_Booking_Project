@@ -35,6 +35,7 @@ dependencies {
     //implementation fileTree(dir: 'C:\\Users\\Phi\\Desktop\\AndroidStudioProjects\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
     //implementation fileTree(dir: 'D:\\PRM_Project\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
     implementation fileTree(dir: 'D:\\TEST_PRM\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
+    implementation fileTree(dir: 'C:\\Users\\Phi\\Desktop\\AndroidStudioProjects\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
     //thư mục libs zalo zpdk (add bằng file-project structure - dependencies + chọn đường dẫn thư mục libs)
     //chỉ sử dụng fileTree có chứ thư mục libs, dư sẽ bị lỗi
     testImplementation 'junit:junit:4.13.2'
