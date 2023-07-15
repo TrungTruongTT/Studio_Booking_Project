@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
+import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
@@ -88,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                         Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
+                        //getCustomerAccountByPhoneorEmail(credential);
                     }else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
                         // (có thể thay bằng cách sử dụng Toast hoặc AlertDialog)
@@ -100,30 +102,32 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "LOGIN API Unsuccess", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-/*
-        ApiService.apiService.login(loginAccount).enqueue(new Callback<TokenResponse>() {
+    private void getCustomerAccountByPhoneorEmail(String credential){
+        ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<CustomerAccount>() {
             @Override
-            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+            public void onResponse(Call<CustomerAccount> call, Response<CustomerAccount> response) {
                 if(response.isSuccessful()){
-                    // success se tra ve TOKEN
-                    TokenResponse tokenResponse = response.body();
-                    String accessToken = tokenResponse.getAccessToken();
-                    String refreshToken = tokenResponse.getRefreshToken();
+                    CustomerAccount customerAccount = response.body();
+                    if(customerAccount!=null){
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        Bundle bundle = new Bundle();
+                        //bundle.putSerializable("acccount", customerAccount);
+                        bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                        Toast.makeText(LoginActivity.this, customerAccount.getCustomerId(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
+
             @Override
-            public void onFailure(Call<TokenResponse> call, Throwable t) {
-                String errorMessage = "Login Fail";
-                // Trả về thông báo lỗi cho ứng dụng
-                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<CustomerAccount> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "getCustomerFail", Toast.LENGTH_SHORT).show();
             }
         });
-*/
-
-        // Thực hiện kiểm tra thông tin đăng nhập
-        // (thông thường, bạn sẽ kiểm tra với cơ sở dữ liệu hoặc API)
-        //return true; //email.equals("admin@gmail.com") && password.equals("admin123");
     }
 
     @Override
