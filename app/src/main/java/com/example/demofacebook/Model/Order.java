@@ -1,19 +1,20 @@
 package com.example.demofacebook.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Order {
-
     private int orderId;
     private String StudioName;
     private Date orderDate;
-    private int status;
+    private String status;
     private int totalPrice;
     private int totalOrderDetail;
     private String urlImageService;
     private String serviceName;
 
-    public Order(int orderId, String studioName, Date orderDate, int status, int totalPrice, int totalOrderDetail, String urlImageService, String serviceName) {
+    public Order(int orderId, String studioName, Date orderDate, String status, int totalPrice, int totalOrderDetail, String urlImageService, String serviceName) {
         this.orderId = orderId;
         StudioName = studioName;
         this.orderDate = orderDate;
@@ -37,7 +38,7 @@ public class Order {
                 '}';
     }
 
-    public Order(int orderId, Date orderDate, int status, int totalPrice,
+    public Order(int orderId, Date orderDate, String status, int totalPrice,
                  int totalOrderDetail, String urlImageService, String serviceName) {
         this.orderId = orderId;
         this.orderDate = orderDate;
@@ -72,11 +73,11 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

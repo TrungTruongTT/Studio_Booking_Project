@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,9 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.NewFeed.MediaAdapter;
-import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
-import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
-import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.MediaItem;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
@@ -23,10 +19,6 @@ import com.example.demofacebook.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class NewFeedFragment extends Fragment {
@@ -54,8 +46,8 @@ public class NewFeedFragment extends Fragment {
     }
 
     private List<MediaItem> getNewFeedData() {
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5,
-                "Description\nDescription\nDescription");
+        Studio studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5,
+                "Description\nDescription\nDescription", null);
 
 
         List<MediaItem> myList = new ArrayList<>();

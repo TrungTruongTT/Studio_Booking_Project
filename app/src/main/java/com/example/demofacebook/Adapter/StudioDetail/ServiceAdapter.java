@@ -48,22 +48,20 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         if (service == null) {
             return;
         }
-        /*Picasso.get()
-                .load(mediaItem.getStudio().getImage())
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
-                .into(holder.studioAvatarNewFeedImage);*/
-        /*Picasso.get()
-                .load(service.getMediaServicePackList())
-                .into(holder.imageService);*/
-        //holder.imageService.setImageResource(service.getMediaServicePack().getFilePath());
 
-
-        Picasso.get().load(service.getMediaServicePackList().get(1).getFilePath()).into(holder.imageService);
-
-
-
-
+        if (service.getMediaServicePackList() != null) {
+            if (service.getMediaServicePackList().size() != 0) {
+                Picasso.get().load(service.getMediaServicePackList().get(0).getFilePath())
+                        .placeholder(R.drawable.download)
+                        .error(R.drawable.download)
+                        .into(holder.imageService);
+            } else {
+                Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                        .placeholder(R.drawable.download)
+                        .error(R.drawable.download)
+                        .into(holder.imageService);
+            }
+        }
 
         holder.serviceName.setText(service.getServiceName());
         holder.ratingService.setText("⭐: " + service.getServiceRating());

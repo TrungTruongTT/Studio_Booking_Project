@@ -1,4 +1,4 @@
-package com.example.demofacebook.Adapter.Booking;
+package com.example.demofacebook.Adapter.Chat.Booking;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

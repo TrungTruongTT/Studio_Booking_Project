@@ -1,5 +1,6 @@
 package com.example.demofacebook.Api;
 
+import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
@@ -11,14 +12,11 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -64,14 +62,41 @@ public interface ApiService {
     @GET("/api/studios?name=") // GetStudioList
     Call<List<Studio>> getStudio();
 
-    @GET("/api/studios") // GetStudioByname
+    @GET("/api/studios")
+        // GetStudioByname
     Call<List<Studio>> getStudioByName(
             @Query("name") String studioName
     );
+
     @POST("/api/auth/login")
     Call<TokenResponse> login(@Body Login_Request login);
+
     @POST("/api/customers")
     Call<User> createCustomer(@Body User user);
+
+    @GET("/api/services/studio/all/{studioId}")
+    Call<List<Service>> getServiceByStudioId(
+            @Path("studioId") int studioId
+    );
+
+    @GET("/api/order-details/feedback/service/{serviceId}")
+    Call<List<Feedback>> getServiceFeedbackServiceServiceId(
+            @Path("serviceId") int serviceId
+    );
+
+    @GET("/api/order-details/feedback/studio?studioId={studioId}")
+    Call<List<Feedback>> getServiceFeedbackStudioId(
+            @Path("studioId") int studioId
+    );
+
+    //Booking
+    //Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJjdXN0b21lcnIiLCJpYXQiOjE2ODk0MTU4OTksImV4cCI6MTY4OTQ0NTg5OX0._bOyWN99jlx7ntPCuVNSHudvAxbJ-J8tAYuaTe90pH8
+    @Headers("Authorization: Bearer {token}")
+    @GET("/api/orders/user")
+    Call<List<Feedback>> getBookingByUser(
+            @Path("token") String token
+    );
+
     //@Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")
     //@GET("/v1/{appId}/conversations/{conversationId}/messages")
 

@@ -162,7 +162,6 @@ public class UserFragment extends Fragment {
         Date dateOfBirth = Date.valueOf(str);
         String url = "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg";
         User user = new User(1, url, "PhiPhiPhi", dateOfBirth, "0966324244", "Phinhse150972@fpt.edu.vn", "Phinhse150972");
-
         return user;
     }
 
