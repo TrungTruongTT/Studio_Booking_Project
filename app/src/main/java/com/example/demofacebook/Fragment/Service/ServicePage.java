@@ -53,6 +53,9 @@ public class ServicePage extends AppCompatActivity {
     private ServiceAdapter serviceAdapter;
     private List<Service> mServiceList;
 
+    //chatBy Button
+    private Button addToCardbtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +69,15 @@ public class ServicePage extends AppCompatActivity {
         //Auto SlideImages
         autoSlideImages();
         //onClickAddToCart
-        Button button = findViewById(R.id.AddToCartBtn);
-        button.setOnClickListener(view -> {
+        addToCardbtn = findViewById(R.id.AddToCartBtn);
+        addToCardbtn.setOnClickListener(view -> {
             Toast.makeText(ServicePage.this, String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
-            button.setBackgroundResource(R.drawable.love_heart_svg);
+            addToCardbtn.setBackgroundResource(R.drawable.love_heart_svg);
+            //xử lý qua trang chat và lưu trên talkjs ở đây .....
+
+
+
+
         });
         //Click on studio
         LinearLayout linearLayout = findViewById(R.id.userLayout);
