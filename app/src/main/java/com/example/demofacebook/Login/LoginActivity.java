@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
+import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
@@ -43,66 +45,89 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         // Gắn kết các thành phần UI
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.btnLogin);
 
-
         // Thêm xử lý sự kiện cho nút đăng nhập
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Kiểm tra tên đăng nhập và mật khẩu
-                String email = editTextEmail.getText().toString();
+                String credential = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-
-                if (isValidCredentials(email, password)) {
+                isValidCredentials(credential, password);
+                /*if (isValidCredentials(email, password)) {
                     // Nếu thông tin đăng nhập hợp lệ, chuyển đến màn hình chính
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    finish();
+
                 } else {
                     // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
                     // (có thể thay bằng cách sử dụng Toast hoặc AlertDialog)
                     editTextEmail.setError("Invalid credentials");
-                }
+                }*/
             }
         });
 
 
     }
 
-    private boolean isValidCredentials(String credential, String password) {
+    private void isValidCredentials(String credential, String password) {
         Login_Request loginAccount = new Login_Request(credential,password);
-/*
         ApiService.apiService.login(loginAccount).enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                 if(response.isSuccessful()){
-                    // success se tra ve TOKEN
-                    TokenResponse tokenResponse = response.body();
-                    String accessToken = tokenResponse.getAccessToken();
-                    String refreshToken = tokenResponse.getRefreshToken();
+                    TokenResponse tokenResponse= response.body();
+                    if(tokenResponse !=null){
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                        Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
+                        //getCustomerAccountByPhoneorEmail(credential);
+                    }else {
+                        // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
+                        // (có thể thay bằng cách sử dụng Toast hoặc AlertDialog)
+                        editTextEmail.setError("Invalid credentials");
+                    }
                 }
             }
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
-                String errorMessage = "Login Fail";
-                // Trả về thông báo lỗi cho ứng dụng
-                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "LOGIN API Unsuccess", Toast.LENGTH_SHORT).show();
             }
         });
-*/
+    }
 
-        // Thực hiện kiểm tra thông tin đăng nhập
-        // (thông thường, bạn sẽ kiểm tra với cơ sở dữ liệu hoặc API)
-        return true; //email.equals("admin@gmail.com") && password.equals("admin123");
+    private void getCustomerAccountByPhoneorEmail(String credential){
+        ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<CustomerAccount>() {
+            @Override
+            public void onResponse(Call<CustomerAccount> call, Response<CustomerAccount> response) {
+                if(response.isSuccessful()){
+                    CustomerAccount customerAccount = response.body();
+                    if(customerAccount!=null){
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        Bundle bundle = new Bundle();
+                        //bundle.putSerializable("acccount", customerAccount);
+                        bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                        Toast.makeText(LoginActivity.this, customerAccount.getCustomerId(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CustomerAccount> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "getCustomerFail", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

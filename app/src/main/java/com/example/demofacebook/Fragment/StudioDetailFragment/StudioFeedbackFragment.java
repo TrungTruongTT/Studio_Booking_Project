@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.FeedbackAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackListener;
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Fragment.Service.FeedbackActivity;
-import com.example.demofacebook.Fragment.Service.RecommendServiceActivity;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
@@ -25,6 +25,12 @@ import com.example.demofacebook.R;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Query;
 
 public class StudioFeedbackFragment extends Fragment {
     final private Studio studio;
@@ -41,16 +47,8 @@ public class StudioFeedbackFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerViewFeedback = view.findViewById(R.id.FeedbackRecyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerViewFeedback.setLayoutManager(linearLayoutManager);
-        mFeedbackList = getFeedbackData();
-        feedbackAdapter = new FeedbackAdapter(getActivity() ,mFeedbackList, new IClickItemFeedbackListener() {
-            @Override
-            public void onClickItemFeedback(Feedback feedback) {
-                Toast.makeText(getActivity(), feedback.getFeedbackUserName(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        recyclerViewFeedback.setAdapter(feedbackAdapter);
+
+        loadFeedbackStudio(view);
 
         Button button = view.findViewById(R.id.ViewMoreFeedback);
         button.setOnClickListener(new View.OnClickListener() {
@@ -59,22 +57,60 @@ public class StudioFeedbackFragment extends Fragment {
                 onClickViewMoreFeedback();
             }
         });
-
     }
 
-    private List<Feedback> getFeedbackData() {
+    private void loadFeedbackStudio(@NonNull View view) {
+
+        mFeedbackList = getData();
+        loadFeedbackData(mFeedbackList);
+
+//        ApiService.apiService.getServiceFeedbackStudioId(1).enqueue(new Callback<List<Feedback>>() {
+//            @Override
+//            public void onResponse(Call<List<Feedback>> call, Response<List<Feedback>> response) {
+//                if (response.isSuccessful()) {
+//                    List<Feedback> responseValue  = response.body();
+//                    mFeedbackList = responseValue.stream().skip(0).limit(5).collect(Collectors.toList());
+//                    loadFeedbackData(mFeedbackList);
+//                    Toast.makeText(view.getContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(view.getContext(), "ResponseFail check", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<List<Feedback>> call, Throwable t) {
+//                Toast.makeText(view.getContext(), "onFailure", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+    }
+
+    private List<Feedback> getData() {
         List<Feedback> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Feedback(1, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(2, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(3, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(4, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(5, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(6, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-
+        myList.add(new Feedback(1, null, studio.getTitle(), 6, getString(R.string.feedbackString), null, dateChange));
+        myList.add(new Feedback(2, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
+        myList.add(new Feedback(3, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
+        myList.add(new Feedback(4, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
+        myList.add(new Feedback(5, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
+        myList.add(new Feedback(6, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
         return myList;
     }
+
+    private void loadFeedbackData(List<Feedback> data){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerViewFeedback.setLayoutManager(linearLayoutManager);
+        mFeedbackList = data;
+        feedbackAdapter = new FeedbackAdapter(getActivity() ,mFeedbackList, new IClickItemFeedbackListener() {
+            @Override
+            public void onClickItemFeedback(Feedback feedback) {
+                Toast.makeText(getActivity(), feedback.getFeedbackUserName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerViewFeedback.setAdapter(feedbackAdapter);
+    }
+
+
+
     private void onClickViewMoreFeedback() {
         Intent intent = new Intent(getActivity(), FeedbackActivity.class);
         Bundle bundle = new Bundle();

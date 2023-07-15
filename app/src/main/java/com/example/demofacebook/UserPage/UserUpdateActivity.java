@@ -116,7 +116,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                 .placeholder(R.drawable.download)
                 .error(R.drawable.download)
                 .into(userImageDialog);
-        editTextUserName.setText(user.getName());
+        editTextUserName.setText(user.getFullName());
         String str = user.getDateOfBirth().toString();
         String[] arrOfStr = str.split("-", 3);
         editTextDay.setText(arrOfStr[2]);
@@ -148,7 +148,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                     String str = year + "-" + month + "-" + day;
                     Date dateOfBirth = Date.valueOf(str);
 
-                    user.setName(editTextUserName.getText().toString());
+                    user.setFullName(editTextUserName.getText().toString());
                     String url = "https://i.imgur.com/DvpvklR.png";
                     user.setImage(url);
                     user.setDateOfBirth(dateOfBirth);
@@ -230,7 +230,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                         .error(R.drawable.download)
                         .into(userImage);
 
-                userName.setText(user.getName());
+                userName.setText(user.getFullName());
                 birthDate.setText(user.getDateOfBirth().toString());
                 phone.setText(user.getPhone());
                 email.setText(user.getEmail());
@@ -251,7 +251,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                     .error(R.drawable.download)
                     .into(userImage);
 
-            userName.setText(user.getName());
+            userName.setText(user.getFullName());
 
             birthDate.setText(user.getDateOfBirth().toString());
             phone.setText(user.getPhone());

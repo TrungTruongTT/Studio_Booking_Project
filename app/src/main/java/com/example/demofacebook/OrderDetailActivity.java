@@ -25,7 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.Adapter.Booking.OrderDetailAdapter;
+import com.example.demofacebook.Adapter.Chat.Booking.OrderDetailAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackOrderDetailListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderDetailListener;
 import com.example.demofacebook.Fragment.Service.ServicePage;
@@ -41,7 +41,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private Studio studio;
     private int orderId;
-    private int orderStatus;
+    private String orderStatus;
     private RecyclerView recyclerView;
     private OrderDetailAdapter orderDetailAdapter;
     private List<Service> mList;
@@ -94,9 +94,9 @@ public class OrderDetailActivity extends AppCompatActivity {
     private void loadData() {
         if (getIntent().getExtras() != null) {
 //            studio = (Studio) getIntent().getExtras().get("studio");
-            studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
+            studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
             orderId = (int) getIntent().getExtras().get("orderId");
-            orderStatus = (int) getIntent().getExtras().get("orderStatus");
+            orderStatus = (String) getIntent().getExtras().get("orderStatus");
 
 
             cancelOrderBtn = findViewById(R.id.CancelOrderBtn);
@@ -104,7 +104,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             paidTheRestOrderBtn = findViewById(R.id.PaidTheRestOrderBtn);
 
             switch (orderStatus) {
-                case 1:
+                case "PENDING":
                     cancelOrderBtn.setEnabled(true);
                     cancelOrderBtn.setVisibility(View.VISIBLE);
                     depositOrderBtn.setEnabled(true);
@@ -112,7 +112,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                     paidTheRestOrderBtn.setEnabled(false);
                     paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
                     break;
-                case 2:
+                case "DEPOSITED":
                     cancelOrderBtn.setEnabled(true);
                     cancelOrderBtn.setVisibility(View.VISIBLE);
                     depositOrderBtn.setEnabled(false);
@@ -120,7 +120,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                     paidTheRestOrderBtn.setEnabled(false);
                     paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
                     break;
-                case 3:
+                case "WORKED":
                     cancelOrderBtn.setEnabled(false);
                     cancelOrderBtn.setVisibility(View.INVISIBLE);
                     depositOrderBtn.setEnabled(false);
@@ -128,8 +128,8 @@ public class OrderDetailActivity extends AppCompatActivity {
                     paidTheRestOrderBtn.setEnabled(true);
                     paidTheRestOrderBtn.setVisibility(View.VISIBLE);
                     break;
-                case 4:
-                case 5:
+                case "COMPLETED":
+                case "CANCELED":
                     cancelOrderBtn.setEnabled(false);
                     cancelOrderBtn.setVisibility(View.INVISIBLE);
                     depositOrderBtn.setEnabled(false);
@@ -181,7 +181,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ServicePage.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
+        Studio studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -208,8 +208,8 @@ public class OrderDetailActivity extends AppCompatActivity {
             dialog.setCancelable(false);
         }
         ImageView studioImage = dialog.findViewById(R.id.StudioAvatarImageFeedback);
-        studioImage.setImageResource(studio.getImage());
-
+//        studioImage.setImageResource(studio.getImage());
+        Picasso.get().load(studio.getImage()).into(studioImage);
         TextView NameStudioFeedback = dialog.findViewById(R.id.NameStudioFeedback);
         NameStudioFeedback.setText(studio.getTitle());
 

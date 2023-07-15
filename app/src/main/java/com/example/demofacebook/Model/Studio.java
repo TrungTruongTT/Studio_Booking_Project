@@ -6,57 +6,64 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Studio implements Serializable {
-    @SerializedName("studio_id")
+    @SerializedName("studioId")
     private int studioId;
-    @SerializedName("avatar_studio")
-    private int image;
+    @SerializedName("avatarStudio")
+    private String image;
     @SerializedName("name")
     private String title;
     @SerializedName("address")
 
     private String address_Studio;
     private int totalAlbum;
-    @SerializedName("total_rating")
+    @SerializedName("totalRating")
     private int rating;
     @SerializedName("description")
     private String description;
+
+    @SerializedName("coverImage")
+    private String coverImage;
     private List<Service> serviceList;
 
-    public Studio(int studioId, int image, String title, String address_Studio, int rating, String description) {
+    public Studio(int studioId, String image, String title, String address_Studio, int rating, String description, String coverImage) {
         this.studioId = studioId;
         this.image = image;
         this.title = title;
         this.address_Studio = address_Studio;
         this.rating = rating;
         this.description = description;
+        this.coverImage = coverImage;
     }
 
-    public Studio(int studioId, int image, String title, int totalAlbum, int rating, String description, List<Service> serviceList) {
+    public Studio(int studioId, String image, String title, int totalAlbum, int rating, String description, String coverImage, List<Service> serviceList) {
         this.studioId = studioId;
         this.image = image;
         this.title = title;
         this.totalAlbum = totalAlbum;
         this.rating = rating;
         this.description = description;
+        this.coverImage = coverImage;
         this.serviceList = serviceList;
     }
 
 
-    public Studio(int studioId, int image, String title, int totalAlbum, int rating, String description) {
+    public Studio(int studioId, String image, String title, int totalAlbum, int rating, String description, String coverImage) {
         this.studioId = studioId;
         this.image = image;
         this.title = title;
         this.totalAlbum = totalAlbum;
         this.rating = rating;
         this.description = description;
+        this.coverImage = coverImage;
     }
 
-    public Studio(int studioId, int image, String title, int rating, String description) {
+    public Studio(int studioId, String image, String title, int rating, String description, String coverImage) {
         this.studioId = studioId;
         this.image = image;
         this.title = title;
         this.rating = rating;
         this.description = description;
+        this.coverImage = coverImage;
     }
 
     @Override
@@ -104,11 +111,11 @@ public class Studio implements Serializable {
         this.studioId = studioId;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -137,4 +144,11 @@ public class Studio implements Serializable {
     }
 
 
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
 }

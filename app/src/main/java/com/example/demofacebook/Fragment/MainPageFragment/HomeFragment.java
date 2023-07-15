@@ -2,6 +2,7 @@ package com.example.demofacebook.Fragment.MainPageFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,27 +99,15 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent(getActivity(), ServicePage.class); // qua trang servicePage
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
+
+        Toast.makeText(getContext(), Integer.valueOf(service.getStudio().getStudioId()).toString(), Toast.LENGTH_SHORT).show();
         Studio studio = new Studio(service.getStudio().getStudioId(), service.getStudio().getImage(), service.getStudio().getTitle()
-                , service.getStudio().getRating(), service.getStudio().getDescription());
+                , service.getStudio().getRating(), service.getStudio().getDescription(), null);
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-/*    private List<Service> getServiceData() {
-        List<Service> myList = new ArrayList<>();
-        myList.add(new Service(1, R.drawable.download, 4, "Service 1",
-                "<p>Please contact me first before starting order.</p><p><br></p><p>Hello, I'm Lana, I will be happy to shoot <strong>professional photo</strong> with your product and my adorable models)</p><p>I specialize in creating professional, high quality and selling product images.&nbsp;I have the&nbsp;models for your product (baby, mom and dad, toddler, and dog).</p><p>I live in Florida, so can use a beautiful nature to create an amazing lifestyle photos. Also I will be happy to create studio high quality photos for your brand.</p><p><br></p><p><strong>What you'll get:</strong></p><ul><li>High quality JPEG image</li><li>Images taken with professional high end SLRs and equipment (inc. Canon 6D mark ii)&nbsp;</li><li>Free image enhancement and editing to polish off the final product.</li></ul><p><br></p><p><strong>If you're an e-commerce seller on platforms such as eBay, Amazon, Shopify or Etsy, then&nbsp;this is the gig for you!</strong></p><p><br></p><p><strong>Why me?&nbsp;</strong>I'm hardworking and always aim for a quality results. You'll get the cheapest deal from me right now whilst I'm building my Fiverr reviews! If you are interested, write to me and we will discuss the details of the order.&nbsp;</p><p><strong>I</strong>&nbsp;<strong>would be</strong>&nbsp;<strong>really</strong>&nbsp;<strong>glad to work with you!&nbsp;</strong></p>", 350, 500));
-        myList.add(new Service(2, R.drawable.download, 3, "Service 2",
-                "Service Description 1\nService Description 2\nService Description 3", 4, 500));
-        myList.add(new Service(3, R.drawable.download, 2, "Service 3",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(4, R.drawable.download, 5, "Service 4",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(5, R.drawable.download, 1, "Service 5",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        return myList;
-    }*/
 
     //lấy API services
     private void callApiGetServicePack() {
@@ -127,18 +116,16 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
                 if(response.isSuccessful()){
                     mServiceList = response.body();
-                    serviceAdapter = new ServiceAdapter(mServiceList);
                     serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
                         @Override
                         public void onClickItemService(Service service) {
                             goDetailService(service);
-//                            Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "StudioId" + service.getStudio().getStudioId(), Toast.LENGTH_SHORT).show();
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
-                    Toast.makeText(getActivity(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "ResponseFail", Toast.LENGTH_SHORT).show();
+
                 }
             }
             @Override

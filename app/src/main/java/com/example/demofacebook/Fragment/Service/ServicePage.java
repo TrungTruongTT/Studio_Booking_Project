@@ -1,5 +1,6 @@
 package com.example.demofacebook.Fragment.Service;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +9,7 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,24 +26,30 @@ import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbac
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Adapter.StudioDetail.PhotoAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 import me.relex.circleindicator.CircleIndicator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ServicePage extends AppCompatActivity {
     private Studio studio;
     private Service service;
     private ViewPager viewPager;
+
     private List<String> photoList;
     private Timer timer;
     //feedback
@@ -52,11 +60,16 @@ public class ServicePage extends AppCompatActivity {
     private RecyclerView recyclerViewService;
     private ServiceAdapter serviceAdapter;
     private List<Service> mServiceList;
+    private Context context;
+
+    //chatBy Button
+    private Button addToCardbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_page);
+        context = getApplicationContext();
         //load Service Page Data (Studio + Service)
         loadData();
         //LoadAppBar
@@ -66,10 +79,15 @@ public class ServicePage extends AppCompatActivity {
         //Auto SlideImages
         autoSlideImages();
         //onClickAddToCart
-        Button button = findViewById(R.id.AddToCartBtn);
-        button.setOnClickListener(view -> {
+        addToCardbtn = findViewById(R.id.AddToCartBtn);
+        addToCardbtn.setOnClickListener(view -> {
             Toast.makeText(ServicePage.this, String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
-            button.setBackgroundResource(R.drawable.love_heart_svg);
+            addToCardbtn.setBackgroundResource(R.drawable.love_heart_svg);
+            //xử lý qua trang chat và lưu trên talkjs ở đây .....
+
+
+
+
         });
         //Click on studio
         LinearLayout linearLayout = findViewById(R.id.userLayout);
@@ -82,7 +100,7 @@ public class ServicePage extends AppCompatActivity {
         //load Feedback list
         loadFeedback();
         //load recommend service list
-        loadRecommendService();
+        callApiGetRecommendServicePack();
         //View more feedback btn
         Button buttonFeedback = findViewById(R.id.ViewMoreFeedbackBtn);
         buttonFeedback.setOnClickListener(new View.OnClickListener() {
@@ -121,9 +139,6 @@ public class ServicePage extends AppCompatActivity {
     private void onClickViewMoreService() {
         Intent intent = new Intent(this, RecommendServiceActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5,
-                "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -132,60 +147,79 @@ public class ServicePage extends AppCompatActivity {
     private void onClickViewMoreFeedback() {
         Intent intent = new Intent(this, FeedbackActivity.class);
         Bundle bundle = new Bundle();
-
-        bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    private void loadRecommendService() {
-        recyclerViewService = findViewById(R.id.RecommendServiceRecyclerView);
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewService.setLayoutManager(linearLayoutManager2);
-        mServiceList = getServiceData();
-        serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
+
+    private void callApiGetRecommendServicePack() {
+        ApiService.apiService.serviceCall().enqueue(new Callback<List<Service>>() {
             @Override
-            public void onClickItemService(Service service) {
-                goDetailService(service);
-                Toast.makeText(getApplicationContext(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                if (response.isSuccessful()) {
+                    mServiceList = response.body();
+                    List<Service> sort = mServiceList.stream().skip(0).limit(5).collect(Collectors.toList());
+                    recyclerViewService = findViewById(R.id.RecommendServiceRecyclerView);
+                    LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getApplicationContext(),
+                            LinearLayoutManager.HORIZONTAL, false);
+                    recyclerViewService.setLayoutManager(linearLayoutManager2);
+                    serviceAdapter = new ServiceAdapter(sort, new IClickItemServiceListener() {
+                        @Override
+                        public void onClickItemService(Service service) {
+                            goDetailService(service);
+                            Toast.makeText(getApplicationContext(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    recyclerViewService.setAdapter(serviceAdapter);
+
+                    Toast.makeText(getApplicationContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "ResponseFail", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Service>> call, Throwable t) {
+//                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerViewService.setAdapter(serviceAdapter);
-    }
-
-    private List<Service> getServiceData() {
-        List<Service> myList = new ArrayList<>();
-        myList.add(new Service(1, R.drawable.download, 4, "Service 1",
-                "Service Description 1", 350, 500));
-        myList.add(new Service(2, R.drawable.download, 4, "Service 2",
-                "Service Description 1\nService Description 2\nService Description 3", 4, 500));
-        myList.add(new Service(3, R.drawable.download, 4, "Service 3",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(4, R.drawable.download, 4, "Service 4",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(5, R.drawable.download, 4, "Service 5",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        return myList;
     }
 
     private void goDetailService(Service service) {
         Intent intent = new Intent(this, ServicePage.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
+        Studio studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
     private void loadFeedback() {
+        ApiService.apiService.getServiceFeedbackServiceServiceId(service.getServiceId()).enqueue(new Callback<List<Feedback>>() {
+            @Override
+            public void onResponse(Call<List<Feedback>> call, Response<List<Feedback>> response) {
+                if (response.isSuccessful()) {
+                    List<Feedback> responseValue  = response.body();
+                    mFeedbackList = responseValue.stream().skip(0).limit(3).collect(Collectors.toList());
+                    loadFeedbackData(mFeedbackList);
+                    Toast.makeText(getApplicationContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "ResponseFail", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Feedback>> call, Throwable t) {
+            }
+        });
+    }
+
+    private void loadFeedbackData(List<Feedback> data){
         recyclerViewFeedback = findViewById(R.id.FeedbackServiceRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewFeedback.setLayoutManager(linearLayoutManager);
-        mFeedbackList = getFeedbackData();
-        feedbackAdapter = new FeedbackAdapter(this ,mFeedbackList, new IClickItemFeedbackListener() {
+        feedbackAdapter = new FeedbackAdapter(this, data, new IClickItemFeedbackListener() {
             @Override
             public void onClickItemFeedback(Feedback feedback) {
                 Toast.makeText(getApplicationContext(), feedback.getFeedbackUserName(), Toast.LENGTH_SHORT).show();
@@ -194,14 +228,6 @@ public class ServicePage extends AppCompatActivity {
         recyclerViewFeedback.setAdapter(feedbackAdapter);
     }
 
-    private List<Feedback> getFeedbackData() {
-        List<Feedback> myList = new ArrayList<>();
-        String str = "2015-03-31";
-        Date dateChange = Date.valueOf(str);
-        myList.add(new Feedback(1, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(2, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        return myList;
-    }
 
     private void loadData() {
         if (getIntent().getExtras() == null) {
@@ -212,6 +238,17 @@ public class ServicePage extends AppCompatActivity {
             if (studio == null) {
                 return;
             } else {
+                ImageView studioImage = findViewById(R.id.StudioAvatarImageService);
+                if(studio.getImage() != null){
+                    Picasso.get().load(studio.getImage())
+                            .error(R.drawable.download)
+                            .into(studioImage);
+                }else {
+                    Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                            .error(R.drawable.download)
+                            .into(studioImage);
+                }
+
                 TextView studioName = findViewById(R.id.StudioName);
                 studioName.setText(studio.getTitle());
                 TextView studioRating = findViewById(R.id.StudioRating);
@@ -230,7 +267,6 @@ public class ServicePage extends AppCompatActivity {
                 serviceDiscount.setText("Discount: " + String.valueOf(service.getPriceService() + "$"));
                 TextView serviceDescription = findViewById(R.id.ServiceDescription);
                 serviceDescription.setText(Html.fromHtml(service.getServiceDescription()));
-
             }
         }
 
@@ -249,11 +285,20 @@ public class ServicePage extends AppCompatActivity {
 
     private List<String> getPhotoList() {
         List<String> myList = new ArrayList<>();
-        myList.add("https://i.imgur.com/DvpvklR.png");
-        myList.add("https://i.imgur.com/DvpvklR.png");
-        myList.add("https://i.imgur.com/DvpvklR.png");
-        myList.add("https://i.imgur.com/DvpvklR.png");
-        myList.add("https://i.imgur.com/DvpvklR.png");
+        if (service.getMediaServicePackList() != null) {
+            if (service.getMediaServicePackList().size() != 0) {
+                for (int i = 0; i < service.getMediaServicePackList().size(); i++) {
+                    myList.add(service.getMediaServicePackList().get(i).getFilePath());
+                }
+                return myList;
+            }
+            else {
+                myList.add("https://i.imgur.com/DvpvklR.png");
+                myList.add("https://i.imgur.com/DvpvklR.png");
+                myList.add("https://i.imgur.com/DvpvklR.png");
+                myList.add("https://i.imgur.com/DvpvklR.png");
+            }
+        }
         return myList;
     }
 

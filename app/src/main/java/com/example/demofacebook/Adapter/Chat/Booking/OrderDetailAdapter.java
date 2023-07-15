@@ -1,4 +1,4 @@
-package com.example.demofacebook.Adapter.Booking;
+package com.example.demofacebook.Adapter.Chat.Booking;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +21,10 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
     private final List<Service> mList;
     private final IClickItemOrderDetailListener iClickItemOrderDetailListener;
     private final IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener;
-    private final int orderStatus;
+    private final String orderStatus;
 
 
-    public OrderDetailAdapter(List<Service> mList, IClickItemOrderDetailListener iClickItemOrderDetailListener, IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener, int orderStatus) {
+    public OrderDetailAdapter(List<Service> mList, IClickItemOrderDetailListener iClickItemOrderDetailListener, IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener, String orderStatus) {
         this.mList = mList;
         this.iClickItemOrderDetailListener = iClickItemOrderDetailListener;
         this.iClickItemFeedbackOrderDetailListener = iClickItemFeedbackOrderDetailListener;
@@ -48,7 +48,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         holder.servicePrice.setText("Price: US$" + service.getPriceService());
 //        holder.urlImageService.setImageResource(orderDetail.getServiceName());
 
-        if (orderStatus == 1 || orderStatus == 2 || orderStatus == 3 || orderStatus == 5) {
+        if (orderStatus.equals("PENDING") || orderStatus.equals("DEPOSITED") || orderStatus.equals("WORKED") || orderStatus.equals("CANCELED")) {
             holder.feedbackButton.setEnabled(false);
             holder.feedbackButton.setVisibility(View.INVISIBLE);
         } else {

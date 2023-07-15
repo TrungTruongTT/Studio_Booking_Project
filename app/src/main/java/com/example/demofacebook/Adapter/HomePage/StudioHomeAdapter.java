@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.MyInterface.IClickItemStudioListener;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,8 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
         if (studio == null) {
             return;
         }
-        holder.imgStudioAvatar.setImageResource(studio.getImage());
+//        holder.imgStudioAvatar.setImageResource(studio.getImage());
+        Picasso.get().load(studio.getImage()).into(holder.imgStudioAvatar);
         holder.txtTitle.setText(studio.getTitle());
         holder.totalAlbum.setText("Album: " + studio.getTotalAlbum());
         holder.txtRating.setText("⭐: " + studio.getRating());

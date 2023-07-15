@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.Adapter.Booking.OrderAdapter;
+import com.example.demofacebook.Adapter.Chat.Booking.OrderAdapter;
 import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
 import com.example.demofacebook.Model.Order;
@@ -61,11 +61,11 @@ public class DepositedFragment extends Fragment {
         List<Order> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Order(1, "Studio Name", dateChange, 2, 100000, 4, "", "Ten service dau tien"));
-        myList.add(new Order(2, "Studio Name", dateChange, 2, 100000, 4, "", "Ten service dau tien"));
-        myList.add(new Order(3, "Studio Name", dateChange, 2, 100000, 4, "", "Ten service dau tien"));
-        myList.add(new Order(4, "Studio Name", dateChange, 2, 100000, 4, "", "Ten service dau tien"));
-        myList.add(new Order(5, "Studio Name", dateChange, 2, 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(1, "Studio Name", dateChange, "DEPOSITED", 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(2, "Studio Name", dateChange, "DEPOSITED", 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(3, "Studio Name", dateChange, "DEPOSITED", 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(4, "Studio Name", dateChange, "DEPOSITED", 100000, 4, "", "Ten service dau tien"));
+        myList.add(new Order(5, "Studio Name", dateChange, "DEPOSITED", 100000, 4, "", "Ten service dau tien"));
         return myList;
     }
 
