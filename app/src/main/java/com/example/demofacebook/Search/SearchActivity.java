@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,20 +18,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Fragment.Service.ServicePage;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
     Toolbar toolbar;
     SearchView searchView;
-
     private RecyclerView recyclerViewStudio;
     private ServiceAdapter serviceAdapter;
+    private List<Service> mListService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +51,33 @@ public class SearchActivity extends AppCompatActivity {
 
         //studioList
         recyclerViewStudio = findViewById(R.id.RecyclerViewStudioSearch);
-        serviceAdapter = new ServiceAdapter(getStudioData(), new IClickItemServiceListener() {
+        ApiService.apiService.serviceCall().enqueue(new Callback<List<Service>>() {
             @Override
-            public void onClickItemService(Service Service) {
-                onClickItemGoDetail(Service);
+            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                if (response.isSuccessful()) {
+                    mListService = response.body();
+                    serviceAdapter = new ServiceAdapter(mListService, new IClickItemServiceListener() {
+                        @Override
+                        public void onClickItemService(Service Service) {
+                            onClickItemGoDetail(Service);
+                        }
+                    });
+                    LinearLayoutManager linearLayoutManagerStudio = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
+                    recyclerViewStudio.setLayoutManager(linearLayoutManagerStudio);
+                    recyclerViewStudio.setAdapter(serviceAdapter);
+                    recyclerViewStudio.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "ResponseFail", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Service>> call, Throwable t) {
+//                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
             }
         });
 
-        LinearLayoutManager linearLayoutManagerStudio = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        recyclerViewStudio.setLayoutManager(linearLayoutManagerStudio);
-        recyclerViewStudio.setAdapter(serviceAdapter);
-        recyclerViewStudio.setVisibility(View.GONE);
 
     }
 
@@ -95,36 +116,13 @@ public class SearchActivity extends AppCompatActivity {
         return true;
     }
 
-    private List<Service> getStudioData() {
-        List<Service> myList = new ArrayList<>();
-        myList.add(new Service(1, R.drawable.download, 4, "Service 1",
-                "<p>Please contact me first before starting order.</p><p><br></p><p>Hello, I'm Lana, I will be happy to shoot <strong>professional photo</strong> with your product and my adorable models)</p><p>I specialize in creating professional, high quality and selling product images.&nbsp;I have the&nbsp;models for your product (baby, mom and dad, toddler, and dog).</p><p>I live in Florida, so can use a beautiful nature to create an amazing lifestyle photos. Also I will be happy to create studio high quality photos for your brand.</p><p><br></p><p><strong>What you'll get:</strong></p><ul><li>High quality JPEG image</li><li>Images taken with professional high end SLRs and equipment (inc. Canon 6D mark ii)&nbsp;</li><li>Free image enhancement and editing to polish off the final product.</li></ul><p><br></p><p><strong>If you're an e-commerce seller on platforms such as eBay, Amazon, Shopify or Etsy, then&nbsp;this is the gig for you!</strong></p><p><br></p><p><strong>Why me?&nbsp;</strong>I'm hardworking and always aim for a quality results. You'll get the cheapest deal from me right now whilst I'm building my Fiverr reviews! If you are interested, write to me and we will discuss the details of the order.&nbsp;</p><p><strong>I</strong>&nbsp;<strong>would be</strong>&nbsp;<strong>really</strong>&nbsp;<strong>glad to work with you!&nbsp;</strong></p>", 350, 500));
-        myList.add(new Service(2, R.drawable.download, 3, "Service 2",
-                "Service Description 1\nService Description 2\nService Description 3", 4, 500));
-        myList.add(new Service(3, R.drawable.download, 2, "Service 3",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(4, R.drawable.download, 5, "Service 4",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(5, R.drawable.download, 1, "Service 5",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(6, R.drawable.download, 4, "Service 1",
-                "<p>Please contact me first before starting order.</p><p><br></p><p>Hello, I'm Lana, I will be happy to shoot <strong>professional photo</strong> with your product and my adorable models)</p><p>I specialize in creating professional, high quality and selling product images.&nbsp;I have the&nbsp;models for your product (baby, mom and dad, toddler, and dog).</p><p>I live in Florida, so can use a beautiful nature to create an amazing lifestyle photos. Also I will be happy to create studio high quality photos for your brand.</p><p><br></p><p><strong>What you'll get:</strong></p><ul><li>High quality JPEG image</li><li>Images taken with professional high end SLRs and equipment (inc. Canon 6D mark ii)&nbsp;</li><li>Free image enhancement and editing to polish off the final product.</li></ul><p><br></p><p><strong>If you're an e-commerce seller on platforms such as eBay, Amazon, Shopify or Etsy, then&nbsp;this is the gig for you!</strong></p><p><br></p><p><strong>Why me?&nbsp;</strong>I'm hardworking and always aim for a quality results. You'll get the cheapest deal from me right now whilst I'm building my Fiverr reviews! If you are interested, write to me and we will discuss the details of the order.&nbsp;</p><p><strong>I</strong>&nbsp;<strong>would be</strong>&nbsp;<strong>really</strong>&nbsp;<strong>glad to work with you!&nbsp;</strong></p>", 350, 500));
-        myList.add(new Service(7, R.drawable.download, 3, "Service 2",
-                "Service Description 1\nService Description 2\nService Description 3", 4, 500));
-        myList.add(new Service(8, R.drawable.download, 2, "Service 3",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(9, R.drawable.download, 5, "Service 4",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(10, R.drawable.download, 1, "Service 5",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        return myList;
-    }
+
 
     private void onClickItemGoDetail(Service service) {
         Intent intent = new Intent(this, ServicePage.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
+        Studio studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);

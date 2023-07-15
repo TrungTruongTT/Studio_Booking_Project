@@ -54,13 +54,12 @@ public class FeedbackActivity extends AppCompatActivity {
         List<Feedback> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Feedback(1, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(2, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(3, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(4, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(5, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-        myList.add(new Feedback(6, R.drawable.download, studio.getTitle(), 5, getString(R.string.feedbackString), R.drawable.download, dateChange));
-
+        myList.add(new Feedback(1, null, studio.getTitle(), 6, getString(R.string.feedbackString), null, dateChange));
+        myList.add(new Feedback(2, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
+        myList.add(new Feedback(3, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
+        myList.add(new Feedback(4, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
+        myList.add(new Feedback(5, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
+        myList.add(new Feedback(6, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
         return myList;
     }
 

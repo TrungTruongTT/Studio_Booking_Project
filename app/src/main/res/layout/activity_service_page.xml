@@ -76,6 +76,7 @@
                         android:orientation="horizontal">
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/StudioAvatarImageService"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="5dp"
@@ -91,12 +92,12 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:textColor="@color/BlackText"
                                 android:id="@+id/StudioName"
                                 android:layout_width="match_parent"
                                 android:layout_height="27.5dp"
                                 android:ellipsize="end"
                                 android:text="Studio Name"
+                                android:textColor="@color/BlackText"
                                 android:textSize="20sp" />
 
                             <TextView
@@ -144,6 +145,7 @@
                                     android:paddingEnd="10dp">
 
                                     <TextView
+                                        android:layout_marginEnd="20dp"
                                         android:id="@+id/ServiceNameDetail"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
@@ -151,14 +153,14 @@
                                         android:gravity="center|start"
                                         android:text="Service Name"
                                         android:textColor="@color/BlackText"
-                                        android:textSize="35sp" />
+                                        android:textSize="30sp" />
 
                                     <Button
                                         android:id="@+id/AddToCartBtn2"
                                         android:layout_width="40dp"
                                         android:layout_height="40dp"
                                         android:layout_marginEnd="30dp"
-                                        android:background="@drawable/shopping_cart_48dp"
+                                        android:background="@drawable/chat_buy_white_48dp"
                                         android:gravity="bottom" />
 
                                 </LinearLayout>

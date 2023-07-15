@@ -1,4 +1,4 @@
-package com.example.demofacebook.Adapter.Booking;
+package com.example.demofacebook.Adapter.Chat.Booking;
 
 import android.graphics.Color;
 import android.util.Log;
@@ -47,26 +47,26 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 //        holder.imageGallery.setImageResource(gallery.getImageGallery());
         Log.d("a", order.toString());
         holder.studioName.setText(order.getStudioName());
-        int status = order.getStatus();
+        String status = order.getStatus();
         switch (status) {
-            case 1:
-                holder.status.setText("Scheduled");
+            case "PENDING":
+                holder.status.setText("PENDING");
                 holder.status.setTextColor(Color.parseColor("#DAA520"));
                 break;
-            case 2:
-                holder.status.setText("Deposited");
+            case "DEPOSITED":
+                holder.status.setText("DEPOSITED");
                 holder.status.setTextColor(Color.parseColor("#9370DB"));
                 break;
-            case 3:
-                holder.status.setText("Finished");
+            case "WORKED":
+                holder.status.setText("WORKED");
                 holder.status.setTextColor(Color.parseColor("#0000CD"));
                 break;
-            case 4:
-                holder.status.setText("Completed");
+            case "COMPLETED":
+                holder.status.setText("COMPLETED");
                 holder.status.setTextColor(Color.parseColor("#228B22"));
                 break;
-            case 5:
-                holder.status.setText("Canceled");
+            case "CANCELED":
+                holder.status.setText("CANCELED");
                 holder.status.setTextColor(Color.parseColor("#C71585"));
                 break;
 

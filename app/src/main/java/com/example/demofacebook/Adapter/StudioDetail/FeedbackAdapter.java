@@ -20,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackListener;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
+import java.sql.Date;
 import java.util.List;
 
 public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArrayAdapterHolder> {
@@ -48,20 +50,71 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
         if (feedback == null) {
             return;
         }
-        holder.userAvatar.setImageResource(feedback.getAvatarUser());
-        holder.feedbackUserName.setText(feedback.getFeedbackUserName());
-        String rating = "⭐: " + feedback.getRating();
-        holder.rating.setText(rating);
-        holder.feedbackDescription.setText(feedback.getFeedbackDescription());
-        holder.feedbackImage.setImageResource(feedback.getFeedbackImage());
+
+        if (feedback.getAvatarUser() != null) {
+            Picasso.get().
+                    load(feedback.getAvatarUser())
+                    .error(R.drawable.download)
+                    .into(holder.userAvatar);
+        } else {
+            Picasso.get()
+                    .load("https://i.imgur.com/DvpvklR.png")
+                    .placeholder(R.drawable.download)
+                    .into(holder.userAvatar);
+        }
+        if (feedback.getFeedbackUserName() == null) {
+            holder.feedbackUserName.setText("Nguyen Van A");
+        } else {
+            holder.feedbackUserName.setText(feedback.getFeedbackUserName());
+        }
+
+        if (Integer.valueOf(feedback.getRating()) == null) {
+            String rating = "⭐: " + 4;
+            holder.rating.setText(rating);
+        } else {
+            String rating = "⭐: " + feedback.getRating();
+            holder.rating.setText(rating);
+        }
+
+        if (feedback.getFeedbackDescription() == null) {
+            holder.feedbackDescription.setText("Null Data");
+        } else {
+            holder.feedbackDescription.setText(feedback.getFeedbackDescription());
+        }
+
+        if (feedback.getFeedbackDate() != null) {
+            holder.feedbackDate.setText("Create at " + feedback.getFeedbackDate().toString());
+        } else {
+            String str = "2015-03-31";
+            Date dateChange = Date.valueOf(str);
+            holder.feedbackDate.setText("Create at " + dateChange);
+        }
+
+        if (feedback.getFeedbackImage() != null) {
+            if (feedback.getFeedbackImage().size() != 0) {
+                Picasso.get().load(feedback.getFeedbackImage().get(0).getFilePath())
+                        .placeholder(R.drawable.download)
+                        .error(R.drawable.download)
+                        .into(holder.feedbackImage);
+            } else {
+                Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                        .placeholder(R.drawable.download)
+                        .error(R.drawable.download)
+                        .into(holder.feedbackImage);
+            }
+        } else {
+            Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download)
+                    .into(holder.feedbackImage);
+        }
+
         holder.feedbackImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openViewImageFeedbackDialog(Gravity.TOP, feedback);
+                openViewFeedbackImageDialog(Gravity.TOP, feedback);
             }
         });
-        holder.feedbackDate.setText("Create at " + feedback.getFeedbackDate().toString());
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +123,15 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
         });
     }
 
-    private void openViewImageFeedbackDialog(int gravity, Feedback feedback) {
+    @Override
+    public int getItemCount() {
+        if (mListFeedback != null) {
+            return mListFeedback.size();
+        }
+        return 0;
+    }
+
+    private void openViewFeedbackImageDialog(int gravity, Feedback feedback) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_feedback_image);
@@ -80,11 +141,9 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
         }
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = gravity;
         window.setAttributes(windowAttributes);
-
         if (Gravity.BOTTOM == gravity) {
             dialog.setCancelable(true);
         } else {
@@ -92,19 +151,30 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
         }
 
         ImageView feedbackImage = dialog.findViewById(R.id.FeedbackImage_View);
-        Button closeBtn = dialog.findViewById(R.id.CloseBtn);
-        feedbackImage.setImageResource(feedback.getFeedbackImage());
 
+        if (feedback.getFeedbackImage() != null) {
+            if (feedback.getFeedbackImage().size() != 0) {
+                Picasso.get().load(feedback.getFeedbackImage().get(0).getFilePath())
+                        .placeholder(R.drawable.download)
+                        .error(R.drawable.download)
+                        .into(feedbackImage);
+            } else {
+                Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                        .placeholder(R.drawable.download)
+                        .error(R.drawable.download)
+                        .into(feedbackImage);
+            }
+        } else {
+            Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download)
+                    .into(feedbackImage);
+        }
+
+        Button closeBtn = dialog.findViewById(R.id.CloseBtn);
         closeBtn.setOnClickListener(view -> dialog.dismiss());
 
         dialog.show();
-    }
-    @Override
-    public int getItemCount() {
-        if (mListFeedback != null) {
-            return mListFeedback.size();
-        }
-        return 0;
     }
 
     public class MyArrayAdapterHolder extends RecyclerView.ViewHolder {

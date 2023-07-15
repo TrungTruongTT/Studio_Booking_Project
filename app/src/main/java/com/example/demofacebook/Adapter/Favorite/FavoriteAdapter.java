@@ -28,6 +28,7 @@ import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -65,8 +66,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Studio
                 Intent intent = new Intent(mContext, ServicePage.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("service", Service);
-                Studio studio = new Studio(1, R.drawable.download, "Studio 1 test", 500, 5,
-                        "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n");
+                Studio studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5,
+                        "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
                 bundle.putSerializable("studio", studio);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
@@ -83,7 +84,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Studio
 
         //Studio Banner
         holder.studioName.setText(studio.getTitle());
-        holder.studioAvatar.setImageResource(studio.getImage());
+//        holder.studioAvatar.setImageResource(studio.getImage());
+        Picasso.get().load(studio.getImage()).into(holder.studioAvatar);
         holder.rating.setText("⭐: " + studio.getRating());
         holder.studioBanner.setOnClickListener(new View.OnClickListener() {
             @Override

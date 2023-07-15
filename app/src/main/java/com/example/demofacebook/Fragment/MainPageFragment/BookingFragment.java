@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.demofacebook.Adapter.Booking.BookingViewPagerAdapter;
+import com.example.demofacebook.Adapter.Chat.Booking.BookingViewPagerAdapter;
 import com.example.demofacebook.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -33,11 +33,11 @@ public class BookingFragment extends Fragment {
                 (tab, position) -> tab.setText(String.valueOf(position + 1))
         ).attach();
 
-        tabLayout.getTabAt(0).setText("Scheduled");
-        tabLayout.getTabAt(1).setText("Deposited");
-        tabLayout.getTabAt(2).setText("Finished");
-        tabLayout.getTabAt(3).setText("Completed");
-        tabLayout.getTabAt(4).setText("Canceled");
+        tabLayout.getTabAt(0).setText("PENDING");
+        tabLayout.getTabAt(1).setText("DEPOSITED");
+        tabLayout.getTabAt(2).setText("WORKED");
+        tabLayout.getTabAt(3).setText("COMPLETED");
+        tabLayout.getTabAt(4).setText("CANCELED");
 
     }
 
