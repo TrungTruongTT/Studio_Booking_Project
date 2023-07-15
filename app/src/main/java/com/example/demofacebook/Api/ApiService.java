@@ -1,6 +1,10 @@
 package com.example.demofacebook.Api;
 
+
 import com.example.demofacebook.Model.Feedback;
+
+import com.example.demofacebook.Model.CustomerAccount;
+
 import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
@@ -45,20 +49,18 @@ public interface ApiService {
             .build()
             .create(ApiService.class);
 
-
+    //services
     @GET("/api/services") //GET list services
     Call<List<Service>> serviceCall();
-
     @GET("/api/services/{serviceId}") //GetservicesByid
     Call<Service> getServiceById(
             @Path("serviceId") int serviceId
     );
-
+    //studio
     @GET("/api/studios/{id}") // GetStudioByID
     Call<Studio> getStudioByID(
             @Path("id") int studioID
     );
-
     @GET("/api/studios?name=") // GetStudioList
     Call<List<Studio>> getStudio();
 
@@ -67,7 +69,7 @@ public interface ApiService {
     Call<List<Studio>> getStudioByName(
             @Query("name") String studioName
     );
-
+    //account
     @POST("/api/auth/login")
     Call<TokenResponse> login(@Body Login_Request login);
 
@@ -97,6 +99,9 @@ public interface ApiService {
             @Path("token") String token
     );
 
+    Call<CustomerAccount> createCustomer(@Body CustomerAccount account);
+    @GET("/api/customers")
+    Call<CustomerAccount> getCustomerByEmailorPhone(@Path("emailOrPhone") String emailOrphone);
     //@Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")
     //@GET("/v1/{appId}/conversations/{conversationId}/messages")
 

@@ -46,7 +46,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyArrayAdapter
                 .error(R.drawable.download)
                 .into(holder.userImage);
 
-        holder.userName.setText(user.getName());
+        holder.userName.setText(user.getFullName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
