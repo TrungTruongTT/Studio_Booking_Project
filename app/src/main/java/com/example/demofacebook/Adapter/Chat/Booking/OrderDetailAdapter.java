@@ -77,7 +77,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             holder.feedbackButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    iClickItemFeedbackOrderDetailListener.onClickItemFeedbackOrderDetail(orderDetail.getServicePack(), holder.feedbackButton);
+                    iClickItemFeedbackOrderDetailListener.onClickItemFeedbackOrderDetail(orderDetail, holder.feedbackButton);
                     notifyDataSetChanged();
                 }
             });
@@ -85,7 +85,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickItemOrderDetailListener.onClickItemOrderDetail(orderDetail.getServicePack());
+                iClickItemOrderDetailListener.onClickItemOrderDetail(orderDetail);
             }
         });
     }

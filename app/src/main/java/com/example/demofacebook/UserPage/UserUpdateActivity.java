@@ -61,9 +61,63 @@ public class UserUpdateActivity extends AppCompatActivity {
         btnOpenUpdateDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openUpdateUserDialog(Gravity.TOP, user);
+                openEnterPasswordDialog(Gravity.TOP, view);
             }
         });
+    }
+
+    private void openEnterPasswordDialog(int gravity, View view) {
+        final Dialog dialog = new Dialog(view.getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_dialog_password_check);
+
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = gravity;
+        window.setAttributes(windowAttributes);
+        if (Gravity.BOTTOM == gravity) {
+            dialog.setCancelable(true);
+        } else {
+            dialog.setCancelable(false);
+        }
+        //Update
+        Button btnOpenUpdateDialog = dialog.findViewById(R.id.send_Authentication_button);
+        btnOpenUpdateDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String token = null, password = null;
+                if (checkPassword(token, password)) {
+                    openUpdateUserDialog(Gravity.TOP, user);
+                } else {
+                    return;
+                }
+                dialog.dismiss();
+            }
+        });
+
+        //Cancel
+        Button btnOpenCancelDialog = dialog.findViewById(R.id.cancel_Authentication_button);
+        btnOpenCancelDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private boolean checkPassword(String token, String password) {
+        //Api check password
+        if (true) {
+            return true;
+        }
+        return false;
     }
 
     private void openUpdateUserDialog(int gravity, User user) {
