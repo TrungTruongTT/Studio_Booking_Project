@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,21 +25,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.UserPage.ItemUserAdapter;
 import com.example.demofacebook.Adapter.UserPage.UserAdapter;
+
+import com.example.demofacebook.Api.ApiService;
+import com.example.demofacebook.Model.Service;
+
 import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.TokenResponse;
+
 import com.example.demofacebook.Model.User;
+import com.example.demofacebook.Model.UserByPhone;
 import com.example.demofacebook.MyInterface.IClickItemUserListener;
 import com.example.demofacebook.MyInterface.IClickItemUserOptionListener;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.example.demofacebook.UserPage.UserUpdateActivity;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserFragment extends Fragment {
     User user;
+    UserByPhone userByPhone;
     //User RecyclerView
     RecyclerView recyclerViewUser;
     UserAdapter userAdapter;
@@ -49,12 +61,46 @@ public class UserFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        user = getUser();
-        loadUser(view);
+        user = getUser2();
+        loadUser(view, user);
+//        Log.d("D","Check");
+//        ApiService.apiService.getUserByPhoneOrEmail("0369998759").enqueue(new Callback<UserByPhone>() {
+//            @Override
+//            public void onResponse(Call<UserByPhone> call, Response<UserByPhone> response) {
+//                if (response.isSuccessful()) {
+//                    userByPhone = response.body();
+//                    user = userByPhone.getUser();
+//                    loadUser(view, user);
+//                   Toast.makeText(getContext(), "oke", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getContext(), "oke r", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<UserByPhone> call, Throwable t) {
+//                Toast.makeText(getContext(), "oke r 222", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+
         loadUserOption(view);
     }
 
-    private void loadUser(View view) {
+    private User getUser2() {
+        int userId = 1;
+        String userImage = "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg";
+        String userName = "PhiPhiPhi";
+        String str = "2001-06-15";
+        Date dateOfBirth = Date.valueOf(str);
+
+        String phone = "0966324244";
+        String email = "Phinhse150972@fpt.edu.vn";
+        String password = "Phinhse150972";
+
+        return new User(userId, userImage, userName, dateOfBirth, phone, email, password);
+    }
+
+    private void loadUser(View view, User userValue) {
         //User Information
         recyclerViewUser = view.findViewById(R.id.RecyclerUser);
         LinearLayoutManager linearLayoutManagerUser = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
@@ -62,9 +108,9 @@ public class UserFragment extends Fragment {
         userAdapter = new UserAdapter(new IClickItemUserListener() {
             @Override
             public void onClickItemUser(User user) {
-                clickGoOption("Update Information", view);
+                clickGoOption("Update Information");
             }
-        }, getUser());
+        }, userValue);
         recyclerViewUser.setAdapter(userAdapter);
     }
 
@@ -76,7 +122,7 @@ public class UserFragment extends Fragment {
         itemUserAdapter = new ItemUserAdapter(new IClickItemUserOptionListener() {
             @Override
             public void onClickItemUserOptionListener(String option) {
-                clickGoOption(option, view);
+                clickGoOption(option);
             }
         }, getListOptionName1(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
@@ -93,9 +139,13 @@ public class UserFragment extends Fragment {
         recyclerViewUserOption.setAdapter(itemUserAdapter);
     }
 
-    private void clickGoOption(String option, View view) {
+    private void clickGoOption(String option) {
         if (option.equals("Update Information")) {
-            openEnterPasswordDialog(Gravity.CENTER, view);
+            Intent intent = new Intent(getActivity(), UserUpdateActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", user);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 
@@ -171,7 +221,6 @@ public class UserFragment extends Fragment {
         }
             return user;
         }
-
 
     private List<String> getListOptionName1() {
         List<String> myList = new ArrayList<>();

@@ -41,12 +41,16 @@ public class CanceledFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        loadData(view);
+    }
+
+    private void loadData(@NonNull View view) {
         ApiService.apiService.geOrderIdByUser().enqueue(new Callback<List<OrderInformation>>() {
             @Override
             public void onResponse(Call<List<OrderInformation>> call, Response<List<OrderInformation>> response) {
                 if (response.isSuccessful()) {
                     List<OrderInformation> value = response.body();
-                    orderList = value.stream().filter(p->p.getStatus().equals("canceled")).collect(Collectors.toList());
+                    orderList = value.stream().filter(p->p.getStatus().equals("cancel")).collect(Collectors.toList());
                     loadBookingData(view, orderList);
 
                     Toast.makeText(getContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
@@ -81,6 +85,20 @@ public class CanceledFragment extends Fragment {
         });
         recyclerViewOrder.setAdapter(orderAdapter);
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        Log.d("Check", "onResume: ");
+//        Toast.makeText(getContext(), "Check", Toast.LENGTH_SHORT).show();
+//
+//    }
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//    }
+//
 
 
     @Nullable

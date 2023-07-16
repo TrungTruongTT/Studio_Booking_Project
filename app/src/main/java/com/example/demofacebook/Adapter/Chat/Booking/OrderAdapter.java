@@ -71,7 +71,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 holder.status.setText("COMPLETED");
                 holder.status.setTextColor(Color.parseColor("#228B22"));
                 break;
-            case "canceled":
+            case "cancel":
                 holder.status.setText("CANCELED");
                 holder.status.setTextColor(Color.parseColor("#C71585"));
                 break;
