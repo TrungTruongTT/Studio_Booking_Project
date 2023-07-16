@@ -49,6 +49,9 @@ public interface ApiService {
             .build()
             .create(ApiService.class);
 
+    public final static String APPID_TALKJS ="tQ6S3FD4";
+    public final static String BEARER_TALKJS = "sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf";
+
     //services
     @GET("/api/services") //GET list services
     Call<List<Service>> serviceCall();
@@ -98,10 +101,12 @@ public interface ApiService {
     Call<List<Feedback>> getBookingByUser(
             @Path("token") String token
     );
-
+    //register
     Call<CustomerAccount> createCustomer(@Body CustomerAccount account);
     @GET("/api/customers")
     Call<CustomerAccount> getCustomerByEmailorPhone(@Path("emailOrPhone") String emailOrphone);
+
+
     //@Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")
     //@GET("/v1/{appId}/conversations/{conversationId}/messages")
 

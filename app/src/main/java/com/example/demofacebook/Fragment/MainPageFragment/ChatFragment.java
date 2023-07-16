@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Adapter.Chat.ChatAdapter;
 import com.example.demofacebook.Fragment.Service.PaymentActivity;
 import com.example.demofacebook.Model.Message;
+import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class ChatFragment extends Fragment{
 
     //zalo Pay in chat
     private Button btnZaloPay;
-
+    private Studio studio;
     private WebView talkJsUI;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -48,6 +49,11 @@ public class ChatFragment extends Fragment{
         //zalo Pay in chat
         //Button btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
         initLoadView(view);
+        // Nhận Studio ID từ Bundle
+        if (getArguments() != null) {
+            studio = (Studio) getArguments().getSerializable("studio");
+        }
+        createConversationWithStudio(studio);
 
        /* LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rcvMessage.setLayoutManager(linearLayoutManager);
@@ -76,6 +82,11 @@ public class ChatFragment extends Fragment{
         });*/
 
     }
+
+    private void createConversationWithStudio(Studio studio) {
+
+    }
+
     private void initLoadView(View view){
         talkJsUI = view.findViewById(R.id.talkjs);
         talkJsUI.getSettings().setJavaScriptEnabled(true); // Cho phép chạy mã JavaScript
