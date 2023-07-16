@@ -91,6 +91,7 @@ public class ServicePage extends AppCompatActivity {
             bundle.putSerializable("studio", service.getStudio());
             intent.putExtras(bundle);
             startActivity(intent);
+
         });
 
         //Click on studio

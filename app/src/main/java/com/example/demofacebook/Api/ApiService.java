@@ -46,13 +46,18 @@ public interface ApiService {
             .create(ApiService.class);
 
     ApiService talkJsServices = new Retrofit.Builder()
-            .baseUrl("https://api.talkjs.com")
+            .baseUrl("https://api.talkjs.com/v1/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
 
     public final static String APPID_TALKJS ="tQ6S3FD4";
     public final static String BEARER_TALKJS = "sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf";
+
+   /* @Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")
+    @GET("/{appId}/users/{userId}/conversations")
+    Call<> getListConersations(@Path("appId") APPID_TALKJS ,@Path("userId") int userID);*/
+
 
     //services
     @GET("/api/services") //GET list services
@@ -104,11 +109,6 @@ public interface ApiService {
     Call<List<Feedback>> getBookingByUser(@Header("Authorization") String bearerToken,
             @Path("token") String token
     );
-
-
-
-    //@Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")
-    //@GET("/v1/{appId}/conversations/{conversationId}/messages")
 
     /*serviceId name createDate price description soldCount status updateDate view discount rating updateBy createBy studio
     servicePack_mediaService servicePack_orderDetail servicePack_favorite*/
