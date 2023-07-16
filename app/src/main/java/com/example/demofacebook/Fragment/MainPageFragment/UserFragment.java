@@ -24,10 +24,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.UserPage.ItemUserAdapter;
 import com.example.demofacebook.Adapter.UserPage.UserAdapter;
+import com.example.demofacebook.Model.CustomerAccount;
+import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.MyInterface.IClickItemUserListener;
 import com.example.demofacebook.MyInterface.IClickItemUserOptionListener;
 import com.example.demofacebook.R;
+import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.example.demofacebook.UserPage.UserUpdateActivity;
 
 import java.sql.Date;
@@ -74,7 +77,6 @@ public class UserFragment extends Fragment {
             @Override
             public void onClickItemUserOptionListener(String option) {
                 clickGoOption(option, view);
-                Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
             }
         }, getListOptionName1(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
@@ -86,7 +88,6 @@ public class UserFragment extends Fragment {
         itemUserAdapter = new ItemUserAdapter(new IClickItemUserOptionListener() {
             @Override
             public void onClickItemUserOptionListener(String option) {
-                Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
             }
         }, getListOptionName2(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
@@ -131,7 +132,6 @@ public class UserFragment extends Fragment {
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(view.getContext(), "Password Not Correct", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 dialog.dismiss();
@@ -158,12 +158,19 @@ public class UserFragment extends Fragment {
     }
 
     private User getUser() {
+        User user;
         String str = "2001-06-15";
         Date dateOfBirth = Date.valueOf(str);
         String url = "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg";
-        User user = new User(1, url, "PhiPhiPhi", dateOfBirth, "0966324244", "Phinhse150972@fpt.edu.vn", "Phinhse150972");
-        return user;
-    }
+        //TokenResponse token = DataLocalManager.getTokenResponse();
+        CustomerAccount account = DataLocalManager.getCustomerAccount();
+        if (account != null) {
+            user = new User(account.getUser().getUserId(), account.getUser().getImage(), account.getUser().getFullName(), account.getBirthDate(), account.getUser().getPhone(), account.getUser().getEmail(), account.getUser().getPassword());
+        } else {
+            user = new User(1, url, "PhiPhiPhi", dateOfBirth, "0966324244", "Phinhse150972@fpt.edu.vn", "Phinhse150972");
+        }
+            return user;
+        }
 
 
     private List<String> getListOptionName1() {

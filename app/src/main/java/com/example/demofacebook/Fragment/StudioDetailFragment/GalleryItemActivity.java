@@ -44,15 +44,10 @@ public class GalleryItemActivity extends AppCompatActivity {
 
     private List<GalleryItem> getGalleryItemData() {
         List<GalleryItem> myList = new ArrayList<>();
-        myList.add(new GalleryItem(1, R.drawable.download));
-        myList.add(new GalleryItem(2, R.drawable.download));
-        myList.add(new GalleryItem(3, R.drawable.download));
-        myList.add(new GalleryItem(4, R.drawable.download));
-        myList.add(new GalleryItem(5, R.drawable.download));
-        myList.add(new GalleryItem(6, R.drawable.download));
-        myList.add(new GalleryItem(7, R.drawable.download));
-
-
+        int a = gallery.getGalleryItems().size();
+        for (int i = 0; i < a; i++) {
+            myList.add(gallery.getGalleryItems().get(i));
+        }
         return myList;
     }
 

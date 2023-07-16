@@ -115,12 +115,12 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
                 openViewFeedbackImageDialog(Gravity.TOP, feedback);
             }
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                iClickItemFeedbackListener.onClickItemFeedback(feedback);
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                iClickItemFeedbackListener.onClickItemFeedback(feedback);
+//            }
+//        });
     }
 
     @Override

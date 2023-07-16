@@ -42,7 +42,6 @@ public class RecommendServiceActivity extends AppCompatActivity {
     }
 
     private void loadRecommendService() {
-        Toast.makeText(this, Integer.valueOf(studio.getStudioId()).toString(), Toast.LENGTH_SHORT).show();
         ApiService.apiService.getServiceByStudioId(studio.getStudioId()).enqueue(new Callback<List<Service>>() {
             @Override
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
@@ -56,13 +55,13 @@ public class RecommendServiceActivity extends AppCompatActivity {
                         @Override
                         public void onClickItemService(Service service) {
                             goDetailService(service);
-                            Toast.makeText(getApplicationContext(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
-                    Toast.makeText(getApplicationContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    Toast.makeText(getApplicationContext(), "ResponseFail", Toast.LENGTH_SHORT).show();
+
                 }
             }
             @Override
@@ -75,7 +74,7 @@ public class RecommendServiceActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ServicePage.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
+//        Studio studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);

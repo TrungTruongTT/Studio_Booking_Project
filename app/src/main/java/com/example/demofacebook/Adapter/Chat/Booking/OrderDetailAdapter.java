@@ -12,19 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackOrderDetailListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderDetailListener;
-import com.example.demofacebook.Model.Service;
+import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.OrderViewHolder> {
-    private final List<Service> mList;
+    private final List<OrderDetail> mList;
     private final IClickItemOrderDetailListener iClickItemOrderDetailListener;
     private final IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener;
     private final String orderStatus;
 
 
-    public OrderDetailAdapter(List<Service> mList, IClickItemOrderDetailListener iClickItemOrderDetailListener, IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener, String orderStatus) {
+    public OrderDetailAdapter(List<OrderDetail> mList, IClickItemOrderDetailListener iClickItemOrderDetailListener, IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener, String orderStatus) {
         this.mList = mList;
         this.iClickItemOrderDetailListener = iClickItemOrderDetailListener;
         this.iClickItemFeedbackOrderDetailListener = iClickItemFeedbackOrderDetailListener;
@@ -40,22 +41,43 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull OrderDetailAdapter.OrderViewHolder holder, int position) {
-        Service service = mList.get(position);
-        if (service == null) {
+        OrderDetail orderDetail = mList.get(position);
+        if (orderDetail == null) {
             return;
         }
-        holder.serviceName.setText(service.getServiceName());
-        holder.servicePrice.setText("Price: US$" + service.getPriceService());
-//        holder.urlImageService.setImageResource(orderDetail.getServiceName());
+        holder.serviceName.setText(orderDetail.getServicePack().getServiceName());
+        holder.servicePrice.setText(orderDetail.getPrice() + " VND");
 
-        if (orderStatus.equals("PENDING") || orderStatus.equals("DEPOSITED") || orderStatus.equals("WORKED") || orderStatus.equals("CANCELED")) {
+        if (orderDetail.getServicePack() != null) {
+            if (orderDetail.getServicePack() == null) {
+                Picasso.get().load(orderDetail.getServicePack().getMediaServicePackList().get(0).getFilePath())
+                        .placeholder(R.drawable.download)
+                        .error(R.drawable.download).into(holder.urlImageService);
+            } else {
+                Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                        .placeholder(R.drawable.download)
+                        .error(R.drawable.download).into(holder.urlImageService);
+            }
+        } else {
+            Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                    .placeholder(R.drawable.download).error(R.drawable.download)
+                    .into(holder.urlImageService);
+        }
+
+        if (orderStatus.equals("pending")
+                || orderStatus.equals("deposited")
+                || orderStatus.equals("worked")
+                || orderStatus.equals("canceled")
+                || orderDetail.getContent() != null
+                || orderDetail.getPostDate() != null
+        ) {
             holder.feedbackButton.setEnabled(false);
             holder.feedbackButton.setVisibility(View.INVISIBLE);
         } else {
             holder.feedbackButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    iClickItemFeedbackOrderDetailListener.onClickItemFeedbackOrderDetail(service, holder.feedbackButton);
+                    iClickItemFeedbackOrderDetailListener.onClickItemFeedbackOrderDetail(orderDetail.getServicePack(), holder.feedbackButton);
                     notifyDataSetChanged();
                 }
             });
@@ -63,7 +85,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickItemOrderDetailListener.onClickItemOrderDetail(service);
+                iClickItemOrderDetailListener.onClickItemOrderDetail(orderDetail.getServicePack());
             }
         });
     }

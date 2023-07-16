@@ -37,7 +37,7 @@ public class NotificationActivity extends AppCompatActivity {
         notificationAdapter = new NotificationAdapter(new IClickItemNotificationListener() {
             @Override
             public void onClickItemNotification(Notification notification) {
-                Toast.makeText(getApplicationContext(), notification.getNotificationTitle(), Toast.LENGTH_SHORT).show();
+
             }
         }, getNotificationData());
         recyclerViewNofication.setAdapter(notificationAdapter);

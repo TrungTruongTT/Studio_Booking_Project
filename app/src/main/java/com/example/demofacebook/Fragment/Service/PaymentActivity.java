@@ -98,7 +98,6 @@ public class PaymentActivity extends AppCompatActivity {
                     Log.d("Amount", txtAmount.getText().toString());
                     lblZpTransToken.setVisibility(View.VISIBLE);
                     String code = data.getString("returncode");
-                    Toast.makeText(getApplicationContext(), "return_code: " + code, Toast.LENGTH_LONG).show();
 
                     if (code.equals("1")) {
                         lblZpTransToken.setText("zptranstoken");

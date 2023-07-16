@@ -48,7 +48,7 @@ public class StudioFeedbackFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerViewFeedback = view.findViewById(R.id.FeedbackRecyclerView);
 
-        loadFeedbackStudio(view);
+        loadFeedbackStudio();
 
         Button button = view.findViewById(R.id.ViewMoreFeedback);
         button.setOnClickListener(new View.OnClickListener() {
@@ -59,41 +59,24 @@ public class StudioFeedbackFragment extends Fragment {
         });
     }
 
-    private void loadFeedbackStudio(@NonNull View view) {
-
-        mFeedbackList = getData();
-        loadFeedbackData(mFeedbackList);
-
-//        ApiService.apiService.getServiceFeedbackStudioId(1).enqueue(new Callback<List<Feedback>>() {
-//            @Override
-//            public void onResponse(Call<List<Feedback>> call, Response<List<Feedback>> response) {
-//                if (response.isSuccessful()) {
-//                    List<Feedback> responseValue  = response.body();
-//                    mFeedbackList = responseValue.stream().skip(0).limit(5).collect(Collectors.toList());
-//                    loadFeedbackData(mFeedbackList);
-//                    Toast.makeText(view.getContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(view.getContext(), "ResponseFail check", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<List<Feedback>> call, Throwable t) {
-//                Toast.makeText(view.getContext(), "onFailure", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-    }
-
-    private List<Feedback> getData() {
-        List<Feedback> myList = new ArrayList<>();
-        String str = "2015-03-31";
-        Date dateChange = Date.valueOf(str);
-        myList.add(new Feedback(1, null, studio.getTitle(), 6, getString(R.string.feedbackString), null, dateChange));
-        myList.add(new Feedback(2, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
-        myList.add(new Feedback(3, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
-        myList.add(new Feedback(4, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
-        myList.add(new Feedback(5, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
-        myList.add(new Feedback(6, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
-        return myList;
+    private void loadFeedbackStudio() {
+        ApiService.apiService.getServiceFeedbackStudioId(studio.getStudioId()).enqueue(new Callback<List<Feedback>>() {
+            @Override
+            public void onResponse(Call<List<Feedback>> call, Response<List<Feedback>> response) {
+                if (response.isSuccessful()) {
+                    List<Feedback> responseValue  = response.body();
+                    mFeedbackList = responseValue.stream().skip(0).limit(4).collect(Collectors.toList());
+                    loadFeedbackData(mFeedbackList);
+                    Toast.makeText(getContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "ResponseFail check", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Feedback>> call, Throwable t) {
+                Toast.makeText(getContext(), "onFailure", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void loadFeedbackData(List<Feedback> data){

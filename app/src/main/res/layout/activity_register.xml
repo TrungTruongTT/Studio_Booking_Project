@@ -35,7 +35,9 @@
                     style="@style/modifiedEditText"
                     android:hint="Full name"
                     android:inputType="text"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="20"
+                    />
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,7 +81,8 @@
                     style="@style/modifiedEditText"
                     android:hint="Mobile Number"
                     android:inputType="text"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="10"/>
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,7 +104,8 @@
                     style="@style/modifiedEditText"
                     android:hint="@string/login_email_hint"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="20"/>
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,7 +127,8 @@
                     style="@style/modifiedEditText"
                     android:hint="@string/login_password_hint"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:maxLength="20"/>
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
 

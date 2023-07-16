@@ -2,7 +2,6 @@ package com.example.demofacebook.Fragment.MainPageFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +34,6 @@ import retrofit2.Response;
 
 
 public class HomeFragment extends Fragment {
-    //Studio
-//    private RecyclerView recyclerViewStudio;
-//    private StudioHomeAdapter studioHomeAdapter;
-
     private RecyclerView recyclerViewService;
     private ServiceAdapter serviceAdapter;
     private List<Service> mServiceList;
@@ -75,7 +70,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClickItemService(Service service) {
                 goDetailService(service);
-                Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+
             }
         });
         recyclerViewService.setAdapter(serviceAdapter);
@@ -88,7 +83,6 @@ public class HomeFragment extends Fragment {
         sortHomeAdapter = new SortHomeAdapter(getSortData(), new IClickItemSortListener() {
             @Override
             public void onClickItemSort(String sortBy) {
-                Toast.makeText(getActivity(), sortBy, Toast.LENGTH_SHORT).show();
                 serviceAdapter.getFilter().filter("@!" + sortBy);
             }
         });
@@ -100,9 +94,10 @@ public class HomeFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
 
-        Toast.makeText(getContext(), Integer.valueOf(service.getStudio().getStudioId()).toString(), Toast.LENGTH_SHORT).show();
-        Studio studio = new Studio(service.getStudio().getStudioId(), service.getStudio().getImage(), service.getStudio().getTitle()
-                , service.getStudio().getRating(), service.getStudio().getDescription(), null);
+//       Studio studio = new Studio(service.getStudio().getStudioId(),
+//               service.getStudio().getImage(), service.getStudio().getTitle()
+//               , service.getStudio().getRating(), service.getStudio().getDescription(), null);
+        Studio studio = service.getStudio();
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -120,17 +115,15 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onClickItemService(Service service) {
                             goDetailService(service);
-                            Toast.makeText(getContext(), "StudioId" + service.getStudio().getStudioId(), Toast.LENGTH_SHORT).show();
+
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
-                } else {
-
                 }
             }
             @Override
             public void onFailure(Call<List<Service>> call, Throwable t) {
-//                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
             }
         });
     }

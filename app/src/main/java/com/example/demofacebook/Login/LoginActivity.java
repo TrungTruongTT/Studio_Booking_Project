@@ -2,6 +2,7 @@ package com.example.demofacebook.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,11 @@ import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
+import com.example.demofacebook.Ultils.Regex;
+import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
+
+import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +57,13 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.btnLogin);
+        //test bắt datalocalManager
+        /*Set<String> nameUser = DataLocalManager.getNameUserInstalled();
+        editTextEmail.setText(nameUser.toString());
+
+        for(String strName: nameUser){
+            Log.e("Name user", strName);
+        }*/
 
         // Thêm xử lý sự kiện cho nút đăng nhập
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -59,15 +72,13 @@ public class LoginActivity extends AppCompatActivity {
                 // Kiểm tra tên đăng nhập và mật khẩu
                 String credential = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-                isValidCredentials(credential, password);
-                /*if (isValidCredentials(email, password)) {
-                    // Nếu thông tin đăng nhập hợp lệ, chuyển đến màn hình chính
-
+                if (validateEmail(credential) && validatePassword(password)) {
+                    getCustomerByEmailorPhone(credential);
+                    isValidCredentials(credential, password);
                 } else {
-                    // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
-                    // (có thể thay bằng cách sử dụng Toast hoặc AlertDialog)
-                    editTextEmail.setError("Invalid credentials");
-                }*/
+                    // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
+                    Toast.makeText(getApplicationContext(), "Please try again!!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -82,18 +93,15 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     TokenResponse tokenResponse= response.body();
                     if(tokenResponse !=null){
+                        //getCustomerByEmailorPhone(credential);
+                        DataLocalManager.setTokenResponse(tokenResponse);
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
-                        intent.putExtras(bundle);
                         startActivity(intent);
                         finish();
                         Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
-                        //getCustomerAccountByPhoneorEmail(credential);
                     }else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
-                        // (có thể thay bằng cách sử dụng Toast hoặc AlertDialog)
-                        editTextEmail.setError("Invalid credentials");
+                        Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -103,32 +111,47 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private void getCustomerByEmailorPhone(String credential){
 
-    private void getCustomerAccountByPhoneorEmail(String credential){
-        ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<CustomerAccount>() {
+        ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<List<CustomerAccount>>() {
             @Override
-            public void onResponse(Call<CustomerAccount> call, Response<CustomerAccount> response) {
+            public void onResponse(Call<List<CustomerAccount>> call, Response<List<CustomerAccount>> response) {
                 if(response.isSuccessful()){
-                    CustomerAccount customerAccount = response.body();
-                    if(customerAccount!=null){
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        Bundle bundle = new Bundle();
-                        //bundle.putSerializable("acccount", customerAccount);
-                        bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        finish();
-                        Toast.makeText(LoginActivity.this, customerAccount.getCustomerId(), Toast.LENGTH_SHORT).show();
+                    //API trả về list
+                    List<CustomerAccount> mAccount = response.body();
+                    //lấy account duy nhất
+                    CustomerAccount account = mAccount.get(0);
+                    if(account!=null){
+                        DataLocalManager.setCustomerAccount(account);
+                        Toast.makeText(LoginActivity.this, "get Customer SUCCESS", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
-
             @Override
-            public void onFailure(Call<CustomerAccount> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "getCustomerFail", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<CustomerAccount>> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "get Customer API Fail", Toast.LENGTH_SHORT).show();
             }
         });
     }
+    private boolean validateEmail(String email){
+        if(email.isEmpty()){
+            editTextEmail.setError("Email/Phone is required");
+            return false;
+        } else {
+            editTextEmail.setError(null);
+            return true;
+        }
+    }
+    private boolean validatePassword(String pass){
+        if(pass.isEmpty()){
+            editTextPassword.setError("Password is required");
+            return false;
+        }else {
+            editTextPassword.setError(null);
+            return true;
+        }
+    }
+
 
     @Override
     protected void onResume() {

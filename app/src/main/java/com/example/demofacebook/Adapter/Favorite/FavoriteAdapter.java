@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -103,8 +102,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Studio
             @Override
             public void onClick(View view) {
                 removeItem(studioIndex);
-                Toast.makeText(mContext, "Total Service: " + holder.serviceFavoriteAdapter.getItemCount() + studio.toString(), Toast.LENGTH_SHORT).show();
-            }
+          }
         });
 
     }

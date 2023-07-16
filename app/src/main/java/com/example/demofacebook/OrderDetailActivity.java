@@ -28,14 +28,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Adapter.Chat.Booking.OrderDetailAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackOrderDetailListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderDetailListener;
+import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
+import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Fragment.Service.ServicePage;
+import com.example.demofacebook.Model.Order;
+import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.squareup.picasso.Picasso;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class OrderDetailActivity extends AppCompatActivity {
 
@@ -44,7 +52,8 @@ public class OrderDetailActivity extends AppCompatActivity {
     private String orderStatus;
     private RecyclerView recyclerView;
     private OrderDetailAdapter orderDetailAdapter;
-    private List<Service> mList;
+
+    private List<OrderDetail> orderDetail;
     //Upload Image
     private static final int GALLERY_REQUEST_CODE = 123;
     ImageView uploadImage_Feedback;
@@ -62,49 +71,114 @@ public class OrderDetailActivity extends AppCompatActivity {
         //Init ToolBar
         initToolBar();
         //LoadServiceList
-        loadServiceList();
+        getOrderData(new View(getApplicationContext()), orderId);
         //Action Button
 
 
     }
 
-    private void loadServiceList() {
+    private void loadServiceList(List<OrderDetail> orderDetail) {
         recyclerView = findViewById(R.id.orderDetailRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mList = getOrderDetailData();
-        orderDetailAdapter = new OrderDetailAdapter(mList, new IClickItemOrderDetailListener() {
+        orderDetailAdapter = new OrderDetailAdapter(orderDetail, new IClickItemOrderDetailListener() {
             @Override
             public void onClickItemOrderDetail(Service service) {
                 //click on service
                 onClickGoServiceDetail(service);
             }
-
         }, new IClickItemFeedbackOrderDetailListener() {
             @Override
             public void onClickItemFeedbackOrderDetail(Service service, Button button) {
                 //click on feedback btn
-                Toast.makeText(OrderDetailActivity.this, "feedback " + String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
-                openViewImageFeedbackDialog(Gravity.CENTER, studio, service, button);
+               openViewImageFeedbackDialog(Gravity.CENTER, studio, service, button);
             }
         }, orderStatus);
         recyclerView.setAdapter(orderDetailAdapter);
     }
 
+    private void getOrderData(@NonNull View view, int orderId) {
+        ApiService.apiService.getDetailByOrderId(orderId).enqueue(new Callback<List<OrderDetail>>() {
+            @Override
+            public void onResponse(Call<List<OrderDetail>> call, Response<List<OrderDetail>> response) {
+                if (response.isSuccessful()) {
+                    orderDetail = response.body();
+                    loadServiceList(orderDetail);
+                    loadStudioData(orderDetail);
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<OrderDetail>> call, Throwable t) {
+            }
+        });
+    }
+
+    private void loadStudioData(List<OrderDetail> orderDetail) {
+        studio = orderDetail.get(0).getServicePack().getStudio();
+        Order order = orderDetail.get(0).getOrder();
+        //Studio Information
+        ImageView studioAvatar = findViewById(R.id.StudioAvatarImage_OrderDetail);
+        TextView studioName = findViewById(R.id.StudioName_OrderDetail);
+        TextView studioRating = findViewById(R.id.StudioRating_OrderDetail);
+        if (studio.getImage() != null) {
+            Picasso.get().load(studio.getImage())
+                    .error(R.drawable.download)
+                    .placeholder(R.drawable.download)
+                    .into(studioAvatar);
+        } else {
+            Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                    .error(R.drawable.download)
+                    .placeholder(R.drawable.download)
+                    .into(studioAvatar);
+        }
+        studioRating.setText("⭐: " + studio.getRating());
+        studioName.setText(studio.getTitle());
+        //Payment Detail Information
+//        TextView discount = findViewById(R.id.Discount_OrderDetail);
+        TextView totalPrice = findViewById(R.id.TotalPrice_OrderDetail);
+        TextView deposited = findViewById(R.id.Deposit_OrderDetail);
+        TextView startDate = findViewById(R.id.DateCheckInt_OrderDetail);
+        TextView orderId = findViewById(R.id.OrderId_OrderDetail);
+        TextView bookingDate = findViewById(R.id.BookingDate_OrderDetail);
+        TextView orderStatus = findViewById(R.id.OrderStatus_OrderDetail);
+        TextView note = findViewById(R.id.Description_OrderDetail);
+
+        int totalPriceValue = 0;
+        for (int i = 0; i < orderDetail.size(); i++) {
+            totalPriceValue = totalPriceValue + orderDetail.get(i).getServicePack().getPriceService();
+        }
+        totalPrice.setText(totalPriceValue + " VND");
+
+        if (order.getDeposit() != null) {
+            deposited.setText(order.getDeposit() + " VND");
+        } else {
+            deposited.setText("Not deposited yet");
+        }
+
+        if (order.getCheckIn() != null) {
+            startDate.setText(order.getCheckIn().toString());
+        } else {
+            startDate.setText("Not deposited yet");
+        }
+
+        orderId.setText("" + order.getOrderId());
+        bookingDate.setText(order.getOrderDate().toString());
+        orderStatus.setText(order.getStatus());
+        note.setText(order.getDescription());
+    }
+
     private void loadData() {
         if (getIntent().getExtras() != null) {
-//            studio = (Studio) getIntent().getExtras().get("studio");
-            studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
             orderId = (int) getIntent().getExtras().get("orderId");
             orderStatus = (String) getIntent().getExtras().get("orderStatus");
-
 
             cancelOrderBtn = findViewById(R.id.CancelOrderBtn);
             depositOrderBtn = findViewById(R.id.DepositOrderBtn);
             paidTheRestOrderBtn = findViewById(R.id.PaidTheRestOrderBtn);
-
             switch (orderStatus) {
-                case "PENDING":
+                case "pending":
                     cancelOrderBtn.setEnabled(true);
                     cancelOrderBtn.setVisibility(View.VISIBLE);
                     depositOrderBtn.setEnabled(true);
@@ -112,7 +186,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                     paidTheRestOrderBtn.setEnabled(false);
                     paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
                     break;
-                case "DEPOSITED":
+                case "deposited":
                     cancelOrderBtn.setEnabled(true);
                     cancelOrderBtn.setVisibility(View.VISIBLE);
                     depositOrderBtn.setEnabled(false);
@@ -120,7 +194,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                     paidTheRestOrderBtn.setEnabled(false);
                     paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
                     break;
-                case "WORKED":
+                case "worked":
                     cancelOrderBtn.setEnabled(false);
                     cancelOrderBtn.setVisibility(View.INVISIBLE);
                     depositOrderBtn.setEnabled(false);
@@ -128,8 +202,8 @@ public class OrderDetailActivity extends AppCompatActivity {
                     paidTheRestOrderBtn.setEnabled(true);
                     paidTheRestOrderBtn.setVisibility(View.VISIBLE);
                     break;
-                case "COMPLETED":
-                case "CANCELED":
+                case "completed":
+                case "canceled":
                     cancelOrderBtn.setEnabled(false);
                     cancelOrderBtn.setVisibility(View.INVISIBLE);
                     depositOrderBtn.setEnabled(false);
@@ -138,7 +212,41 @@ public class OrderDetailActivity extends AppCompatActivity {
                     paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
                     break;
             }
+
+
+            cancelOrderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    cancelOrderAction();
+                }
+            });
+
+            depositOrderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    depositOrderAction();
+                }
+            });
+
+            paidTheRestOrderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    paidTheRestOrderAction();
+                }
+            });
         }
+    }
+
+    private void paidTheRestOrderAction() {
+    }
+
+    private void depositOrderAction() {
+        
+    }
+
+    private void cancelOrderAction() {
+
+//        ApiService.apiService.updateCancelStatus(orderId, "canceled");
     }
 
     private void initToolBar() {
@@ -148,7 +256,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(String.valueOf("Order Number: " + orderId + " Order Status: " + orderStatus));
+            getSupportActionBar().setTitle(String.valueOf("Order Id: " + orderId));
         }
     }
 
@@ -160,28 +268,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private List<Service> getOrderDetailData() {
-        List<Service> myList = new ArrayList<>();
-        String str = "2015-03-31";
-        Date dateChange = Date.valueOf(str);
-        myList.add(new Service(1, R.drawable.download, 4, "Service 1",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(2, R.drawable.download, 4, "Service 2",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(3, R.drawable.download, 4, "Service 3",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(4, R.drawable.download, 4, "Service 4",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        myList.add(new Service(5, R.drawable.download, 4, "Service 5",
-                "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        return myList;
-    }
-
     private void onClickGoServiceDetail(Service service) {
         Intent intent = new Intent(this, ServicePage.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -248,10 +338,8 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
     private Boolean submitFeedbackForm(int serviceId, String Description, float rating, String urlImage) {
-        Toast.makeText(this, serviceId + Description + "rating " + rating + urlImage, Toast.LENGTH_SHORT).show();
         return true;
     }
-
     private void uploadFeedbackImage() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
