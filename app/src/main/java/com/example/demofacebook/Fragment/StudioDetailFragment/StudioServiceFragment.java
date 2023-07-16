@@ -53,14 +53,14 @@ public class StudioServiceFragment extends Fragment {
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
                 if (response.isSuccessful()) {
                     mServiceList = response.body();
-                    List<Service> sort = mServiceList.stream().skip(0).limit(5).collect(Collectors.toList());
+                    List<Service> sort = mServiceList.stream().skip(0).limit(6).collect(Collectors.toList());
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
                     recyclerViewService.setLayoutManager(linearLayoutManager);
                     serviceAdapter = new ServiceAdapter(sort, new IClickItemServiceListener() {
                         @Override
                         public void onClickItemService(Service service) {
                             goDetailService(service);
-                            Toast.makeText(getActivity(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
@@ -71,9 +71,9 @@ public class StudioServiceFragment extends Fragment {
                             onClickViewMoreService();
                         }
                     });
-                    Toast.makeText(view.getContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    Toast.makeText(view.getContext(), "ResponseFail", Toast.LENGTH_SHORT).show();
+
                 }
             }
             @Override

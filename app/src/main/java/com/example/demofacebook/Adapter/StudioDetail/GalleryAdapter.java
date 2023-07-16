@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemGalleryListener;
 import com.example.demofacebook.Model.Gallery;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,10 +39,22 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyArrayA
         if (gallery == null) {
             return;
         }
-        holder.imageGallery.setImageResource(gallery.getImageGallery());
+//        holder.imageGallery.setImageResource(gallery.getImageGallery());
+
+        if (gallery.getGalleryItems() != null) {
+            if (gallery.getGalleryItems().size() != 0) {
+                Picasso.get().load(gallery.getGalleryItems().get(0).getImageItemGallery()).placeholder(R.drawable.download).error(R.drawable.download).into(holder.imageGallery);
+            } else {
+                Picasso.get().load("https://i.imgur.com/DvpvklR.png").placeholder(R.drawable.download).error(R.drawable.download).into(holder.imageGallery);
+            }
+        } else {
+            Picasso.get().load("https://i.imgur.com/DvpvklR.png").placeholder(R.drawable.download).error(R.drawable.download).into(holder.imageGallery);
+        }
+
+
         holder.galleryName.setText(gallery.getGalleryName());
         holder.dateCreate.setText("Create at " + gallery.getCreateDate().toString());
-        String totalImage = String.valueOf(gallery.getTotalImage());
+        String totalImage = String.valueOf(gallery.getGalleryItems().size());
         holder.totalItem.setText("Items " + totalImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

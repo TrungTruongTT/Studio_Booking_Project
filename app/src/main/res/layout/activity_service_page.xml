@@ -135,11 +135,11 @@
                                 android:orientation="vertical">
 
                                 <LinearLayout
+                                    android:layout_gravity="bottom|end"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:gravity="end"
+                                    android:layout_marginBottom="8dp"
                                     android:orientation="horizontal"
                                     android:paddingStart="10dp"
                                     android:paddingEnd="10dp">
@@ -150,16 +150,17 @@
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:gravity="center|start"
+                                        android:gravity="top|start"
                                         android:text="Service Name"
                                         android:textColor="@color/BlackText"
                                         android:textSize="30sp" />
 
                                     <Button
+                                        android:layout_marginTop="6dp"
                                         android:id="@+id/AddToCartBtn2"
                                         android:layout_width="40dp"
                                         android:layout_height="40dp"
-                                        android:layout_marginEnd="30dp"
+                                        android:layout_marginEnd="20dp"
                                         android:background="@drawable/chat_buy_white_48dp"
                                         android:gravity="bottom" />
 
@@ -226,8 +227,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp">
+
                                 <TextView
-                                    android:textColor="@color/BlackText"
                                     android:id="@+id/ServiceDescription"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -236,7 +237,7 @@
                                     android:paddingStart="10dp"
                                     android:paddingEnd="10dp"
                                     android:paddingBottom="10dp"
-                                    android:text="@string/dummy_text"
+                                    android:textColor="@color/BlackText"
                                     android:textSize="20sp" />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -273,7 +274,7 @@
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/FeedbackServiceRecyclerView"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp" />
 
                                 <Button
@@ -318,10 +319,9 @@
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/RecommendServiceRecyclerView"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent" />
+                                    android:layout_height="wrap_content" />
 
                                 <Button
-
                                     android:background="@color/btnViewMoreItem"
                                     android:id="@+id/ViewMoreRecommendServiceBtn"
                                     style="@style/Widget.AppCompat.Button.Borderless"

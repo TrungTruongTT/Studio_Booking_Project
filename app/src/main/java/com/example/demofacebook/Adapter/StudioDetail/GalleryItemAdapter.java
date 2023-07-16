@@ -16,9 +16,9 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemGalleryItemListener;
 import com.example.demofacebook.Model.GalleryItem;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -44,7 +44,18 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
         if (galleryItem == null) {
             return;
         }
-        holder.imageItemGallery.setImageResource(galleryItem.getImageItemGallery());
+//        holder.imageItemGallery.setImageResource(galleryItem.getImageItemGallery());
+        if (galleryItem.getImageItemGallery() != null) {
+            Picasso.get().load(galleryItem.getImageItemGallery())
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download)
+                    .into(holder.imageItemGallery);
+        } else {
+            Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download)
+                    .into(holder.imageItemGallery);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +87,19 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
 
         ImageView feedbackImage = dialog.findViewById(R.id.FeedbackImage_View);
         Button closeBtn = dialog.findViewById(R.id.CloseBtn);
-        feedbackImage.setImageResource(galleryItem.getImageItemGallery());
+
+//        feedbackImage.setImageResource(galleryItem.getImageItemGallery());
+        if (galleryItem.getImageItemGallery() != null) {
+            Picasso.get().load(galleryItem.getImageItemGallery())
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download)
+                    .into(feedbackImage);
+        } else {
+            Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download)
+                    .into(feedbackImage);
+        }
 
         closeBtn.setOnClickListener(view -> dialog.dismiss());
 

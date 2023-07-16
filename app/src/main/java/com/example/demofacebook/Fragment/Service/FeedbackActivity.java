@@ -2,6 +2,7 @@ package com.example.demofacebook.Fragment.Service;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.FeedbackAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackListener;
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
@@ -19,6 +21,11 @@ import com.example.demofacebook.R;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FeedbackActivity extends AppCompatActivity {
     private Studio studio;
@@ -32,16 +39,35 @@ public class FeedbackActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feedback);
         loadData();
         initToolBar();
-        loadFeedback();
+        loadFeedbackStudio();
     }
 
 
-    private void loadFeedback() {
+    private void loadFeedbackStudio() {
+        ApiService.apiService.getServiceFeedbackStudioId(studio.getStudioId()).enqueue(new Callback<List<Feedback>>() {
+            @Override
+            public void onResponse(Call<List<Feedback>> call, Response<List<Feedback>> response) {
+                if (response.isSuccessful()) {
+                    List<Feedback> mFeedbackList  = response.body();
+                    loadFeedback(mFeedbackList);
+
+                } else {
+
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Feedback>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    private void loadFeedback(List<Feedback> responseValue) {
         recyclerViewFeedback = findViewById(R.id.ListFeedbackServiceRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewFeedback.setLayoutManager(linearLayoutManager);
-        mFeedbackList = getFeedbackData();
-        feedbackAdapter = new FeedbackAdapter(this, mFeedbackList, new IClickItemFeedbackListener() {
+        feedbackAdapter = new FeedbackAdapter(this, responseValue, new IClickItemFeedbackListener() {
             @Override
             public void onClickItemFeedback(Feedback feedback) {
                 Toast.makeText(getApplicationContext(), feedback.getFeedbackUserName(), Toast.LENGTH_SHORT).show();
@@ -50,18 +76,6 @@ public class FeedbackActivity extends AppCompatActivity {
         recyclerViewFeedback.setAdapter(feedbackAdapter);
     }
 
-    private List<Feedback> getFeedbackData() {
-        List<Feedback> myList = new ArrayList<>();
-        String str = "2015-03-31";
-        Date dateChange = Date.valueOf(str);
-        myList.add(new Feedback(1, null, studio.getTitle(), 6, getString(R.string.feedbackString), null, dateChange));
-        myList.add(new Feedback(2, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
-        myList.add(new Feedback(3, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
-        myList.add(new Feedback(4, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
-        myList.add(new Feedback(5, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
-        myList.add(new Feedback(6, null, studio.getTitle(), 5, getString(R.string.feedbackString), null, dateChange));
-        return myList;
-    }
 
     private void loadData() {
         if (getIntent().getExtras() != null) {

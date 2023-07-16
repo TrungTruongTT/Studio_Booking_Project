@@ -93,7 +93,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         holder.ratingService.setText("⭐: " + service.getServiceRating());
         holder.views.setText("View: " + service.getView());
         String price = String.valueOf(service.getPriceService());
-        holder.servicePrice.setText("Form: US$" + price);
+        holder.servicePrice.setText(price + " VND");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

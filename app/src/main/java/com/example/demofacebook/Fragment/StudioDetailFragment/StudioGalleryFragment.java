@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,13 +16,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.GalleryAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemGalleryListener;
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.Gallery;
+import com.example.demofacebook.Model.GalleryItem;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class StudioGalleryFragment extends Fragment {
@@ -38,17 +46,25 @@ public class StudioGalleryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerViewGallery = view.findViewById(R.id.GalleryRecyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerViewGallery.setLayoutManager(linearLayoutManager);
-        mGalleryList = getGalleryData();
-        galleryAdapter = new GalleryAdapter(mGalleryList, new IClickItemGalleryListener() {
+
+        ApiService.apiService.getGalleryByStudioId(studio.getStudioId()).enqueue(new Callback<List<Gallery>>() {
             @Override
-            public void onClickItemGallery(Gallery gallery) {
-                onClickGoGalleryDetail(gallery);
+            public void onResponse(Call<List<Gallery>> call, Response<List<Gallery>> response) {
+                if (response.isSuccessful()) {
+                    List<Gallery> responseValue = response.body();
+                    mGalleryList = responseValue.stream().skip(0).limit(5).collect(Collectors.toList());
+                    loadGalleryData(view, mGalleryList);
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Gallery>> call, Throwable t) {
+
             }
         });
-        recyclerViewGallery.setAdapter(galleryAdapter);
 
         Button button = view.findViewById(R.id.ViewMoreGallery);
         button.setOnClickListener(new View.OnClickListener() {
@@ -57,9 +73,22 @@ public class StudioGalleryFragment extends Fragment {
                 onClickViewMoreGallery();
             }
         });
+    }
 
+    private void loadGalleryData(@NonNull View view, List<Gallery> value) {
+        recyclerViewGallery = view.findViewById(R.id.GalleryRecyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerViewGallery.setLayoutManager(linearLayoutManager);
+        galleryAdapter = new GalleryAdapter(value, new IClickItemGalleryListener() {
+            @Override
+            public void onClickItemGallery(Gallery gallery) {
+                onClickGoGalleryDetail(gallery);
+            }
+        });
+        recyclerViewGallery.setAdapter(galleryAdapter);
 
     }
+
 
     private void onClickGoGalleryDetail(Gallery gallery) {
         Intent intent = new Intent(getActivity(), GalleryItemActivity.class);
@@ -73,11 +102,13 @@ public class StudioGalleryFragment extends Fragment {
         List<Gallery> myList = new ArrayList<>();
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
-        myList.add(new Gallery(1, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
-        myList.add(new Gallery(2, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
-        myList.add(new Gallery(3, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
-        myList.add(new Gallery(4, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
-        myList.add(new Gallery(5, R.drawable.download, "Gallery Item " + studio.getTitle(), dateChange, 120));
+        List<GalleryItem> a = new ArrayList<>();
+        a.add(new GalleryItem(1, "https://firebasestorage.googleapis.com/v0/b/framemates-363d4.appspot.com/o/album%2Ff5fcd6c1-22b0-4ffb-aedb-873599093062.jpeg?alt=media&token=731c6d42-8008-409d-8caa-7de439d78909"));
+        myList.add(new Gallery(1,"Gallery Item " + studio.getTitle(), dateChange, a));
+        myList.add(new Gallery(2,"Gallery Item " + studio.getTitle(), dateChange, a));
+        myList.add(new Gallery(3, "Gallery Item " + studio.getTitle(), dateChange, a));
+        myList.add(new Gallery(4, "Gallery Item " + studio.getTitle(), dateChange, a));
+        myList.add(new Gallery(5, "Gallery Item " + studio.getTitle(), dateChange, a));
         return myList;
     }
 
