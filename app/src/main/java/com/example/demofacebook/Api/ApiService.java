@@ -21,7 +21,9 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -75,9 +77,10 @@ public interface ApiService {
     //account
     @POST("/api/auth/login")
     Call<TokenResponse> login(@Body Login_Request login);
-
-    @POST("/api/customers")
-    Call<User> createCustomer(@Body User user);
+    //register
+    Call<CustomerAccount> createCustomer(@Body CustomerAccount account);
+    @GET("/api/customers")
+    Call<List<CustomerAccount>> getCustomerByEmailorPhone(@Query("emailOrPhone") String emailOrPhone);
 
     @GET("/api/services/studio/all/{studioId}")
     Call<List<Service>> getServiceByStudioId(
@@ -98,13 +101,10 @@ public interface ApiService {
     //Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJjdXN0b21lcnIiLCJpYXQiOjE2ODk0MTU4OTksImV4cCI6MTY4OTQ0NTg5OX0._bOyWN99jlx7ntPCuVNSHudvAxbJ-J8tAYuaTe90pH8
     @Headers("Authorization: Bearer {token}")
     @GET("/api/orders/user")
-    Call<List<Feedback>> getBookingByUser(
+    Call<List<Feedback>> getBookingByUser(@Header("Authorization") String bearerToken,
             @Path("token") String token
     );
-    //register
-    Call<CustomerAccount> createCustomer(@Body CustomerAccount account);
-    @GET("/api/customers")
-    Call<CustomerAccount> getCustomerByEmailorPhone(@Path("emailOrPhone") String emailOrphone);
+
 
 
     //@Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")

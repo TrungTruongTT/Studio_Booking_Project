@@ -21,6 +21,7 @@ import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.Regex;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 
+import java.util.List;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -57,12 +58,12 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.btnLogin);
         //test bắt datalocalManager
-        Set<String> nameUser = DataLocalManager.getNameUserInstalled();
+        /*Set<String> nameUser = DataLocalManager.getNameUserInstalled();
         editTextEmail.setText(nameUser.toString());
 
         for(String strName: nameUser){
             Log.e("Name user", strName);
-        }
+        }*/
 
         // Thêm xử lý sự kiện cho nút đăng nhập
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                 String credential = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 if (validateEmail(credential) && validatePassword(password)) {
+                    getCustomerByEmailorPhone(credential);
                     isValidCredentials(credential, password);
                 } else {
                     // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
@@ -91,18 +93,15 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     TokenResponse tokenResponse= response.body();
                     if(tokenResponse !=null){
+                        //getCustomerByEmailorPhone(credential);
+                        DataLocalManager.setTokenResponse(tokenResponse);
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
-                        intent.putExtras(bundle);
                         startActivity(intent);
                         finish();
                         Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
-                        //getCustomerAccountByPhoneorEmail(credential);
                     }else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
-                        // (có thể thay bằng cách sử dụng Toast hoặc AlertDialog)
-                        editTextEmail.setError("Invalid credentials");
+                        Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -111,6 +110,44 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "LOGIN API Unsuccess", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    private void getCustomerByEmailorPhone(String credential){
+
+        ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<List<CustomerAccount>>() {
+            @Override
+            public void onResponse(Call<List<CustomerAccount>> call, Response<List<CustomerAccount>> response) {
+                if(response.isSuccessful()){
+                    //API trả về list
+                    List<CustomerAccount> mAccount = response.body();
+                    //lấy account duy nhất
+                    CustomerAccount account = mAccount.get(0);
+                    if(account!=null){
+                        DataLocalManager.setCustomerAccount(account);
+                        Toast.makeText(LoginActivity.this, "get Customer SUCCESS", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<List<CustomerAccount>> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "get Customer API Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
+        /*ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<CustomerAccount>() {
+            @Override
+            public void onResponse(Call<CustomerAccount> call, Response<CustomerAccount> response) {
+                if(response.isSuccessful()){
+                    CustomerAccount account = response.body();
+                    if(account!=null){
+                        DataLocalManager.setCustomerAccount(account);
+                        Toast.makeText(LoginActivity.this, "get Customer SUCCESS", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<CustomerAccount> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "get Customer API Fail", Toast.LENGTH_SHORT).show();
+            }
+        });*/
     }
     private boolean validateEmail(String email){
         if(email.isEmpty()){
@@ -130,31 +167,7 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
     }
-    private void getCustomerAccountByPhoneorEmail(String credential){
-        ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<CustomerAccount>() {
-            @Override
-            public void onResponse(Call<CustomerAccount> call, Response<CustomerAccount> response) {
-                if(response.isSuccessful()){
-                    CustomerAccount customerAccount = response.body();
-                    if(customerAccount!=null){
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        Bundle bundle = new Bundle();
-                        //bundle.putSerializable("acccount", customerAccount);
-                        bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        finish();
-                        Toast.makeText(LoginActivity.this, customerAccount.getCustomerId(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
 
-            @Override
-            public void onFailure(Call<CustomerAccount> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "getCustomerFail", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     @Override
     protected void onResume() {
