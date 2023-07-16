@@ -23,6 +23,8 @@ import com.example.demofacebook.Fragment.MainPageFragment.HomeFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.NewFeedFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.NotificationActivity;
 import com.example.demofacebook.Fragment.MainPageFragment.UserFragment;
+import com.example.demofacebook.Fragment.Service.ServicePage;
+import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Search.SearchActivity;
@@ -32,14 +34,17 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private User user;
 
+    private Studio studio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         toolbar = findViewById(R.id.myToolBar);
         setSupportActionBar(toolbar);
-
+         studio = loadStudio();
         loadBottomNavigationView();
+
 
     }
 
@@ -70,10 +75,12 @@ public class HomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.appbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     private void OpenFavoriteScreen() {
         Intent intent = new Intent(this, FavoriteActivity.class);
         startActivity(intent);
     }
+
     private void OpenSearchScreen() {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
@@ -143,12 +150,31 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // Set the initial fragment as HomeFragment
-        selectedFragment = new HomeFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
-
+            if (studio != null) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("studio", studio);
+                selectedFragment = new ChatFragment();
+                selectedFragment.setArguments(bundle);
+                // Thay thế fragment hiện tại trong "HomeActivity" bằng fragment mới
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+            }else {
+                // Set the initial fragment as HomeFragment
+                selectedFragment = new HomeFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+            }
         //Notification Icon
 //        AHNotification notification = new AHNotification.Builder().setText("10").setBackgroundColor(ContextCompat.getColor(HomeActivity.this, R.color.colorAccent)).setTextColor(ContextCompat.getColor(HomeActivity.this, R.color.Home_ToolBar)).build();
 //        bottomNavigationView.setNotification(notification, 1);
+    }
+
+
+    private Studio loadStudio() {
+        if(getIntent().getExtras() != null) {
+            Studio studio= (Studio) getIntent().getExtras().get("studio");
+            if (studio != null) {
+                return studio;
+            }
+        }
+        return null;
     }
 }

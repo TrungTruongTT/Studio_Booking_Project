@@ -140,10 +140,6 @@ public interface ApiService {
 //            @Path("orderId") int orderId,
 //            @Query("status") String status
 //    );
-
-    Call<CustomerAccount> createCustomer(@Body CustomerAccount account);
-    @GET("/api/customers")
-    Call<CustomerAccount> getCustomerByEmailorPhone(@Path("emailOrPhone") String emailOrphone);
     //@Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")
     //@GET("/v1/{appId}/conversations/{conversationId}/messages")
     /*serviceId name createDate price description soldCount status updateDate view discount rating updateBy createBy studio

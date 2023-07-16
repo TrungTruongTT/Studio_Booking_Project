@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -80,19 +82,36 @@ public class ServicePage extends AppCompatActivity {
         slideImage();
         //Auto SlideImages
         autoSlideImages();
-        //onClickAddToCart
+
+        //onClickAddToChat
         addToCardbtn = findViewById(R.id.AddToCartBtn2);
-        addToCardbtn.setOnClickListener(view -> {
-            addToCardbtn.setBackgroundResource(R.drawable.love_heart_svg);
-            //xử lý qua trang chat và lưu trên talkjs ở đây .....
-            Intent intent = new Intent(ServicePage.this, HomeActivity.class);
-            Bundle bundle = new Bundle();
-            ChatFragment fragment = new ChatFragment();
-            bundle.putSerializable("studio", service.getStudio());
-            intent.putExtras(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
-            //startActivity(intent);
+        addToCardbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickGotoChat(studio);
+                //ChatFragment chatfragment = new ChatFragment();
+                //chatfragment.setArguments(bundle);
+
+                //fragmentTransaction.replace(R.id.frame_container,chatfragment).commit();
+            }
         });
+
+       /* addToCardbtn.setOnClickListener(view -> {
+            //addToCardbtn.setBackgroundResource(R.drawable.love_heart_svg);
+
+            //xử lý qua trang chat và lưu trên talkjs ở đây .....
+            //Intent intent = new Intent(ServicePage.this, HomeActivity.class);
+            Bundle bundle = new Bundle();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            bundle.putSerializable("studio", service.getStudio());
+            //intent.putExtras(bundle);
+            ChatFragment chatfragment = new ChatFragment();
+            chatfragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.frame_container,chatfragment).commit();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, chatfragment).commit();
+        });*/
 
         //Click on studio
         LinearLayout linearLayout = findViewById(R.id.userLayout);
@@ -133,7 +152,13 @@ public class ServicePage extends AppCompatActivity {
         circleIndicator.setViewPager(viewPager);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
     }
-
+    private void onClickGotoChat(Studio studio) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("studio", studio);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
     private void onClickItemGoStudioDetail(Studio studio) {
         Intent intent = new Intent(this, StudioPageActivity.class);
         Bundle bundle = new Bundle();
