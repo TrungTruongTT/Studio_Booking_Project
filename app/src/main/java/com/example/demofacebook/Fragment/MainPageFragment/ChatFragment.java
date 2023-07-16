@@ -3,6 +3,7 @@ package com.example.demofacebook.Fragment.MainPageFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Chat.ChatAdapter;
 import com.example.demofacebook.Fragment.Service.PaymentActivity;
+import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Message;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.TalkjsModel;
 import com.example.demofacebook.R;
+import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.google.gson.Gson;
 
 import java.io.InputStream;
@@ -33,8 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ChatFragment extends Fragment{
-    private String javatalkjs ="<!DOCTYPE html>\n" +
+public class ChatFragment extends Fragment {
+    private String javatalkjs = "<!DOCTYPE html>\n" +
             "<html>\n" +
             "<head>\n" +
             "    <title>TalkJS Demo</title>\n" +
@@ -102,7 +105,7 @@ public class ChatFragment extends Fragment{
             "        inbox.mount(document.getElementById('talkjs-container'));\n" +
             "\n" +
             "        // Lấy danh sách conversation từ tài khoản me (user)\n" +
-            "        talkSession.getOrCreateChat(me).getOrCompose().then(function (chat) {\n" +
+            "        talkSession.getOrCreateConversation(me).getOrCompose().then(function (chat) {\n" +
             "            var conversationList = chat.conversations();\n" +
             "            conversationList.forEach(function (conversation) {\n" +
             "                // Truy cập thông tin cuộc trò chuyện và thực hiện hành động tương ứng\n" +
@@ -124,7 +127,9 @@ public class ChatFragment extends Fragment{
     //zalo Pay in chat
     private Button btnZaloPay;
     private Studio studio;
+    private CustomerAccount account;
     private WebView talkJsUI;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -134,6 +139,7 @@ public class ChatFragment extends Fragment{
         rcvMessage= view.findViewById(R.id.rcv_message);*/
         //zalo Pay in chat
         //Button btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
+        studio = loadStudio();
         initLoadView(view);
         // Nhận Studio ID từ Bundle
 
@@ -165,23 +171,43 @@ public class ChatFragment extends Fragment{
         });*/
 
     }
-    private void initLoadView(View view){
-        talkJsUI = view.findViewById(R.id.talkjs);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            studio = (Studio) bundle.getSerializable("studio");
-            // Sử dụng dữ liệu Studio nhận được
-            TalkjsModel talkjsModel = new TalkjsModel(studio.getStudioId(),studio.getTitle(),studio.getAddress_Studio(),studio.getCoverImage(),"Can I Help You ??");
-            Gson gson = new Gson();
-            String other = gson.toJson(talkjsModel);
-            String modifiedHtml = javatalkjs.replaceAll("[[JSON_STUDIO]]", other);
-            talkJsUI.getSettings().setJavaScriptEnabled(true);
-            talkJsUI.loadData(modifiedHtml,"text/html","utf-8");
-        } else {
-            talkJsUI.getSettings().setJavaScriptEnabled(true);
-            talkJsUI.loadData(javatalkjs,"text/html","utf-8");
-        }
 
+    private void initLoadView(View view) {
+        talkJsUI = view.findViewById(R.id.talkjs);
+        account = DataLocalManager.getCustomerAccount();
+        TalkjsModel meModel = new TalkjsModel(account.getUser().getUserId(), account.getUser().getFullName(),account.getUser().getEmail() ,account.getUser().getImage(),"HELLO!!");
+        Gson gson = new Gson();
+        String me = gson.toJson(meModel);
+        // đổi từ base gốc
+        String modifiedHtml = javatalkjs.replace("var me = new Talk.User({\n" +
+                "            id: '123456',\n" +
+                "            name: 'Alice',\n" +
+                "            email: 'alice@example.com',\n" +
+                "            photoUrl: 'https://talkjs.com/images/avatar-1.jpg',\n" +
+                "            welcomeMessage: 'Hey there! How are you? :-)',\n" +
+                "        });", "var me = new Talk.User(JSON.parse('" + me + "'));");
+        // Sử dụng dữ liệu Studio nhận được
+        if (studio != null && account !=null) {
+            TalkjsModel otherModel = new TalkjsModel(studio.getStudioId(), studio.getTitle(), studio.getAddress_Studio(), studio.getCoverImage(), "Can I Help You ??");
+            String other = gson.toJson(otherModel);
+            //đổi tiếp lần 2
+            modifiedHtml = modifiedHtml.replace("var other = new Talk.User({\n" +
+                    "                    id: '654321',\n" +
+                    "                    name: 'Sebastian',\n" +
+                    "                    email: 'Sebastian@example.com',\n" +
+                    "                    photoUrl: 'https://talkjs.com/images/avatar-5.jpg',\n" +
+                    "                    welcomeMessage: 'Hey, how can I help?',\n" +
+                    "                });", "var other = new Talk.User(JSON.parse('" + other + "'));");
+
+            talkJsUI.getSettings().setJavaScriptEnabled(true);
+            Log.d("ModifiedHtml", modifiedHtml);
+            talkJsUI.loadData(modifiedHtml, "text/html", "utf-8");
+        } else {
+            //nếu cả 2 đều null load base gốc
+            talkJsUI.getSettings().setJavaScriptEnabled(true);
+            Log.d("ModifiedHtml", modifiedHtml);
+            talkJsUI.loadData(modifiedHtml, "text/html", "utf-8");
+        }
 
 
         //layoutTop= view.findViewById(R.id.layout_top_chat);
@@ -191,7 +217,8 @@ public class ChatFragment extends Fragment{
         //rcvMessage= getActivity().findViewById(R.id.rcv_message);
         //btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
     }
-    private void OnClickPayZalo(){
+
+    private void OnClickPayZalo() {
         Intent intent = new Intent(getActivity(), PaymentActivity.class);
         Bundle bundle = new Bundle();
         //bundle.putSerializable("order", order); //gửi dữ liệu qua payment
@@ -203,19 +230,29 @@ public class ChatFragment extends Fragment{
     private void sendMessage() {
 
         String strMessage = editMessage.getText().toString().trim();
-        if(TextUtils.isEmpty(strMessage)){
+        if (TextUtils.isEmpty(strMessage)) {
             return;
         }
         sListMessage.add(new Message(strMessage));
         messageAdapter.notifyDataSetChanged();
-        rcvMessage.scrollToPosition(sListMessage.size()-1); //hiển thị tin nhắn cuối cùng
+        rcvMessage.scrollToPosition(sListMessage.size() - 1); //hiển thị tin nhắn cuối cùng
         editMessage.setText("");
     }//endSendMessage
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_chat, container , false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
         return view;
+    }
+
+    private Studio loadStudio() {
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("studio")) {
+            Studio studio = (Studio) bundle.getSerializable("studio");
+            return studio;
+        } else {
+            return null;
+        }
     }
 }

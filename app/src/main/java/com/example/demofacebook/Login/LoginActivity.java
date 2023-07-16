@@ -122,6 +122,15 @@ public class LoginActivity extends AppCompatActivity {
                     //lấy account duy nhất
                     CustomerAccount account = mAccount.get(0);
                     if(account!=null){
+                        Log.d("CustomerAccount", "User ID: " + account.getUser().getUserId());
+                        Log.d("CustomerAccount", "Full Name: " + account.getUser().getFullName());
+                        Log.d("CustomerAccount", "Email: " + account.getUser().getEmail());
+                        account.getUser().setImage("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");
+                        Log.d("CustomerAccount", "Image URL: " + account.getUser().getImage());
+                        /*if(account.getUser().getImage() == null || account.getUser().getImage().isEmpty()|| account.getUser().getImage().length() == 0){
+                            account.getUser().setImage("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");
+                            Log.d("CustomerAccountAFTER_SET", "Image URL: " + account.getUser().getImage());
+                        }*/
                         DataLocalManager.setCustomerAccount(account);
                         Toast.makeText(LoginActivity.this, "get Customer SUCCESS", Toast.LENGTH_SHORT).show();
                     }
