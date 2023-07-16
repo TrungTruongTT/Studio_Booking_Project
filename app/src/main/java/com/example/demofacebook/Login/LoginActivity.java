@@ -2,6 +2,7 @@ package com.example.demofacebook.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,9 @@ import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.Regex;
+import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
+
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,6 +56,13 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.btnLogin);
+        //test bắt datalocalManager
+        Set<String> nameUser = DataLocalManager.getNameUserInstalled();
+        editTextEmail.setText(nameUser.toString());
+
+        for(String strName: nameUser){
+            Log.e("Name user", strName);
+        }
 
         // Thêm xử lý sự kiện cho nút đăng nhập
         buttonLogin.setOnClickListener(new View.OnClickListener() {
