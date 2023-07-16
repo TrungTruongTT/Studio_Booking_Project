@@ -46,15 +46,15 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.search) {
-            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+
             OpenSearchScreen();
         }
         if (item.getItemId() == R.id.ringtone) {
-            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+
             OpenNotificationScreen();
         }
         if (item.getItemId() == R.id.favorite) {
-            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+
             OpenFavoriteScreen();
         }
         if (item.getItemId() == android.R.id.home) {

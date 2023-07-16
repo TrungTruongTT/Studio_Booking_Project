@@ -1,7 +1,6 @@
 package com.example.demofacebook.Adapter.Chat.Booking;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
-import com.example.demofacebook.Model.Order;
+import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
-    private final List<Order> mList;
+    private final List<OrderInformation> mList;
     private final IClickItemOrderListener iClickItemOrderListenerListener;
     private final IClickItemChatOrderListener iClickItemChatOrderListener;
 
 
-    public OrderAdapter(List<Order> mListOrder, IClickItemOrderListener iClickItemOrderListenerListener, IClickItemChatOrderListener iClickItemChatOrderListener) {
+    public OrderAdapter(List<OrderInformation> mListOrder, IClickItemOrderListener iClickItemOrderListenerListener, IClickItemChatOrderListener iClickItemChatOrderListener) {
         this.mList = mListOrder;
         this.iClickItemOrderListenerListener = iClickItemOrderListenerListener;
         this.iClickItemChatOrderListener = iClickItemChatOrderListener;
@@ -40,54 +40,65 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter.OrderViewHolder holder, int position) {
-        Order order = mList.get(position);
-        if (order == null) {
+        OrderInformation orderDetail = mList.get(position);
+
+        if (orderDetail == null) {
             return;
         }
-//        holder.imageGallery.setImageResource(gallery.getImageGallery());
-        Log.d("a", order.toString());
-        holder.studioName.setText(order.getStudioName());
-        String status = order.getStatus();
+
+        Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+                .placeholder(R.drawable.download)
+                .error(R.drawable.download)
+                .into(holder.urlImageService);
+
+        holder.orderId.setText("Order: " + orderDetail.getOrderId());
+
+        String status = orderDetail.getStatus();
         switch (status) {
-            case "PENDING":
+            case "pending":
                 holder.status.setText("PENDING");
                 holder.status.setTextColor(Color.parseColor("#DAA520"));
                 break;
-            case "DEPOSITED":
+            case "deposited":
                 holder.status.setText("DEPOSITED");
                 holder.status.setTextColor(Color.parseColor("#9370DB"));
                 break;
-            case "WORKED":
+            case "worked":
                 holder.status.setText("WORKED");
                 holder.status.setTextColor(Color.parseColor("#0000CD"));
                 break;
-            case "COMPLETED":
+            case "completed":
                 holder.status.setText("COMPLETED");
                 holder.status.setTextColor(Color.parseColor("#228B22"));
                 break;
-            case "CANCELED":
+            case "canceled":
                 holder.status.setText("CANCELED");
                 holder.status.setTextColor(Color.parseColor("#C71585"));
                 break;
 
         }
 
-        holder.totalPrice.setText("Total Price: $" + String.valueOf(order.getTotalPrice()));
-        holder.totalOrderDetail.setText("Service: " + String.valueOf(order.getTotalOrderDetail()));
-        holder.serviceName.setText(order.getServiceName());
-        holder.orderDate.setText(order.getOrderDate().toString());
+        int totalPrice = 300;
+//        totalPrice = totalPrice + orderDetail.getPrice();
+        holder.totalPrice.setText("Total Price: " + String.valueOf(totalPrice) + " VND");
+
+
+        holder.totalOrderDetail.setText("Service: 2");
+        holder.serviceName.setText("FrameMates App Service Package");
+
+        holder.orderDate.setText(orderDetail.getOrderDate().toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickItemOrderListenerListener.onClickItemOrder(order);
+                iClickItemOrderListenerListener.onClickItemOrder(orderDetail);
             }
         });
 
         holder.chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickItemChatOrderListener.onClickItemChatOrder(order);
+                iClickItemChatOrderListener.onClickItemChatOrder(orderDetail);
             }
         });
     }
@@ -102,11 +113,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
-//        ImageView imageOrder;
 
-        private int orderId;
+        private TextView orderId;
         public TextView orderDate;
-        public TextView studioName;
         public TextView status;
         public TextView totalPrice;
         public TextView totalOrderDetail;
@@ -116,13 +125,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
-            studioName = itemView.findViewById(R.id.OrderStudio);
+            orderId = itemView.findViewById(R.id.OrderId);
             status = itemView.findViewById(R.id.orderStatus);
             totalPrice = itemView.findViewById(R.id.orderTotalPrice);
             totalOrderDetail = itemView.findViewById(R.id.orderTotalOrderDetail);
             serviceName = itemView.findViewById(R.id.orderServiceName);
             orderDate = itemView.findViewById(R.id.orderDate);
             chatButton = itemView.findViewById(R.id.OrderChatBtn);
+            urlImageService = itemView.findViewById(R.id.urlImageService);
 
         }
     }

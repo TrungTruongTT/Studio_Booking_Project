@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:gravity="start|center"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
@@ -49,6 +49,7 @@
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/StudioAvatarImage_OrderDetail"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_marginTop="5dp"
@@ -59,34 +60,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="bottom|start"
                         android:orientation="vertical"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp">
 
                         <TextView
-                            android:id="@+id/StudioName"
+                            android:id="@+id/StudioName_OrderDetail"
                             android:layout_width="match_parent"
-                            android:layout_height="27.5dp"
+                            android:layout_height="35dp"
                             android:ellipsize="end"
                             android:text="Studio Name"
                             android:textColor="@color/BlackText"
                             android:textSize="20sp" />
 
                         <TextView
-
-                            android:id="@+id/StudioRating"
+                            android:id="@+id/StudioRating_OrderDetail"
                             android:layout_width="match_parent"
                             android:layout_height="27.5dp"
                             android:text="Rating"
                             android:textColor="@color/BlackText"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
                     <Button
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
+                        android:layout_width="120dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="bottom"
                         android:background="@color/Chat_btn"
                         android:text="Chat" />
@@ -137,6 +137,35 @@
                 android:orientation="vertical"
                 android:paddingBottom="10dp">
 
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="150dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:ellipsize="end"-->
+<!--                        android:gravity="start|center"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:text="Discount"-->
+<!--                        android:textColor="@color/GrayText2"-->
+<!--                        android:textSize="15sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/Discount_OrderDetail"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:ellipsize="end"-->
+<!--                        android:gravity="end|center"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:text="US$100"-->
+<!--                        android:textColor="@color/GrayText2"-->
+<!--                        android:textSize="15sp" />-->
+<!--                </LinearLayout>-->
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -156,12 +185,43 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/TotalPrice_OrderDetail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ellipsize="end"
                         android:gravity="end|center"
                         android:maxLines="1"
                         android:text="US$100.000.000"
+                        android:textColor="@color/GrayText2"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:gravity="start|center"
+                        android:maxLines="1"
+                        android:text="Deposit"
+                        android:textColor="@color/GrayText2"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/Deposit_OrderDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:gravity="end|center"
+                        android:maxLines="1"
+                        android:text="US$100"
                         android:textColor="@color/GrayText2"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -179,17 +239,18 @@
                         android:ellipsize="end"
                         android:gravity="start|center"
                         android:maxLines="1"
-                        android:text="Discount"
+                        android:text="Start Date"
                         android:textColor="@color/GrayText2"
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/DateCheckInt_OrderDetail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ellipsize="end"
                         android:gravity="end|center"
                         android:maxLines="1"
-                        android:text="US$100"
+                        android:text="15/06/2001"
                         android:textColor="@color/GrayText2"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -221,6 +282,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/OrderId_OrderDetail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ellipsize="end"
@@ -249,6 +311,7 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/BookingDate_OrderDetail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ellipsize="end"
@@ -272,39 +335,12 @@
                         android:ellipsize="end"
                         android:gravity="start|center"
                         android:maxLines="1"
-                        android:text="Payment method"
-                        android:textColor="@color/GrayText2"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:ellipsize="end"
-                        android:gravity="end|center"
-                        android:maxLines="1"
-                        android:text="MoMo"
-                        android:textColor="@color/GrayText2"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
-
-                    <TextView
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:ellipsize="end"
-                        android:gravity="start|center"
-                        android:maxLines="1"
                         android:text="Order Status"
                         android:textColor="@color/GrayText2"
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/OrderStatus_OrderDetail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ellipsize="end"
@@ -326,7 +362,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp">
@@ -342,8 +378,9 @@
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/Description_OrderDetail"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:gravity="end|top"
                         android:maxLines="4"
@@ -353,7 +390,7 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
 

@@ -81,7 +81,6 @@ public class ServicePage extends AppCompatActivity {
         //onClickAddToCart
         addToCardbtn = findViewById(R.id.AddToCartBtn);
         addToCardbtn.setOnClickListener(view -> {
-            Toast.makeText(ServicePage.this, String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
             addToCardbtn.setBackgroundResource(R.drawable.love_heart_svg);
             //xử lý qua trang chat và lưu trên talkjs ở đây .....
 
@@ -168,20 +167,19 @@ public class ServicePage extends AppCompatActivity {
                         @Override
                         public void onClickItemService(Service service) {
                             goDetailService(service);
-                            Toast.makeText(getApplicationContext(), String.valueOf(service.getServiceId()), Toast.LENGTH_SHORT).show();
+
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
 
-                    Toast.makeText(getApplicationContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    Toast.makeText(getApplicationContext(), "ResponseFail", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<List<Service>> call, Throwable t) {
-//                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -197,16 +195,16 @@ public class ServicePage extends AppCompatActivity {
     }
 
     private void loadFeedback() {
-        ApiService.apiService.getServiceFeedbackServiceServiceId(service.getServiceId()).enqueue(new Callback<List<Feedback>>() {
+        ApiService.apiService.getServiceFeedbackServiceId(service.getServiceId()).enqueue(new Callback<List<Feedback>>() {
             @Override
             public void onResponse(Call<List<Feedback>> call, Response<List<Feedback>> response) {
                 if (response.isSuccessful()) {
                     List<Feedback> responseValue  = response.body();
                     mFeedbackList = responseValue.stream().skip(0).limit(3).collect(Collectors.toList());
                     loadFeedbackData(mFeedbackList);
-                    Toast.makeText(getApplicationContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    Toast.makeText(getApplicationContext(), "ResponseFail", Toast.LENGTH_SHORT).show();
+
                 }
             }
             @Override
@@ -222,7 +220,7 @@ public class ServicePage extends AppCompatActivity {
         feedbackAdapter = new FeedbackAdapter(this, data, new IClickItemFeedbackListener() {
             @Override
             public void onClickItemFeedback(Feedback feedback) {
-                Toast.makeText(getApplicationContext(), feedback.getFeedbackUserName(), Toast.LENGTH_SHORT).show();
+
             }
         });
         recyclerViewFeedback.setAdapter(feedbackAdapter);

@@ -1,23 +1,30 @@
 package com.example.demofacebook.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 public class Gallery implements Serializable {
+    @SerializedName("albumId")
     private int galleryId;
-    private int imageGallery;
+    private String imageGallery;
+    @SerializedName("title")
     private String GalleryName;
+    @SerializedName("createDate")
     private Date createDate;
     private int totalImage;
+    @SerializedName("album_mediaFile")
+    private List<GalleryItem> galleryItems;
 
-
-
-    public Gallery(int galleryId, int imageGallery, String galleryName, Date createDate, int totalImage) {
+    public Gallery(int galleryId, String galleryName, Date createDate, List<GalleryItem> galleryItems) {
         this.galleryId = galleryId;
-        this.imageGallery = imageGallery;
+        this.imageGallery = galleryItems.get(0).getImageItemGallery();
         GalleryName = galleryName;
         this.createDate = createDate;
-        this.totalImage = totalImage;
+        this.galleryItems = galleryItems;
+        this.totalImage = galleryItems.size();
     }
 
     public int getGalleryId() {
@@ -28,11 +35,11 @@ public class Gallery implements Serializable {
         this.galleryId = galleryId;
     }
 
-    public int getImageGallery() {
+    public String getImageGallery() {
         return imageGallery;
     }
 
-    public void setImageGallery(int imageGallery) {
+    public void setImageGallery(String imageGallery) {
         this.imageGallery = imageGallery;
     }
 
@@ -58,5 +65,13 @@ public class Gallery implements Serializable {
 
     public void setTotalImage(int totalImage) {
         this.totalImage = totalImage;
+    }
+
+    public List<GalleryItem> getGalleryItems() {
+        return galleryItems;
+    }
+
+    public void setGalleryItems(List<GalleryItem> galleryItems) {
+        this.galleryItems = galleryItems;
     }
 }

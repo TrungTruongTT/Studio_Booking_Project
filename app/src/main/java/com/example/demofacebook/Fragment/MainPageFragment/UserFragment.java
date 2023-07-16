@@ -74,7 +74,6 @@ public class UserFragment extends Fragment {
             @Override
             public void onClickItemUserOptionListener(String option) {
                 clickGoOption(option, view);
-                Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
             }
         }, getListOptionName1(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
@@ -86,7 +85,6 @@ public class UserFragment extends Fragment {
         itemUserAdapter = new ItemUserAdapter(new IClickItemUserOptionListener() {
             @Override
             public void onClickItemUserOptionListener(String option) {
-                Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
             }
         }, getListOptionName2(), getListOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
@@ -131,7 +129,6 @@ public class UserFragment extends Fragment {
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(view.getContext(), "Password Not Correct", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 dialog.dismiss();
