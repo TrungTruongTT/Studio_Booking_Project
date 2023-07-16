@@ -119,12 +119,11 @@ public class HomeFragment extends Fragment {
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
-                } else {
-
                 }
             }
             @Override
             public void onFailure(Call<List<Service>> call, Throwable t) {
+                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
             }
         });
     }

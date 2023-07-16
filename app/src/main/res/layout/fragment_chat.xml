@@ -10,7 +10,7 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <androidx.cardview.widget.CardView
+<!--    <androidx.cardview.widget.CardView
         android:layout_marginBottom="10dp"
         android:id="@+id/layout_top_chat"
         android:layout_width="match_parent"
@@ -25,13 +25,6 @@
             android:paddingTop="4dp"
             android:paddingEnd="10dp"
             android:paddingBottom="4dp">
-
-
-            <!--<TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Name_Studio"
-                android:textSize="24dp"/>-->
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/studioAvatar_chat"
@@ -50,18 +43,7 @@
                 android:textSize="24dp" />
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-
-    <!--<LinearLayout
-    android:padding="@dimen/headerTextSize"
-    android:background="@color/backgroundColor">-->
-
-    <!-- TODO: Update blank fragment layout -->
-    <!--   <TextView
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:text="Chat Fragment" />-->
+    </androidx.cardview.widget.CardView>-->
 
     <WebView
         android:id="@+id/talkjs"

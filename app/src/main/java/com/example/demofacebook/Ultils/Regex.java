@@ -7,7 +7,7 @@ public class Regex {
     public static final Pattern PHONE_NUMBER = Pattern.compile("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
     public  static final Pattern PASSWORD = Pattern.compile("^" +
             //"(?=.*?[A-Z])" + //at least 1 digit
-           //"(?=.*?[a-z])" +  //at least 1 lowercase
+            //"(?=.*?[a-z])" +  //at least 1 lowercase
             "(?=.*[a-zA-Z])"+ // any character
             //"(?=.*?[0-9])" +  // at least 1 upper case letter
             "(?=.*?[#?!@$ %^&*-])" + //at least 1 special character
