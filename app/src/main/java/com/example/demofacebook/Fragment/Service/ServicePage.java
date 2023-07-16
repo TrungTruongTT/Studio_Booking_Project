@@ -27,6 +27,8 @@ import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemService
 import com.example.demofacebook.Adapter.StudioDetail.PhotoAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
 import com.example.demofacebook.Api.ApiService;
+import com.example.demofacebook.Fragment.MainPageFragment.ChatFragment;
+import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Service;
@@ -79,15 +81,19 @@ public class ServicePage extends AppCompatActivity {
         //Auto SlideImages
         autoSlideImages();
         //onClickAddToCart
-        addToCardbtn = findViewById(R.id.AddToCartBtn);
+        addToCardbtn = findViewById(R.id.AddToCartBtn2);
         addToCardbtn.setOnClickListener(view -> {
             addToCardbtn.setBackgroundResource(R.drawable.love_heart_svg);
             //xử lý qua trang chat và lưu trên talkjs ở đây .....
-
-
-
-
+            Intent intent = new Intent(ServicePage.this, HomeActivity.class);
+            Bundle bundle = new Bundle();
+            ChatFragment fragment = new ChatFragment();
+            bundle.putSerializable("studio", service.getStudio());
+            intent.putExtras(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment).commit();
+            //startActivity(intent);
         });
+
         //Click on studio
         LinearLayout linearLayout = findViewById(R.id.userLayout);
         linearLayout.setOnClickListener(new View.OnClickListener() {

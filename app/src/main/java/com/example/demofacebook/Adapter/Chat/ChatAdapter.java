@@ -15,11 +15,11 @@ import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
-private List<Message> sListMessage;
-public void setData(List<Message> list){
-this.sListMessage = list;
-notifyDataSetChanged();
-}
+    private List<Message> sListMessage;
+    public void setData(List<Message> list){
+        this.sListMessage = list;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
