@@ -104,7 +104,6 @@ public class StudioPageActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             studio = (Studio) getIntent().getExtras().get("studio");
             if (studio == null) {
-                Toast.makeText(this, "LoadStudio Fail", Toast.LENGTH_SHORT).show();
                 return;
             }
             ImageView textView = findViewById(R.id.StudioAvatarImage_Main);

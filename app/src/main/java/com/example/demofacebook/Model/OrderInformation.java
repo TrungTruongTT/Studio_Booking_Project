@@ -4,29 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class Order {
+public class OrderInformation {
     @SerializedName("orderId")
     private int orderId;
     @SerializedName("orderDate")
     private Date orderDate;
     @SerializedName("status")
     private String status;
-    @SerializedName("deposit")
-    private String deposit;
-
-    @SerializedName("checkIn")
-    private Date checkIn;
-
     @SerializedName("description")
     private String description;
+    @SerializedName("checkIn")
+    private String checkIn;
 
-    public Order(int orderId, Date orderDate, String status, String deposit, Date checkIn, String description) {
+    public OrderInformation(int orderId, Date orderDate, String status, String description, String checkIn) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.status = status;
-        this.deposit = deposit;
-        this.checkIn = checkIn;
         this.description = description;
+        this.checkIn = checkIn;
     }
 
     public int getOrderId() {
@@ -53,27 +48,19 @@ public class Order {
         this.status = status;
     }
 
-    public String getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(String deposit) {
-        this.deposit = deposit;
-    }
-
-    public Date getCheckIn() {
-        return checkIn;
-    }
-
-    public void setCheckIn(Date checkIn) {
-        this.checkIn = checkIn;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(String checkIn) {
+        this.checkIn = checkIn;
     }
 }

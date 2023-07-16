@@ -20,13 +20,13 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/OrderStudio"
+                android:id="@+id/OrderId"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Shop name"
+                android:text="Order Id"
                 android:textStyle="bold"
                 android:textColor="@color/TextColor_Gallery"
                 android:textSize="20sp"
@@ -68,9 +68,10 @@
 
 
                 <TextView
+                    android:paddingBottom="7dp"
                     android:id="@+id/orderServiceName"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text="Explored"

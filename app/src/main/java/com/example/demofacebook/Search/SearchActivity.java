@@ -66,15 +66,15 @@ public class SearchActivity extends AppCompatActivity {
                     recyclerViewStudio.setLayoutManager(linearLayoutManagerStudio);
                     recyclerViewStudio.setAdapter(serviceAdapter);
                     recyclerViewStudio.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    Toast.makeText(getApplicationContext(), "ResponseFail", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<List<Service>> call, Throwable t) {
-//                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
+
             }
         });
 

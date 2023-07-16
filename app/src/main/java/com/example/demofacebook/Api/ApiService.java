@@ -5,7 +5,11 @@ import com.example.demofacebook.Model.Feedback;
 
 import com.example.demofacebook.Model.CustomerAccount;
 
+import com.example.demofacebook.Model.Gallery;
 import com.example.demofacebook.Model.Login_Request;
+import com.example.demofacebook.Model.Order;
+import com.example.demofacebook.Model.OrderDetail;
+import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.TokenResponse;
@@ -23,7 +27,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -52,6 +58,7 @@ public interface ApiService {
     //services
     @GET("/api/services") //GET list services
     Call<List<Service>> serviceCall();
+
     @GET("/api/services/{serviceId}") //GetservicesByid
     Call<Service> getServiceById(
             @Path("serviceId") int serviceId
@@ -82,22 +89,43 @@ public interface ApiService {
     );
 
     @GET("/api/order-details/feedback/service/{serviceId}")
-    Call<List<Feedback>> getServiceFeedbackServiceServiceId(
+    Call<List<Feedback>> getServiceFeedbackServiceId(
             @Path("serviceId") int serviceId
     );
 
-    @GET("/api/order-details/feedback/studio?studioId={studioId}")
-    Call<List<Feedback>> getServiceFeedbackStudioId(
+    @GET("/api/albums/studio/{studioId}")
+    Call<List<Gallery>> getGalleryByStudioId(
             @Path("studioId") int studioId
+    );
+
+    @GET("/api/order-details/feedback/studio")
+    Call<List<Feedback>> getServiceFeedbackStudioId(
+            @Query("studioId") int studioId
     );
 
     //Booking
     //Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJjdXN0b21lcnIiLCJpYXQiOjE2ODk0MTU4OTksImV4cCI6MTY4OTQ0NTg5OX0._bOyWN99jlx7ntPCuVNSHudvAxbJ-J8tAYuaTe90pH8
-    @Headers("Authorization: Bearer {token}")
+    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJjdXN0b21lcnIiLCJpYXQiOjE2ODk1MDg5NzUsImV4cCI6MTY4OTUzODk3NX0.s_svTaKGoB04gUiweZ299zRAj71OFdZ1-xahWRLUXxU")
     @GET("/api/orders/user")
-    Call<List<Feedback>> getBookingByUser(
-            @Path("token") String token
+    Call<List<OrderInformation>> geOrderIdByUser(
+//            @Path("token") String token
     );
+
+    @GET("/api/order-details/feedback/order/{orderId}")
+    Call<List<OrderDetail>> getDetailByOrderId(
+            @Path("orderId") int orderId
+
+    );
+
+
+//     /orders/3?status=pending
+//    /order-details/feedback/studio?studioId=1
+
+//    @PATCH("/orders/{orderId}?status=pending")
+//    POST updateCancelStatus(
+//            @Path("orderId") int orderId,
+//            @Query("status") String status
+//    );
 
     Call<CustomerAccount> createCustomer(@Body CustomerAccount account);
     @GET("/api/customers")

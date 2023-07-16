@@ -75,33 +75,42 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void isValidCredentials(String credential, String password) {
-        Login_Request loginAccount = new Login_Request(credential,password);
-        ApiService.apiService.login(loginAccount).enqueue(new Callback<TokenResponse>() {
-            @Override
-            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
-                if(response.isSuccessful()){
-                    TokenResponse tokenResponse= response.body();
-                    if(tokenResponse !=null){
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        finish();
-                        Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
-                        //getCustomerAccountByPhoneorEmail(credential);
-                    }else {
-                        // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
-                        // (có thể thay bằng cách sử dụng Toast hoặc AlertDialog)
-                        editTextEmail.setError("Invalid credentials");
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<TokenResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "LOGIN API Unsuccess", Toast.LENGTH_SHORT).show();
-            }
-        });
+
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
+
+//        Login_Request loginAccount = new Login_Request(credential,password);
+//        ApiService.apiService.login(loginAccount).enqueue(new Callback<TokenResponse>() {
+//            @Override
+//            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+//                if(response.isSuccessful()){
+//                    TokenResponse tokenResponse= response.body();
+//                    if(tokenResponse !=null){
+//                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putSerializable("user", new User(1, "", "phi", null, "", "", ""));
+//                        intent.putExtras(bundle);
+//                        startActivity(intent);
+//                        finish();
+//                        Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
+//                        //getCustomerAccountByPhoneorEmail(credential);
+//                    }else {
+//                        // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
+//                        // (có thể thay bằng cách sử dụng Toast hoặc AlertDialog)
+//                        editTextEmail.setError("Invalid credentials");
+//                    }
+//                }
+//
+//            }
+//            @Override
+//            public void onFailure(Call<TokenResponse> call, Throwable t) {
+//                Toast.makeText(LoginActivity.this, "LOGIN API Unsuccess", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void getCustomerAccountByPhoneorEmail(String credential){

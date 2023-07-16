@@ -1,14 +1,17 @@
 package com.example.demofacebook.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
-import java.sql.Date;
 
 public class GalleryItem implements Serializable {
+    @SerializedName("fileId")
     private int galleryItemId;
-    private int imageItemGallery;
+    @SerializedName("filePath")
+    private String imageItemGallery;
 
 
-    public GalleryItem(int galleryItemId, int imageItemGallery) {
+    public GalleryItem(int galleryItemId, String imageItemGallery) {
         this.galleryItemId = galleryItemId;
         this.imageItemGallery = imageItemGallery;
     }
@@ -21,11 +24,11 @@ public class GalleryItem implements Serializable {
         this.galleryItemId = galleryItemId;
     }
 
-    public int getImageItemGallery() {
+    public String getImageItemGallery() {
         return imageItemGallery;
     }
 
-    public void setImageItemGallery(int imageItemGallery) {
+    public void setImageItemGallery(String imageItemGallery) {
         this.imageItemGallery = imageItemGallery;
     }
 }
