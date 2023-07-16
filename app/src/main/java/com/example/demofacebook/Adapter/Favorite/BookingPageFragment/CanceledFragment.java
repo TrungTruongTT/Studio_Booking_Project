@@ -50,7 +50,7 @@ public class CanceledFragment extends Fragment {
             public void onResponse(Call<List<OrderInformation>> call, Response<List<OrderInformation>> response) {
                 if (response.isSuccessful()) {
                     List<OrderInformation> value = response.body();
-                    orderList = value.stream().filter(p->p.getStatus().equals("canceled")).collect(Collectors.toList());
+                    orderList = value.stream().filter(p->p.getStatus().equals("cancel")).collect(Collectors.toList());
                     loadBookingData(view, orderList);
 
                     Toast.makeText(getContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();

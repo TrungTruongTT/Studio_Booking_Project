@@ -70,8 +70,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         //LoadServiceList
         getOrderData(orderId);
         //Action Button
-
-
     }
 
     private void getOrderData(int orderId) {
@@ -201,7 +199,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                     paidTheRestOrderBtn.setVisibility(View.VISIBLE);
                     break;
                 case "completed":
-                case "canceled":
+                case "cancel":
                     cancelOrderBtn.setEnabled(false);
                     cancelOrderBtn.setVisibility(View.INVISIBLE);
                     depositOrderBtn.setEnabled(false);
@@ -256,6 +254,9 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
     private void paidTheRestOrderAction() {
+
+
+
         ApiService.apiService.updateCancelStatus(orderId, "completed").enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -276,6 +277,9 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
     private void depositOrderAction() {
+
+
+
         ApiService.apiService.updateCancelStatus(orderId, "deposited").enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

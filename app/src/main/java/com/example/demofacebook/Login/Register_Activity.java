@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +15,9 @@ import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
+import com.example.demofacebook.Ultils.Regex;
+
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,7 +25,8 @@ import retrofit2.Response;
 
 public class Register_Activity extends AppCompatActivity {
 
-    private TextView textFullName, textUserName, textEmail, textPassword, textPhoneNumner;
+
+    private EditText textFullName, textUserName, textEmail, textPassword, textPhoneNumner;
     private Button btnRegister;
 
     public void viewLoginClicked(View v) {
@@ -46,22 +52,85 @@ public class Register_Activity extends AppCompatActivity {
         textPhoneNumner = findViewById(R.id.textPhoneNum);
         textPassword = findViewById(R.id.textPass);
         btnRegister = findViewById(R.id.btnRegister);
-
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fullName = textFullName.getText().toString();
-                String userName = textUserName.getText().toString();
-                String email = textEmail.getText().toString();
-                String phoneNumber = textPhoneNumner.getText().toString();
-                String password = textPassword.getText().toString();
-                User account = new User("null",fullName,userName,phoneNumber,email,password);
-                CustomerAccount customer = new CustomerAccount(account);
-                createCustomer(customer);
+                    String fullName = textFullName.getText().toString();
+                    String userName = textUserName.getText().toString();
+                    String email = textEmail.getText().toString();
+                    String phoneNumber = textPhoneNumner.getText().toString();
+                    String password = textPassword.getText().toString();
+                if (validateFullName(fullName) && validateUsername(userName) && validateEmail(email)
+                        && validatePhone(phoneNumber) && validatePassword(password)) {
+                    User account = new User("null",fullName,userName,phoneNumber,email,password);
+                    CustomerAccount customer = new CustomerAccount(account);
+                    createCustomer(customer);
+                } else {
+                    // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
+                    Toast.makeText(getApplicationContext(), "Please try again!!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
+    }
+
+    private boolean validateEmail(String email){
+        if(email.isEmpty()){
+            textEmail.setError("Email is required");
+            return false;
+        } else if(!Regex.EMAIL_ADDRESS.matcher(email).matches()){
+            textEmail.setError("Pleased enter a valid email");
+            return false;
+        }else {
+            textEmail.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateUsername(String username){
+        if(username.isEmpty()){
+            textUserName.setError("Password is required0");
+            return false;
+        }else {
+            textUserName.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePhone(String phone){
+        if(phone.isEmpty()){
+            textPhoneNumner.setError("Phone is required0");
+            return false;
+        }else if (!Regex.PHONE_NUMBER.matcher(phone).matches()){
+            textPhoneNumner.setError("Please enter valid phone");
+            return false;
+        }else {
+            textPhoneNumner.setError(null);
+            return true;
+        }
+    }
+    private boolean validateFullName(String fullName){
+        if(fullName.isEmpty()){
+            textFullName.setError("Name is required");
+            return false;
+        }else {
+            textFullName.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePassword(String pass){
+        if(pass.isEmpty()){
+            textPassword.setError("Password is required");
+            return false;
+        }else if (!Regex.PASSWORD.matcher(pass).matches()) {
+            textPassword.setError("Password required 8-20 character and least 1 special character");
+            return false;
+        }else {
+            textPassword.setError(null);
+            return true;
+        }
     }
 
     private void createCustomer(CustomerAccount customer){

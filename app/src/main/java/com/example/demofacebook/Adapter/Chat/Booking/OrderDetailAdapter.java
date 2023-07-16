@@ -67,7 +67,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         if (orderStatus.equals("pending")
                 || orderStatus.equals("deposited")
                 || orderStatus.equals("worked")
-                || orderStatus.equals("canceled")
+                || orderStatus.equals("cancel")
                 || orderDetail.getContent() != null
                 || orderDetail.getPostDate() != null
         ) {

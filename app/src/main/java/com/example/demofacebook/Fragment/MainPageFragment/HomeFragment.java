@@ -2,9 +2,12 @@ package com.example.demofacebook.Fragment.MainPageFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +26,7 @@ import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.MyInterface.IClickItemSortListener;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,11 +50,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         //Sort list home page
         sortItemData(view);
-
         serviceItemData(view);
 
     }
@@ -60,10 +61,8 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewService.setLayoutManager(linearLayoutManager2);
         //hàm set đổ API lên RCVIEW
-
         DividerItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
         recyclerViewService.addItemDecoration(itemDecoration);
-
         callApiGetServicePack(); // gọi API List Services
         //mServiceList = getServiceData();
         serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
@@ -93,7 +92,6 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent(getActivity(), ServicePage.class); // qua trang servicePage
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-
 //       Studio studio = new Studio(service.getStudio().getStudioId(),
 //               service.getStudio().getImage(), service.getStudio().getTitle()
 //               , service.getStudio().getRating(), service.getStudio().getDescription(), null);
@@ -119,12 +117,11 @@ public class HomeFragment extends Fragment {
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
-                } else {
-
                 }
             }
             @Override
             public void onFailure(Call<List<Service>> call, Throwable t) {
+                Toast.makeText(getActivity(), "onFailure", Toast.LENGTH_SHORT).show();
             }
         });
     }
