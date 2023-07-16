@@ -132,22 +132,6 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "get Customer API Fail", Toast.LENGTH_SHORT).show();
             }
         });
-        /*ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<CustomerAccount>() {
-            @Override
-            public void onResponse(Call<CustomerAccount> call, Response<CustomerAccount> response) {
-                if(response.isSuccessful()){
-                    CustomerAccount account = response.body();
-                    if(account!=null){
-                        DataLocalManager.setCustomerAccount(account);
-                        Toast.makeText(LoginActivity.this, "get Customer SUCCESS", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<CustomerAccount> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "get Customer API Fail", Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
     private boolean validateEmail(String email){
         if(email.isEmpty()){

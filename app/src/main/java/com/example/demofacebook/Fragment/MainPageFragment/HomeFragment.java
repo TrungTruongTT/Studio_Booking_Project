@@ -124,8 +124,6 @@ public class HomeFragment extends Fragment {
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);
-                } else {
-
                 }
             }
             @Override
