@@ -17,6 +17,7 @@ import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
+import com.example.demofacebook.Ultils.Regex;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,15 +60,12 @@ public class LoginActivity extends AppCompatActivity {
                 // Kiểm tra tên đăng nhập và mật khẩu
                 String credential = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-                isValidCredentials(credential, password);
-                /*if (isValidCredentials(email, password)) {
-                    // Nếu thông tin đăng nhập hợp lệ, chuyển đến màn hình chính
-
+                if (validateEmail(credential) && validatePassword(password)) {
+                    isValidCredentials(credential, password);
                 } else {
-                    // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
-                    // (có thể thay bằng cách sử dụng Toast hoặc AlertDialog)
-                    editTextEmail.setError("Invalid credentials");
-                }*/
+                    // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
+                    Toast.makeText(getApplicationContext(), "Please try again!!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -103,7 +101,24 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
+    private boolean validateEmail(String email){
+        if(email.isEmpty()){
+            editTextEmail.setError("Email/Phone is required");
+            return false;
+        } else {
+            editTextEmail.setError(null);
+            return true;
+        }
+    }
+    private boolean validatePassword(String pass){
+        if(pass.isEmpty()){
+            editTextPassword.setError("Password is required");
+            return false;
+        }else {
+            editTextPassword.setError(null);
+            return true;
+        }
+    }
     private void getCustomerAccountByPhoneorEmail(String credential){
         ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<CustomerAccount>() {
             @Override
