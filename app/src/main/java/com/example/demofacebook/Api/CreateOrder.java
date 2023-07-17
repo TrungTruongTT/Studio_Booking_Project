@@ -34,7 +34,9 @@ public class CreateOrder {
         String EmbedData;
         //Item của đơn hàng, do ứng dụng tự định nghĩa
         String Items;
+        /*Mã ngân hàng*/
         String BankCode;
+        /*Thông tin mô tả về dịch vụ đang được thanh toán dùng để hiển thị cho user trên app ZaloPay và trên tool quản lý Merchant*/
         String Description;
         String Mac;
 

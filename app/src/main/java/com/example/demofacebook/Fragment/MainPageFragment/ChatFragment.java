@@ -25,6 +25,7 @@ import com.example.demofacebook.Adapter.Chat.ChatAdapter;
 import com.example.demofacebook.Fragment.Service.PaymentActivity;
 import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Message;
+import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.TalkjsModel;
 import com.example.demofacebook.R;
@@ -119,14 +120,11 @@ public class ChatFragment extends Fragment {
             "</body>\n" +
             "</html>\n";
 
-    private RecyclerView rcvMessage;
-    private EditText editMessage;
-    private ChatAdapter messageAdapter;
-    private List<Message> sListMessage;
 
     //zalo Pay in chat
     private Button btnZaloPay;
     private Studio studio;
+    private Service service;
     private CustomerAccount account;
     private WebView talkJsUI;
 
@@ -140,6 +138,7 @@ public class ChatFragment extends Fragment {
         //zalo Pay in chat
         //Button btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
         studio = loadStudio();
+        service = loadService();
         initLoadView(view);
         // Nhận Studio ID từ Bundle
 
@@ -198,7 +197,6 @@ public class ChatFragment extends Fragment {
                     "                    photoUrl: 'https://talkjs.com/images/avatar-5.jpg',\n" +
                     "                    welcomeMessage: 'Hey, how can I help?',\n" +
                     "                });", "var other = new Talk.User(JSON.parse('" + other + "'));");
-
             talkJsUI.getSettings().setJavaScriptEnabled(true);
             Log.d("ModifiedHtml", modifiedHtml);
             talkJsUI.loadData(modifiedHtml, "text/html", "utf-8");
@@ -210,34 +208,16 @@ public class ChatFragment extends Fragment {
         }
 
 
-        //layoutTop= view.findViewById(R.id.layout_top_chat);
-        //layoutBottom = view.findViewById(R.id.layout_bottom_chat);
-        //editMessage= view.findViewById(R.id.edit_message);
-        //btnSend= view.findViewById(R.id.btn_send);
-        //rcvMessage= getActivity().findViewById(R.id.rcv_message);
-        //btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
+        btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
     }
 
     private void OnClickPayZalo() {
         Intent intent = new Intent(getActivity(), PaymentActivity.class);
         Bundle bundle = new Bundle();
-        //bundle.putSerializable("order", order); //gửi dữ liệu qua payment
+        bundle.putSerializable("service", service); //gửi dữ liệu qua payment
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
-    //hàm xử lý send chat
-    private void sendMessage() {
-
-        String strMessage = editMessage.getText().toString().trim();
-        if (TextUtils.isEmpty(strMessage)) {
-            return;
-        }
-        sListMessage.add(new Message(strMessage));
-        messageAdapter.notifyDataSetChanged();
-        rcvMessage.scrollToPosition(sListMessage.size() - 1); //hiển thị tin nhắn cuối cùng
-        editMessage.setText("");
-    }//endSendMessage
 
     @Nullable
     @Override
@@ -251,6 +231,16 @@ public class ChatFragment extends Fragment {
         if (bundle != null && bundle.containsKey("studio")) {
             Studio studio = (Studio) bundle.getSerializable("studio");
             return studio;
+        } else {
+            return null;
+        }
+    }
+
+    private Service loadService(){
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey("service")) {
+            Service service = (Service) bundle.getSerializable("service");
+            return service;
         } else {
             return null;
         }

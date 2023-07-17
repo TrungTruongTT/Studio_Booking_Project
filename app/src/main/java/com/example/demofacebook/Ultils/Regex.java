@@ -9,8 +9,8 @@ public class Regex {
             //"(?=.*?[A-Z])" + //at least 1 digit
             //"(?=.*?[a-z])" +  //at least 1 lowercase
             "(?=.*[a-zA-Z])"+ // any character
-            //"(?=.*?[0-9])" +  // at least 1 upper case letter
-            "(?=.*?[#?!@$ %^&*-])" + //at least 1 special character
+            "(?=.*?[0-9])" +  // at least 1 number letter
+            //"(?=.*?[#?!@$ %^&*-])" + //at least 1 special character
             ".{8,20}" +//at least 8 character and max is 20 character
             "$");
 
