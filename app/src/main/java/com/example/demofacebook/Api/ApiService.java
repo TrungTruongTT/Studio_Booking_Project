@@ -44,10 +44,22 @@ public interface ApiService {
             .readTimeout(30, TimeUnit.SECONDS) // Timeout đọc dữ liệu // đọc API 10s
             .writeTimeout(30, TimeUnit.SECONDS) // Timeout ghi dữ liệu // viết API 10s
             .build();
+    OkHttpClient guesst = new OkHttpClient.Builder()
+            .connectTimeout(5, TimeUnit.SECONDS) // Timeout kết nối // set 1s
+            .readTimeout(30, TimeUnit.SECONDS) // Timeout đọc dữ liệu // đọc API 10s
+            .writeTimeout(30, TimeUnit.SECONDS) // Timeout ghi dữ liệu // viết API 10s
+            .build();
 
     Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
     ApiService apiService = new Retrofit.Builder()
             .client(client)
+            .baseUrl("http://10.0.2.2:8080") // DOMAIN
+            //http://10.0.2.2:8080 //http://localhost:8080
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(ApiService.class);
+    ApiService apiServiceGuesst = new Retrofit.Builder()
+            .client(guesst)
             .baseUrl("http://10.0.2.2:8080") // DOMAIN
             //http://10.0.2.2:8080 //http://localhost:8080
             .addConverterFactory(GsonConverterFactory.create(gson))

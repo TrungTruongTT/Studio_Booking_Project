@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.Api.CreateOrder;
+import com.example.demofacebook.HomePage.HomeActivity;
+import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.R;
 
@@ -38,15 +40,16 @@ public class PaymentActivity extends AppCompatActivity {
     Button btnPay;
     EditText txtAmount;
 
-    private Service service;
+    //private Service service;
+    private OrderDetail orderDetail;
     Toolbar toolbar;
-
+    private String status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        service = loadService();
-
+        //service = loadService();
+        orderDetail = loadOrderDetail();
         //Load toolbar
         initToolBar();
         //khởi tạo
@@ -88,6 +91,8 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private void requestZalo() {
+        Bundle bundle = new Bundle();
+
         btnCreateOrder.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint("SetTextI18n")
@@ -114,7 +119,7 @@ public class PaymentActivity extends AppCompatActivity {
                 }
             }
         });
-
+        //hiện nút pay gửi qua zaloPay
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +136,9 @@ public class PaymentActivity extends AppCompatActivity {
                                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
+                                                Log.w("PAYMENT", "PAYMENT SUCCESS");
+                                                status = "success";
+                                                bundle.putSerializable("statusPay",status);
                                             }
                                         })
                                         .setNegativeButton("Cancel", null).show();
@@ -161,6 +169,9 @@ public class PaymentActivity extends AppCompatActivity {
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        Log.w("PAYMENT", "PAYMENT FAIL");
+                                        Intent intent = new Intent(PaymentActivity.this, HomeActivity.class);
+                                        startActivity(intent);
                                     }
                                 })
                                 .setNegativeButton("Cancel", null).show();
@@ -175,6 +186,7 @@ public class PaymentActivity extends AppCompatActivity {
         lblZpTransToken = findViewById(R.id.lblZpTransToken);
         btnCreateOrder = findViewById(R.id.btnCreateOrder);
         txtAmount = findViewById(R.id.txtAmount);
+        txtAmount.setText(String.valueOf(orderDetail.getPrice()));// găn giá trị vào cho trang payment
         btnPay = findViewById(R.id.btnPay);
         IsLoading();
     }
@@ -190,6 +202,16 @@ public class PaymentActivity extends AppCompatActivity {
             Service service= (Service) getIntent().getExtras().get("service");
             if (service != null) {
                 return service;
+            }
+        }
+        return null;
+    }
+
+    private OrderDetail loadOrderDetail(){
+        if(getIntent().getExtras() != null) {
+            OrderDetail orderDetail= (OrderDetail) getIntent().getExtras().get("orderDetail");
+            if (orderDetail != null) {
+                return orderDetail;
             }
         }
         return null;

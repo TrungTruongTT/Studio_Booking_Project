@@ -31,6 +31,7 @@ import com.example.demofacebook.Adapter.Chat.Booking.OrderDetailAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackOrderDetailListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderDetailListener;
 import com.example.demofacebook.Api.ApiService;
+import com.example.demofacebook.Fragment.Service.PaymentActivity;
 import com.example.demofacebook.Fragment.Service.ServicePage;
 import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.Order;
@@ -59,7 +60,6 @@ public class OrderDetailActivity extends AppCompatActivity {
     Button cancelOrderBtn;
     Button depositOrderBtn;
     Button paidTheRestOrderBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,9 +280,24 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
     private void depositOrderAction() {
+        payment();
+        String status = (String) getIntent().getExtras().get("statusPay");
+        if(status == "success"){
+            updateDeposited();
+        }
+    }
 
 
+    private void payment() {
+        Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("orderDetail",orderDetail.get(0));
+        //bundle.putSerializable("studio", studio);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 
+    private void updateDeposited(){
         ApiService.apiService.updateCancelStatus(orderId, "deposited").enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

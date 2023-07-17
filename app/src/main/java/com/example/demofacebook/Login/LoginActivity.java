@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void isValidCredentials(String credential, String password) {
         Login_Request loginAccount = new Login_Request(credential,password);
-        ApiService.apiService.login(loginAccount).enqueue(new Callback<TokenResponse>() {
+        ApiService.apiServiceGuesst.login(loginAccount).enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                 if(response.isSuccessful()){
@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void getCustomerByEmailorPhone(String credential){
 
-        ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<List<CustomerAccount>>() {
+        ApiService.apiServiceGuesst.getCustomerByEmailorPhone(credential).enqueue(new Callback<List<CustomerAccount>>() {
             @Override
             public void onResponse(Call<List<CustomerAccount>> call, Response<List<CustomerAccount>> response) {
                 if(response.isSuccessful()){
