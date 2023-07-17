@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.Api.CreateOrder;
+import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.R;
 
 import org.json.JSONObject;
@@ -37,13 +38,15 @@ public class PaymentActivity extends AppCompatActivity {
     Button btnPay;
     EditText txtAmount;
 
+    private Service service;
     Toolbar toolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        service = loadService();
+
         //Load toolbar
         initToolBar();
         //khởi tạo
@@ -51,7 +54,8 @@ public class PaymentActivity extends AppCompatActivity {
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         // ZaloPay SDK Init
-        ZaloPaySDK.init(2554, Environment.SANDBOX);
+        ZaloPaySDK.tearDown();
+        ZaloPaySDK.init(554, Environment.SANDBOX);
         // bind components with ids
         BindView();
 
@@ -179,6 +183,16 @@ public class PaymentActivity extends AppCompatActivity {
         lblZpTransToken.setVisibility(View.INVISIBLE);
         txtToken.setVisibility(View.INVISIBLE);
         btnPay.setVisibility(View.INVISIBLE);
+    }
+
+    private Service loadService(){
+        if(getIntent().getExtras() != null) {
+            Service service= (Service) getIntent().getExtras().get("service");
+            if (service != null) {
+                return service;
+            }
+        }
+        return null;
     }
 
     private void IsDone() {

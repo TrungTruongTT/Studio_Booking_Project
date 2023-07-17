@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -139,6 +140,7 @@ public class Register_Activity extends AppCompatActivity {
             public void onResponse(Call<CustomerAccount> call, Response<CustomerAccount> response) {
                 if(response.isSuccessful()){
                     CustomerAccount customerAccount = response.body();
+                    Log.d("CUSTOMER ACCOUNT", customerAccount.getUser().getPhone());
                         if(customerAccount !=null ){
                             Toast.makeText(Register_Activity.this, "RegisterSuccess", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Register_Activity.this, MainActivity.class);
@@ -146,6 +148,8 @@ public class Register_Activity extends AppCompatActivity {
                         }else{
                             Toast.makeText(Register_Activity.this, "Create UnSuccess", Toast.LENGTH_SHORT).show();
                         }
+                }else {
+
                 }
             }
 

@@ -73,7 +73,6 @@ public class ScheduledFragment extends Fragment {
         }, new IClickItemChatOrderListener() {
             @Override
             public void onClickItemChatOrder(OrderInformation orderInformation) {
-
             }
         });
         recyclerViewOrder.setAdapter(orderAdapter);

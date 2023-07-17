@@ -88,7 +88,7 @@ public class ServicePage extends AppCompatActivity {
         addToCardbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickGotoChat(studio);
+                onClickGotoChat(studio,service);
                 //ChatFragment chatfragment = new ChatFragment();
                 //chatfragment.setArguments(bundle);
 
@@ -152,10 +152,11 @@ public class ServicePage extends AppCompatActivity {
         circleIndicator.setViewPager(viewPager);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
     }
-    private void onClickGotoChat(Studio studio) {
+    private void onClickGotoChat(Studio studio,Service service) {
         Intent intent = new Intent(this, HomeActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("studio", studio);
+        bundle.putSerializable("service",service);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -181,8 +182,6 @@ public class ServicePage extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
-
     private void callApiGetRecommendServicePack() {
         ApiService.apiService.serviceCall().enqueue(new Callback<List<Service>>() {
             @Override

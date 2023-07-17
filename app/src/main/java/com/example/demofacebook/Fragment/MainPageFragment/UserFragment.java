@@ -61,7 +61,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        user = getUser2();
+        user = getUser();
         loadUser(view, user);
 //        Log.d("D","Check");
 //        ApiService.apiService.getUserByPhoneOrEmail("0369998759").enqueue(new Callback<UserByPhone>() {
