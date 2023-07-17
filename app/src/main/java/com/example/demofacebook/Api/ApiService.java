@@ -25,7 +25,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -127,17 +126,9 @@ public interface ApiService {
             @Query("studioId") int studioId
     );
 
-    //Booking
-//    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9..7y5cG23CKvVI9mXJpgpSsV_D28koiHhl_dgxI0L8gFk")
-//    @GET("/api/orders/user")
-//    Call<List<Feedback>> getBookingByUser(@Header("Authorization") String bearerToken,
-//            @Path("token") String token
-//    );
-
     @GET("/api/orders/user")
     Call<List<OrderInformation>> geOrderIdByUser(
     );
-
 
     @GET("/api/order-details/feedback/order/{orderId}")
     Call<List<OrderDetail>> getDetailByOrderId(

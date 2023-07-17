@@ -53,14 +53,14 @@ public class CanceledFragment extends Fragment {
                     List<OrderInformation> value = response.body();
                     orderList = value.stream().filter(p->p.getStatus().equals("cancel")).collect(Collectors.toList());
                     loadBookingData(view, orderList);
-                    Toast.makeText(getContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    Toast.makeText(getContext(), "ResponseFail check", Toast.LENGTH_SHORT).show();
+
                 }
             }
             @Override
             public void onFailure(Call<List<OrderInformation>> call, Throwable t) {
-                Toast.makeText(getContext(), "onFailure", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

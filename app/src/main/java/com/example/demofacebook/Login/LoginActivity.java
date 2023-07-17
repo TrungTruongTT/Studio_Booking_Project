@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                         Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
                         //Toast.makeText(LoginActivity.this, "Invalid credential", Toast.LENGTH_SHORT).show();
                     }

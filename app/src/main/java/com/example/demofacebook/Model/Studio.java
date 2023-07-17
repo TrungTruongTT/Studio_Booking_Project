@@ -17,7 +17,7 @@ public class Studio implements Serializable {
     private String address_Studio;
     private int totalAlbum;
     @SerializedName("totalRating")
-    private int rating;
+    private double rating;
     @SerializedName("description")
     private String description;
 
@@ -25,7 +25,7 @@ public class Studio implements Serializable {
     private String coverImage;
     private List<Service> serviceList;
 
-    public Studio(int studioId, String image, String title, String address_Studio, int rating, String description, String coverImage) {
+    public Studio(int studioId, String image, String title, String address_Studio, double rating, String description, String coverImage) {
         this.studioId = studioId;
         this.image = image;
         this.title = title;
@@ -35,7 +35,7 @@ public class Studio implements Serializable {
         this.coverImage = coverImage;
     }
 
-    public Studio(int studioId, String image, String title, int totalAlbum, int rating, String description, String coverImage, List<Service> serviceList) {
+    public Studio(int studioId, String image, String title, int totalAlbum, double rating, String description, String coverImage, List<Service> serviceList) {
         this.studioId = studioId;
         this.image = image;
         this.title = title;
@@ -47,7 +47,7 @@ public class Studio implements Serializable {
     }
 
 
-    public Studio(int studioId, String image, String title, int totalAlbum, int rating, String description, String coverImage) {
+    public Studio(int studioId, String image, String title, int totalAlbum, double rating, String description, String coverImage) {
         this.studioId = studioId;
         this.image = image;
         this.title = title;
@@ -57,7 +57,7 @@ public class Studio implements Serializable {
         this.coverImage = coverImage;
     }
 
-    public Studio(int studioId, String image, String title, int rating, String description, String coverImage) {
+    public Studio(int studioId, String image, String title, double rating, String description, String coverImage) {
         this.studioId = studioId;
         this.image = image;
         this.title = title;
@@ -135,11 +135,11 @@ public class Studio implements Serializable {
         this.totalAlbum = totalAlbum;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

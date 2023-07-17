@@ -52,12 +52,12 @@ public class FinishedFragment extends Fragment {
                     orderList = value.stream().filter(p->p.getStatus().equals("worked")).collect(Collectors.toList());
                     loadBookingData(view, orderList);
                 } else {
-                    Toast.makeText(getContext(), "k dc", Toast.LENGTH_SHORT).show();
+
                 }
             }
             @Override
             public void onFailure(Call<List<OrderInformation>> call, Throwable t) {
-                Toast.makeText(getContext(), "sai link", Toast.LENGTH_SHORT).show();
+
             }
         });
 

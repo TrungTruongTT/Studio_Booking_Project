@@ -39,7 +39,9 @@ import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -145,10 +147,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         for (int i = 0; i < orderDetail.size(); i++) {
             totalPriceValue = totalPriceValue + orderDetail.get(i).getServicePack().getPriceService();
         }
-        totalPrice.setText(totalPriceValue + " VND");
+        totalPrice.setText(formatMoney(totalPriceValue) + " VND");
 
-        if (order.getDeposit() != null) {
-            deposited.setText(order.getDeposit() + " VND");
+        if (order.getDeposit() > 0) {
+            deposited.setText(formatMoney(order.getDeposit()) + " VND");
         } else {
             deposited.setText("Not deposited yet");
         }
@@ -163,6 +165,11 @@ public class OrderDetailActivity extends AppCompatActivity {
         bookingDate.setText(order.getOrderDate().toString());
         orderStatus.setText(order.getStatus());
         note.setText(order.getDescription());
+    }
+
+    private String formatMoney(int Money) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+        return numberFormat.format(Money);
     }
 
     private void loadData() {
@@ -379,14 +386,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         EditText feedbackFormDescription = dialog.findViewById(R.id.FeedbackFormDescription);
         configEditText(feedbackFormDescription);
 
-//        uploadImage_Feedback = dialog.findViewById(R.id.UploadImage_Feedback);
-//        uploadImage_Feedback.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                uploadFeedbackImage();
-//            }
-//        });
-
         Button updateDialog = dialog.findViewById(R.id.SubmitFeedbackDialog);
         updateDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -413,58 +412,10 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
     private Boolean submitFeedbackForm(int serviceId, String description, float ratingValue, OrderDetail orderDetailValue) {
-//        int rating = Math.round(ratingValue);
-//        LocalDate currentDate = LocalDate.now();
-//
-//        ApiService.apiService.createFeedback(Integer.valueOf(orderDetailValue.getOrderDetailId()).toString()
-//                , orderDetailValue).enqueue(new Callback<OrderDetail>() {
-//            @Override
-//            public void onResponse(Call<OrderDetail> call, Response<OrderDetail> response) {
-//                if (response.isSuccessful()) {
-//                    OrderDetail orderDetailResponse = response.body();
-//                    String content = "";
-//                    content += "rating: " + rating + "\n";
-//                    content += "content: " + description + "\n";
-//                    content += "postDate: " + currentDate + "\n";
-//                    text
-//                } else {
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<OrderDetail> call, Throwable t) {
-//            }
-//        });
+        
 
         return true;
     }
-
-//    private void uploadFeedbackImage() {
-//        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//        intent.addCategory(Intent.CATEGORY_OPENABLE);
-//        intent.setType("image/*");
-//        startActivityForResult(intent, GALLERY_REQUEST_CODE);
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-//            // The user has successfully picked an image from the gallery.
-//            // You can retrieve the image URI or perform further operations here.
-//
-//            // Example: Retrieving the image URI
-//            imageUri = data.getData();
-//
-////            String url = "https://i.imgur.com/DvpvklR.png";
-//            Picasso.get()
-//                    .load(imageUri)
-//                    .placeholder(R.drawable.download)
-//                    .error(R.drawable.download)
-//                    .into(uploadImage_Feedback);
-//        }
-//    }
 
     private void configEditText(EditText editText) {
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
