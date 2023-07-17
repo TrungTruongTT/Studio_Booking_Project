@@ -96,67 +96,67 @@
                         android:textSize="18sp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:orientation="horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginEnd="10dp"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <TextView
-                        android:textStyle="bold"
-                        android:text="@string/lbDOBDialog"
-                        android:layout_width="90dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="start|center"
-                        android:textColor="@color/TextColor_Dialog"
-                        android:textSize="18sp" />
+<!--                    <TextView-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:text="@string/lbDOBDialog"-->
+<!--                        android:layout_width="90dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:gravity="start|center"-->
+<!--                        android:textColor="@color/TextColor_Dialog"-->
+<!--                        android:textSize="18sp" />-->
 
-                    <EditText
-                        android:id="@+id/UserDialogDay"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"
-                        android:ellipsize="end"
-                        android:gravity="start|center"
-                        android:hint="Day"
-                        android:inputType="date"
-                        android:maxLength="2"
-                        android:maxLines="1"
-                        android:textSize="18sp" />
+<!--                    <EditText-->
+<!--                        android:id="@+id/UserDialogDay"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_weight="2"-->
+<!--                        android:ellipsize="end"-->
+<!--                        android:gravity="start|center"-->
+<!--                        android:hint="Day"-->
+<!--                        android:inputType="date"-->
+<!--                        android:maxLength="2"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:textSize="18sp" />-->
 
-                    <EditText
-                        android:id="@+id/UserDialogMonth"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"
-                        android:ellipsize="end"
-                        android:gravity="start|center"
-                        android:hint="Month"
-                        android:inputType="date"
-                        android:maxLength="2"
-                        android:maxLines="1"
-                        android:textSize="18sp" />
+<!--                    <EditText-->
+<!--                        android:id="@+id/UserDialogMonth"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_weight="2"-->
+<!--                        android:ellipsize="end"-->
+<!--                        android:gravity="start|center"-->
+<!--                        android:hint="Month"-->
+<!--                        android:inputType="date"-->
+<!--                        android:maxLength="2"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:textSize="18sp" />-->
 
-                    <EditText
-                        android:id="@+id/UserDialogYear"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"
-                        android:ellipsize="end"
-                        android:gravity="start|center"
-                        android:hint="Year"
-                        android:inputType="date"
-                        android:maxLength="4"
-                        android:maxLines="1"
-                        android:textSize="18sp" />
+<!--                    <EditText-->
+<!--                        android:id="@+id/UserDialogYear"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:layout_weight="2"-->
+<!--                        android:ellipsize="end"-->
+<!--                        android:gravity="start|center"-->
+<!--                        android:hint="Year"-->
+<!--                        android:inputType="date"-->
+<!--                        android:maxLength="4"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:textSize="18sp" />-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
                 
                 <LinearLayout
                     android:layout_width="match_parent"

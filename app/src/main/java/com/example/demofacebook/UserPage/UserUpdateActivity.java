@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,21 +23,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.squareup.picasso.Picasso;
 
-import java.sql.Date;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserUpdateActivity extends AppCompatActivity {
     User user;
     ImageView userImage;
     ImageView userImageDialog;
-    //    Uri mUriImage;
     TextView userName;
-    TextView birthDate;
     TextView phone;
     TextView email;
     TextView password;
@@ -55,7 +57,6 @@ public class UserUpdateActivity extends AppCompatActivity {
     private void initView() {
         userImage = findViewById(R.id.UserImage);
         userName = findViewById(R.id.UserName);
-        birthDate = findViewById(R.id.UserDOB);
         phone = findViewById(R.id.UserPhone);
         email = findViewById(R.id.UserEmail);
         password = findViewById(R.id.UserPassword);
@@ -149,9 +150,9 @@ public class UserUpdateActivity extends AppCompatActivity {
         userImageDialog = dialog.findViewById(R.id.UserDialogImage);
         EditText editTextUserName = dialog.findViewById(R.id.UserDialogName);
         configEditText(editTextUserName);
-        EditText editTextDay = dialog.findViewById(R.id.UserDialogDay);
-        EditText editTextMonth = dialog.findViewById(R.id.UserDialogMonth);
-        EditText editTextYear = dialog.findViewById(R.id.UserDialogYear);
+//        EditText editTextDay = dialog.findViewById(R.id.UserDialogDay);
+//        EditText editTextMonth = dialog.findViewById(R.id.UserDialogMonth);
+//        EditText editTextYear = dialog.findViewById(R.id.UserDialogYear);
 
         EditText editTextPassword = dialog.findViewById(R.id.UserDialogPassword);
         configEditPasswordText(editTextPassword);
@@ -173,12 +174,12 @@ public class UserUpdateActivity extends AppCompatActivity {
                 .error(R.drawable.download)
                 .into(userImageDialog);
         editTextUserName.setText(user.getFullName());
-       /* String str = user.getDateOfBirth().toString();*/
-        String str = "2001-06-15";
-        String[] arrOfStr = str.split("-", 3);
-        editTextDay.setText(arrOfStr[2]);
-        editTextMonth.setText(arrOfStr[1]);
-        editTextYear.setText(arrOfStr[0]);
+        /* String str = user.getDateOfBirth().toString();*/
+//        String str = "2001-06-15";
+//        String[] arrOfStr = str.split("-", 3);
+//        editTextDay.setText(arrOfStr[2]);
+//        editTextMonth.setText(arrOfStr[1]);
+//        editTextYear.setText(arrOfStr[0]);
 
         editTextPassword.setText(user.getPassword());
         editTextRePassword.setText(user.getPassword());
@@ -190,30 +191,31 @@ public class UserUpdateActivity extends AppCompatActivity {
         btnOpenUpdateDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String name = editTextUserName.getText().toString();
-                String day = editTextDay.getText().toString();
-                String month = editTextMonth.getText().toString();
-                String year = editTextYear.getText().toString();
+//                String day = editTextDay.getText().toString();
+//                String month = editTextMonth.getText().toString();
+//                String year = editTextYear.getText().toString();
+                String url = "https://i.imgur.com/DvpvklR.png";
                 String password1 = String.valueOf(editTextPassword.getText());
                 String password2 = String.valueOf(editTextRePassword.getText());
-                Boolean validation = invalidateMenuInput(name, day, month, year, password1, password2);
+                Boolean validation = invalidateMenuInput(name, password1, password2);
 
                 if (validation) {
-                    String str = year + "-" + month + "-" + day;
-                    Date dateOfBirth = Date.valueOf(str);
+//                    String str = year + "-" + month + "-" + day;
+//                    Date dateOfBirth = Date.valueOf(str);
 //
 //                    user.setFullName(editTextUserName.getText().toString());
-//                    String url = "https://i.imgur.com/DvpvklR.png";
 //                    user.setImage(url);
 //                    user.setDateOfBirth(dateOfBirth);
 //                    user.setPassword(editTextPassword.getText().toString());
 //                    updateUserInfo();
 //                    Toast.makeText(UserUpdateActivity.this, "Update Success", Toast.LENGTH_SHORT).show();
-//                    CustomerAccount customerAccount = DataLocalManager.getCustomerAccount();
-//                    customerAccount.setBirthDate(dateOfBirth);
-//                    customerAccount.getUser().setFullName(name);
-//                    customerAccount.getUser().setPassword(password1);
-//                    updateUser(customerAccount);
+                    CustomerAccount customerAccount = DataLocalManager.getCustomerAccount();
+                    customerAccount.getUser().setFullName(name);
+                    customerAccount.getUser().setPassword(password1);
+                    customerAccount.getUser().setImage(url);
+                    updateUser(customerAccount);
 
 
                     dialog.dismiss();
@@ -232,20 +234,45 @@ public class UserUpdateActivity extends AppCompatActivity {
     }
 
     private void updateUser(CustomerAccount customerAccount) {
+        CustomerAccount updateUser =
+                new CustomerAccount(customerAccount.getCustomerId(),
+                customerAccount.getAddress(),
+                new User(customerAccount.getUser().getImage()
+                        ,customerAccount.getUser().getFullName(),
+                        customerAccount.getUser().getPassword()));
+
+        Log.w("TAG", updateUser + "");
+
+        Call<Void> call = ApiService.apiService.updateCustomer(updateUser.getCustomerId(), updateUser);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    DataLocalManager.getCustomerAccount().getUser().setFullName(updateUser.getUser().getFullName());
+                    DataLocalManager.getCustomerAccount().getUser().setFullName(updateUser.getUser().getImage());
+                    DataLocalManager.getCustomerAccount().getUser().setFullName(updateUser.getUser().getPassword());
+
+                    Log.w("TAG",  DataLocalManager.getCustomerAccount().getUser().getFullName() );
+
+                    Toast.makeText(getApplicationContext(), "oke", Toast.LENGTH_SHORT).show();
+                } else {
+
+
+                    Toast.makeText(getApplicationContext(), "not oke", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Request failed due to network error or other issues
+                // Handle error here
+            }
+        });
 
     }
 
-    private Boolean invalidateMenuInput(String name, String date, String month, String year, String password1, String password2) {
+    private Boolean invalidateMenuInput(String name, String password1, String password2) {
         if (name.isEmpty()
-                || date.isEmpty()
-                || Integer.parseInt(date) < 0
-                || Integer.parseInt(date) > 31
-                || month.isEmpty()
-                || Integer.parseInt(month) < 0
-                || Integer.parseInt(month) > 12
-                || year.isEmpty()
-                || Integer.parseInt(year) < 1900
-                || Integer.parseInt(year) >= 2024
                 || password1.isEmpty()
                 || password2.isEmpty()) {
             return false;
@@ -268,13 +295,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            // The user has successfully picked an image from the gallery.
-            // You can retrieve the image URI or perform further operations here.
-
-            // Example: Retrieving the image URI
-//            String imageUri = data.getData().toString();
-//            Uri uri = data.getData();
-//            mUriImage = uri;
             String url = "https://i.imgur.com/DvpvklR.png";
             Picasso.get()
                     .load(url)
@@ -296,10 +316,6 @@ public class UserUpdateActivity extends AppCompatActivity {
                         .into(userImage);
 
                 userName.setText(user.getFullName());
-                String str = "2001-06-15";
-                Date dateOfBirth = Date.valueOf(str);
-
-                birthDate.setText(dateOfBirth.toString());
                 phone.setText(user.getPhone());
                 email.setText(user.getEmail());
                 password.setText("**********");
@@ -320,8 +336,6 @@ public class UserUpdateActivity extends AppCompatActivity {
                     .into(userImage);
 
             userName.setText(user.getFullName());
-
-            birthDate.setText(user.getDateOfBirth().toString());
             phone.setText(user.getPhone());
             email.setText(user.getEmail());
             password.setText(user.getPassword());

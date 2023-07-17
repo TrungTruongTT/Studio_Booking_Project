@@ -147,7 +147,7 @@ public interface ApiService {
             @Body OrderDetail orderDetail
     );
 
-    @POST("api/customers/{customerId}")
+    @PATCH("api/customers/{customerId}")
     Call<Void> updateCustomer(
             @Path("customerId") int customerId,
             @Body CustomerAccount customerAccount
