@@ -24,6 +24,7 @@ import com.example.demofacebook.Api.CreateOrder;
 import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.Service;
+import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
 
 import org.json.JSONObject;
@@ -138,7 +139,12 @@ public class PaymentActivity extends AppCompatActivity {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 Log.w("PAYMENT", "PAYMENT SUCCESS");
                                                 status = "success";
+                                                Intent intent = new Intent(PaymentActivity.this, OrderDetailActivity.class);
                                                 bundle.putSerializable("statusPay",status);
+                                                bundle.putSerializable("orderId",orderDetail.getOrder().getOrderId());
+                                                bundle.putSerializable("orderStatus",orderDetail.getOrder().getStatus());
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);
                                             }
                                         })
                                         .setNegativeButton("Cancel", null).show();
