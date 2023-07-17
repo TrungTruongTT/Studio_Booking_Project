@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 String credential = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 if (validateEmail(credential) && validatePassword(password)) {
-                    //getCustomerByEmailorPhone(credential);
                     isValidCredentials(credential, password);
                 } else {
                     // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
@@ -94,13 +93,12 @@ public class LoginActivity extends AppCompatActivity {
                     TokenResponse tokenResponse= response.body();
                     if(tokenResponse !=null){
                         getCustomerByEmailorPhone(credential);
-                        //getCustomerByEmailorPhone(credential);
                         DataLocalManager.setTokenResponse(tokenResponse);
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                         Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
                         //Toast.makeText(LoginActivity.this, "Invalid credential", Toast.LENGTH_SHORT).show();
                     }

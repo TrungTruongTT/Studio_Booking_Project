@@ -16,8 +16,10 @@ import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayAdapterHolder> implements Filterable {
     private List<Service> mListService;
@@ -92,8 +94,9 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         holder.serviceName.setText(service.getServiceName());
         holder.ratingService.setText("⭐: " + service.getServiceRating());
         holder.views.setText("View: " + service.getView());
-        String price = String.valueOf(service.getPriceService());
-        holder.servicePrice.setText(price + " VND");
+
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+        holder.servicePrice.setText( numberFormat.format(service.getPriceService()) + " VND");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

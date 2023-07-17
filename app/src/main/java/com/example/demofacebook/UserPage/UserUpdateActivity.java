@@ -286,7 +286,10 @@ public class UserUpdateActivity extends AppCompatActivity {
                         .into(userImage);
 
                 userName.setText(user.getFullName());
-                birthDate.setText(user.getDateOfBirth().toString());
+                String str = "2001-06-15";
+                Date dateOfBirth = Date.valueOf(str);
+
+                birthDate.setText(dateOfBirth.toString());
                 phone.setText(user.getPhone());
                 email.setText(user.getEmail());
                 password.setText(user.getPassword());

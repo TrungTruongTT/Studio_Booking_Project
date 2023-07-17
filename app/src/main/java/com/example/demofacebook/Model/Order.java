@@ -12,7 +12,7 @@ public class Order {
     @SerializedName("status")
     private String status;
     @SerializedName("deposit")
-    private String deposit;
+    private int deposit;
 
     @SerializedName("checkIn")
     private Date checkIn;
@@ -20,7 +20,7 @@ public class Order {
     @SerializedName("description")
     private String description;
 
-    public Order(int orderId, Date orderDate, String status, String deposit, Date checkIn, String description) {
+    public Order(int orderId, Date orderDate, String status, int deposit, Date checkIn, String description) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.status = status;
@@ -53,11 +53,11 @@ public class Order {
         this.status = status;
     }
 
-    public String getDeposit() {
+    public int getDeposit() {
         return deposit;
     }
 
-    public void setDeposit(String deposit) {
+    public void setDeposit(int deposit) {
         this.deposit = deposit;
     }
 

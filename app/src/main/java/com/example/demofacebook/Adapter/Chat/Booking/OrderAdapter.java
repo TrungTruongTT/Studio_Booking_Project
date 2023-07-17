@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,11 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
+import com.example.demofacebook.Api.ApiService;
+import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder>{
     private final List<OrderInformation> mList;
@@ -40,20 +47,44 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter.OrderViewHolder holder, int position) {
-        OrderInformation orderDetail = mList.get(position);
+        OrderInformation orderInformation = mList.get(position);
 
-        if (orderDetail == null) {
+        if (orderInformation == null) {
             return;
         }
 
-        Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
-                .into(holder.urlImageService);
+        ApiService.apiService.getDetailByOrderId(orderInformation.getOrderId()).enqueue(new Callback<List<OrderDetail>>() {
+            @Override
+            public void onResponse(Call<List<OrderDetail>> call, Response<List<OrderDetail>> response) {
+                if (response.isSuccessful()) {
+                    List<OrderDetail> mOrderDetail;
+                    mOrderDetail = response.body();
 
-        holder.orderId.setText("Order: " + orderDetail.getOrderId());
+                    int totalPrice = 0;
+                    for (int i = 0; i < mOrderDetail.size(); i++) {
+                        totalPrice = totalPrice + mOrderDetail.get(i).getServicePack().getPriceService();
+                    }
+                    NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+                    holder.totalPrice.setText("Total Price: " + numberFormat.format(totalPrice) + " VND");
 
-        String status = orderDetail.getStatus();
+                    Picasso.get().load(mOrderDetail.get(0).getServicePack().getMediaServicePackList().get(0).getFilePath()).into(holder.urlImageService);
+                    holder.orderServicePrice.setText(numberFormat.format(mOrderDetail.get(0).getServicePack().getPriceService()) + " VND");
+
+                    holder.totalOrderDetail.setText("Service: " + mOrderDetail.size());
+                    holder.serviceName.setText(mOrderDetail.get(0).getServicePack().getServiceName());
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<OrderDetail>> call, Throwable t) {
+            }
+        });
+
+
+        holder.orderId.setText("Order: " + orderInformation.getOrderId());
+
+        String status = orderInformation.getStatus();
         switch (status) {
             case "pending":
                 holder.status.setText("PENDING");
@@ -78,29 +109,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         }
 
-        int totalPrice = 300;
-//        totalPrice = totalPrice + orderDetail.getPrice();
-        holder.totalPrice.setText("Total Price: " + String.valueOf(totalPrice) + " VND");
-
-
-        holder.totalOrderDetail.setText("Service: 2");
-        holder.serviceName.setText("FrameMates App Service Package");
-
-        holder.orderDate.setText(orderDetail.getOrderDate().toString());
+        holder.orderDate.setText(orderInformation.getOrderDate().toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickItemOrderListenerListener.onClickItemOrder(orderDetail);
+                iClickItemOrderListenerListener.onClickItemOrder(orderInformation);
             }
         });
 
-        holder.chatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                iClickItemChatOrderListener.onClickItemChatOrder(orderDetail);
-            }
-        });
+//        holder.chatButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                iClickItemChatOrderListener.onClickItemChatOrder(orderInformation);
+//            }
+//        });
     }
 
     @Override
@@ -120,8 +143,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public TextView totalPrice;
         public TextView totalOrderDetail;
         public ImageView urlImageService;
-        public Button chatButton;
+        //        public Button chatButton;
         public TextView serviceName;
+        public TextView orderServicePrice;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -131,9 +155,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             totalOrderDetail = itemView.findViewById(R.id.orderTotalOrderDetail);
             serviceName = itemView.findViewById(R.id.orderServiceName);
             orderDate = itemView.findViewById(R.id.orderDate);
-            chatButton = itemView.findViewById(R.id.OrderChatBtn);
+//            chatButton = itemView.findViewById(R.id.OrderChatBtn);
             urlImageService = itemView.findViewById(R.id.urlImageService);
-
+            orderServicePrice = itemView.findViewById(R.id.orderServicePrice);
         }
     }
 }

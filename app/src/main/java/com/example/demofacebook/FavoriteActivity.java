@@ -58,18 +58,18 @@ public class FavoriteActivity extends AppCompatActivity {
     private List<Studio> getListStudioData() {
         List<Studio> myList = new ArrayList<>();
         List<Service> listSevice = new ArrayList<>();
-        listSevice.add(new Service(1, R.drawable.download, 4, "Service 1", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        listSevice.add(new Service(1, R.drawable.download, 4, "Service 2", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        listSevice.add(new Service(1, R.drawable.download, 4, "Service 3", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        listSevice.add(new Service(1, R.drawable.download, 4, "Service 4", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        listSevice.add(new Service(1, R.drawable.download, 4, "Service 5", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
+        listSevice.add(new Service(1, R.drawable.download, 4, "Service 1", "Service Description 1\nService Description 2\nService Description 3", 350, 500, 0));
+        listSevice.add(new Service(1, R.drawable.download, 4, "Service 2", "Service Description 1\nService Description 2\nService Description 3", 350, 500, 0));
+        listSevice.add(new Service(1, R.drawable.download, 4, "Service 3", "Service Description 1\nService Description 2\nService Description 3", 350, 500, 0));
+        listSevice.add(new Service(1, R.drawable.download, 4, "Service 4", "Service Description 1\nService Description 2\nService Description 3", 350, 500, 0));
+        listSevice.add(new Service(1, R.drawable.download, 4, "Service 5", "Service Description 1\nService Description 2\nService Description 3", 350, 500, 0));
         String str = "2015-03-31";
         Date dateChange = Date.valueOf(str);
 
         List<Service> listSevice2 = new ArrayList<>();
-        listSevice2.add(new Service(1, R.drawable.download, 4, "Service 1", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        listSevice2.add(new Service(1, R.drawable.download, 4, "Service 2", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
-        listSevice2.add(new Service(1, R.drawable.download, 4, "Service 3", "Service Description 1\nService Description 2\nService Description 3", 350, 500));
+        listSevice2.add(new Service(1, R.drawable.download, 4, "Service 1", "Service Description 1\nService Description 2\nService Description 3", 350, 500, 0));
+        listSevice2.add(new Service(1, R.drawable.download, 4, "Service 2", "Service Description 1\nService Description 2\nService Description 3", 350, 500, 0));
+        listSevice2.add(new Service(1, R.drawable.download, 4, "Service 3", "Service Description 1\nService Description 2\nService Description 3", 350, 500, 0));
         myList.add(new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 40, 5, "22", null, listSevice));
         myList.add(new Studio(2, "https://i.imgur.com/DvpvklR.png", "Studio 2 test", 40, 5, "22", null, listSevice2));
 

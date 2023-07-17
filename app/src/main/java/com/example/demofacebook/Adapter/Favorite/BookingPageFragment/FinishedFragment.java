@@ -22,6 +22,7 @@ import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
+import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -50,7 +51,6 @@ public class FinishedFragment extends Fragment {
                     List<OrderInformation> value = response.body();
                     orderList = value.stream().filter(p->p.getStatus().equals("worked")).collect(Collectors.toList());
                     loadBookingData(view, orderList);
-
                 } else {
 
                 }

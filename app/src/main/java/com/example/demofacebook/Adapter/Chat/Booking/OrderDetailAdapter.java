@@ -16,7 +16,9 @@ import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.OrderViewHolder> {
     private final List<OrderDetail> mList;
@@ -45,24 +47,22 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         if (orderDetail == null) {
             return;
         }
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+
         holder.serviceName.setText(orderDetail.getServicePack().getServiceName());
-        holder.servicePrice.setText(orderDetail.getPrice() + " VND");
+        holder.servicePrice.setText(numberFormat.format(orderDetail.getPrice()) + " VND");
+
 
         if (orderDetail.getServicePack() != null) {
-            if (orderDetail.getServicePack() == null) {
-                Picasso.get().load(orderDetail.getServicePack().getMediaServicePackList().get(0).getFilePath())
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download).into(holder.urlImageService);
-            } else {
-                Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download).into(holder.urlImageService);
-            }
+            Picasso.get().load(orderDetail.getServicePack().getMediaServicePackList().get(0).getFilePath())
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download).into(holder.urlImageService);
         } else {
             Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                    .placeholder(R.drawable.download).error(R.drawable.download)
-                    .into(holder.urlImageService);
+                    .placeholder(R.drawable.download)
+                    .error(R.drawable.download).into(holder.urlImageService);
         }
+
 
         if (orderStatus.equals("pending")
                 || orderStatus.equals("deposited")

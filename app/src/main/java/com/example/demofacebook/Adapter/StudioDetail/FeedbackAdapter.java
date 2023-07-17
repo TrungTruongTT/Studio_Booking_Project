@@ -58,12 +58,12 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
                     .into(holder.userAvatar);
         } else {
             Picasso.get()
-                    .load("https://i.imgur.com/DvpvklR.png")
+                    .load("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg")
                     .placeholder(R.drawable.download)
                     .into(holder.userAvatar);
         }
         if (feedback.getFeedbackUserName() == null) {
-            holder.feedbackUserName.setText("Nguyen Van A");
+            holder.feedbackUserName.setText("Huynh Phi");
         } else {
             holder.feedbackUserName.setText(feedback.getFeedbackUserName());
         }
@@ -90,31 +90,31 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
             holder.feedbackDate.setText("Create at " + dateChange);
         }
 
-        if (feedback.getFeedbackImage() != null) {
-            if (feedback.getFeedbackImage().size() != 0) {
-                Picasso.get().load(feedback.getFeedbackImage().get(0).getFilePath())
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download)
-                        .into(holder.feedbackImage);
-            } else {
-                Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download)
-                        .into(holder.feedbackImage);
-            }
-        } else {
-            Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
-                    .into(holder.feedbackImage);
-        }
+//        if (feedback.getFeedbackImage() != null) {
+//            if (feedback.getFeedbackImage().size() != 0) {
+//                Picasso.get().load(feedback.getFeedbackImage().get(0).getFilePath())
+//                        .placeholder(R.drawable.download)
+//                        .error(R.drawable.download)
+//                        .into(holder.feedbackImage);
+//            } else {
+//                Picasso.get().load("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg")
+//                        .placeholder(R.drawable.download)
+//                        .error(R.drawable.download)
+//                        .into(holder.feedbackImage);
+//            }
+//        } else {
+//            Picasso.get().load("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg")
+//                    .placeholder(R.drawable.download)
+//                    .error(R.drawable.download)
+//                    .into(holder.feedbackImage);
+//        }
 
-        holder.feedbackImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openViewFeedbackImageDialog(Gravity.TOP, feedback);
-            }
-        });
+//        holder.feedbackImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openViewFeedbackImageDialog(Gravity.TOP, feedback);
+//            }
+//        });
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -182,7 +182,6 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
         TextView feedbackUserName;
         TextView rating;
         TextView feedbackDescription;
-        ImageView feedbackImage;
         TextView feedbackDate;
 
         public MyArrayAdapterHolder(@NonNull View itemView) {
@@ -192,7 +191,7 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
             feedbackUserName = itemView.findViewById(R.id.FeedbackUserName);
             rating = itemView.findViewById(R.id.Rating);
             feedbackDescription = itemView.findViewById(R.id.FeedbackDescription);
-            feedbackImage = itemView.findViewById(R.id.FeedbackImage);
+//            feedbackImage = itemView.findViewById(R.id.FeedbackImage);
             feedbackDate = itemView.findViewById(R.id.FeedbackDate);
 
 
