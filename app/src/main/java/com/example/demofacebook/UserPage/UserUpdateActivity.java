@@ -234,12 +234,14 @@ public class UserUpdateActivity extends AppCompatActivity {
     }
 
     private void updateUser(CustomerAccount customerAccount) {
+        CustomerAccount T =  DataLocalManager.getCustomerAccount();
+        User T2 = DataLocalManager.getCustomerAccount().getUser();
         CustomerAccount updateUser =
                 new CustomerAccount(customerAccount.getCustomerId(),
-                customerAccount.getAddress(),
-                new User(customerAccount.getUser().getImage()
-                        ,customerAccount.getUser().getFullName(),
-                        customerAccount.getUser().getPassword()));
+                        customerAccount.getAddress(),
+                        new User(customerAccount.getUser().getImage()
+                                , customerAccount.getUser().getFullName(),
+                                customerAccount.getUser().getPassword()));
 
         Log.w("TAG", updateUser + "");
 
@@ -248,13 +250,15 @@ public class UserUpdateActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    DataLocalManager.getCustomerAccount().getUser().setFullName(updateUser.getUser().getFullName());
-                    DataLocalManager.getCustomerAccount().getUser().setFullName(updateUser.getUser().getImage());
-                    DataLocalManager.getCustomerAccount().getUser().setFullName(updateUser.getUser().getPassword());
+                    T2.setFullName(updateUser.getUser().getFullName());
+                    T2.setImage(updateUser.getUser().getFullName());
+                    T2.setPassword(updateUser.getUser().getFullName());
+                    T.setUser(T2);
+                    DataLocalManager.setCustomerAccount(T);
 
-                    Log.w("TAG",  DataLocalManager.getCustomerAccount().getUser().getFullName() );
+                    Log.w("TAG", DataLocalManager.getCustomerAccount().getUser().getFullName());
 
-                    Toast.makeText(getApplicationContext(), "oke", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_SHORT).show();
                 } else {
 
 
