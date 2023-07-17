@@ -88,6 +88,8 @@ public interface ApiService {
     //account
     @POST("/api/auth/login")
     Call<TokenResponse> login(@Body Login_Request login);
+
+    @POST("/api/customers")
     //register
     Call<CustomerAccount> createCustomer(@Body CustomerAccount account);
 
