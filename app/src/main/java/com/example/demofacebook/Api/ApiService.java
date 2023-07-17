@@ -117,13 +117,13 @@ public interface ApiService {
     );
 
     //Booking
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJjdXN0b21lcnIiLCJpYXQiOjE2ODk1MDg5NzUsImV4cCI6MTY4OTUzODk3NX0.s_svTaKGoB04gUiweZ299zRAj71OFdZ1-xahWRLUXxU")
+    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJwaGluZ3V5ZW4iLCJpYXQiOjE2ODk1NTg1NTcsImV4cCI6MTY4OTU4ODU1N30.vL18BgaXK2Xn3y5HTn--m98xefVcznW37miCdyfoEk4")
     @GET("/api/orders/user")
     Call<List<Feedback>> getBookingByUser(@Header("Authorization") String bearerToken,
             @Path("token") String token
     );
 
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJjdXN0b21lcnIiLCJpYXQiOjE2ODk1MDg5NzUsImV4cCI6MTY4OTUzODk3NX0.s_svTaKGoB04gUiweZ299zRAj71OFdZ1-xahWRLUXxU")
+    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJwaGluZ3V5ZW4iLCJpYXQiOjE2ODk1NTg1NTcsImV4cCI6MTY4OTU4ODU1N30.vL18BgaXK2Xn3y5HTn--m98xefVcznW37miCdyfoEk4")
     @GET("/api/orders/user")
     Call<List<OrderInformation>> geOrderIdByUser(
 //            @Path("token") String token
@@ -135,12 +135,8 @@ public interface ApiService {
     Call<List<OrderDetail>> getDetailByOrderId(
             @Path("orderId") int orderId
     );
-//     /orders/3?status=pending
-//    /order-details/feedback/studio?studioId=1
 
-//    /orders/3?status=pending
-
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJjdXN0b21lcnIiLCJpYXQiOjE2ODk1MTg1NjUsImV4cCI6MTY4OTU0ODU2NX0.GgRM2w4I-0u189ls7sTRuHnbZgGTwKf0QPGEHmi9qLY")
+    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJwaGluZ3V5ZW4iLCJpYXQiOjE2ODk1NTg1NTcsImV4cCI6MTY4OTU4ODU1N30.vL18BgaXK2Xn3y5HTn--m98xefVcznW37miCdyfoEk4")
     @PATCH("/api/orders/{orderId}")
     Call<Void> updateCancelStatus(
             @Path("orderId") int orderId,

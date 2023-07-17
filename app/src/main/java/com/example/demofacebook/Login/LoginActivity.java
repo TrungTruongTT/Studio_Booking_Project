@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 String credential = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 if (validateEmail(credential) && validatePassword(password)) {
-                    getCustomerByEmailorPhone(credential);
                     isValidCredentials(credential, password);
                 } else {
                     // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
@@ -93,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     TokenResponse tokenResponse= response.body();
                     if(tokenResponse !=null){
-                        //getCustomerByEmailorPhone(credential);
+                        getCustomerByEmailorPhone(credential);
                         DataLocalManager.setTokenResponse(tokenResponse);
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
