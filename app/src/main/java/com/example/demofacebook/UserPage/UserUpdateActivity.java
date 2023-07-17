@@ -22,8 +22,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
+import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
@@ -189,27 +191,31 @@ public class UserUpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = editTextUserName.getText().toString();
-
                 String day = editTextDay.getText().toString();
                 String month = editTextMonth.getText().toString();
                 String year = editTextYear.getText().toString();
-
                 String password1 = String.valueOf(editTextPassword.getText());
                 String password2 = String.valueOf(editTextRePassword.getText());
-
                 Boolean validation = invalidateMenuInput(name, day, month, year, password1, password2);
 
                 if (validation) {
                     String str = year + "-" + month + "-" + day;
                     Date dateOfBirth = Date.valueOf(str);
+//
+//                    user.setFullName(editTextUserName.getText().toString());
+//                    String url = "https://i.imgur.com/DvpvklR.png";
+//                    user.setImage(url);
+//                    user.setDateOfBirth(dateOfBirth);
+//                    user.setPassword(editTextPassword.getText().toString());
+//                    updateUserInfo();
+//                    Toast.makeText(UserUpdateActivity.this, "Update Success", Toast.LENGTH_SHORT).show();
+//                    CustomerAccount customerAccount = DataLocalManager.getCustomerAccount();
+//                    customerAccount.setBirthDate(dateOfBirth);
+//                    customerAccount.getUser().setFullName(name);
+//                    customerAccount.getUser().setPassword(password1);
+//                    updateUser(customerAccount);
 
-                    user.setFullName(editTextUserName.getText().toString());
-                    String url = "https://i.imgur.com/DvpvklR.png";
-                    user.setImage(url);
-                    user.setDateOfBirth(dateOfBirth);
-                    user.setPassword(editTextPassword.getText().toString());
-                    updateUserInfo();
-                    Toast.makeText(UserUpdateActivity.this, "Update Success", Toast.LENGTH_SHORT).show();
+
                     dialog.dismiss();
                 } else {
                     Toast.makeText(UserUpdateActivity.this, "Update UnSuccess", Toast.LENGTH_SHORT).show();
@@ -223,6 +229,10 @@ public class UserUpdateActivity extends AppCompatActivity {
 
 
         dialog.show();
+    }
+
+    private void updateUser(CustomerAccount customerAccount) {
+
     }
 
     private Boolean invalidateMenuInput(String name, String date, String month, String year, String password1, String password2) {
@@ -292,7 +302,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                 birthDate.setText(dateOfBirth.toString());
                 phone.setText(user.getPhone());
                 email.setText(user.getEmail());
-                password.setText(user.getPassword());
+                password.setText("**********");
             }
             if (user == null) {
                 Toast.makeText(this, "Load User Fail", Toast.LENGTH_SHORT).show();

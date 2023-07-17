@@ -141,17 +141,17 @@ public interface ApiService {
             @Query("status") String status
     );
 
+   @POST("api/order-details/feedback/{orderDetailId}")
+    Call<OrderDetail> createFeedback(
+            @Path("orderDetailId") int orderDetailId,
+            @Body OrderDetail orderDetail
+    );
 
-//    @GET("/api/customers")
-//    Call<UserByPhone> getUserByPhoneOrEmail(
-//            @Query("emailOrPhone") String emailOrPhone
-//    );
-
-//    @POST("/order-details/feedback/{orderDetailId}")
-//    Call<OrderDetail> createFeedback(
-//            @Path("orderDetailId") String orderDetailId,
-//            @Body OrderDetail orderDetail
-//    );
+    @POST("api/customers/{customerId}")
+    Call<Void> updateCustomer(
+            @Path("customerId") int customerId,
+            @Body CustomerAccount customerAccount
+    );
 
 
     //@Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")

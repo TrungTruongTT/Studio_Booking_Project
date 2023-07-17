@@ -36,6 +36,11 @@ public class OrderDetail {
         this.servicePack = servicePack;
     }
 
+    public OrderDetail(int rating, String content) {
+        this.rating = rating;
+        this.content = content;
+    }
+
     public int getRating() {
         return rating;
     }

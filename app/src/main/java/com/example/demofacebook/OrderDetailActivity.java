@@ -106,7 +106,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             @Override
             public void onClickItemFeedbackOrderDetail(OrderDetail orderDetail, Button button) {
                 //click on feedback btn
-                openViewImageFeedbackDialog(Gravity.CENTER, studio, orderDetail, button);
+                openFeedbackDialog(Gravity.CENTER, studio, orderDetail, button);
             }
         }, orderStatus);
         recyclerView.setAdapter(orderDetailAdapter);
@@ -171,7 +171,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
         return numberFormat.format(Money);
     }
-
     private void loadData() {
         if (getIntent().getExtras() != null) {
             orderId = (int) getIntent().getExtras().get("orderId");
@@ -261,9 +260,6 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
     private void paidTheRestOrderAction() {
-
-
-
         ApiService.apiService.updateCancelStatus(orderId, "completed").enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -357,7 +353,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void openViewImageFeedbackDialog(int gravity, Studio studio, OrderDetail orderDetail, Button buttonFeedback) {
+    private void openFeedbackDialog(int gravity, Studio studio, OrderDetail orderDetail, Button buttonFeedback) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_feedback_form);
@@ -390,14 +386,14 @@ public class OrderDetailActivity extends AppCompatActivity {
         updateDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int serviceId = orderDetail.getServicePack().getServiceId();
+//                int serviceId = orderDetail.getServicePack().getServiceId();
                 String description = feedbackFormDescription.getText().toString();
                 float ratingValue = ratingStar.getRating();
                 if (ratingValue == 0) {
                     Toast.makeText(OrderDetailActivity.this, "Please Rating Service Star", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    boolean checkSubmission = submitFeedbackForm(serviceId, description, ratingValue, orderDetail);
+                    boolean checkSubmission = submitFeedbackForm(description, ratingValue, orderDetail);
                     if (checkSubmission) {
                         buttonFeedback.setEnabled(false);
                         buttonFeedback.setVisibility(View.INVISIBLE);
@@ -411,10 +407,37 @@ public class OrderDetailActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private Boolean submitFeedbackForm(int serviceId, String description, float ratingValue, OrderDetail orderDetailValue) {
-        
+    private Boolean submitFeedbackForm(String description, float ratingValue, OrderDetail orderDetailValue) {
+        int rating = (int) ratingValue;
+        OrderDetail feedback = new OrderDetail(rating, description);
+
+        updateData(orderDetailValue.getOrderDetailId(), feedback);
 
         return true;
+    }
+
+    private void updateData(int id, OrderDetail orderDetail) {
+        Call<OrderDetail> call = ApiService.apiService.createFeedback(id, orderDetail);
+        call.enqueue(new Callback<OrderDetail>() {
+            @Override
+            public void onResponse(Call<OrderDetail> call, Response<OrderDetail> response) {
+                if (response.isSuccessful()) {
+
+
+                    Toast.makeText(OrderDetailActivity.this, "oke", Toast.LENGTH_SHORT).show();
+                } else {
+
+
+                    Toast.makeText(OrderDetailActivity.this, "not oke", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderDetail> call, Throwable t) {
+                // Request failed due to network error or other issues
+                // Handle error here
+            }
+        });
     }
 
     private void configEditText(EditText editText) {
