@@ -171,7 +171,8 @@ public class UserUpdateActivity extends AppCompatActivity {
                 .error(R.drawable.download)
                 .into(userImageDialog);
         editTextUserName.setText(user.getFullName());
-        String str = user.getDateOfBirth().toString();
+       /* String str = user.getDateOfBirth().toString();*/
+        String str = "2001-06-15";
         String[] arrOfStr = str.split("-", 3);
         editTextDay.setText(arrOfStr[2]);
         editTextMonth.setText(arrOfStr[1]);

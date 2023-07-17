@@ -31,7 +31,6 @@ public class FeedbackActivity extends AppCompatActivity {
     private Studio studio;
     private RecyclerView recyclerViewFeedback;
     private FeedbackAdapter feedbackAdapter;
-    private List<Feedback> mFeedbackList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,6 @@ public class FeedbackActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<Feedback> mFeedbackList  = response.body();
                     loadFeedback(mFeedbackList);
-
                 } else {
 
                 }

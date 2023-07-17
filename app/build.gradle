@@ -40,6 +40,8 @@ dependencies {
 //    implementation fileTree(dir: 'C:\\Users\\Phi\\Desktop\\AndroidStudioProjects\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
     implementation 'com.google.firebase:firebase-storage:20.1.0'
     implementation fileTree(dir: 'D:\\PRM_Project\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
+    implementation fileTree(dir: 'C:\\Users\\Admin\\Desktop\\PRM392\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
+    implementation fileTree(dir: 'C:\\Users\\Phi\\Desktop\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
 
 
     //thư mục libs zalo zpdk (add bằng file-project structure - dependencies + chọn đường dẫn thư mục libs)
@@ -56,6 +58,7 @@ dependencies {
     implementation "com.aurelhubert:ahbottomnavigation:2.3.4"
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     //zalo api
     implementation("com.squareup.okhttp3:okhttp:4.6.0")
     implementation("commons-codec:commons-codec:1.14")

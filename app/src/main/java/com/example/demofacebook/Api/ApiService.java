@@ -1,8 +1,6 @@
 package com.example.demofacebook.Api;
 
 
-import android.widget.Toast;
-
 import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Gallery;
@@ -12,22 +10,21 @@ import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.TokenResponse;
-import com.example.demofacebook.Model.User;
-import com.example.demofacebook.Model.UserByPhone;
+import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -35,10 +32,18 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
+    Interceptor interceptor = chain -> {
+        Request request = chain.request();
+        Request.Builder builder = request.newBuilder();
+        String token = "Bearer " + DataLocalManager.getTokenResponse().getAccessToken();
+        builder.addHeader("Authorization", token);
+        return chain.proceed(builder.build());
+    };
     OkHttpClient client = new OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.SECONDS) // Timeout kết nối // set 1s
-            .readTimeout(10, TimeUnit.SECONDS) // Timeout đọc dữ liệu // đọc API 10s
-            .writeTimeout(10, TimeUnit.SECONDS) // Timeout ghi dữ liệu // viết API 10s
+            .addInterceptor(interceptor)
+            .connectTimeout(5, TimeUnit.SECONDS) // Timeout kết nối // set 1s
+            .readTimeout(30, TimeUnit.SECONDS) // Timeout đọc dữ liệu // đọc API 10s
+            .writeTimeout(30, TimeUnit.SECONDS) // Timeout ghi dữ liệu // viết API 10s
             .build();
 
     Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
@@ -56,7 +61,7 @@ public interface ApiService {
             .build()
             .create(ApiService.class);
 
-    public final static String APPID_TALKJS ="tQ6S3FD4";
+    public final static String APPID_TALKJS = "tQ6S3FD4";
     public final static String BEARER_TALKJS = "sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf";
 
    /* @Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")
@@ -65,19 +70,25 @@ public interface ApiService {
 
 
     //services
-    @GET("/api/services") //GET list services
+    @GET("/api/services")
+    //GET list services
     Call<List<Service>> serviceCall();
 
-    @GET("/api/services/{serviceId}") //GetservicesByid
+    @GET("/api/services/{serviceId}")
+        //GetservicesByid
     Call<Service> getServiceById(
             @Path("serviceId") int serviceId
     );
+
     //studio
-    @GET("/api/studios/{id}") // GetStudioByID
+    @GET("/api/studios/{id}")
+    // GetStudioByID
     Call<Studio> getStudioByID(
             @Path("id") int studioID
     );
-    @GET("/api/studios?name=") // GetStudioList
+
+    @GET("/api/studios?name=")
+        // GetStudioList
     Call<List<Studio>> getStudio();
 
     @GET("/api/studios")
@@ -117,18 +128,15 @@ public interface ApiService {
     );
 
     //Booking
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJwaGluZ3V5ZW4iLCJpYXQiOjE2ODk1NTg1NTcsImV4cCI6MTY4OTU4ODU1N30.vL18BgaXK2Xn3y5HTn--m98xefVcznW37miCdyfoEk4")
-    @GET("/api/orders/user")
-    Call<List<Feedback>> getBookingByUser(@Header("Authorization") String bearerToken,
-            @Path("token") String token
-    );
+//    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9..7y5cG23CKvVI9mXJpgpSsV_D28koiHhl_dgxI0L8gFk")
+//    @GET("/api/orders/user")
+//    Call<List<Feedback>> getBookingByUser(@Header("Authorization") String bearerToken,
+//            @Path("token") String token
+//    );
 
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJwaGluZ3V5ZW4iLCJpYXQiOjE2ODk1NTg1NTcsImV4cCI6MTY4OTU4ODU1N30.vL18BgaXK2Xn3y5HTn--m98xefVcznW37miCdyfoEk4")
     @GET("/api/orders/user")
     Call<List<OrderInformation>> geOrderIdByUser(
-//            @Path("token") String token
     );
-
 
 
     @GET("/api/order-details/feedback/order/{orderId}")
@@ -136,8 +144,7 @@ public interface ApiService {
             @Path("orderId") int orderId
     );
 
-    @Headers("Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJzdWIiOiJwaGluZ3V5ZW4iLCJpYXQiOjE2ODk1NTg1NTcsImV4cCI6MTY4OTU4ODU1N30.vL18BgaXK2Xn3y5HTn--m98xefVcznW37miCdyfoEk4")
-    @PATCH("/api/orders/{orderId}")
+   @PATCH("/api/orders/{orderId}")
     Call<Void> updateCancelStatus(
             @Path("orderId") int orderId,
             @Query("status") String status

@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
                     }else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
-                        Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, "Invalid credential", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -132,6 +132,8 @@ public class LoginActivity extends AppCompatActivity {
                         }*/
                         DataLocalManager.setCustomerAccount(account);
                         Toast.makeText(LoginActivity.this, "get Customer SUCCESS", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(LoginActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -78,6 +78,8 @@ public class Service implements Serializable {
     private int priceService;
     @SerializedName("view")
     private int view;
+    @SerializedName("discount")
+    private int discount;
     @SerializedName("status")
     private String statusService;
     @SerializedName("studio")
@@ -96,7 +98,7 @@ public class Service implements Serializable {
     @SerializedName("servicePack_orderDetail")
     @SerializedName("servicePack_favorite")*/
 
-    public Service(int serviceId, String serviceName, String serviceDescription, int soldCount, double serviceRating, int priceService, int view, String statusService, Studio studio_id,List<Media_ServicePack> mediaServicePackList) {
+    public Service(int serviceId, String serviceName, String serviceDescription, int soldCount, double serviceRating, int priceService, int view, int discount, String statusService, Studio studio_id, List<Media_ServicePack> mediaServicePackList) {
         this.serviceId = serviceId;
         ServiceName = serviceName;
         this.serviceDescription = serviceDescription;
@@ -104,29 +106,32 @@ public class Service implements Serializable {
         this.serviceRating = serviceRating;
         this.priceService = priceService;
         this.view = view;
+        this.discount = discount;
         this.statusService = statusService;
         this.studio = studio_id;
         this.mediaServicePackList = mediaServicePackList;
     }
 
-    public Service(int serviceId, double serviceRating, String serviceName, String serviceDescription, int priceService, int view) {
+    public Service(int serviceId, double serviceRating, String serviceName, String serviceDescription, int priceService, int view, int discount) {
         this.serviceId = serviceId;
         this.serviceRating = serviceRating;
         this.ServiceName = serviceName;
         this.serviceDescription = serviceDescription;
         this.priceService = priceService;
         this.view = view;
+        this.discount = discount;
     }
 
-    public Service(int serviceId, double serviceRating, String serviceName, int priceService, int view) {
+    public Service(int serviceId, double serviceRating, String serviceName, int priceService, int view, int discount) {
         this.serviceId = serviceId;
         this.serviceRating = serviceRating;
         this.ServiceName = serviceName;
         this.priceService = priceService;
         this.view = view;
+        this.discount = discount;
     }
 
-    public Service(int serviceId, int imageService, double serviceRating, String serviceName, String serviceDescription, int priceService, int view) {
+    public Service(int serviceId, int imageService, double serviceRating, String serviceName, String serviceDescription, int priceService, int view, int discount) {
         this.serviceId = serviceId;
         //this.imageService = imageService;
         this.serviceRating = serviceRating;
@@ -134,9 +139,10 @@ public class Service implements Serializable {
         this.serviceDescription = serviceDescription;
         this.priceService = priceService;
         this.view = view;
+        this.discount = discount;
     }
 
-    public Service(int serviceId, String serviceName, String serviceDescription, int imageService, double serviceRating, int priceService, int view) {
+    public Service(int serviceId, String serviceName, String serviceDescription, int imageService, double serviceRating, int priceService, int view, int discount) {
         this.serviceId = serviceId;
         ServiceName = serviceName;
         this.serviceDescription = serviceDescription;
@@ -144,9 +150,10 @@ public class Service implements Serializable {
         this.serviceRating = serviceRating;
         this.priceService = priceService;
         this.view = view;
+        this.discount = discount;
     }
 
-    public Service(int serviceId, String serviceName, String serviceDescription, int soldCount, double serviceRating, int priceService, int view, String statusService) {
+    public Service(int serviceId, String serviceName, String serviceDescription, int soldCount, double serviceRating, int priceService, int view, int discount, String statusService) {
         this.serviceId = serviceId;
         ServiceName = serviceName;
         this.serviceDescription = serviceDescription;
@@ -154,6 +161,7 @@ public class Service implements Serializable {
         this.serviceRating = serviceRating;
         this.priceService = priceService;
         this.view = view;
+        this.discount = discount;
         this.statusService = statusService;
     }
 
@@ -246,4 +254,11 @@ public class Service implements Serializable {
         this.view = view;
     }
 
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
 }

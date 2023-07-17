@@ -23,6 +23,7 @@ import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
+import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,7 +53,6 @@ public class CanceledFragment extends Fragment {
                     List<OrderInformation> value = response.body();
                     orderList = value.stream().filter(p->p.getStatus().equals("cancel")).collect(Collectors.toList());
                     loadBookingData(view, orderList);
-
                     Toast.makeText(getContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "ResponseFail check", Toast.LENGTH_SHORT).show();
