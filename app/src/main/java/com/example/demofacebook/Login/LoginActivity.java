@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                 String credential = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 if (validateEmail(credential) && validatePassword(password)) {
-                    getCustomerByEmailorPhone(credential);
+                    //getCustomerByEmailorPhone(credential);
                     isValidCredentials(credential, password);
                 } else {
                     // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     TokenResponse tokenResponse= response.body();
                     if(tokenResponse !=null){
+                        getCustomerByEmailorPhone(credential);
                         //getCustomerByEmailorPhone(credential);
                         DataLocalManager.setTokenResponse(tokenResponse);
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
                     }else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
-                        Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, "Invalid credential", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -133,6 +134,8 @@ public class LoginActivity extends AppCompatActivity {
                         }*/
                         DataLocalManager.setCustomerAccount(account);
                         Toast.makeText(LoginActivity.this, "get Customer SUCCESS", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(LoginActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

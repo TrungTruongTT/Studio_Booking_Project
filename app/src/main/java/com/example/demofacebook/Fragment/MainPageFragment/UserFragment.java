@@ -86,19 +86,7 @@ public class UserFragment extends Fragment {
         loadUserOption(view);
     }
 
-    private User getUser2() {
-        int userId = 1;
-        String userImage = "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg";
-        String userName = "PhiPhiPhi";
-        String str = "2001-06-15";
-        Date dateOfBirth = Date.valueOf(str);
 
-        String phone = "0966324244";
-        String email = "Phinhse150972@fpt.edu.vn";
-        String password = "Phinhse150972";
-
-        return new User(userId, userImage, userName, dateOfBirth, phone, email, password);
-    }
 
     private void loadUser(View view, User userValue) {
         //User Information
@@ -215,7 +203,7 @@ public class UserFragment extends Fragment {
         //TokenResponse token = DataLocalManager.getTokenResponse();
         CustomerAccount account = DataLocalManager.getCustomerAccount();
         if (account != null) {
-            user = new User(account.getUser().getUserId(), account.getUser().getImage(), account.getUser().getFullName(), account.getBirthDate(), account.getUser().getPhone(), account.getUser().getEmail(), account.getUser().getPassword());
+            user = new User(account.getUser().getUserId(), account.getUser().getImage(), account.getUser().getFullName(), dateOfBirth, account.getUser().getPhone(), account.getUser().getEmail(), account.getUser().getPassword());
         } else {
             user = new User(1, url, "PhiPhiPhi", dateOfBirth, "0966324244", "Phinhse150972@fpt.edu.vn", "Phinhse150972");
         }

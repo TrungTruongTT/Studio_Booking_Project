@@ -36,9 +36,9 @@ import retrofit2.http.Query;
 
 public interface ApiService {
     OkHttpClient client = new OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.SECONDS) // Timeout kết nối // set 1s
-            .readTimeout(10, TimeUnit.SECONDS) // Timeout đọc dữ liệu // đọc API 10s
-            .writeTimeout(10, TimeUnit.SECONDS) // Timeout ghi dữ liệu // viết API 10s
+            .connectTimeout(5, TimeUnit.SECONDS) // Timeout kết nối // set 1s
+            .readTimeout(30, TimeUnit.SECONDS) // Timeout đọc dữ liệu // đọc API 10s
+            .writeTimeout(30, TimeUnit.SECONDS) // Timeout ghi dữ liệu // viết API 10s
             .build();
 
     Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
