@@ -20,6 +20,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Api.CreateOrder;
 import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.OrderDetail;
@@ -29,6 +30,9 @@ import com.example.demofacebook.R;
 
 import org.json.JSONObject;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPayError;
 import vn.zalopay.sdk.ZaloPaySDK;
@@ -138,13 +142,14 @@ public class PaymentActivity extends AppCompatActivity {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 Log.w("PAYMENT", "PAYMENT SUCCESS");
-                                                status = "success";
+                                                updateDeposited();
+                                               /* status = "success";
                                                 Intent intent = new Intent(PaymentActivity.this, OrderDetailActivity.class);
                                                 bundle.putSerializable("statusPay",status);
                                                 bundle.putSerializable("orderId",orderDetail.getOrder().getOrderId());
                                                 bundle.putSerializable("orderStatus",orderDetail.getOrder().getStatus());
                                                 intent.putExtras(bundle);
-                                                startActivity(intent);
+                                                startActivity(intent);*/
                                             }
                                         })
                                         .setNegativeButton("Cancel", null).show();
@@ -176,7 +181,13 @@ public class PaymentActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Log.w("PAYMENT", "PAYMENT FAIL");
-                                        Intent intent = new Intent(PaymentActivity.this, HomeActivity.class);
+                                        /*Intent intent = new Intent(PaymentActivity.this, HomeActivity.class);
+                                        startActivity(intent);*/
+                                        Intent intent = new Intent(PaymentActivity.this, OrderDetailActivity.class);
+                                        bundle.putSerializable("statusPay",status);
+                                        bundle.putSerializable("orderId",orderDetail.getOrder().getOrderId());
+                                        bundle.putSerializable("orderStatus",orderDetail.getOrder().getStatus());
+                                        intent.putExtras(bundle);
                                         startActivity(intent);
                                     }
                                 })
@@ -229,7 +240,25 @@ public class PaymentActivity extends AppCompatActivity {
         btnPay.setVisibility(View.VISIBLE);
     }
 
-
+    private void updateDeposited(){
+        ApiService.apiService.updateCancelStatus(orderDetail.getOrder().getOrderId(), "deposited").enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
