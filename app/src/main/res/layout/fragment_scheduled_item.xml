@@ -141,15 +141,15 @@
                 android:gravity="end">
 
 
-                <Button
-                    android:id="@+id/OrderChatBtn"
-                    android:layout_width="120dp"
-                    android:layout_height="35dp"
-                    android:background="@color/Chat_btn"
-                    android:gravity="center"
-                    android:text="Chat"
-                    android:textAllCaps="false"
-                    android:textSize="15sp" />
+<!--                <Button-->
+<!--                    android:id="@+id/OrderChatBtn"-->
+<!--                    android:layout_width="120dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:background="@color/Chat_btn"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Chat"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:textSize="15sp" />-->
             </LinearLayout>
 
         </LinearLayout>

@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.MyArrayAdapterHolder> implements Filterable {
 
@@ -106,9 +107,9 @@ public class StudioHomeAdapter extends RecyclerView.Adapter<StudioHomeAdapter.My
                     }
                     if ("@!Rating".equals(strSearch)) {
                         list = mListStudioOld;
-                        list.sort((studio, t1) -> {
-                            return t1.getRating() - studio.getRating();
-                        });
+                        list.stream()
+                                .sorted((num1, num2) -> Double.compare(num2.getRating(), num1.getRating()))
+                                .collect(Collectors.toList());
                     }
                     //Search bar
                     else {

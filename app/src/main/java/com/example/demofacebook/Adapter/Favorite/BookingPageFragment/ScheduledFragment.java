@@ -20,6 +20,7 @@ import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
+import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,7 +74,6 @@ public class ScheduledFragment extends Fragment {
         }, new IClickItemChatOrderListener() {
             @Override
             public void onClickItemChatOrder(OrderInformation orderInformation) {
-
             }
         });
         recyclerViewOrder.setAdapter(orderAdapter);

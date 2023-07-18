@@ -17,8 +17,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -29,7 +27,6 @@ import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemService
 import com.example.demofacebook.Adapter.StudioDetail.PhotoAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
 import com.example.demofacebook.Api.ApiService;
-import com.example.demofacebook.Fragment.MainPageFragment.ChatFragment;
 import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Feedback;
@@ -38,8 +35,10 @@ import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.Collectors;
@@ -68,6 +67,8 @@ public class ServicePage extends AppCompatActivity {
 
     //chatBy Button
     private Button addToCardbtn;
+    private Button buttonFeedback;
+    private Button buttonService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class ServicePage extends AppCompatActivity {
         addToCardbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickGotoChat(studio);
+                onClickGotoChat(studio,service);
                 //ChatFragment chatfragment = new ChatFragment();
                 //chatfragment.setArguments(bundle);
 
@@ -121,12 +122,7 @@ public class ServicePage extends AppCompatActivity {
                 onClickItemGoStudioDetail(studio);
             }
         });
-        //load Feedback list
-        loadFeedback();
-        //load recommend service list
-        callApiGetRecommendServicePack();
-        //View more feedback btn
-        Button buttonFeedback = findViewById(R.id.ViewMoreFeedbackBtn);
+        buttonFeedback = findViewById(R.id.ViewMoreFeedbackBtn);
         buttonFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,13 +130,18 @@ public class ServicePage extends AppCompatActivity {
             }
         });
         //view more recommend service btn
-        Button buttonService = findViewById(R.id.ViewMoreRecommendServiceBtn);
+        buttonService = findViewById(R.id.ViewMoreRecommendServiceBtn);
         buttonService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickViewMoreService();
             }
         });
+        //load Feedback list
+        loadFeedback();
+        //load recommend service list
+        callApiGetRecommendServicePack();
+        //View more feedback btn
     }
 
     private void slideImage() {
@@ -152,10 +153,11 @@ public class ServicePage extends AppCompatActivity {
         circleIndicator.setViewPager(viewPager);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
     }
-    private void onClickGotoChat(Studio studio) {
+    private void onClickGotoChat(Studio studio,Service service) {
         Intent intent = new Intent(this, HomeActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("studio", studio);
+        bundle.putSerializable("service",service);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -181,29 +183,30 @@ public class ServicePage extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
-
     private void callApiGetRecommendServicePack() {
         ApiService.apiService.serviceCall().enqueue(new Callback<List<Service>>() {
             @Override
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
                 if (response.isSuccessful()) {
                     mServiceList = response.body();
-                    List<Service> sort = mServiceList.stream().skip(0).limit(5).collect(Collectors.toList());
-                    recyclerViewService = findViewById(R.id.RecommendServiceRecyclerView);
-                    LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getApplicationContext(),
-                            LinearLayoutManager.HORIZONTAL, false);
-                    recyclerViewService.setLayoutManager(linearLayoutManager2);
-                    serviceAdapter = new ServiceAdapter(sort, new IClickItemServiceListener() {
-                        @Override
-                        public void onClickItemService(Service service) {
-                            goDetailService(service);
+                    if (mServiceList.size() == 0) {
+                        buttonService.setEnabled(false);
+                        buttonService.setVisibility(View.INVISIBLE);
+                    } else {
+                        List<Service> sort = mServiceList.stream().skip(0).limit(5).collect(Collectors.toList());
+                        recyclerViewService = findViewById(R.id.RecommendServiceRecyclerView);
+                        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getApplicationContext(),
+                                LinearLayoutManager.HORIZONTAL, false);
+                        recyclerViewService.setLayoutManager(linearLayoutManager2);
+                        serviceAdapter = new ServiceAdapter(sort, new IClickItemServiceListener() {
+                            @Override
+                            public void onClickItemService(Service service) {
+                                goDetailService(service);
 
-                        }
-                    });
-                    recyclerViewService.setAdapter(serviceAdapter);
-
-
+                            }
+                        });
+                        recyclerViewService.setAdapter(serviceAdapter);
+                    }
                 } else {
 
                 }
@@ -230,9 +233,15 @@ public class ServicePage extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Feedback>> call, Response<List<Feedback>> response) {
                 if (response.isSuccessful()) {
-                    List<Feedback> responseValue  = response.body();
-                    mFeedbackList = responseValue.stream().skip(0).limit(3).collect(Collectors.toList());
-                    loadFeedbackData(mFeedbackList);
+                    List<Feedback> responseValue = response.body();
+                    if (responseValue.size() == 0) {
+                        buttonFeedback.setEnabled(false);
+                        buttonFeedback.setVisibility(View.INVISIBLE);
+                    } else {
+                        mFeedbackList = responseValue.stream().skip(0).limit(3).collect(Collectors.toList());
+                        loadFeedbackData(mFeedbackList);
+                    }
+
 
                 } else {
 
@@ -291,14 +300,23 @@ public class ServicePage extends AppCompatActivity {
                 TextView serviceName = findViewById(R.id.ServiceNameDetail);
                 serviceName.setText(service.getServiceName());
                 TextView servicePrice = findViewById(R.id.ServicePriceDetail);
-                servicePrice.setText("Price: " + String.valueOf(service.getPriceService()) + "$");
+
+                NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+                String formattedMoney = numberFormat.format(service.getPriceService());
+
+                servicePrice.setText("Price: " + formatMoney(service.getPriceService()) + " VND");
                 TextView serviceDiscount = findViewById(R.id.ServicePriceDiscountDetail);
-                serviceDiscount.setText("Discount: " + String.valueOf(service.getPriceService() + "$"));
+                serviceDiscount.setText("Discount: " + formatMoney(service.getDiscount()) + " VND");
                 TextView serviceDescription = findViewById(R.id.ServiceDescription);
                 serviceDescription.setText(Html.fromHtml(service.getServiceDescription()));
             }
         }
 
+    }
+
+    private String formatMoney(int Money) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+        return numberFormat.format(Money);
     }
 
     private void initToolBar() {

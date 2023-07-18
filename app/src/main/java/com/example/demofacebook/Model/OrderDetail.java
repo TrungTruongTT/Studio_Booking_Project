@@ -2,9 +2,10 @@ package com.example.demofacebook.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class OrderDetail {
+public class OrderDetail implements Serializable {
     @SerializedName("order")
     private Order order;
     @SerializedName("orderDetailId")
@@ -34,6 +35,11 @@ public class OrderDetail {
         this.content = content;
         this.postDate = postDate;
         this.servicePack = servicePack;
+    }
+
+    public OrderDetail(int rating, String content) {
+        this.rating = rating;
+        this.content = content;
     }
 
     public int getRating() {

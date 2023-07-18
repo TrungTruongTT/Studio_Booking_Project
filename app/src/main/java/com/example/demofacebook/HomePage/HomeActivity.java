@@ -24,6 +24,7 @@ import com.example.demofacebook.Fragment.MainPageFragment.NewFeedFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.NotificationActivity;
 import com.example.demofacebook.Fragment.MainPageFragment.UserFragment;
 import com.example.demofacebook.Fragment.Service.ServicePage;
+import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
@@ -35,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
     private User user;
 
     private Studio studio;
-
+    private Service service;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.myToolBar);
         setSupportActionBar(toolbar);
          studio = loadStudio();
+         service = loadService();
         loadBottomNavigationView();
 
 
@@ -153,6 +155,7 @@ public class HomeActivity extends AppCompatActivity {
             if (studio != null) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("studio", studio);
+                bundle.putSerializable("service",service);
                 selectedFragment = new ChatFragment();
                 selectedFragment.setArguments(bundle);
                 // Thay thế fragment hiện tại trong "HomeActivity" bằng fragment mới
@@ -173,6 +176,15 @@ public class HomeActivity extends AppCompatActivity {
             Studio studio= (Studio) getIntent().getExtras().get("studio");
             if (studio != null) {
                 return studio;
+            }
+        }
+        return null;
+    }
+    private Service loadService(){
+        if(getIntent().getExtras() != null) {
+            Service service= (Service) getIntent().getExtras().get("service");
+            if (service != null) {
+                return service;
             }
         }
         return null;

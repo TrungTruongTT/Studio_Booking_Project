@@ -20,11 +20,19 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Api.CreateOrder;
+import com.example.demofacebook.HomePage.HomeActivity;
+import com.example.demofacebook.Model.OrderDetail;
+import com.example.demofacebook.Model.Service;
+import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
 
 import org.json.JSONObject;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPayError;
 import vn.zalopay.sdk.ZaloPaySDK;
@@ -37,13 +45,16 @@ public class PaymentActivity extends AppCompatActivity {
     Button btnPay;
     EditText txtAmount;
 
+    //private Service service;
+    private OrderDetail orderDetail;
     Toolbar toolbar;
-
-
+    private String status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        //service = loadService();
+        orderDetail = loadOrderDetail();
         //Load toolbar
         initToolBar();
         //khởi tạo
@@ -51,7 +62,8 @@ public class PaymentActivity extends AppCompatActivity {
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         // ZaloPay SDK Init
-        ZaloPaySDK.init(2554, Environment.SANDBOX);
+        ZaloPaySDK.tearDown();
+        ZaloPaySDK.init(554, Environment.SANDBOX);
         // bind components with ids
         BindView();
 
@@ -84,6 +96,8 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     private void requestZalo() {
+        Bundle bundle = new Bundle();
+
         btnCreateOrder.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint("SetTextI18n")
@@ -110,7 +124,7 @@ public class PaymentActivity extends AppCompatActivity {
                 }
             }
         });
-
+        //hiện nút pay gửi qua zaloPay
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +141,15 @@ public class PaymentActivity extends AppCompatActivity {
                                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
+                                                Log.w("PAYMENT", "PAYMENT SUCCESS");
+                                                updateDeposited();
+                                               /* status = "success";
+                                                Intent intent = new Intent(PaymentActivity.this, OrderDetailActivity.class);
+                                                bundle.putSerializable("statusPay",status);
+                                                bundle.putSerializable("orderId",orderDetail.getOrder().getOrderId());
+                                                bundle.putSerializable("orderStatus",orderDetail.getOrder().getStatus());
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);*/
                                             }
                                         })
                                         .setNegativeButton("Cancel", null).show();
@@ -157,6 +180,15 @@ public class PaymentActivity extends AppCompatActivity {
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        Log.w("PAYMENT", "PAYMENT FAIL");
+                                        /*Intent intent = new Intent(PaymentActivity.this, HomeActivity.class);
+                                        startActivity(intent);*/
+                                        Intent intent = new Intent(PaymentActivity.this, OrderDetailActivity.class);
+                                        bundle.putSerializable("statusPay",status);
+                                        bundle.putSerializable("orderId",orderDetail.getOrder().getOrderId());
+                                        bundle.putSerializable("orderStatus",orderDetail.getOrder().getStatus());
+                                        intent.putExtras(bundle);
+                                        startActivity(intent);
                                     }
                                 })
                                 .setNegativeButton("Cancel", null).show();
@@ -171,6 +203,7 @@ public class PaymentActivity extends AppCompatActivity {
         lblZpTransToken = findViewById(R.id.lblZpTransToken);
         btnCreateOrder = findViewById(R.id.btnCreateOrder);
         txtAmount = findViewById(R.id.txtAmount);
+        txtAmount.setText(String.valueOf(orderDetail.getPrice()));// găn giá trị vào cho trang payment
         btnPay = findViewById(R.id.btnPay);
         IsLoading();
     }
@@ -181,13 +214,51 @@ public class PaymentActivity extends AppCompatActivity {
         btnPay.setVisibility(View.INVISIBLE);
     }
 
+    private Service loadService(){
+        if(getIntent().getExtras() != null) {
+            Service service= (Service) getIntent().getExtras().get("service");
+            if (service != null) {
+                return service;
+            }
+        }
+        return null;
+    }
+
+    private OrderDetail loadOrderDetail(){
+        if(getIntent().getExtras() != null) {
+            OrderDetail orderDetail= (OrderDetail) getIntent().getExtras().get("orderDetail");
+            if (orderDetail != null) {
+                return orderDetail;
+            }
+        }
+        return null;
+    }
+
     private void IsDone() {
         lblZpTransToken.setVisibility(View.VISIBLE);
         txtToken.setVisibility(View.VISIBLE);
         btnPay.setVisibility(View.VISIBLE);
     }
 
-
+    private void updateDeposited(){
+        ApiService.apiService.updateCancelStatus(orderDetail.getOrder().getOrderId(), "deposited").enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {

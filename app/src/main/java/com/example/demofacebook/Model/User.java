@@ -80,6 +80,30 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public User(String image, String fullName, String password) {
+        this.image = image;
+        this.fullName = fullName;
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", image='" + image + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", username='" + username + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", employee='" + employee + '\'' +
+                ", customer='" + customer + '\'' +
+                ", administrator='" + administrator + '\'' +
+                '}';
+    }
+
     public String getRole() {
         return role;
     }

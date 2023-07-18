@@ -1,6 +1,7 @@
 package com.example.demofacebook;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,17 +30,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Adapter.Chat.Booking.OrderDetailAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackOrderDetailListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderDetailListener;
-import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
-import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
 import com.example.demofacebook.Api.ApiService;
+import com.example.demofacebook.Fragment.Service.PaymentActivity;
 import com.example.demofacebook.Fragment.Service.ServicePage;
+import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.Order;
 import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,21 +50,16 @@ import retrofit2.Response;
 
 
 public class OrderDetailActivity extends AppCompatActivity {
-
     private Studio studio;
     private int orderId;
     private String orderStatus;
     private RecyclerView recyclerView;
     private OrderDetailAdapter orderDetailAdapter;
-
     private List<OrderDetail> orderDetail;
-    //Upload Image
-    private static final int GALLERY_REQUEST_CODE = 123;
-    ImageView uploadImage_Feedback;
+
     Button cancelOrderBtn;
     Button depositOrderBtn;
     Button paidTheRestOrderBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,33 +70,11 @@ public class OrderDetailActivity extends AppCompatActivity {
         //Init ToolBar
         initToolBar();
         //LoadServiceList
-        getOrderData(new View(getApplicationContext()), orderId);
+        getOrderData(orderId);
         //Action Button
-
-
     }
 
-    private void loadServiceList(List<OrderDetail> orderDetail) {
-        recyclerView = findViewById(R.id.orderDetailRecyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        orderDetailAdapter = new OrderDetailAdapter(orderDetail, new IClickItemOrderDetailListener() {
-            @Override
-            public void onClickItemOrderDetail(Service service) {
-                //click on service
-                onClickGoServiceDetail(service);
-            }
-        }, new IClickItemFeedbackOrderDetailListener() {
-            @Override
-            public void onClickItemFeedbackOrderDetail(Service service, Button button) {
-                //click on feedback btn
-               openViewImageFeedbackDialog(Gravity.CENTER, studio, service, button);
-            }
-        }, orderStatus);
-        recyclerView.setAdapter(orderDetailAdapter);
-    }
-
-    private void getOrderData(@NonNull View view, int orderId) {
+    private void getOrderData(int orderId) {
         ApiService.apiService.getDetailByOrderId(orderId).enqueue(new Callback<List<OrderDetail>>() {
             @Override
             public void onResponse(Call<List<OrderDetail>> call, Response<List<OrderDetail>> response) {
@@ -114,6 +91,27 @@ public class OrderDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void loadServiceList(List<OrderDetail> orderDetail) {
+        recyclerView = findViewById(R.id.orderDetailRecyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        orderDetailAdapter = new OrderDetailAdapter(orderDetail, new IClickItemOrderDetailListener() {
+            @Override
+            public void onClickItemOrderDetail(OrderDetail orderDetail) {
+                //click on service
+                onClickGoServiceDetail(orderDetail);
+            }
+        }, new IClickItemFeedbackOrderDetailListener() {
+            @Override
+            public void onClickItemFeedbackOrderDetail(OrderDetail orderDetail, Button button) {
+                //click on feedback btn
+                openFeedbackDialog(Gravity.CENTER, studio, orderDetail, button);
+            }
+        }, orderStatus);
+        recyclerView.setAdapter(orderDetailAdapter);
+    }
+
 
     private void loadStudioData(List<OrderDetail> orderDetail) {
         studio = orderDetail.get(0).getServicePack().getStudio();
@@ -149,10 +147,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         for (int i = 0; i < orderDetail.size(); i++) {
             totalPriceValue = totalPriceValue + orderDetail.get(i).getServicePack().getPriceService();
         }
-        totalPrice.setText(totalPriceValue + " VND");
+        totalPrice.setText(formatMoney(totalPriceValue) + " VND");
 
-        if (order.getDeposit() != null) {
-            deposited.setText(order.getDeposit() + " VND");
+        if (order.getDeposit() > 0) {
+            deposited.setText(formatMoney(order.getDeposit()) + " VND");
         } else {
             deposited.setText("Not deposited yet");
         }
@@ -169,6 +167,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         note.setText(order.getDescription());
     }
 
+    private String formatMoney(int Money) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+        return numberFormat.format(Money);
+    }
     private void loadData() {
         if (getIntent().getExtras() != null) {
             orderId = (int) getIntent().getExtras().get("orderId");
@@ -203,7 +205,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                     paidTheRestOrderBtn.setVisibility(View.VISIBLE);
                     break;
                 case "completed":
-                case "canceled":
+                case "cancel":
                     cancelOrderBtn.setEnabled(false);
                     cancelOrderBtn.setVisibility(View.INVISIBLE);
                     depositOrderBtn.setEnabled(false);
@@ -217,7 +219,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             cancelOrderBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    cancelOrderAction();
+                    confirmDialog();
                 }
             });
 
@@ -237,16 +239,102 @@ public class OrderDetailActivity extends AppCompatActivity {
         }
     }
 
+    void confirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Cancel order " + orderId + " ?");
+        builder.setMessage("Are you sure you want to cancel " + orderId + " ?");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                cancelOrderAction();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.create().show();
+    }
+
     private void paidTheRestOrderAction() {
+        ApiService.apiService.updateCancelStatus(orderId, "completed").enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void depositOrderAction() {
-        
+        payment();
+        String status = (String) getIntent().getExtras().get("statusPay");
+        if(status == "success"){
+            updateDeposited();
+        }
+    }
+
+
+    private void payment() {
+        Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("orderDetail",orderDetail.get(0));
+        //bundle.putSerializable("studio", studio);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private void updateDeposited(){
+        ApiService.apiService.updateCancelStatus(orderId, "deposited").enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void cancelOrderAction() {
-
-//        ApiService.apiService.updateCancelStatus(orderId, "canceled");
+        ApiService.apiService.updateCancelStatus(orderId, "cancel").enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initToolBar() {
@@ -264,20 +352,23 @@ public class OrderDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void onClickGoServiceDetail(Service service) {
+    private void onClickGoServiceDetail(OrderDetail orderDetail) {
         Intent intent = new Intent(this, ServicePage.class);
         Bundle bundle = new Bundle();
+        Service service = orderDetail.getServicePack();
         bundle.putSerializable("service", service);
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    private void openViewImageFeedbackDialog(int gravity, Studio studio, Service service, Button buttonFeedback) {
+    private void openFeedbackDialog(int gravity, Studio studio, OrderDetail orderDetail, Button buttonFeedback) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_feedback_form);
@@ -298,7 +389,6 @@ public class OrderDetailActivity extends AppCompatActivity {
             dialog.setCancelable(false);
         }
         ImageView studioImage = dialog.findViewById(R.id.StudioAvatarImageFeedback);
-//        studioImage.setImageResource(studio.getImage());
         Picasso.get().load(studio.getImage()).into(studioImage);
         TextView NameStudioFeedback = dialog.findViewById(R.id.NameStudioFeedback);
         NameStudioFeedback.setText(studio.getTitle());
@@ -306,68 +396,63 @@ public class OrderDetailActivity extends AppCompatActivity {
         RatingBar ratingStar = dialog.findViewById(R.id.RatingStarFeedback);
         EditText feedbackFormDescription = dialog.findViewById(R.id.FeedbackFormDescription);
         configEditText(feedbackFormDescription);
-//
-        uploadImage_Feedback = dialog.findViewById(R.id.UploadImage_Feedback);
-        uploadImage_Feedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uploadFeedbackImage();
-            }
-        });
 
         Button updateDialog = dialog.findViewById(R.id.SubmitFeedbackDialog);
         updateDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean checkSubmission = submitFeedbackForm(service.getServiceId(),
-                        feedbackFormDescription.getText().toString(),
-                        ratingStar.getRating(), "");
-                if (checkSubmission) {
-//                    buttonFeedback.setBackgroundResource(R.color.colorAccent);
-                    buttonFeedback.setEnabled(false);
-                    buttonFeedback.setVisibility(View.INVISIBLE);
-                    dialog.dismiss();
+//                int serviceId = orderDetail.getServicePack().getServiceId();
+                String description = feedbackFormDescription.getText().toString();
+                float ratingValue = ratingStar.getRating();
+                if (ratingValue == 0) {
+                    Toast.makeText(OrderDetailActivity.this, "Please Rating Service Star", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    boolean checkSubmission = submitFeedbackForm(description, ratingValue, orderDetail);
+                    if (checkSubmission) {
+                        buttonFeedback.setEnabled(false);
+                        buttonFeedback.setVisibility(View.INVISIBLE);
+                        dialog.dismiss();
+                    }
                 }
             }
         });
-
         Button closeBtn = dialog.findViewById(R.id.CancelFeedbackDialog);
         closeBtn.setOnClickListener(view -> dialog.dismiss());
-
         dialog.show();
     }
 
-    private Boolean submitFeedbackForm(int serviceId, String Description, float rating, String urlImage) {
+    private Boolean submitFeedbackForm(String description, float ratingValue, OrderDetail orderDetailValue) {
+        int rating = (int) ratingValue;
+        OrderDetail feedback = new OrderDetail(rating, description);
+
+        updateData(orderDetailValue.getOrderDetailId(), feedback);
+
         return true;
     }
-    private void uploadFeedbackImage() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/*");
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void updateData(int id, OrderDetail orderDetail) {
+        Call<OrderDetail> call = ApiService.apiService.createFeedback(id, orderDetail);
+        call.enqueue(new Callback<OrderDetail>() {
+            @Override
+            public void onResponse(Call<OrderDetail> call, Response<OrderDetail> response) {
+                if (response.isSuccessful()) {
 
-        if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            // The user has successfully picked an image from the gallery.
-            // You can retrieve the image URI or perform further operations here.
 
-            // Example: Retrieving the image URI
-//            String imageUri = data.getData().toString();
-//            Uri uri = data.getData();
-//            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    Toast.makeText(OrderDetailActivity.this, "oke", Toast.LENGTH_SHORT).show();
+                } else {
 
-            String url = "https://i.imgur.com/DvpvklR.png";
-            Picasso.get()
-                    .load(url)
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
-                    .into(uploadImage_Feedback);
 
-        }
+                    Toast.makeText(OrderDetailActivity.this, "not oke", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderDetail> call, Throwable t) {
+                // Request failed due to network error or other issues
+                // Handle error here
+            }
+        });
     }
 
     private void configEditText(EditText editText) {

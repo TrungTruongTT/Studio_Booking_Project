@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+
 public class CustomerAccount  implements Serializable {
 
     @SerializedName("customerId")
@@ -44,6 +45,25 @@ public class CustomerAccount  implements Serializable {
         this.user = user;
     }
 
+
+    public CustomerAccount(int customerId, String address, User user) {
+        this.customerId = customerId;
+        this.address = address;
+        this.user = user;
+    }
+
+
+    @Override
+    public String toString() {
+        return "CustomerAccount{" +
+                "customerId=" + customerId +
+                ", birthDate=" + birthDate +
+                ", createDate=" + createDate +
+                ", status=" + status +
+                ", address='" + address + '\'' +
+                ", user=" + user +
+                '}';
+    }
 
     public int getCustomerId() {
         return customerId;
