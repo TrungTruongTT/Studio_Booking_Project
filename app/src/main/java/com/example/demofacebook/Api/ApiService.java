@@ -44,10 +44,22 @@ public interface ApiService {
             .readTimeout(30, TimeUnit.SECONDS) // Timeout đọc dữ liệu // đọc API 10s
             .writeTimeout(30, TimeUnit.SECONDS) // Timeout ghi dữ liệu // viết API 10s
             .build();
+    OkHttpClient guesst = new OkHttpClient.Builder()
+            .connectTimeout(5, TimeUnit.SECONDS) // Timeout kết nối // set 1s
+            .readTimeout(30, TimeUnit.SECONDS) // Timeout đọc dữ liệu // đọc API 10s
+            .writeTimeout(30, TimeUnit.SECONDS) // Timeout ghi dữ liệu // viết API 10s
+            .build();
 
     Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
     ApiService apiService = new Retrofit.Builder()
             .client(client)
+            .baseUrl("http://10.0.2.2:8080") // DOMAIN
+            //http://10.0.2.2:8080 //http://localhost:8080
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(ApiService.class);
+    ApiService apiServiceGuesst = new Retrofit.Builder()
+            .client(guesst)
             .baseUrl("http://10.0.2.2:8080") // DOMAIN
             //http://10.0.2.2:8080 //http://localhost:8080
             .addConverterFactory(GsonConverterFactory.create(gson))
@@ -141,17 +153,17 @@ public interface ApiService {
             @Query("status") String status
     );
 
+   @POST("api/order-details/feedback/{orderDetailId}")
+    Call<OrderDetail> createFeedback(
+            @Path("orderDetailId") int orderDetailId,
+            @Body OrderDetail orderDetail
+    );
 
-//    @GET("/api/customers")
-//    Call<UserByPhone> getUserByPhoneOrEmail(
-//            @Query("emailOrPhone") String emailOrPhone
-//    );
-
-//    @POST("/order-details/feedback/{orderDetailId}")
-//    Call<OrderDetail> createFeedback(
-//            @Path("orderDetailId") String orderDetailId,
-//            @Body OrderDetail orderDetail
-//    );
+    @PATCH("api/customers/{customerId}")
+    Call<Void> updateCustomer(
+            @Path("customerId") int customerId,
+            @Body CustomerAccount customerAccount
+    );
 
 
     //@Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")

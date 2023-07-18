@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void isValidCredentials(String credential, String password) {
         Login_Request loginAccount = new Login_Request(credential,password);
-        ApiService.apiService.login(loginAccount).enqueue(new Callback<TokenResponse>() {
+        ApiService.apiServiceGuesst.login(loginAccount).enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                 if(response.isSuccessful()){
@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void getCustomerByEmailorPhone(String credential){
 
-        ApiService.apiService.getCustomerByEmailorPhone(credential).enqueue(new Callback<List<CustomerAccount>>() {
+        ApiService.apiServiceGuesst.getCustomerByEmailorPhone(credential).enqueue(new Callback<List<CustomerAccount>>() {
             @Override
             public void onResponse(Call<List<CustomerAccount>> call, Response<List<CustomerAccount>> response) {
                 if(response.isSuccessful()){
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("CustomerAccount", "User ID: " + account.getUser().getUserId());
                         Log.d("CustomerAccount", "Full Name: " + account.getUser().getFullName());
                         Log.d("CustomerAccount", "Email: " + account.getUser().getEmail());
-                        account.getUser().setImage("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");
+                      //  account.getUser().setImage("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");
                         Log.d("CustomerAccount", "Image URL: " + account.getUser().getImage());
                         /*if(account.getUser().getImage() == null || account.getUser().getImage().isEmpty()|| account.getUser().getImage().length() == 0){
                             account.getUser().setImage("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");

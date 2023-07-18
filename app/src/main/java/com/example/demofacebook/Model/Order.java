@@ -2,9 +2,10 @@ package com.example.demofacebook.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Order {
+public class Order implements Serializable {
     @SerializedName("orderId")
     private int orderId;
     @SerializedName("orderDate")

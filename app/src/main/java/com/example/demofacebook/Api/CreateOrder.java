@@ -49,7 +49,7 @@ public class CreateOrder {
             AppTransId = Helpers.getAppTransId();
             EmbedData = "{}";
             Items = "[]";
-            BankCode = "zalopayapp";
+            BankCode = "ZaloPay";
             Description = "Merchant pay for order #" + Helpers.getAppTransId();
             String inputHMac = String.format("%s|%s|%s|%s|%s|%s|%s",
                     this.AppId,

@@ -204,7 +204,8 @@ public class UserFragment extends Fragment {
         CustomerAccount account = DataLocalManager.getCustomerAccount();
         if (account != null) {
             user = new User(account.getUser().getUserId(), account.getUser().getImage(), account.getUser().getFullName(), dateOfBirth, account.getUser().getPhone(), account.getUser().getEmail(), account.getUser().getPassword());
-        } else {
+        }
+        else {
             user = new User(1, url, "PhiPhiPhi", dateOfBirth, "0966324244", "Phinhse150972@fpt.edu.vn", "Phinhse150972");
         }
             return user;
