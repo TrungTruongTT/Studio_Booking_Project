@@ -24,7 +24,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.Api.ApiService;
+import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.CustomerAccount;
+import com.example.demofacebook.Model.Login_Request;
+import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
@@ -94,11 +97,33 @@ public class UserUpdateActivity extends AppCompatActivity {
         btnOpenUpdateDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String token = null, password = null;
-                if (checkPassword(token, password)) {
-                    openUpdateUserDialog(Gravity.TOP, user);
-                } else {
-                    return;
+                EditText passwordConfirm = dialog.findViewById(R.id.dialogPasswordConfirm);
+                String password = passwordConfirm.getText().toString();
+                String phone = user.getPhone();
+                if (password != null) {
+                    Login_Request loginAccount = new Login_Request(phone, password);
+                    ApiService.apiServiceGuesst.login(loginAccount).enqueue(new Callback<TokenResponse>() {
+                        @Override
+                        public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                            if (response.isSuccessful()) {
+                                TokenResponse tokenResponse = response.body();
+                                if (tokenResponse != null) {
+                                    openUpdateUserDialog(Gravity.TOP, user);
+                                    Toast.makeText(getApplicationContext(), "True", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    dialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "False", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<TokenResponse> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Check Connection", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+
                 }
                 dialog.dismiss();
             }
@@ -115,13 +140,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private boolean checkPassword(String token, String password) {
-        //Api check password
-        if (true) {
-            return true;
-        }
-        return false;
-    }
 
     private void openUpdateUserDialog(int gravity, User user) {
         if (user == null) {
@@ -150,14 +168,10 @@ public class UserUpdateActivity extends AppCompatActivity {
         userImageDialog = dialog.findViewById(R.id.UserDialogImage);
         EditText editTextUserName = dialog.findViewById(R.id.UserDialogName);
         configEditText(editTextUserName);
-//        EditText editTextDay = dialog.findViewById(R.id.UserDialogDay);
-//        EditText editTextMonth = dialog.findViewById(R.id.UserDialogMonth);
-//        EditText editTextYear = dialog.findViewById(R.id.UserDialogYear);
 
         EditText editTextPassword = dialog.findViewById(R.id.UserDialogPassword);
-        configEditPasswordText(editTextPassword);
         EditText editTextRePassword = dialog.findViewById(R.id.UserDialogRePassword);
-        configEditPasswordText(editTextRePassword);
+
 
         Button buttonUploadPicture = dialog.findViewById(R.id.UploadAvtarImage);
         buttonUploadPicture.setOnClickListener(new View.OnClickListener() {
@@ -174,13 +188,6 @@ public class UserUpdateActivity extends AppCompatActivity {
                 .error(R.drawable.download)
                 .into(userImageDialog);
         editTextUserName.setText(user.getFullName());
-        /* String str = user.getDateOfBirth().toString();*/
-//        String str = "2001-06-15";
-//        String[] arrOfStr = str.split("-", 3);
-//        editTextDay.setText(arrOfStr[2]);
-//        editTextMonth.setText(arrOfStr[1]);
-//        editTextYear.setText(arrOfStr[0]);
-
         editTextPassword.setText(user.getPassword());
         editTextRePassword.setText(user.getPassword());
 
@@ -193,24 +200,12 @@ public class UserUpdateActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String name = editTextUserName.getText().toString();
-//                String day = editTextDay.getText().toString();
-//                String month = editTextMonth.getText().toString();
-//                String year = editTextYear.getText().toString();
                 String url = "https://i.imgur.com/DvpvklR.png";
                 String password1 = String.valueOf(editTextPassword.getText());
                 String password2 = String.valueOf(editTextRePassword.getText());
                 Boolean validation = invalidateMenuInput(name, password1, password2);
 
                 if (validation) {
-//                    String str = year + "-" + month + "-" + day;
-//                    Date dateOfBirth = Date.valueOf(str);
-//
-//                    user.setFullName(editTextUserName.getText().toString());
-//                    user.setImage(url);
-//                    user.setDateOfBirth(dateOfBirth);
-//                    user.setPassword(editTextPassword.getText().toString());
-//                    updateUserInfo();
-//                    Toast.makeText(UserUpdateActivity.this, "Update Success", Toast.LENGTH_SHORT).show();
                     CustomerAccount customerAccount = DataLocalManager.getCustomerAccount();
                     customerAccount.getUser().setFullName(name);
                     customerAccount.getUser().setPassword(password1);
@@ -251,11 +246,12 @@ public class UserUpdateActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     T2.setFullName(updateUser.getUser().getFullName());
-                    T2.setImage(updateUser.getUser().getFullName());
-                    T2.setPassword(updateUser.getUser().getFullName());
+                    T2.setImage(updateUser.getUser().getImage());
+                    T2.setPassword(updateUser.getUser().getPassword());
                     T.setUser(T2);
                     DataLocalManager.setCustomerAccount(T);
-
+                    user = DataLocalManager.getCustomerAccount().getUser();
+                    updateUserInfo();
                     Log.w("TAG", DataLocalManager.getCustomerAccount().getUser().getFullName());
 
                     Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_SHORT).show();
@@ -342,11 +338,7 @@ public class UserUpdateActivity extends AppCompatActivity {
             userName.setText(user.getFullName());
             phone.setText(user.getPhone());
             email.setText(user.getEmail());
-            password.setText(user.getPassword());
-        }
-        if (user == null) {
-            Toast.makeText(this, "Load User Fail", Toast.LENGTH_SHORT).show();
-            finish();
+            password.setText("**********");
         }
     }
 
@@ -386,6 +378,8 @@ public class UserUpdateActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
