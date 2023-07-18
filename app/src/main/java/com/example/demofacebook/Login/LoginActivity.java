@@ -100,13 +100,13 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
                     } else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
-                        //Toast.makeText(LoginActivity.this, "Invalid credential", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Invalid credential", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "LOGIN API Unsuccess", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
             }
         });
     }
