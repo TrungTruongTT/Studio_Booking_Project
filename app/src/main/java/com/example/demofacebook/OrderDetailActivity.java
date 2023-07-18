@@ -439,11 +439,11 @@ public class OrderDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
 
-                    Toast.makeText(OrderDetailActivity.this, "oke", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetailActivity.this, "thank you", Toast.LENGTH_SHORT).show();
                 } else {
 
 
-                    Toast.makeText(OrderDetailActivity.this, "not oke", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetailActivity.this, "thank you 2", Toast.LENGTH_SHORT).show();
                 }
             }
 
