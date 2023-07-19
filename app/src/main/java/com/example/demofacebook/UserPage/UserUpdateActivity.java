@@ -109,8 +109,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                                 TokenResponse tokenResponse = response.body();
                                 if (tokenResponse != null) {
                                     openUpdateUserDialog(Gravity.TOP, user);
-                                    Toast.makeText(getApplicationContext(), "True", Toast.LENGTH_SHORT).show();
-                                } else {
+                             } else {
                                     dialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "False", Toast.LENGTH_SHORT).show();
                                 }

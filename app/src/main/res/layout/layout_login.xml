@@ -35,7 +35,7 @@
                 <ImageView
                     style="@style/icon"
                     android:layout_height="23dp"
-                    android:src="@drawable/mail_icon" />
+                    android:src="@drawable/phone_icon" />
 
                 <EditText
                     android:id="@+id/editTextEmail"

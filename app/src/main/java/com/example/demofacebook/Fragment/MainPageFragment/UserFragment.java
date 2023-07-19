@@ -87,7 +87,7 @@ public class UserFragment extends Fragment {
     }
 
     private void clickGoOption(String option) {
-        if (option.equals("Update Information")) {
+        if (option.equals("User Information")) {
             Intent intent = new Intent(getActivity(), UserUpdateActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("user", user);
@@ -114,7 +114,7 @@ public class UserFragment extends Fragment {
 
     private List<String> getListOptionName1() {
         List<String> myList = new ArrayList<>();
-        String[] optionName = {"Update Information", "Option 2"};
+        String[] optionName = {"User Information", "Option 2"};
         for (int i = 0; i < optionName.length; i++) {
             myList.add(optionName[i]);
         }

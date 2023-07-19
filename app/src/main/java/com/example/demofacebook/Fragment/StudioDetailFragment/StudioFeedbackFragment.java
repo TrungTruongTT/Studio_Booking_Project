@@ -67,14 +67,13 @@ public class StudioFeedbackFragment extends Fragment {
                     List<Feedback> responseValue  = response.body();
                     mFeedbackList = responseValue.stream().skip(0).limit(4).collect(Collectors.toList());
                     loadFeedbackData(mFeedbackList);
-                    Toast.makeText(getContext(), "ResponseSuccess", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "ResponseFail check", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Load Data Fail", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<List<Feedback>> call, Throwable t) {
-                Toast.makeText(getContext(), "onFailure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Lost Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

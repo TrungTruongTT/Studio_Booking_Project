@@ -9,7 +9,7 @@ public class OrderInformation implements Serializable {
     @SerializedName("orderId")
     private int orderId;
     @SerializedName("orderDate")
-    private Date orderDate;
+    private String orderDate;
     @SerializedName("status")
     private String status;
     @SerializedName("description")
@@ -17,7 +17,8 @@ public class OrderInformation implements Serializable {
     @SerializedName("checkIn")
     private String checkIn;
 
-    public OrderInformation(int orderId, Date orderDate, String status, String description, String checkIn) {
+
+    public OrderInformation(int orderId, String orderDate, String status, String description, String checkIn) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.status = status;
@@ -33,11 +34,11 @@ public class OrderInformation implements Serializable {
         this.orderId = orderId;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 
