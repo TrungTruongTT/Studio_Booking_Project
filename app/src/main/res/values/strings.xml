@@ -80,4 +80,5 @@
     <string name="lbPhoneDialog">0966324244</string>
     <string name="lbEmailDialog">Phinhse150972@gmail.com</string>
     <string name="feedback_form_text">Feedback Form</string>
+    <item name="pinView" type="id" />
 </resources>

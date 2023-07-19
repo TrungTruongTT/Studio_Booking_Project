@@ -5,6 +5,7 @@ import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Gallery;
 import com.example.demofacebook.Model.Login_Request;
+import com.example.demofacebook.Model.OptSms;
 import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.Model.Service;
@@ -153,7 +154,7 @@ public interface ApiService {
             @Query("status") String status
     );
 
-   @POST("api/order-details/feedback/{orderDetailId}")
+    @POST("api/order-details/feedback/{orderDetailId}")
     Call<OrderDetail> createFeedback(
             @Path("orderDetailId") int orderDetailId,
             @Body OrderDetail orderDetail
@@ -163,6 +164,16 @@ public interface ApiService {
     Call<Void> updateCustomer(
             @Path("customerId") int customerId,
             @Body CustomerAccount customerAccount
+    );
+
+    @POST("api/otp")
+    Call<OptSms> getOtp(
+            @Body OptSms optSms
+    );
+
+    @POST("api/otp/verify")
+    Call<String> sendOtp(
+            @Body OptSms optSms
     );
 
 

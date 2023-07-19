@@ -59,6 +59,7 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'io.github.chaosleung:pinview:1.4.4'
     //zalo api
     implementation("com.squareup.okhttp3:okhttp:4.6.0")
     implementation("commons-codec:commons-codec:1.14")
