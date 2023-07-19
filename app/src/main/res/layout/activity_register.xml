@@ -102,7 +102,7 @@
                 <EditText
                     android:id="@+id/textEmail"
                     style="@style/modifiedEditText"
-                    android:hint="@string/login_email_hint"
+                    android:hint="@string/register_hint"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:maxLength="20"/>
