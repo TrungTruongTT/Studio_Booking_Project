@@ -39,9 +39,9 @@ public class OtpConfirmActivity extends AppCompatActivity {
     private void getOptConfirm(String id, String phone) {
         PinView pinView = findViewById(R.id.pinView);
 
-        pinView.requestFocus();
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+//        pinView.requestFocus();
+//        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         pinView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -69,7 +69,7 @@ public class OtpConfirmActivity extends AppCompatActivity {
     private void checkOtp(String pinValue, String id, String phone) {
         OptSms getOptSms = new OptSms(id, phone, pinValue);
 
-        Call<String> call = ApiService.apiService.sendOtp(getOptSms);
+        Call<String> call = ApiService.apiServiceGuesst.sendOtp(getOptSms);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -92,7 +92,7 @@ public class OtpConfirmActivity extends AppCompatActivity {
 
         CustomerAccount customer = (CustomerAccount) getIntent().getExtras().get("customer");
 
-        ApiService.apiService.createCustomer(customer).enqueue(new Callback<CustomerAccount>() {
+        ApiService.apiServiceGuesst.createCustomer(customer).enqueue(new Callback<CustomerAccount>() {
             @Override
             public void onResponse(Call<CustomerAccount> call, Response<CustomerAccount> response) {
                 if (response.isSuccessful()) {
