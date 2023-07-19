@@ -143,7 +143,7 @@ public interface ApiService {
     Call<List<OrderInformation>> geOrderIdByUser(
     );
 
-    @GET("/api/order-details/feedback/order/{orderId}")
+    @GET("/api/order-details/order/{orderId}")
     Call<List<OrderDetail>> getDetailByOrderId(
             @Path("orderId") int orderId
     );

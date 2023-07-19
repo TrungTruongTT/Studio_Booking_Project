@@ -61,17 +61,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 if (response.isSuccessful()) {
                     List<OrderDetail> mOrderDetail;
                     mOrderDetail = response.body();
-
-                    int totalPrice = 0;
-                    for (int i = 0; i < mOrderDetail.size(); i++) {
-                        totalPrice = totalPrice + mOrderDetail.get(i).getServicePack().getPriceService();
+                    if(mOrderDetail != null){
+                        int totalPrice = 0;
+                        for (int i = 0; i < mOrderDetail.size(); i++) {
+                            totalPrice = totalPrice + mOrderDetail.get(i).getServicePack().getPriceService();
+                        }
+                        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+                        holder.totalPrice.setText("Total Price: " + numberFormat.format(totalPrice) + " VND");
+                        Picasso.get()
+                                .load(mOrderDetail.get(0).getServicePack().getMediaServicePackList().get(0).getFilePath())
+                                .placeholder(R.drawable.download)
+                                .error(R.drawable.download)
+                                .into(holder.urlImageService);
+                        holder.orderServicePrice.setText(numberFormat.format(mOrderDetail.get(0).getServicePack().getPriceService()) + " VND");
+                        holder.totalOrderDetail.setText("Service: " + mOrderDetail.size());
+                        holder.serviceName.setText(mOrderDetail.get(0).getServicePack().getServiceName());
+                    }else{
                     }
-                    NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
-                    holder.totalPrice.setText("Total Price: " + numberFormat.format(totalPrice) + " VND");
-                    Picasso.get().load(mOrderDetail.get(0).getServicePack().getMediaServicePackList().get(0).getFilePath()).into(holder.urlImageService);
-                    holder.orderServicePrice.setText(numberFormat.format(mOrderDetail.get(0).getServicePack().getPriceService()) + " VND");
-                    holder.totalOrderDetail.setText("Service: " + mOrderDetail.size());
-                    holder.serviceName.setText(mOrderDetail.get(0).getServicePack().getServiceName());
                 } else {
                 }
             }
