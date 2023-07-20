@@ -3,24 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:overScrollMode="never"
     android:background="@color/backgroundColor"
     tools:context=".Fragment.MainPageFragment.ChatFragment"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
 
-
-    <Button
-        android:id="@+id/btnZaloPayChat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ZALO PAY"/>
     <WebView
         android:id="@+id/talkjs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

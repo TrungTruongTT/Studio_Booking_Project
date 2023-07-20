@@ -21,7 +21,8 @@
 
 
     <string name="register">REGISTER</string>
-    <string name="login_email_hint">Email/Phone</string>
+    <string name="login_hint">Phone</string>
+    <string name="register_hint">Email</string>
     <string name="login_password_hint">Password</string>
     <string name="signup_login_hint">Already have an account? Sign In</string>
     <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
@@ -80,4 +81,5 @@
     <string name="lbPhoneDialog">0966324244</string>
     <string name="lbEmailDialog">Phinhse150972@gmail.com</string>
     <string name="feedback_form_text">Feedback Form</string>
+    <item name="pinView" type="id" />
 </resources>

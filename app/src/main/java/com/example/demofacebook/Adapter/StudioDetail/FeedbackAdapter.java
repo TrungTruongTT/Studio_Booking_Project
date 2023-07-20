@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,9 @@ import com.example.demofacebook.R;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArrayAdapterHolder> {
@@ -83,7 +87,20 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
         }
 
         if (feedback.getFeedbackDate() != null) {
-            holder.feedbackDate.setText("Create at " + feedback.getFeedbackDate().toString());
+
+            String dateTimeString = feedback.getFeedbackDate();
+
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+                java.util.Date utilDate = sdf.parse(dateTimeString);
+                SimpleDateFormat outputSdf = new SimpleDateFormat("dd-MM-yyyy");
+                String formattedDate = outputSdf.format(utilDate);
+                holder.feedbackDate.setText("Create at: " + formattedDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
         } else {
             String str = "2015-03-31";
             Date dateChange = Date.valueOf(str);

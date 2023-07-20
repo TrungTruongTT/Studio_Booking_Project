@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -281,10 +282,6 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private void depositOrderAction() {
         payment();
-        String status = (String) getIntent().getExtras().get("statusPay");
-        if(status == "success"){
-            updateDeposited();
-        }
     }
 
 
@@ -297,32 +294,32 @@ public class OrderDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void updateDeposited(){
-        ApiService.apiService.updateCancelStatus(orderId, "deposited").enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-                    finish();
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void updateDeposited(){
+//        ApiService.apiService.updateCancelStatus(orderId, "deposited").enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()) {
+//                    Toast.makeText(getApplicationContext(), "Deposit Successful", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), "Lost Connection", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private void cancelOrderAction() {
         ApiService.apiService.updateCancelStatus(orderId, "cancel").enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Cancel Successful", Toast.LENGTH_SHORT).show();
                     finish();
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intent);
@@ -332,7 +329,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Lost Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -401,7 +398,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         updateDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                int serviceId = orderDetail.getServicePack().getServiceId();
                 String description = feedbackFormDescription.getText().toString();
                 float ratingValue = ratingStar.getRating();
                 if (ratingValue == 0) {
@@ -425,13 +421,12 @@ public class OrderDetailActivity extends AppCompatActivity {
     private Boolean submitFeedbackForm(String description, float ratingValue, OrderDetail orderDetailValue) {
         int rating = (int) ratingValue;
         OrderDetail feedback = new OrderDetail(rating, description);
-
         updateData(orderDetailValue.getOrderDetailId(), feedback);
-
         return true;
     }
 
     private void updateData(int id, OrderDetail orderDetail) {
+        Log.w("updateData: ", id +"");
         Call<OrderDetail> call = ApiService.apiService.createFeedback(id, orderDetail);
         call.enqueue(new Callback<OrderDetail>() {
             @Override
@@ -439,11 +434,11 @@ public class OrderDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
 
-                    Toast.makeText(OrderDetailActivity.this, "oke", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetailActivity.this, "Thank You", Toast.LENGTH_SHORT).show();
                 } else {
 
 
-                    Toast.makeText(OrderDetailActivity.this, "not oke", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderDetailActivity.this, "Send Feedback Fail", Toast.LENGTH_SHORT).show();
                 }
             }
 

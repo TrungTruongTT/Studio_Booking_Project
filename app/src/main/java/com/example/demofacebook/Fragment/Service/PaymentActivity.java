@@ -245,17 +245,17 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Deposit Successful", Toast.LENGTH_SHORT).show();
                     finish();
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Deposit Fail", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Lost Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

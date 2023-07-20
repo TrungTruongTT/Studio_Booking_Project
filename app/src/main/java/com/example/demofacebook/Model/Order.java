@@ -14,10 +14,8 @@ public class Order implements Serializable {
     private String status;
     @SerializedName("deposit")
     private int deposit;
-
     @SerializedName("checkIn")
     private Date checkIn;
-
     @SerializedName("description")
     private String description;
 

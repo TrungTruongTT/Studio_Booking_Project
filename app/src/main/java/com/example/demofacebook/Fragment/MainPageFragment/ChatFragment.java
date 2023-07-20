@@ -208,7 +208,7 @@ public class ChatFragment extends Fragment {
         }
 
 
-        btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
+//        btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
     }
 
     private void OnClickPayZalo() {

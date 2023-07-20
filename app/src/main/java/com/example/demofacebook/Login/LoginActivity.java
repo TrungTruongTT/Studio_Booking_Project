@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
-                        Toast.makeText(LoginActivity.this, "LoginSuccess", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                     } else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
                         Toast.makeText(LoginActivity.this, "Invalid credential", Toast.LENGTH_SHORT).show();
@@ -131,15 +131,14 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("CustomerAccountAFTER_SET", "Image URL: " + account.getUser().getImage());
                         }*/
                         DataLocalManager.setCustomerAccount(account);
-                        Toast.makeText(LoginActivity.this, "get Customer SUCCESS", Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(LoginActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Invalid Load Token Fail", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
             @Override
             public void onFailure(Call<List<CustomerAccount>> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "get Customer API Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Lost Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

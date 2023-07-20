@@ -19,6 +19,8 @@ import com.example.demofacebook.R;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -59,19 +61,23 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 if (response.isSuccessful()) {
                     List<OrderDetail> mOrderDetail;
                     mOrderDetail = response.body();
-
-                    int totalPrice = 0;
-                    for (int i = 0; i < mOrderDetail.size(); i++) {
-                        totalPrice = totalPrice + mOrderDetail.get(i).getServicePack().getPriceService();
+                    if(mOrderDetail != null){
+                        int totalPrice = 0;
+                        for (int i = 0; i < mOrderDetail.size(); i++) {
+                            totalPrice = totalPrice + mOrderDetail.get(i).getServicePack().getPriceService();
+                        }
+                        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+                        holder.totalPrice.setText("Total Price: " + numberFormat.format(totalPrice) + " VND");
+                        Picasso.get()
+                                .load(mOrderDetail.get(0).getServicePack().getMediaServicePackList().get(0).getFilePath())
+                                .placeholder(R.drawable.download)
+                                .error(R.drawable.download)
+                                .into(holder.urlImageService);
+                        holder.orderServicePrice.setText(numberFormat.format(mOrderDetail.get(0).getServicePack().getPriceService()) + " VND");
+                        holder.totalOrderDetail.setText("Service: " + mOrderDetail.size());
+                        holder.serviceName.setText(mOrderDetail.get(0).getServicePack().getServiceName());
+                    }else{
                     }
-                    NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
-                    holder.totalPrice.setText("Total Price: " + numberFormat.format(totalPrice) + " VND");
-
-                    Picasso.get().load(mOrderDetail.get(0).getServicePack().getMediaServicePackList().get(0).getFilePath()).into(holder.urlImageService);
-                    holder.orderServicePrice.setText(numberFormat.format(mOrderDetail.get(0).getServicePack().getPriceService()) + " VND");
-
-                    holder.totalOrderDetail.setText("Service: " + mOrderDetail.size());
-                    holder.serviceName.setText(mOrderDetail.get(0).getServicePack().getServiceName());
                 } else {
                 }
             }
@@ -109,7 +115,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         }
 
-        holder.orderDate.setText(orderInformation.getOrderDate().toString());
+
+        String dateTimeString = orderInformation.getOrderDate();
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            java.util.Date utilDate = sdf.parse(dateTimeString);
+            SimpleDateFormat outputSdf = new SimpleDateFormat("dd-MM-yyyy");
+            String formattedDate = outputSdf.format(utilDate);
+            holder.orderDate.setText(formattedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

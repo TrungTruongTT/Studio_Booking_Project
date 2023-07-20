@@ -2,7 +2,6 @@ package com.example.demofacebook.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.sql.Date;
 import java.util.List;
 
 public class Feedback {
@@ -20,10 +19,10 @@ public class Feedback {
     @SerializedName("servicePack_mediaService")
     private List<Media_ServicePack> feedbackImage;
     @SerializedName("postDate")
-    private Date feedbackDate;
+    private String feedbackDate;
 
 
-    public Feedback(int feedbackId, String avatarUser, String feedbackUserName, int rating, String feedbackDescription, List<Media_ServicePack> feedbackImage, Date feedbackDate) {
+    public Feedback(int feedbackId, String avatarUser, String feedbackUserName, int rating, String feedbackDescription, List<Media_ServicePack> feedbackImage, String feedbackDate) {
         this.feedbackId = feedbackId;
         this.avatarUser = avatarUser;
         this.feedbackUserName = feedbackUserName;
@@ -44,7 +43,6 @@ public class Feedback {
     public void setFeedbackUserName(String feedbackUserName) {
         this.feedbackUserName = feedbackUserName;
     }
-
     public String getAvatarUser() {
         return avatarUser;
     }
@@ -85,11 +83,11 @@ public class Feedback {
         this.feedbackImage = feedbackImage;
     }
 
-    public Date getFeedbackDate() {
+    public String getFeedbackDate() {
         return feedbackDate;
     }
 
-    public void setFeedbackDate(Date feedbackDate) {
+    public void setFeedbackDate(String feedbackDate) {
         this.feedbackDate = feedbackDate;
     }
 }

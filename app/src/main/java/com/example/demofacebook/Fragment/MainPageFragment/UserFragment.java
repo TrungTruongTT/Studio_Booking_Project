@@ -1,21 +1,12 @@
 package com.example.demofacebook.Fragment.MainPageFragment;
 
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,32 +16,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.UserPage.ItemUserAdapter;
 import com.example.demofacebook.Adapter.UserPage.UserAdapter;
-
-import com.example.demofacebook.Api.ApiService;
-import com.example.demofacebook.Model.Service;
-
 import com.example.demofacebook.Model.CustomerAccount;
-import com.example.demofacebook.Model.TokenResponse;
-
 import com.example.demofacebook.Model.User;
-import com.example.demofacebook.Model.UserByPhone;
 import com.example.demofacebook.MyInterface.IClickItemUserListener;
 import com.example.demofacebook.MyInterface.IClickItemUserOptionListener;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.example.demofacebook.UserPage.UserUpdateActivity;
 
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class UserFragment extends Fragment {
     User user;
-    UserByPhone userByPhone;
     //User RecyclerView
     RecyclerView recyclerViewUser;
     UserAdapter userAdapter;
@@ -63,26 +42,6 @@ public class UserFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         user = getUser();
         loadUser(view, user);
-//        Log.d("D","Check");
-//        ApiService.apiService.getUserByPhoneOrEmail("0369998759").enqueue(new Callback<UserByPhone>() {
-//            @Override
-//            public void onResponse(Call<UserByPhone> call, Response<UserByPhone> response) {
-//                if (response.isSuccessful()) {
-//                    userByPhone = response.body();
-//                    user = userByPhone.getUser();
-//                    loadUser(view, user);
-//                   Toast.makeText(getContext(), "oke", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(getContext(), "oke r", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<UserByPhone> call, Throwable t) {
-//                Toast.makeText(getContext(), "oke r 222", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-
         loadUserOption(view);
     }
 
@@ -128,71 +87,13 @@ public class UserFragment extends Fragment {
     }
 
     private void clickGoOption(String option) {
-        if (option.equals("Update Information")) {
+        if (option.equals("User Information")) {
             Intent intent = new Intent(getActivity(), UserUpdateActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("user", user);
             intent.putExtras(bundle);
             startActivity(intent);
         }
-    }
-
-    private void openEnterPasswordDialog(int gravity, View view) {
-        final Dialog dialog = new Dialog(view.getContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_password_check);
-
-        Window window = dialog.getWindow();
-        if (window == null) {
-            return;
-        }
-
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-        windowAttributes.gravity = gravity;
-        window.setAttributes(windowAttributes);
-        if (Gravity.BOTTOM == gravity) {
-            dialog.setCancelable(true);
-        } else {
-            dialog.setCancelable(false);
-        }
-        //Update
-        Button btnOpenUpdateDialog = dialog.findViewById(R.id.send_Authentication_button);
-        btnOpenUpdateDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String token = null, password = null;
-                if (checkPassword(token, password)) {
-                    Intent intent = new Intent(getActivity(), UserUpdateActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("user", user);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                } else {
-                    return;
-                }
-                dialog.dismiss();
-            }
-        });
-
-        //Cancel
-        Button btnOpenCancelDialog = dialog.findViewById(R.id.cancel_Authentication_button);
-        btnOpenCancelDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
-
-    private boolean checkPassword(String token, String password) {
-        //Api check password
-        if (true) {
-            return true;
-        }
-        return false;
     }
 
     private User getUser() {
@@ -213,7 +114,7 @@ public class UserFragment extends Fragment {
 
     private List<String> getListOptionName1() {
         List<String> myList = new ArrayList<>();
-        String[] optionName = {"Update Information", "Option 2"};
+        String[] optionName = {"User Information", "Option 2"};
         for (int i = 0; i < optionName.length; i++) {
             myList.add(optionName[i]);
         }

@@ -1,24 +1,21 @@
 package com.example.demofacebook.Login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.CustomerAccount;
+import com.example.demofacebook.Model.OptSms;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.Regex;
-
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,37 +40,12 @@ public class Register_Activity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        textFullName = findViewById(R.id.textFullName);
-        textUserName = findViewById(R.id.textUserName);
-        textEmail = findViewById(R.id.textEmail);
-        textPhoneNumner = findViewById(R.id.textPhoneNum);
-        textPassword = findViewById(R.id.textPass);
-        btnRegister = findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    String fullName = textFullName.getText().toString();
-                    String userName = textUserName.getText().toString();
-                    String email = textEmail.getText().toString();
-                    String phoneNumber = textPhoneNumner.getText().toString();
-                    String password = textPassword.getText().toString();
-                if (validateFullName(fullName) && validateUsername(userName) && validateEmail(email)
-                        && validatePhone(phoneNumber) && validatePassword(password)) {
-                    User account = new User("null",fullName,userName,phoneNumber,email,password);
-                    CustomerAccount customer = new CustomerAccount(account);
-                    createCustomer(customer);
-                } else {
-                    // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
-                    Toast.makeText(getApplicationContext(), "Please try again!!", Toast.LENGTH_SHORT).show();
-                }
+    public static String convertToInternationalFormat(String phoneNumber) {
+        // Remove any leading zeros from the phone number
+        String trimmedNumber = phoneNumber.replaceFirst("^0+", "");
 
-            }
-        });
-
+        // Add the country code "+84" to the trimmed number
+        return "+84" + trimmedNumber;
     }
 
     private boolean validateEmail(String email){
@@ -121,44 +93,81 @@ public class Register_Activity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+        textFullName = findViewById(R.id.textFullName);
+        textUserName = findViewById(R.id.textUserName);
+        textEmail = findViewById(R.id.textEmail);
+        textPhoneNumner = findViewById(R.id.textPhoneNum);
+        textPassword = findViewById(R.id.textPass);
+        btnRegister = findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    String fullName = textFullName.getText().toString();
+                    String userName = textUserName.getText().toString();
+                    String email = textEmail.getText().toString();
+                    String phoneNumber = textPhoneNumner.getText().toString();
+                    String password = textPassword.getText().toString();
+                if (validateFullName(fullName) && validateUsername(userName) && validateEmail(email)
+                        && validatePhone(phoneNumber) && validatePassword(password)) {
+                    User account = new User("null",fullName,userName,phoneNumber,email,password);
+                    CustomerAccount customer = new CustomerAccount(account);
+                    sendRequestToServer(customer);
+                } else {
+                    // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
+                    Toast.makeText(getApplicationContext(), "Please try again!!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+    }
+
     private boolean validatePassword(String pass){
-        if(pass.isEmpty()){
+        if (pass.isEmpty()) {
             textPassword.setError("Password is required");
             return false;
-        }else if (!Regex.PASSWORD.matcher(pass).matches()) {
+        } else if (!Regex.PASSWORD.matcher(pass).matches()) {
             textPassword.setError("Password required 8-20 character and least 1 special character");
             return false;
-        }else {
+        } else {
             textPassword.setError(null);
             return true;
         }
     }
 
-    private void createCustomer(CustomerAccount customer){
-        ApiService.apiService.createCustomer(customer).enqueue(new Callback<CustomerAccount>() {
-            @Override
-            public void onResponse(Call<CustomerAccount> call, Response<CustomerAccount> response) {
-                if(response.isSuccessful()){
-                    CustomerAccount customerAccount = response.body();
-                    Log.d("CUSTOMER ACCOUNT", customerAccount.getUser().getPhone());
-                        if(customerAccount !=null ){
-                            Toast.makeText(Register_Activity.this, "RegisterSuccess", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Register_Activity.this, MainActivity.class);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(Register_Activity.this, "Create UnSuccess", Toast.LENGTH_SHORT).show();
-                        }
-                }else {
+    private void sendRequestToServer(CustomerAccount customer) {
+        String phone = convertToInternationalFormat(customer.getUser().getPhone());
+        OptSms phoneOpt = new OptSms(phone);
+        Log.w("opt", phoneOpt.getPhoneNumber());
 
+        Call<OptSms> call = ApiService.apiServiceGuesst.getOtp(phoneOpt);
+        call.enqueue(new Callback<OptSms>() {
+            @Override
+            public void onResponse(Call<OptSms> call, Response<OptSms> response) {
+                if (response.isSuccessful()) {
+                    OptSms responseValue = response.body();
+                    Intent intent = new Intent(Register_Activity.this, OtpConfirmActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("customer", customer);
+                    bundle.putSerializable("idOtp", responseValue.getOtpId());
+                    bundle.putSerializable("phoneNumberFormatted", responseValue.getPhoneNumber());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                    Toast.makeText(getApplicationContext(), "Send SMS Success", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Send SMS Fail", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<CustomerAccount> call, Throwable t) {
-                Toast.makeText(Register_Activity.this, "UnSuccess", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<OptSms> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Connection Fail", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
 }
