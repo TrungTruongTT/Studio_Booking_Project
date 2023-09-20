@@ -7,6 +7,7 @@
 
     <LinearLayout
         android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/cardView"
@@ -20,28 +21,27 @@
             android:layout_gravity="top"
             android:layout_marginTop="5dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/download" />
+            android:src="@drawable/placeholder_image" />
 
         <LinearLayout
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="30dp"
             android:orientation="vertical">
 
             <TextView
                 android:textColor="@color/BlackText"
                 android:id="@+id/FeedbackUserName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_height="25dp"
+                android:layout_gravity="start|top"
                 android:text="PhiPhiPhi" />
 
             <TextView
                 android:id="@+id/Rating"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
+                android:layout_height="25dp"
+                android:layout_gravity="start|top"
                 android:text="⭐: 5.0"
                 android:textColor="#EFA632"
                 android:textSize="15sp" />
@@ -68,8 +68,7 @@
                 android:paddingBottom="10dp"
                 android:id="@+id/FeedbackDate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:text="27/5/2023 20:04"
                 android:textColor="@color/SubTextColor_Gallery" />

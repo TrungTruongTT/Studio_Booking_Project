@@ -20,40 +20,39 @@
             android:layout_width="120dp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/download" />
+            android:src="@drawable/placeholder_image" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
-                android:paddingTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="55dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/NameService"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:gravity="top|start"
                     android:maxLines="2"
-                    android:text="Explored"
+                    android:text="Explored\n1"
                     android:textColor="@color/TextColor_Gallery"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/ServiceRating"
-                    android:layout_width="match_parent"
+                    android:layout_width="70dp"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
                     android:gravity="top|end"
                     android:text="⭐: 5.0"
                     android:textColor="#EFA632"
@@ -61,32 +60,32 @@
             </LinearLayout>
 
             <LinearLayout
+                android:paddingBottom="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1">
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/ServiceView"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1.5"
-                    android:gravity="start|top"
+                    android:gravity="start|bottom"
                     android:lines="1"
                     android:text="Views: 5000"
                     android:textColor="@color/SubTextColor_Gallery"
-                    android:textSize="13sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/ServicePrice"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="end|top"
+                    android:gravity="end|bottom"
                     android:lines="1"
-                    android:text="Form: US$500"
+                    android:text="From: US500$"
                     android:textColor="@color/SubTextColor_Gallery"
-                    android:textSize="13sp" />
+                    android:textSize="14sp" />
             </LinearLayout>
 
 
@@ -94,9 +93,8 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="35dp"
             android:layout_height="match_parent"
-            android:layout_weight="2.4"
             android:gravity="center"
             android:orientation="vertical">
 

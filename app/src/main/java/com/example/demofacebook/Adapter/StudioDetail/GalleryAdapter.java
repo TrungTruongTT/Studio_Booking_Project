@@ -43,12 +43,12 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyArrayA
 
         if (gallery.getGalleryItems() != null) {
             if (gallery.getGalleryItems().size() != 0) {
-                Picasso.get().load(gallery.getGalleryItems().get(0).getImageItemGallery()).placeholder(R.drawable.download).error(R.drawable.download).into(holder.imageGallery);
+                Picasso.get().load(gallery.getGalleryItems().get(0).getImageItemGallery()).placeholder(R.drawable.placeholder_image).error(R.drawable.placeholder_image).into(holder.imageGallery);
             } else {
-                Picasso.get().load("https://i.imgur.com/DvpvklR.png").placeholder(R.drawable.download).error(R.drawable.download).into(holder.imageGallery);
+                Picasso.get().load("https://i.imgur.com/DvpvklR.png").placeholder(R.drawable.placeholder_image).error(R.drawable.placeholder_image).into(holder.imageGallery);
             }
         } else {
-            Picasso.get().load("https://i.imgur.com/DvpvklR.png").placeholder(R.drawable.download).error(R.drawable.download).into(holder.imageGallery);
+            Picasso.get().load("https://i.imgur.com/DvpvklR.png").placeholder(R.drawable.placeholder_image).error(R.drawable.placeholder_image).into(holder.imageGallery);
         }
 
 

@@ -16,6 +16,7 @@
             android:layout_height="?attr/actionBarSize" />
 
         <TextView
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
@@ -54,10 +55,10 @@
                         android:layout_height="70dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/download" />
+                        android:src="@drawable/placeholder_image" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="bottom|start"
@@ -66,6 +67,7 @@
                         android:paddingEnd="15dp">
 
                         <TextView
+                            android:textStyle="bold"
                             android:id="@+id/StudioName_OrderDetail"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
@@ -102,8 +104,9 @@
             android:paddingEnd="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:gravity="start|center"
+            android:gravity="start|center_vertical"
             android:text="Service Package"
+            android:textStyle="bold"
             android:textColor="@color/BlackText"
             android:textSize="25sp" />
 
@@ -114,10 +117,11 @@
             android:layout_marginTop="5dp"/>
 
         <TextView
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
-            android:gravity="start|center"
+            android:gravity="start|center_vertical"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:text="Payment Detail"

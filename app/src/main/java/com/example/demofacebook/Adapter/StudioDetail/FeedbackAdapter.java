@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.example.demofacebook.R;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -58,12 +56,12 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
         if (feedback.getAvatarUser() != null) {
             Picasso.get().
                     load(feedback.getAvatarUser())
-                    .error(R.drawable.download)
+                    .error(R.drawable.placeholder_image)
                     .into(holder.userAvatar);
         } else {
             Picasso.get()
                     .load("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg")
-                    .placeholder(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
                     .into(holder.userAvatar);
         }
         if (feedback.getFeedbackUserName() == null) {
@@ -172,19 +170,19 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
         if (feedback.getFeedbackImage() != null) {
             if (feedback.getFeedbackImage().size() != 0) {
                 Picasso.get().load(feedback.getFeedbackImage().get(0).getFilePath())
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download)
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.placeholder_image)
                         .into(feedbackImage);
             } else {
                 Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download)
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.placeholder_image)
                         .into(feedbackImage);
             }
         } else {
             Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(feedbackImage);
         }
 

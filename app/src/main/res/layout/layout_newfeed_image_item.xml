@@ -26,24 +26,24 @@
                 android:id="@+id/StudioAvatarNewFeedImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/download" />
+                android:src="@drawable/placeholder_image" />
 
             <TextView
                 android:id="@+id/NameStudioNewFeedImage"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5"
+                android:layout_weight="1"
                 android:gravity="start|center"
                 android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:text="Name Studio 1"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/StudioRatingNewFeedImage"
-                android:layout_width="match_parent"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
                 android:gravity="end|center"
                 android:paddingEnd="15dp"
                 android:text="⭐ 5.0"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/download" />
+                android:src="@drawable/placeholder_image" />
         </LinearLayout>
 
         <LinearLayout

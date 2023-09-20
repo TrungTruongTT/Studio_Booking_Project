@@ -25,7 +25,7 @@
                 android:id="@+id/StudioAvatarNewFeedVideo"
                 android:layout_width="47dp"
                 android:layout_height="50dp"
-                android:src="@drawable/download" />
+                android:src="@drawable/placeholder_image" />
 
             <TextView
                 android:id="@+id/NameStudioNewFeedVideo"
@@ -40,9 +40,8 @@
 
             <TextView
                 android:id="@+id/StudioRatingNewFeedVideo"
-                android:layout_width="match_parent"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
                 android:gravity="end|center"
                 android:paddingEnd="15dp"
                 android:text="⭐ 5.0"

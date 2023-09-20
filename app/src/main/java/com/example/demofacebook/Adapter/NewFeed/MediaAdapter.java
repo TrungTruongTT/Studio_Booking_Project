@@ -83,8 +83,8 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         });
         Picasso.get()
                 .load(mediaItem.getStudio().getImage())
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
                 .into(holder.studioAvatarNewFeedImageSlide);
 
         holder.nameStudioNewFeedImageSlide.setText(mediaItem.getStudio().getTitle());
@@ -117,8 +117,8 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         });
         Picasso.get()
                 .load(mediaItem.getStudio().getImage())
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
                 .into(holder.studioAvatarNewFeedVideo);
 
         holder.nameStudioNewFeedVideo.setText(mediaItem.getStudio().getTitle());
@@ -152,8 +152,8 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         });
         Picasso.get()
                 .load(mediaItem.getStudio().getImage())
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
                 .into(holder.studioAvatarNewFeedImage);
 
         holder.nameStudioNewFeedImage.setText(mediaItem.getStudio().getTitle());
@@ -161,8 +161,8 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         Picasso.get()
                 .load(mediaItem.getImageResourceUrl())
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
                 .into(holder.newFeedImage);
 
 
@@ -227,8 +227,8 @@ public class MediaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         Picasso.get()
                 .load(mediaItem.getImageResourceUrl())
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
                 .into(feedbackImage);
 
         closeBtn.setOnClickListener(view -> dialog.dismiss());

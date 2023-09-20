@@ -34,15 +34,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    //implementation fileTree(dir: 'C:\\Users\\Phi\\Desktop\\AndroidStudioProjects\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
-    //implementation fileTree(dir: 'D:\\PRM_Project\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
-//    implementation fileTree(dir: 'D:\\TEST_PRM\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
-//    implementation fileTree(dir: 'C:\\Users\\Phi\\Desktop\\AndroidStudioProjects\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
     implementation 'com.google.firebase:firebase-storage:20.1.0'
-    implementation fileTree(dir: 'D:\\PRM_Project\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
-    implementation fileTree(dir: 'C:\\Users\\Admin\\Desktop\\PRM392\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
-    implementation fileTree(dir: 'C:\\Users\\Phi\\Desktop\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
-    implementation fileTree(dir: 'D:\\PRM392\\TEST2\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
+    implementation fileTree(dir: 'E:\\AndroidProject_8\\Project\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
+
 
     //thư mục libs zalo zpdk (add bằng file-project structure - dependencies + chọn đường dẫn thư mục libs)
     //chỉ sử dụng fileTree có chứ thư mục libs, dư sẽ bị lỗi

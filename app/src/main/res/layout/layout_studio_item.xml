@@ -29,26 +29,25 @@
                     android:id="@+id/StudioAvatarOrderImage"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/download" />
+                    android:src="@drawable/placeholder_image" />
 
                 <TextView
                     android:id="@+id/txtNameOrderStudio"
                     android:paddingStart="15dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.5"
-                    android:gravity="start|center"
+                    android:layout_weight="1"
+                    android:gravity="start|top"
                     android:text="Name Studio 1"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/txtOrderStudioRating"
-                    android:layout_width="match_parent"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:paddingEnd="15dp"
-                    android:layout_weight="3"
-                    android:gravity="end|center"
+                    android:gravity="end|top"
                     android:text="⭐ 5.0"
                     android:textColor="#EFA632"
                     android:textSize="18sp" />
@@ -80,10 +79,9 @@
                     android:id="@+id/BookingServiceBtn"
                     android:layout_width="140dp"
                     android:layout_height="50dp"
-                    android:background="@color/Chat_btn"
+                    style="@style/sampleButtonRadius_Yes"
                     android:gravity="center"
                     android:text="Chat"
-                    android:textColor="@color/BlackText"
                     android:textSize="15sp" />
 
             </LinearLayout>

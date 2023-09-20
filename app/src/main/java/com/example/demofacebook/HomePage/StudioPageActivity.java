@@ -7,7 +7,6 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -109,13 +108,13 @@ public class StudioPageActivity extends AppCompatActivity {
             ImageView textView = findViewById(R.id.StudioAvatarImage_Main);
             if (studio.getImage() != null) {
                 Picasso.get().load(studio.getImage())
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download)
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.placeholder_image)
                         .into(textView);
             } else {
                 Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download)
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.placeholder_image)
                         .into(textView);
             }
 

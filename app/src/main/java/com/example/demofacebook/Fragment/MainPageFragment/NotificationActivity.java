@@ -2,7 +2,6 @@ package com.example.demofacebook.Fragment.MainPageFragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,7 +64,7 @@ public class NotificationActivity extends AppCompatActivity {
     private List<Notification> getNotificationData() {
         List<Notification> myList = new ArrayList<>();
         int[] id = {1, 2, 3, 4, 5, 6};
-        int[] image = {R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download, R.drawable.download};
+        int[] image = {R.drawable.placeholder_image, R.drawable.placeholder_image, R.drawable.placeholder_image, R.drawable.placeholder_image, R.drawable.placeholder_image, R.drawable.placeholder_image};
         String[] notificationTile = {"Notification 1", "Notification 2", "Notification 3", "Notification 4", "Notification 5", "Notification 6"};
         String[] notification = {"Sale description\nSale description", "Sale description\nSale description", "Sale description\nSale description\nSale description\nSale description", "Sale description\nSale description", "Sale description\nSale description", "Sale description\nSale description"};
         String str = "2015-03-31";

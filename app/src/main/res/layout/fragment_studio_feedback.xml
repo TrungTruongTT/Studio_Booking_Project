@@ -13,14 +13,12 @@
 
     <Button
         android:id="@+id/ViewMoreFeedback"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        style="@style/loginButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@color/btnViewMoreItem"
-        android:text="View More Feedback Service"
-        android:textColor="@color/TextColor_Gallery" />
+        android:text="View More Feedback Service"/>
 </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView

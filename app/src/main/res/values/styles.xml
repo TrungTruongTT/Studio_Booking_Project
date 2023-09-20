@@ -70,6 +70,24 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="sampleButton" parent="parent">
+        <item name="android:background">@drawable/login_button_background</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="sampleButtonRadius_Yes" parent="parent">
+        <item name="android:background">@drawable/sample_button_radius_background</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="sampleButtonRadius_No" parent="parent">
+        <item name="android:background">@drawable/sample_button_radius_background_2</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
     <style name="AppTheme.NoActionbar">
         <item name="windowActionBar">false</item>

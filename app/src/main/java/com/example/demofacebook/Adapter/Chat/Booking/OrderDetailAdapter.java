@@ -55,12 +55,12 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
         if (orderDetail.getServicePack() != null) {
             Picasso.get().load(orderDetail.getServicePack().getMediaServicePackList().get(0).getFilePath())
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download).into(holder.urlImageService);
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image).into(holder.urlImageService);
         } else {
             Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download).into(holder.urlImageService);
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image).into(holder.urlImageService);
         }
 
 

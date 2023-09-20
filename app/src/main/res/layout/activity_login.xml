@@ -27,12 +27,7 @@
                     android:layout_weight="3"
                     android:background="@drawable/header_background"
                     android:orientation="vertical">
-
-                    <ImageView
-                        style="@style/headerAppLogo"
-                        android:contentDescription="login background" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -44,11 +39,9 @@
                 android:layout_marginRight="30dp"
                 android:orientation="vertical">
 
-
                 <ImageView
                     style="@style/headerAppLogo"
                     android:src="@drawable/logo_app" />
-
                 <include layout="@layout/layout_login" />
 
             </LinearLayout>

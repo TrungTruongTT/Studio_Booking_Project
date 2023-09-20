@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -279,11 +278,11 @@ public class ServicePage extends AppCompatActivity {
                 ImageView studioImage = findViewById(R.id.StudioAvatarImageService);
                 if(studio.getImage() != null){
                     Picasso.get().load(studio.getImage())
-                            .error(R.drawable.download)
+                            .error(R.drawable.placeholder_image)
                             .into(studioImage);
                 }else {
                     Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                            .error(R.drawable.download)
+                            .error(R.drawable.placeholder_image)
                             .into(studioImage);
                 }
 

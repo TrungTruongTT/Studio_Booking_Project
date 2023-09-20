@@ -47,13 +47,13 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
 //        holder.imageItemGallery.setImageResource(galleryItem.getImageItemGallery());
         if (galleryItem.getImageItemGallery() != null) {
             Picasso.get().load(galleryItem.getImageItemGallery())
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(holder.imageItemGallery);
         } else {
             Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(holder.imageItemGallery);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -91,13 +91,13 @@ public class GalleryItemAdapter extends RecyclerView.Adapter<GalleryItemAdapter.
 //        feedbackImage.setImageResource(galleryItem.getImageItemGallery());
         if (galleryItem.getImageItemGallery() != null) {
             Picasso.get().load(galleryItem.getImageItemGallery())
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(feedbackImage);
         } else {
             Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(feedbackImage);
         }
 

@@ -123,13 +123,13 @@ public class OrderDetailActivity extends AppCompatActivity {
         TextView studioRating = findViewById(R.id.StudioRating_OrderDetail);
         if (studio.getImage() != null) {
             Picasso.get().load(studio.getImage())
-                    .error(R.drawable.download)
-                    .placeholder(R.drawable.download)
+                    .error(R.drawable.placeholder_image)
+                    .placeholder(R.drawable.placeholder_image)
                     .into(studioAvatar);
         } else {
             Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                    .error(R.drawable.download)
-                    .placeholder(R.drawable.download)
+                    .error(R.drawable.placeholder_image)
+                    .placeholder(R.drawable.placeholder_image)
                     .into(studioAvatar);
         }
         studioRating.setText("⭐: " + studio.getRating());

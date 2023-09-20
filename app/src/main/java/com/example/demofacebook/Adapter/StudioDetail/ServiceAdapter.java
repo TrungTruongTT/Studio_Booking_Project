@@ -65,14 +65,14 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         //Picasso.get().load(service.getMediaServicePackList().get(1).getFilePath()).into(holder.imageService);
         if(!service.getMediaServicePackList().isEmpty()){
             Picasso.get().load(service.getMediaServicePackList().get(0).getFilePath())
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(holder.imageService);
         }
         else{
             Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(holder.imageService);
         }
 
@@ -80,13 +80,13 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         if (service.getMediaServicePackList() != null) {
             if (service.getMediaServicePackList().size() != 0) {
                 Picasso.get().load(service.getMediaServicePackList().get(0).getFilePath())
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download)
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.placeholder_image)
                         .into(holder.imageService);
             } else {
                 Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download)
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.placeholder_image)
                         .into(holder.imageService);
             }
         }

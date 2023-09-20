@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,13 +15,10 @@ import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.TokenResponse;
-import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
-import com.example.demofacebook.Ultils.Regex;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 
 import java.util.List;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private Button buttonLogin;
 
     //chuyển register
     public void viewRegisterClicked(View v) {
@@ -56,22 +51,15 @@ public class LoginActivity extends AppCompatActivity {
         // Gắn kết các thành phần UI
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
-        buttonLogin = findViewById(R.id.btnLogin);
-        //test bắt datalocalManager
-        /*Set<String> nameUser = DataLocalManager.getNameUserInstalled();
-        editTextEmail.setText(nameUser.toString());
-
-        for(String strName: nameUser){
-            Log.e("Name user", strName);
-        }*/
+        Button buttonLogin = findViewById(R.id.btnLogin);
 
         // Thêm xử lý sự kiện cho nút đăng nhập
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Kiểm tra tên đăng nhập và mật khẩu
-                String credential = editTextEmail.getText().toString();
-                String password = editTextPassword.getText().toString();
+                String credential = editTextEmail.getText().toString().trim();
+                String password = editTextPassword.getText().toString().trim();
                 if (validateEmail(credential) && validatePassword(password)) {
                     isValidCredentials(credential, password);
                 } else {
@@ -80,8 +68,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private void isValidCredentials(String credential, String password) {
@@ -89,9 +75,9 @@ public class LoginActivity extends AppCompatActivity {
         ApiService.apiServiceGuesst.login(loginAccount).enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
-                if(response.isSuccessful()){
-                    TokenResponse tokenResponse= response.body();
-                    if(tokenResponse !=null){
+                if (response.isSuccessful()) {
+                    TokenResponse tokenResponse = response.body();
+                    if (tokenResponse != null) {
                         getCustomerByEmailorPhone(credential);
                         DataLocalManager.setTokenResponse(tokenResponse);
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -100,18 +86,20 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                     } else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
-                        Toast.makeText(LoginActivity.this, "Invalid credential", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Invalid Load Token Fail", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
+                    Toast.makeText(LoginActivity.this, "Invalid Account", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Lost Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
     private void getCustomerByEmailorPhone(String credential){
-
         ApiService.apiServiceGuesst.getCustomerByEmailorPhone(credential).enqueue(new Callback<List<CustomerAccount>>() {
             @Override
             public void onResponse(Call<List<CustomerAccount>> call, Response<List<CustomerAccount>> response) {
@@ -124,16 +112,18 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("CustomerAccount", "User ID: " + account.getUser().getUserId());
                         Log.d("CustomerAccount", "Full Name: " + account.getUser().getFullName());
                         Log.d("CustomerAccount", "Email: " + account.getUser().getEmail());
-                      //  account.getUser().setImage("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");
+                        //  account.getUser().setImage("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");
                         Log.d("CustomerAccount", "Image URL: " + account.getUser().getImage());
                         /*if(account.getUser().getImage() == null || account.getUser().getImage().isEmpty()|| account.getUser().getImage().length() == 0){
                             account.getUser().setImage("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");
                             Log.d("CustomerAccountAFTER_SET", "Image URL: " + account.getUser().getImage());
                         }*/
                         DataLocalManager.setCustomerAccount(account);
-                    }else {
+                    } else {
                         Toast.makeText(LoginActivity.this, "Invalid Load Token Fail", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Toast.makeText(LoginActivity.this, "Fail Status", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

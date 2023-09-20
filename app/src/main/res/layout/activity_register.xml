@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,9 +11,18 @@
         android:padding="@dimen/loginViewsMargin">
 
         <TextView
+            android:text="Sign Up"
             style="@style/headerTextPrimary"
-            android:layout_marginTop="@dimen/loginViewsMargin"
-            android:text="@string/register" />
+            android:layout_marginTop="10dp"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center|center_vertical"
+            android:text="@string/slogan_Framemates"
+            android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/parent"
@@ -28,16 +35,18 @@
 
                 <ImageView
                     style="@style/icon"
+                    android:layout_height="match_parent"
                     android:src="@drawable/name_icon" />
 
                 <EditText
+                    android:hint="Full Name"
+                    android:maxLength="20"
                     android:id="@+id/textFullName"
                     style="@style/modifiedEditText"
-                    android:hint="Full name"
+                    android:paddingStart="10dp"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:maxLength="20"
-                    />
+                    android:textSize="18sp" />
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,10 +60,13 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:layout_height="match_parent"
                     style="@style/icon"
                     android:src="@drawable/name_icon" />
 
                 <EditText
+                    android:paddingStart="10dp"
+                    android:textSize="18sp"
                     android:id="@+id/textUserName"
                     style="@style/modifiedEditText"
                     android:hint="User Name"
@@ -74,15 +86,18 @@
 
                 <ImageView
                     style="@style/icon"
+                    android:layout_height="match_parent"
                     android:src="@drawable/phone_icon" />
 
                 <EditText
+                    android:maxLength="10"
+                    android:paddingStart="10dp"
                     android:id="@+id/textPhoneNum"
                     style="@style/modifiedEditText"
                     android:hint="Mobile Number"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:maxLength="10"/>
+                    android:textSize="18sp" />
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,15 +112,18 @@
 
                 <ImageView
                     style="@style/icon"
+                    android:layout_height="match_parent"
                     android:src="@drawable/mail_icon" />
 
                 <EditText
+                    android:maxLength="20"
+                    android:paddingStart="10dp"
                     android:id="@+id/textEmail"
                     style="@style/modifiedEditText"
                     android:hint="@string/register_hint"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:maxLength="20"/>
+                    android:textSize="18sp" />
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,31 +138,36 @@
 
                 <ImageView
                     style="@style/icon"
+                    android:layout_height="match_parent"
                     android:src="@drawable/password_icon" />
 
                 <EditText
+                    android:maxLength="20"
+                    android:paddingStart="10dp"
                     android:id="@+id/textPass"
                     style="@style/modifiedEditText"
                     android:hint="@string/login_password_hint"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:maxLength="20"/>
+                    android:textSize="18sp" />
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            style="@style/viewParent"
-            android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:onClick="viewForgotPassword"
-            android:paddingBottom="10dp"
-            android:text="Forgot Password?"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/newsMoreTextSize" />
+        <!--        <TextView-->
+        <!--            style="@style/viewParent"-->
+        <!--            android:layout_gravity="end"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:onClick="viewForgotPassword"-->
+        <!--            android:paddingBottom="10dp"-->
+        <!--            android:text="Forgot Password?"-->
+        <!--            android:textColor="@color/primaryTextColor"-->
+        <!--            android:textSize="@dimen/newsMoreTextSize" />-->
 
         <Button
+            android:layout_marginTop="20dp"
             android:id="@+id/btnRegister"
             style="@style/loginButton"
+            android:textSize="20sp"
             android:layout_gravity="center"
             android:text="Register" />
 
@@ -154,6 +177,7 @@
             android:onClick="viewLoginClicked"
             android:text="@string/signup_login_hint"
             android:textAlignment="center"
+            android:textSize="17sp"
             android:textColor="@color/primaryTextColor"
             android:textStyle="bold" />
 
@@ -161,4 +185,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>

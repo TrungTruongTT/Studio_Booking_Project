@@ -54,14 +54,14 @@ public interface ApiService {
     Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
     ApiService apiService = new Retrofit.Builder()
             .client(client)
-            .baseUrl("https://api.framemates.io.vn") // DOMAIN
+            .baseUrl("http://10.0.2.2:8080") // DOMAIN
             //http://10.0.2.2:8080 //http://localhost:8080
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
     ApiService apiServiceGuesst = new Retrofit.Builder()
             .client(guesst)
-            .baseUrl("https://api.framemates.io.vn") // DOMAIN
+            .baseUrl("http://10.0.2.2:8080") // DOMAIN
             //http://10.0.2.2:8080 //http://localhost:8080
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

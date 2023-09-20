@@ -183,8 +183,8 @@ public class UserUpdateActivity extends AppCompatActivity {
         //set data to edit text
         Picasso.get()
                 .load(user.getImage())
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
                 .into(userImageDialog);
         editTextUserName.setText(user.getFullName());
         editTextPassword.setText(user.getPassword());
@@ -297,8 +297,8 @@ public class UserUpdateActivity extends AppCompatActivity {
             String url = "https://i.imgur.com/DvpvklR.png";
             Picasso.get()
                     .load(url)
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(userImageDialog);
 
         }
@@ -310,8 +310,8 @@ public class UserUpdateActivity extends AppCompatActivity {
             if (user != null) {
                 Picasso.get()
                         .load(user.getImage())
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download)
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.placeholder_image)
                         .into(userImage);
 
                 userName.setText(user.getFullName());
@@ -330,8 +330,8 @@ public class UserUpdateActivity extends AppCompatActivity {
         if (user != null) {
             Picasso.get()
                     .load(user.getImage())
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(userImage);
 
             userName.setText(user.getFullName());

@@ -70,8 +70,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                         holder.totalPrice.setText("Total Price: " + numberFormat.format(totalPrice) + " VND");
                         Picasso.get()
                                 .load(mOrderDetail.get(0).getServicePack().getMediaServicePackList().get(0).getFilePath())
-                                .placeholder(R.drawable.download)
-                                .error(R.drawable.download)
+                                .placeholder(R.drawable.placeholder_image)
+                                .error(R.drawable.placeholder_image)
                                 .into(holder.urlImageService);
                         holder.orderServicePrice.setText(numberFormat.format(mOrderDetail.get(0).getServicePack().getPriceService()) + " VND");
                         holder.totalOrderDetail.setText("Service: " + mOrderDetail.size());
