@@ -3,10 +3,13 @@ package com.example.demofacebook.Search;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,7 +50,7 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Search View");
-        getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+        getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
 
         //studioList
         recyclerViewStudio = findViewById(R.id.RecyclerViewStudioSearch);
@@ -98,6 +101,8 @@ public class SearchActivity extends AppCompatActivity {
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
+        EditText txtSearch  = (EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        txtSearch.setTextColor(Color.WHITE);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

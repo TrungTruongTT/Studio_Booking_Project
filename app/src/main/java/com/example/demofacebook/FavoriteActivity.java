@@ -41,7 +41,7 @@ public class FavoriteActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.favoriteToolBar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Favorite");
         }

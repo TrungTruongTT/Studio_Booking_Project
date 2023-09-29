@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -12,6 +13,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/OrderDetailToolBar"
+            app:titleTextColor="@color/Text_Appbar_Color"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
 
@@ -85,14 +87,6 @@
                             android:textSize="15sp" />
 
                     </LinearLayout>
-
-                    <Button
-                        android:layout_width="120dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="bottom"
-                        android:background="@color/Chat_btn"
-                        android:text="Chat" />
-
                 </LinearLayout>
             </LinearLayout>
 

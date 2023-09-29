@@ -47,7 +47,7 @@ public class NotificationActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.NotificationToolBar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Favorite");
         }

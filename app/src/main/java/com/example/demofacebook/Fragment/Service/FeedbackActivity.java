@@ -87,7 +87,7 @@ public class FeedbackActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
             getSupportActionBar().setTitle(studio.getTitle());
         }
     }

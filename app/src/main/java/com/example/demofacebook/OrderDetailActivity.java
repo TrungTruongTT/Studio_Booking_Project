@@ -339,7 +339,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.OrderDetailToolBar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(String.valueOf("Order Id: " + orderId));
         }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryLight">#8b9dc3</color>
-    <color name="colorAccentDark">#dfe3ee</color>
-    <color name="colorAccentLight">#ffffff</color>
-    <color name="Custom_Color1">#38ef7d</color>
-    <color name="Custom_Color2">#11998e</color>
-    <color name="Custom_Color3">#75D39B</color>
+<!--    <color name="colorPrimaryLight">#8b9dc3</color>-->
+<!--    <color name="colorAccentDark">#dfe3ee</color>-->
+<!--    <color name="colorAccentLight">#ffffff</color>-->
+<!--    <color name="Custom_Color1">#38ef7d</color>-->
+<!--    <color name="Custom_Color2">#11998e</color>-->
+<!--    <color name="Custom_Color3">#75D39B</color>-->
 
-    <color name="colorPrimary">#38ef7d</color>
-    <color name="colorPrimaryDark">#11998e</color>
-    <color name="colorAccent">#75D39B</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#FFFFFF</color>
 
     <!--colors for modern ui-->
     <color name="whiteTextColor">#fff</color>
@@ -27,16 +27,8 @@
 
 
     <!--ToolBar for App-->
-    <color name="ToolBar">#FFD154</color>
+    <color name="ToolBar">#021B79</color>
 
-<!--    <color name="ToolBar">#11988D</color>-->
-    <color name="Home_ToolBar">#F68BA8</color>
-    <color name="Booking_ToolBar">#426695</color>
-    <color name="NewFeed_ToolBar">#048ABF</color>
-    <color name="Chat_ToolBar">#02730A</color>
-    <color name="User_ToolBar">#F29F05</color>
-    <color name="Search_ToolBar">#963074</color>
-    <color name="ToolBar_Color">#25c685</color>
 
     <!--Selected Item for App-->
     <color name="Selected_Item">#97BC62</color>
@@ -46,8 +38,7 @@
     <color name="UnSelected_Tab">#FEEDDA</color>
     <color name="Selected_Tab">#EE4E34</color>
 
-    #3D3D3D
-    #FFD154
+
     <!--Gallery Item for StudioDetail-->
     <color name="AppBarColor">#85FF85</color>
     <color name="BackgroundText_Gallery">#930330</color>
@@ -98,6 +89,13 @@
     <color name="Text_Chat_Color">#3D3D3D</color>
     <color name="Background_Chat_Color">#FFD154</color>
 
+    <!--Appbar -->
+    <color name="Text_Appbar_Color">#FFFFFF</color>
+
+    <!--Sort Home page -->
+    <color name="Text_Selected_Color">#FFFFFF</color>
+
+    <color name="white">#FFFFFF</color>
 
 
 

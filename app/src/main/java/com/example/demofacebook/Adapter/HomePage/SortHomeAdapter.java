@@ -1,5 +1,6 @@
 package com.example.demofacebook.Adapter.HomePage;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,10 +50,12 @@ private final IClickItemSortListener iClickItemSortListener;
         });
 
         if(row_index == position){
-            holder.linearLayout.setBackgroundResource(R.drawable.background_navbar);
+            holder.linearLayout.setBackgroundResource(R.drawable.item_color_appbar);
+            holder.txtSortBy.setTextColor(Color.parseColor("#FFFFFF"));
 
         }else {
             holder.linearLayout.setBackgroundResource(R.color.cardView);
+            holder.txtSortBy.setTextColor(Color.parseColor("#000000"));
         }
 
     }

@@ -3,19 +3,17 @@ package com.example.demofacebook.HomePage;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.aurelhubert.ahbottomnavigation.notification.AHNotification;
 import com.example.demofacebook.FavoriteActivity;
 import com.example.demofacebook.Fragment.MainPageFragment.BookingFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.ChatFragment;
@@ -23,17 +21,14 @@ import com.example.demofacebook.Fragment.MainPageFragment.HomeFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.NewFeedFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.NotificationActivity;
 import com.example.demofacebook.Fragment.MainPageFragment.UserFragment;
-import com.example.demofacebook.Fragment.Service.ServicePage;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
-import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Search.SearchActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private Fragment selectedFragment = null;
     private Toolbar toolbar;
-    private User user;
 
     private Studio studio;
     private Service service;
@@ -47,9 +42,7 @@ public class HomeActivity extends AppCompatActivity {
          service = loadService();
         loadBottomNavigationView();
 
-
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.search) {
@@ -71,28 +64,23 @@ public class HomeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.appbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
     private void OpenFavoriteScreen() {
         Intent intent = new Intent(this, FavoriteActivity.class);
         startActivity(intent);
     }
-
     private void OpenSearchScreen() {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }
-
     private void OpenNotificationScreen() {
         Intent intent = new Intent(this, NotificationActivity.class);
         startActivity(intent);
     }
-
     private void loadBottomNavigationView() {
         AHBottomNavigation bottomNavigationView = findViewById(R.id.bottomNavigationView);
         //Define Items
@@ -107,11 +95,13 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigationView.addItem(item3);
         bottomNavigationView.addItem(item4);
         bottomNavigationView.addItem(item5);
+
+        bottomNavigationView.setCurrentItem(0);
         //Style
         bottomNavigationView.setColored(true);
         // Change colors
-        bottomNavigationView.setAccentColor(Color.parseColor("#F63D2B"));
-        bottomNavigationView.setInactiveColor(Color.parseColor("#747474"));
+        bottomNavigationView.setAccentColor(Color.parseColor("#FFFFFF"));
+        bottomNavigationView.setInactiveColor(Color.parseColor("#0575E6"));
 
         //OnClickItem
         bottomNavigationView.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
@@ -121,27 +111,28 @@ public class HomeActivity extends AppCompatActivity {
                 if (position == 0) {
                     selectedFragment = new HomeFragment();
                     getSupportActionBar().setTitle("Studio Booking Service");
-                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
+                    getSupportActionBar();
                 }
                 if (position == 1) {
                     getSupportActionBar().setTitle("Chat");
-                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
                     selectedFragment = new ChatFragment();
                 }
                 if (position == 2) {
                     getSupportActionBar().setTitle("New Feed");
-                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
                     selectedFragment = new NewFeedFragment();
                 }
                 if (position == 3) {
                     getSupportActionBar().setTitle("Booking");
-                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
                     selectedFragment = new BookingFragment();
                 }
                 if (position == 4) {
 
                     getSupportActionBar().setTitle("Profile");
-                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+                    getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
                     selectedFragment = new UserFragment();
 
                 }
@@ -169,8 +160,6 @@ public class HomeActivity extends AppCompatActivity {
 //        AHNotification notification = new AHNotification.Builder().setText("10").setBackgroundColor(ContextCompat.getColor(HomeActivity.this, R.color.colorAccent)).setTextColor(ContextCompat.getColor(HomeActivity.this, R.color.Home_ToolBar)).build();
 //        bottomNavigationView.setNotification(notification, 1);
     }
-
-
     private Studio loadStudio() {
         if(getIntent().getExtras() != null) {
             Studio studio= (Studio) getIntent().getExtras().get("studio");

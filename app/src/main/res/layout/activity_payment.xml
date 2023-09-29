@@ -9,6 +9,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/Payment_Toolbar"
+        app:titleTextColor="@color/Text_Appbar_Color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Payment" />

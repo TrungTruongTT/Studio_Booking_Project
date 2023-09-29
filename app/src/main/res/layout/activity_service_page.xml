@@ -135,34 +135,32 @@
                                 android:orientation="vertical">
 
                                 <LinearLayout
-                                    android:layout_gravity="bottom|end"
+                                    android:gravity="top"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:paddingTop="10dp"
+                                    android:paddingBottom="10dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="8dp"
-                                    android:layout_marginBottom="8dp"
                                     android:orientation="horizontal"
                                     android:paddingStart="10dp"
                                     android:paddingEnd="10dp">
-
                                     <TextView
-                                        android:layout_marginEnd="20dp"
                                         android:id="@+id/ServiceNameDetail"
                                         android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="40dp"
                                         android:layout_weight="1"
-                                        android:gravity="top|start"
                                         android:text="Service Name"
                                         android:textColor="@color/BlackText"
                                         android:textSize="30sp" />
 
                                     <Button
-                                        android:layout_marginTop="6dp"
+                                        android:layout_marginStart="20dp"
                                         android:id="@+id/AddToCartBtn2"
                                         android:layout_width="40dp"
                                         android:layout_height="40dp"
-                                        android:layout_marginEnd="20dp"
-                                        android:background="@drawable/chat_buy_white_48dp"
-                                        android:gravity="bottom" />
+                                        android:layout_marginEnd="10dp"
+                                        android:background="@drawable/chat_buy_white_48dp" />
 
                                 </LinearLayout>
 
@@ -184,25 +182,27 @@
                                             android:layout_width="0dp"
                                             android:layout_height="40dp"
                                             android:layout_weight="1"
-                                            android:gravity="bottom"
+                                            android:gravity="center_vertical"
                                             android:text="Service Price"
                                             android:textColor="@color/Price"
                                             android:textSize="18sp" />
 
-                                        <Button
-                                            android:gravity="bottom"
-                                            android:id="@+id/AddToCartBtn"
-                                            android:layout_width="30dp"
-                                            android:layout_height="30dp"
-                                            android:layout_marginEnd="30dp"
-                                            android:background="@drawable/heart_black" />
+                                        <!--                                        <Button-->
+                                        <!--                                            android:gravity="bottom"-->
+                                        <!--                                            android:id="@+id/AddToCartBtn"-->
+                                        <!--                                            android:layout_width="30dp"-->
+                                        <!--                                            android:layout_height="30dp"-->
+                                        <!--                                            android:layout_marginEnd="30dp"-->
+                                        <!--                                            android:background="@drawable/heart_black" />-->
                                     </LinearLayout>
 
                                     <TextView
+                                        android:layout_marginTop="10dp"
                                         android:id="@+id/ServicePriceDiscountDetail"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text=""
+                                        android:gravity="center_vertical"
+                                        android:layout_height="30dp"
+                                        android:text="100000$"
                                         android:textColor="#DFAFAFAF"
                                         android:textSize="15sp" />
 
@@ -278,13 +278,11 @@
                                     android:layout_marginTop="5dp" />
 
                                 <Button
-                                    android:background="@color/btnViewMoreItem"
                                     android:id="@+id/ViewMoreFeedbackBtn"
-                                    style="@style/Widget.AppCompat.Button.Borderless"
                                     android:layout_width="match_parent"
                                     android:layout_height="40dp"
                                     android:text="View More Feedback"
-                                    android:textColor="@color/TextColor_Gallery" />
+                                    style="@style/sampleButton" />
 
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
@@ -322,13 +320,12 @@
                                     android:layout_height="wrap_content" />
 
                                 <Button
-                                    android:background="@color/btnViewMoreItem"
+                                    style="@style/sampleButton"
                                     android:id="@+id/ViewMoreRecommendServiceBtn"
-                                    style="@style/Widget.AppCompat.Button.Borderless"
                                     android:layout_width="match_parent"
                                     android:layout_height="40dp"
                                     android:text="View More Recommend Service"
-                                    android:textColor="@color/TextColor_Gallery" />
+                                     />
                             </LinearLayout>
                         </androidx.cardview.widget.CardView>
                     </LinearLayout>

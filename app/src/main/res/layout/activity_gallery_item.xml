@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundColor"
     android:orientation="vertical"
     tools:context=".Fragment.Service.FeedbackActivity">
@@ -10,6 +11,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/ToolBarGalleryItemService"
         android:layout_width="match_parent"
+        app:titleTextColor="@color/Text_Appbar_Color"
         android:layout_height="?attr/actionBarSize" />
 
     <androidx.recyclerview.widget.RecyclerView

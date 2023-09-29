@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,7 +42,6 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewService;
     private ServiceAdapter serviceAdapter;
     private List<Service> mServiceList;
-
     //sort
     private RecyclerView recyclerViewSort;
     private SortHomeAdapter sortHomeAdapter;
@@ -92,9 +92,6 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent(getActivity(), ServicePage.class); // qua trang servicePage
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-//       Studio studio = new Studio(service.getStudio().getStudioId(),
-//               service.getStudio().getImage(), service.getStudio().getTitle()
-//               , service.getStudio().getRating(), service.getStudio().getDescription(), null);
         Studio studio = service.getStudio();
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);

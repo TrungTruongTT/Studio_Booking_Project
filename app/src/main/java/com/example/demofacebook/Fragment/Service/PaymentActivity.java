@@ -82,7 +82,7 @@ public class PaymentActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.Payment_Toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
