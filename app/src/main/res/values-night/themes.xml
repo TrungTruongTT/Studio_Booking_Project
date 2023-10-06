@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.DemoFaceBook" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlNormal">@color/black</item>
     </style>
 
     <style name="Theme.DemoFaceBook" parent="Base.Theme.DemoFaceBook" />

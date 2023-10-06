@@ -3,12 +3,15 @@ package com.example.demofacebook.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.CustomerAccount;
@@ -39,7 +42,6 @@ public class Register_Activity extends AppCompatActivity {
         Intent intent = new Intent(Register_Activity.this, ForgotPassword_Activity.class);
         startActivity(intent);
     }
-
     public static String convertToInternationalFormat(String phoneNumber) {
         // Remove any leading zeros from the phone number
         String trimmedNumber = phoneNumber.replaceFirst("^0+", "");
@@ -47,7 +49,6 @@ public class Register_Activity extends AppCompatActivity {
         // Add the country code "+84" to the trimmed number
         return "+84" + trimmedNumber;
     }
-
     private boolean validateEmail(String email){
         if(email.isEmpty()){
             textEmail.setError("Email is required");
@@ -60,7 +61,6 @@ public class Register_Activity extends AppCompatActivity {
             return true;
         }
     }
-
     private boolean validateUsername(String username){
         if(username.isEmpty()){
             textUserName.setError("Password is required0");
@@ -70,7 +70,6 @@ public class Register_Activity extends AppCompatActivity {
             return true;
         }
     }
-
     private boolean validatePhone(String phone){
         if(phone.isEmpty()){
             textPhoneNumner.setError("Phone is required0");
@@ -92,11 +91,29 @@ public class Register_Activity extends AppCompatActivity {
             return true;
         }
     }
+    private void initToolBar() {
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.ToolBarSignInActivity);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Sign up");
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        initToolBar();
+
         textFullName = findViewById(R.id.textFullName);
         textUserName = findViewById(R.id.textUserName);
         textEmail = findViewById(R.id.textEmail);

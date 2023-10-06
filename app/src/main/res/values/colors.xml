@@ -13,7 +13,7 @@
 
     <!--colors for modern ui-->
     <color name="whiteTextColor">#fff</color>
-    <color name="primaryTextColor">#FF018786</color>
+    <color name="primaryTextColor">#235a8f</color>
     <color name="loginBkColor">#f0f0f0</color>
 
     <!--color for card-->
@@ -90,12 +90,13 @@
     <color name="Background_Chat_Color">#FFD154</color>
 
     <!--Appbar -->
-    <color name="Text_Appbar_Color">#FFFFFF</color>
+    <color name="Text_Appbar_Color">#000000</color>
 
     <!--Sort Home page -->
     <color name="Text_Selected_Color">#FFFFFF</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 
 
 

@@ -1,12 +1,14 @@
 package com.example.demofacebook.Login;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.inputmethod.InputMethodManager;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,16 +26,28 @@ import retrofit2.Response;
 public class OtpConfirmActivity extends AppCompatActivity {
     CustomerAccount customer;
     String pinValue;
-
+    String idOtp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_otp_confirm);
         customer = (CustomerAccount) getIntent().getExtras().get("customer");
-        String idOtp = (String) getIntent().getExtras().get("idOtp");
+        idOtp = (String) getIntent().getExtras().get("idOtp");
         String phoneValue = (String) getIntent().getExtras().get("phoneNumberFormatted");
+        TextView phoneSignIn = findViewById(R.id.phoneSignIn);
+        String result = phoneValue.replaceAll("\\d(?=\\d{4})", "*");
+        phoneSignIn.setText(result);
         getOptConfirm(idOtp, phoneValue);
+
+
+//        Button btn_resendCode = findViewById(R.id.btn_resendCode);
+//        btn_resendCode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                sendRequestToServer(phoneValue);
+//            }
+//        });
     }
 
     private void getOptConfirm(String id, String phone) {
@@ -63,7 +77,6 @@ public class OtpConfirmActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void checkOtp(String pinValue, String id, String phone) {
@@ -82,6 +95,28 @@ public class OtpConfirmActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Connection Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sendRequestToServer(String phone) {
+        OptSms phoneNumber = new OptSms(phone);
+        Call<OptSms> call = ApiService.apiServiceGuesst.getOtp(phoneNumber);
+        call.enqueue(new Callback<OptSms>() {
+            @Override
+            public void onResponse(Call<OptSms> call, Response<OptSms> response) {
+                if (response.isSuccessful()) {
+                    OptSms responseValue = response.body();
+                    idOtp = responseValue.getOtpId();
+                    Toast.makeText(getApplicationContext(), "Send SMS Success", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Send SMS Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OptSms> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Connection Fail", Toast.LENGTH_SHORT).show();
             }
         });
@@ -106,7 +141,6 @@ public class OtpConfirmActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Create Account UnSuccess", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Create Account UnSuccess Duplicated", Toast.LENGTH_SHORT).show();
                 }
             }
 
