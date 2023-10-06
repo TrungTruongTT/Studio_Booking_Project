@@ -50,11 +50,11 @@ private final IClickItemSortListener iClickItemSortListener;
         });
 
         if(row_index == position){
-            holder.linearLayout.setBackgroundResource(R.drawable.item_color_appbar);
-            holder.txtSortBy.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.linearLayout.setBackgroundResource(R.color.sortItemSelected);
+            holder.txtSortBy.setTextColor(Color.parseColor("#ffffff"));
 
         }else {
-            holder.linearLayout.setBackgroundResource(R.color.cardView);
+            holder.linearLayout.setBackgroundResource(R.color.sortItem);
             holder.txtSortBy.setTextColor(Color.parseColor("#000000"));
         }
 

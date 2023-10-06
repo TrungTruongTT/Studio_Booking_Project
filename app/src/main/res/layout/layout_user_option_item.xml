@@ -16,20 +16,23 @@
 
         <TextView
             android:id="@+id/IconUserOption"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
             app:drawableStartCompat="@drawable/baseline_settings_24" />
 
         <TextView
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:id="@+id/OptionName"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:layout_weight="1"
             android:text="Get inspired"
-            android:textSize="18sp" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:maxLines="1"

@@ -115,6 +115,11 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="formSearchForm">
+        <item name="android:background">@drawable/item_search_data_form</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 
     <style name="buttonGoogleLogin">
         <item name="android:background">@drawable/item_color_google_login</item>
@@ -134,12 +139,21 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="textBlackHeader">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="textGraySub">
+        <item name="android:textColor">@color/GrayText</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 
     <style name="AppTheme.NoActionbar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
 
 </resources>

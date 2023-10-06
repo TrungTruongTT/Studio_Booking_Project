@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +19,6 @@ import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
-import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,7 +61,7 @@ public class ScheduledFragment extends Fragment {
         recyclerViewOrder = view.findViewById(R.id.OrderScheduleRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewOrder.setLayoutManager(linearLayoutManager);
-        orderAdapter = new OrderAdapter(value, new IClickItemOrderListener() {
+        orderAdapter = new OrderAdapter(value, getContext(), new IClickItemOrderListener() {
             @Override
             public void onClickItemOrder(OrderInformation orderInformation) {
                 Intent it = new Intent(getContext(), OrderDetailActivity.class);
@@ -79,17 +77,6 @@ public class ScheduledFragment extends Fragment {
         recyclerViewOrder.setAdapter(orderAdapter);
     }
 
-//    private List<Order> getOrderData() {
-//        List<Order> myList = new ArrayList<>();
-//        String str = "2015-03-31";
-//        Date dateChange = Date.valueOf(str);
-//        myList.add(new Order(1, "Studio 1", dateChange, "PENDING", 100000, 4, "", "Service 1", detailList));
-//        myList.add(new Order(2, "Studio 2", dateChange, "PENDING", 100000, 4, "", "Service 1", detailList));
-//        myList.add(new Order(3, "Studio 3", dateChange, "PENDING", 100000, 4, "", "Service 1", detailList));
-//        myList.add(new Order(4, "Studio 4", dateChange, "PENDING", 100000, 4, "", "Service 1", detailList));
-//        myList.add(new Order(5, "Studio 5", dateChange, "PENDING", 100000, 4, "", "Service 1", detailList));
-//        return myList;
-//    }
 
     @Nullable
     @Override

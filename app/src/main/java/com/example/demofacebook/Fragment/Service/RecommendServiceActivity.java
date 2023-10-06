@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,8 +50,8 @@ public class RecommendServiceActivity extends AppCompatActivity {
                     List<Service> responseValue  = response.body();
                     recommendService = responseValue;
                     recyclerViewService = findViewById(R.id.ListRecommendServiceRecyclerView);
-                    LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-                    recyclerViewService.setLayoutManager(linearLayoutManager2);
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
+                    recyclerViewService.setLayoutManager(gridLayoutManager);
                     serviceAdapter = new ServiceAdapter(recommendService, new IClickItemServiceListener() {
                         @Override
                         public void onClickItemService(Service service) {

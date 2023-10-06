@@ -2,19 +2,17 @@ package com.example.demofacebook.Fragment.MainPageFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +25,7 @@ import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.MyInterface.IClickItemSortListener;
 import com.example.demofacebook.R;
-import com.squareup.picasso.Picasso;
+import com.example.demofacebook.Search.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,26 +51,25 @@ public class HomeFragment extends Fragment {
         //Sort list home page
         sortItemData(view);
         serviceItemData(view);
+        LinearLayout btn_SearchHomeFragment = view.findViewById(R.id.btn_SearchHomeFragment);
+        btn_SearchHomeFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
     private void serviceItemData(@NonNull View view) {
         recyclerViewService = view.findViewById(R.id.RecyclerViewService);
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerViewService.setLayoutManager(linearLayoutManager2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(view.getContext(), 2);
+        recyclerViewService.setLayoutManager(gridLayoutManager);
         //hàm set đổ API lên RCVIEW
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerViewService.addItemDecoration(itemDecoration);
+//        DividerItemDecoration itemDecoration = new DividerItemDecoration(view.getContext(), DividerItemDecoration.VERTICAL);
+//        recyclerViewService.addItemDecoration(itemDecoration);
         callApiGetServicePack(); // gọi API List Services
-        //mServiceList = getServiceData();
-        serviceAdapter = new ServiceAdapter(mServiceList, new IClickItemServiceListener() {
-            @Override
-            public void onClickItemService(Service service) {
-                goDetailService(service);
-
-            }
-        });
-        recyclerViewService.setAdapter(serviceAdapter);
     }
 
     private void sortItemData(@NonNull View view) {
@@ -110,7 +107,6 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onClickItemService(Service service) {
                             goDetailService(service);
-
                         }
                     });
                     recyclerViewService.setAdapter(serviceAdapter);

@@ -93,7 +93,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
 
         holder.serviceName.setText(service.getServiceName());
         holder.ratingService.setText("⭐: " + service.getServiceRating());
-        holder.views.setText("View: " + service.getView());
+//        holder.views.setText("View: " + service.getView());
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
         holder.servicePrice.setText( numberFormat.format(service.getPriceService()) + " VND");
@@ -191,7 +191,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
         ImageView imageService;
         TextView serviceName;
         TextView ratingService;
-        TextView views;
+//        TextView views;
         TextView servicePrice;
 
         public MyArrayAdapterHolder(@NonNull View itemView) {
@@ -199,7 +199,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyArrayA
             imageService = itemView.findViewById(R.id.ServiceImage);
             serviceName = itemView.findViewById(R.id.NameService);
             ratingService = itemView.findViewById(R.id.ServiceRating);
-            views = itemView.findViewById(R.id.ServiceView);
+//            views = itemView.findViewById(R.id.ServiceView);
             servicePrice = itemView.findViewById(R.id.ServicePrice);
         }
     }

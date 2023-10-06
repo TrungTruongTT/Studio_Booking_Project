@@ -15,5 +15,8 @@
     <dimen name="headerAppLogo_layout_width">99dp</dimen>
     <dimen name="headerAppLogo_layout_height">106dp</dimen>
     <dimen name="headerAppLogo_layout_marginTop">40dp</dimen>
+    <dimen name="appbar_padding">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 
 </resources>

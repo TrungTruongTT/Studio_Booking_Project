@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Studio Booking Service</string>
+    <string name="app_name">Framemates</string>
 
     <string name="action_home">Home</string>
     <string name="action_chat">Chat</string>
@@ -83,4 +83,7 @@
     <string name="feedback_form_text">Feedback Form</string>
     <string name="slogan_Framemates">Get started with Framemates.</string>
     <item name="pinView" type="id" />
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

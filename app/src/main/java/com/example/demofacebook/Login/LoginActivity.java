@@ -76,13 +76,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void isValidCredentials(String credential, String password) {
         Login_Request loginAccount = new Login_Request(credential,password);
-        ApiService.apiServiceGuesst.login(loginAccount).enqueue(new Callback<TokenResponse>() {
+        ApiService.apiServiceGuest.login(loginAccount).enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                 if (response.isSuccessful()) {
                     TokenResponse tokenResponse = response.body();
                     if (tokenResponse != null) {
-                        getCustomerByEmailorPhone(credential);
+                        getCustomerByEmailOrPhone(credential);
                         DataLocalManager.setTokenResponse(tokenResponse);
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
@@ -103,8 +103,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void getCustomerByEmailorPhone(String credential){
-        ApiService.apiServiceGuesst.getCustomerByEmailorPhone(credential).enqueue(new Callback<List<CustomerAccount>>() {
+    private void getCustomerByEmailOrPhone(String credential){
+        ApiService.apiServiceGuest.getCustomerByEmailorPhone(credential).enqueue(new Callback<List<CustomerAccount>>() {
             @Override
             public void onResponse(Call<List<CustomerAccount>> call, Response<List<CustomerAccount>> response) {
                 if(response.isSuccessful()){
@@ -116,12 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("CustomerAccount", "User ID: " + account.getUser().getUserId());
                         Log.d("CustomerAccount", "Full Name: " + account.getUser().getFullName());
                         Log.d("CustomerAccount", "Email: " + account.getUser().getEmail());
-                        //  account.getUser().setImage("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");
                         Log.d("CustomerAccount", "Image URL: " + account.getUser().getImage());
-                        /*if(account.getUser().getImage() == null || account.getUser().getImage().isEmpty()|| account.getUser().getImage().length() == 0){
-                            account.getUser().setImage("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");
-                            Log.d("CustomerAccountAFTER_SET", "Image URL: " + account.getUser().getImage());
-                        }*/
                         DataLocalManager.setCustomerAccount(account);
                     } else {
                         Toast.makeText(LoginActivity.this, "Invalid Load Token Fail", Toast.LENGTH_SHORT).show();

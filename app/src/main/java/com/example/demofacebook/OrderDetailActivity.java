@@ -294,25 +294,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    private void updateDeposited(){
-//        ApiService.apiService.updateCancelStatus(orderId, "deposited").enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                if (response.isSuccessful()) {
-//                    Toast.makeText(getApplicationContext(), "Deposit Successful", Toast.LENGTH_SHORT).show();
-//                    finish();
-//                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-//                    startActivity(intent);
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Lost Connection", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 
     private void cancelOrderAction() {
         ApiService.apiService.updateCancelStatus(orderId, "cancel").enqueue(new Callback<Void>() {

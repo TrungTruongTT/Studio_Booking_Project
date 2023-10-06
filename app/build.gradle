@@ -26,6 +26,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
     configurations.maybeCreate("default")
     artifacts.add("default", file('zpdk-release.aar'))
@@ -36,6 +39,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-storage:20.1.0'
     implementation fileTree(dir: 'E:\\AndroidProject_8\\Project\\Studio_Booking_Project\\app\\libs', include: ['*.aar', '*.jar'], exclude: [])
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
 
 
     //thư mục libs zalo zpdk (add bằng file-project structure - dependencies + chọn đường dẫn thư mục libs)

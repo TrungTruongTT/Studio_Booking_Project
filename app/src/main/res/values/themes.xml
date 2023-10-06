@@ -9,4 +9,10 @@
     <style name="Base.Theme.Layout_Login" parent="Theme.AppCompat.Light.NoActionBar" />
 
     <style name="Theme.Layout_Login" parent="Base.Theme.Layout_Login" />
+    <style name="Theme.DemoFaceBook.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.DemoFaceBook.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.DemoFaceBook.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

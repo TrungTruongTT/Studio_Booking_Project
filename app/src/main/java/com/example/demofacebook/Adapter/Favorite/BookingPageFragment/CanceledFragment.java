@@ -2,11 +2,9 @@ package com.example.demofacebook.Adapter.Favorite.BookingPageFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +16,9 @@ import com.example.demofacebook.Adapter.Chat.Booking.OrderAdapter;
 import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
 import com.example.demofacebook.Api.ApiService;
-import com.example.demofacebook.Model.Order;
-import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
-import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,7 +65,7 @@ public class CanceledFragment extends Fragment {
         recyclerViewOrder = view.findViewById(R.id.orderCanceledRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewOrder.setLayoutManager(linearLayoutManager);
-        orderAdapter = new OrderAdapter(value, new IClickItemOrderListener() {
+        orderAdapter = new OrderAdapter(value, getContext(), new IClickItemOrderListener() {
             @Override
             public void onClickItemOrder(OrderInformation orderInformation) {
                 Intent it = new Intent(getContext(), OrderDetailActivity.class);

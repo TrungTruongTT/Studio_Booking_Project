@@ -22,12 +22,14 @@
     <!--colors for Home-->
     <!--    <color name="cardView">#2C4F2D</color>-->
     <color name="cardView">#FFFFFF</color>
-    <color name="backgroundColor">#e8e8e8</color>
+    <color name="sortItem">#f5f6fa</color>
+    <color name="sortItemSelected">#235a8f</color>
+    <color name="backgroundColor">#FFFFFF</color>
     <!--    <color name="backgroundColor">#FF0000</color>-->
 
 
     <!--ToolBar for App-->
-    <color name="ToolBar">#021B79</color>
+    <color name="ToolBar">#ffffff</color>
 
 
     <!--Selected Item for App-->
@@ -67,7 +69,7 @@
 
     <!--Text Page -->
     <color name="BlackText">#000000</color>
-    <color name="GrayText">#AEAFB1</color>
+    <color name="GrayText">#8f959e</color>
     <color name="GrayText2">#6D6D6D</color>
     <color name="RedText">#FF4141</color>
 

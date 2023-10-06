@@ -4,18 +4,17 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,12 +43,10 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        //ToolBar
         toolbar = findViewById(R.id.myToolBarSearch);
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Search View");
+        getSupportActionBar().setTitle("Search Studio");
         getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
 
         //studioList
@@ -65,8 +62,8 @@ public class SearchActivity extends AppCompatActivity {
                             onClickItemGoDetail(Service);
                         }
                     });
-                    LinearLayoutManager linearLayoutManagerStudio = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
-                    recyclerViewStudio.setLayoutManager(linearLayoutManagerStudio);
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
+                    recyclerViewStudio.setLayoutManager(gridLayoutManager);
                     recyclerViewStudio.setAdapter(serviceAdapter);
                     recyclerViewStudio.setVisibility(View.GONE);
 
@@ -102,15 +99,13 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
         EditText txtSearch  = (EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        txtSearch.setTextColor(Color.WHITE);
-
+        txtSearch.setTextColor(Color.BLACK);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 serviceAdapter.getFilter().filter(query);
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 recyclerViewStudio.setVisibility(View.VISIBLE);
@@ -122,12 +117,11 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-
     private void onClickItemGoDetail(Service service) {
         Intent intent = new Intent(this, ServicePage.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
+        Studio studio = service.getStudio();
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);

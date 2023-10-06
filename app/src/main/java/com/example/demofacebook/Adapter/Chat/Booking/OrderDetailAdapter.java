@@ -100,9 +100,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
 
     public class OrderViewHolder extends RecyclerView.ViewHolder {
-        public TextView orderDetailId;
         public ImageView urlImageService;
-
         public TextView serviceName;
         public TextView servicePrice;
         public Button feedbackButton;
@@ -110,12 +108,10 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
-            orderDetailId = itemView.findViewById(R.id.orderTotalOrderDetail);
             urlImageService = itemView.findViewById(R.id.urlImageOrderDetailService);
             serviceName = itemView.findViewById(R.id.orderDetailServiceName);
             servicePrice = itemView.findViewById(R.id.orderDetailServicePrice);
             feedbackButton = itemView.findViewById(R.id.feedbackBtn);
-
         }
     }
 }

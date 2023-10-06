@@ -7,12 +7,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.CanceledFragment;
 import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.CompletedFragment;
-import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.DepositedFragment;
-import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.FinishedFragment;
 import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.ScheduledFragment;
 
 public class BookingViewPagerAdapter extends FragmentStateAdapter {
-    private static final int NUM_TABS = 5;
+    private static final int NUM_TABS = 3;
 
     public BookingViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -25,12 +23,8 @@ public class BookingViewPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new ScheduledFragment();
             case 1:
-                return new DepositedFragment();
-            case 2:
-                return new FinishedFragment();
-            case 3:
                 return new CompletedFragment();
-            case 4:
+            case 2:
                 return new CanceledFragment();
             default:
                 return new ScheduledFragment();

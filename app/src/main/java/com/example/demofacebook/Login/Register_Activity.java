@@ -161,7 +161,7 @@ public class Register_Activity extends AppCompatActivity {
         OptSms phoneOpt = new OptSms(phone);
         Log.w("opt", phoneOpt.getPhoneNumber());
 
-        Call<OptSms> call = ApiService.apiServiceGuesst.getOtp(phoneOpt);
+        Call<OptSms> call = ApiService.apiServiceGuest.getOtp(phoneOpt);
         call.enqueue(new Callback<OptSms>() {
             @Override
             public void onResponse(Call<OptSms> call, Response<OptSms> response) {

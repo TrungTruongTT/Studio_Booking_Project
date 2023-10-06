@@ -82,7 +82,7 @@ public class OtpConfirmActivity extends AppCompatActivity {
     private void checkOtp(String pinValue, String id, String phone) {
         OptSms getOptSms = new OptSms(id, phone, pinValue);
 
-        Call<String> call = ApiService.apiServiceGuesst.sendOtp(getOptSms);
+        Call<String> call = ApiService.apiServiceGuest.sendOtp(getOptSms);
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -102,7 +102,7 @@ public class OtpConfirmActivity extends AppCompatActivity {
 
     private void sendRequestToServer(String phone) {
         OptSms phoneNumber = new OptSms(phone);
-        Call<OptSms> call = ApiService.apiServiceGuesst.getOtp(phoneNumber);
+        Call<OptSms> call = ApiService.apiServiceGuest.getOtp(phoneNumber);
         call.enqueue(new Callback<OptSms>() {
             @Override
             public void onResponse(Call<OptSms> call, Response<OptSms> response) {
@@ -127,7 +127,7 @@ public class OtpConfirmActivity extends AppCompatActivity {
 
         CustomerAccount customer = (CustomerAccount) getIntent().getExtras().get("customer");
 
-        ApiService.apiServiceGuesst.createCustomer(customer).enqueue(new Callback<CustomerAccount>() {
+        ApiService.apiServiceGuest.createCustomer(customer).enqueue(new Callback<CustomerAccount>() {
             @Override
             public void onResponse(Call<CustomerAccount> call, Response<CustomerAccount> response) {
                 if (response.isSuccessful()) {

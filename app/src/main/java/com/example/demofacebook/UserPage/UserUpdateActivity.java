@@ -102,7 +102,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                 String phone = user.getPhone();
                 if (password != null) {
                     Login_Request loginAccount = new Login_Request(phone, password);
-                    ApiService.apiServiceGuesst.login(loginAccount).enqueue(new Callback<TokenResponse>() {
+                    ApiService.apiServiceGuest.login(loginAccount).enqueue(new Callback<TokenResponse>() {
                         @Override
                         public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                             if (response.isSuccessful()) {
@@ -138,8 +138,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-
-
     private void openUpdateUserDialog(int gravity, User user) {
         if (user == null) {
             return;
@@ -226,7 +224,6 @@ public class UserUpdateActivity extends AppCompatActivity {
 
         dialog.show();
     }
-
     private void updateUser(CustomerAccount customerAccount) {
         CustomerAccount T =  DataLocalManager.getCustomerAccount();
         User T2 = DataLocalManager.getCustomerAccount().getUser();
@@ -269,7 +266,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         });
 
     }
-
     private Boolean invalidateMenuInput(String name, String password1, String password2) {
         if (name.isEmpty()
                 || password1.isEmpty()
@@ -281,7 +277,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         }
         return true;
     }
-
     private void uploadUserAvatarImage() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -355,19 +350,6 @@ public class UserUpdateActivity extends AppCompatActivity {
 
     private void configEditText(EditText editText) {
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        //editText.requestFocus();
-        InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
-    }
-
-    private void configEditPhoneText(EditText editText) {
-        editText.setInputType(InputType.TYPE_CLASS_PHONE);
-        //editText.requestFocus();
-        InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
-    }
-    private void configEditPasswordText(EditText editText) {
-        editText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         //editText.requestFocus();
         InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);

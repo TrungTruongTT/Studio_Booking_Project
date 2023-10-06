@@ -9,8 +9,6 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +22,7 @@ import com.example.demofacebook.Adapter.StudioDetail.FeedbackAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Adapter.StudioDetail.PhotoAdapter;
+import com.example.demofacebook.Adapter.StudioDetail.RecommendStudioAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
@@ -32,7 +31,6 @@ import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
-import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -60,11 +58,10 @@ public class ServicePage extends AppCompatActivity {
     private List<Feedback> mFeedbackList;
     //service
     private RecyclerView recyclerViewService;
-    private ServiceAdapter serviceAdapter;
+    private RecommendStudioAdapter recommendStudioAdapter;
     private List<Service> mServiceList;
-    private Context context;
-
     //chatBy Button
+    private Context context;
     private Button addToCardbtn;
     private Button buttonFeedback;
     private Button buttonService;
@@ -114,13 +111,13 @@ public class ServicePage extends AppCompatActivity {
         });*/
 
         //Click on studio
-        LinearLayout linearLayout = findViewById(R.id.userLayout);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickItemGoStudioDetail(studio);
-            }
-        });
+//        LinearLayout linearLayout = findViewById(R.id.userLayout);
+//        linearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onClickItemGoStudioDetail(studio);
+//            }
+//        });
         buttonFeedback = findViewById(R.id.ViewMoreFeedbackBtn);
         buttonFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +157,7 @@ public class ServicePage extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
     private void onClickItemGoStudioDetail(Studio studio) {
         Intent intent = new Intent(this, StudioPageActivity.class);
         Bundle bundle = new Bundle();
@@ -194,17 +192,15 @@ public class ServicePage extends AppCompatActivity {
                     } else {
                         List<Service> sort = mServiceList.stream().skip(0).limit(5).collect(Collectors.toList());
                         recyclerViewService = findViewById(R.id.RecommendServiceRecyclerView);
-                        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getApplicationContext(),
-                                LinearLayoutManager.HORIZONTAL, false);
+                        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
                         recyclerViewService.setLayoutManager(linearLayoutManager2);
-                        serviceAdapter = new ServiceAdapter(sort, new IClickItemServiceListener() {
+                        recommendStudioAdapter = new RecommendStudioAdapter(sort, new IClickItemServiceListener() {
                             @Override
                             public void onClickItemService(Service service) {
                                 goDetailService(service);
-
                             }
                         });
-                        recyclerViewService.setAdapter(serviceAdapter);
+                        recyclerViewService.setAdapter(recommendStudioAdapter);
                     }
                 } else {
 
@@ -275,22 +271,22 @@ public class ServicePage extends AppCompatActivity {
             if (studio == null) {
                 return;
             } else {
-                ImageView studioImage = findViewById(R.id.StudioAvatarImageService);
-                if(studio.getImage() != null){
-                    Picasso.get().load(studio.getImage())
-                            .error(R.drawable.placeholder_image)
-                            .into(studioImage);
-                }else {
-                    Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                            .error(R.drawable.placeholder_image)
-                            .into(studioImage);
-                }
-
-                TextView studioName = findViewById(R.id.StudioName);
-                studioName.setText(studio.getTitle());
-                TextView studioRating = findViewById(R.id.StudioRating);
-                String rating = "⭐: " + String.valueOf(studio.getRating());
-                studioRating.setText(rating);
+//                ImageView studioImage = findViewById(R.id.StudioAvatarImageService);
+//                if(studio.getImage() != null){
+//                    Picasso.get().load(studio.getImage())
+//                            .error(R.drawable.placeholder_image)
+//                            .into(studioImage);
+//                }else {
+//                    Picasso.get().load("https://i.imgur.com/DvpvklR.png")
+//                            .error(R.drawable.placeholder_image)
+//                            .into(studioImage);
+//                }
+//
+//                TextView studioName = findViewById(R.id.StudioName);
+//                studioName.setText(studio.getTitle());
+//                TextView studioRating = findViewById(R.id.StudioRating);
+//                String rating = "⭐: " + String.valueOf(studio.getRating());
+//                studioRating.setText(rating);
             }
             service = (Service) getIntent().getExtras().get("service");
             if (service == null) {
@@ -304,8 +300,8 @@ public class ServicePage extends AppCompatActivity {
                 String formattedMoney = numberFormat.format(service.getPriceService());
 
                 servicePrice.setText("Price: " + formatMoney(service.getPriceService()) + " VND");
-                TextView serviceDiscount = findViewById(R.id.ServicePriceDiscountDetail);
-                serviceDiscount.setText("Discount: " + formatMoney(service.getDiscount()) + " VND");
+//                TextView serviceDiscount = findViewById(R.id.ServicePriceDiscountDetail);
+//                serviceDiscount.setText("Discount: " + formatMoney(service.getDiscount()) + " VND");
                 TextView serviceDescription = findViewById(R.id.ServiceDescription);
                 serviceDescription.setText(Html.fromHtml(service.getServiceDescription()));
             }

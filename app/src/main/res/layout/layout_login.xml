@@ -6,17 +6,17 @@
     android:background="#FFFFFF">
 
     <LinearLayout
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
         android:padding="10dp">
 
         <TextView
+            style="@style/headerTextPrimary"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
-            style="@style/headerTextPrimary"
             android:text="Welcome back"
             android:textAlignment="center"
             android:textSize="40sp" />
@@ -55,10 +55,10 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:textStyle="normal"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textStyle="normal" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,14 +131,14 @@
 
 
         <Button
-            android:textAllCaps="false"
+            android:id="@+id/btnLogin"
             style="@style/buttonSignUp"
             android:layout_width="match_parent"
-            android:id="@+id/btnLogin"
             android:layout_height="45dp"
             android:layout_marginTop="@dimen/loginViewsMargin"
-            android:textSize="16sp"
-            android:text="Log in" />
+            android:text="Log in"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
 
 
         <LinearLayout
