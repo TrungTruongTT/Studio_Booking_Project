@@ -21,6 +21,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".PaymentUnsuccessful"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentSuccessful"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookingStudioActivity"
+            android:exported="false" />
+        <activity
             android:name=".PickTimeActivity"
             android:exported="false" />
         <activity

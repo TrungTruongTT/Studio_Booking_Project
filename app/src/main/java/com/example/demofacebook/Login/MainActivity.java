@@ -7,7 +7,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.demofacebook.BookingStudioActivity;
 import com.example.demofacebook.HomePage.ActivitySplashScreen;
+import com.example.demofacebook.PickTimeActivity;
 import com.example.demofacebook.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         loginButtonLobby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, BookingStudioActivity.class);
                 startActivity(intent);
             }
         });

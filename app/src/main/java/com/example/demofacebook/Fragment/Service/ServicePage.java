@@ -30,6 +30,7 @@ import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
+import com.example.demofacebook.PickTimeActivity;
 import com.example.demofacebook.R;
 
 import java.text.NumberFormat;
@@ -65,6 +66,7 @@ public class ServicePage extends AppCompatActivity {
     private Button addToCardbtn;
     private Button buttonFeedback;
     private Button buttonService;
+    private Button buttonBooking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,6 @@ public class ServicePage extends AppCompatActivity {
         slideImage();
         //Auto SlideImages
         autoSlideImages();
-
         //onClickAddToChat
         addToCardbtn = findViewById(R.id.AddToCartBtn2);
         addToCardbtn.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +139,15 @@ public class ServicePage extends AppCompatActivity {
         //load recommend service list
         callApiGetRecommendServicePack();
         //View more feedback btn
+
+        buttonBooking = findViewById(R.id.btn_Booking);
+        buttonBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PickTimeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void slideImage() {
