@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Fragment.Service.PaymentActivity;
 import com.example.demofacebook.Model.CustomerAccount;
-import com.example.demofacebook.Model.Message;
+
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.TalkjsModel;

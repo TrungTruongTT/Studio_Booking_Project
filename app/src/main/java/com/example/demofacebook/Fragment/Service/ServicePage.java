@@ -23,10 +23,8 @@ import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbac
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Adapter.StudioDetail.PhotoAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.RecommendStudioAdapter;
-import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
-import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
@@ -168,13 +166,6 @@ public class ServicePage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void onClickItemGoStudioDetail(Studio studio) {
-        Intent intent = new Intent(this, StudioPageActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("studio", studio);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
     private void onClickViewMoreService() {
         Intent intent = new Intent(this, RecommendServiceActivity.class);
         Bundle bundle = new Bundle();

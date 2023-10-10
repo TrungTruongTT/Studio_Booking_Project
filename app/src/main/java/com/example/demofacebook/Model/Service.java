@@ -7,62 +7,6 @@ import java.util.List;
 
 public class Service implements Serializable {
 
-
-/*
-    @SerializedName("serviceId")
-    private int serviceId;
-
-    @SerializedName("name")
-    private String name;
-
-    @SerializedName("createDate")
-    private Timestamp createDate;
-
-    @SerializedName("price")
-    private int price;
-
-    @SerializedName("description")
-    private String description;
-
-    @SerializedName("soldCount")
-    private int soldCount;
-
-    @SerializedName("status")
-    private String status;
-
-    @SerializedName("updateDate")
-    private Timestamp updateDate;
-
-    @SerializedName("view")
-    private Integer view;
-
-    @SerializedName("discount")
-    private Integer discount;
-
-    @SerializedName("rating")
-    private double rating;
-
-    @SerializedName("updateBy")
-    private String updateBy;
-
-    @SerializedName("createBy")
-    private String createBy;
-
-    @SerializedName("studio")
-    private String studio;
-
-    @SerializedName("servicePack_mediaService")
-    private List<ServicePackMediaService> servicePackMediaService;
-
-    @SerializedName("servicePack_orderDetail")
-    private List<ServicePackOrderDetail> servicePackOrderDetail;
-
-    @SerializedName("servicePack_favorite")
-    private List<ServicePackFavorite> servicePackFavorite;
-*/
-
-
-
     @SerializedName("serviceId")
     private int serviceId;
     @SerializedName("name")

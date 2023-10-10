@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,15 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
 import com.example.demofacebook.Api.ApiService;
-import com.example.demofacebook.Fragment.Service.FeedbackActivity;
 import com.example.demofacebook.Fragment.Service.RecommendServiceActivity;
 import com.example.demofacebook.Fragment.Service.ServicePage;
-import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

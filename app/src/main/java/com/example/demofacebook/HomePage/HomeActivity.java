@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -17,7 +15,6 @@ import com.example.demofacebook.FavoriteActivity;
 import com.example.demofacebook.Fragment.MainPageFragment.BookingFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.ChatFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.HomeFragment;
-import com.example.demofacebook.Fragment.MainPageFragment.NewFeedFragment;
 import com.example.demofacebook.Fragment.MainPageFragment.NotificationActivity;
 import com.example.demofacebook.Fragment.MainPageFragment.UserFragment;
 import com.example.demofacebook.Model.Service;
@@ -28,7 +25,6 @@ import com.example.demofacebook.Search.SearchActivity;
 public class HomeActivity extends AppCompatActivity {
     private Fragment selectedFragment = null;
     private Toolbar toolbar;
-
     private Studio studio;
     private Service service;
     @Override

@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Fragment.Service.ServicePage;
-import com.example.demofacebook.HomePage.StudioPageActivity;
 import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
@@ -89,11 +88,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Studio
         holder.studioBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, StudioPageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("studio", studio);
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
+//                Intent intent = new Intent(mContext, StudioPageActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("studio", studio);
+//                intent.putExtras(bundle);
+//                mContext.startActivity(intent);
             }
         });
 

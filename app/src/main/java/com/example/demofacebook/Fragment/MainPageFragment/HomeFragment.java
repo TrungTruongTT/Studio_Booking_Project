@@ -40,7 +40,6 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewService;
     private ServiceAdapter serviceAdapter;
     private List<Service> mServiceList;
-    //sort
     private RecyclerView recyclerViewSort;
     private SortHomeAdapter sortHomeAdapter;
 

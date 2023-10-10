@@ -79,7 +79,7 @@
                     android:id="@+id/BookingServiceBtn"
                     android:layout_width="140dp"
                     android:layout_height="50dp"
-                    style="@style/sampleButtonRadius_Yes"
+                    style="@style/buttonSignUp"
                     android:gravity="center"
                     android:text="Chat"
                     android:textSize="15sp" />
