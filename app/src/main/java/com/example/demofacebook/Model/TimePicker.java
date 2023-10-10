@@ -1,4 +1,4 @@
-package com.example.demofacebook;
+package com.example.demofacebook.Model;
 
 public class TimePicker {
     private int id;

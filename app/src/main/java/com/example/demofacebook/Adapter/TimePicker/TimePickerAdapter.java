@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.R;
-import com.example.demofacebook.TimePicker;
+import com.example.demofacebook.Model.TimePicker;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;

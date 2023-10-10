@@ -5,12 +5,19 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.demofacebook.Fragment.MainPageFragment.BookingFragment;
 import com.example.demofacebook.HomePage.HomeActivity;
+import com.example.demofacebook.Model.Service;
+import com.example.demofacebook.Model.Studio;
 
 public class PaymentSuccessful extends AppCompatActivity {
     Button btn_ViewOrderList;
@@ -25,8 +32,13 @@ public class PaymentSuccessful extends AppCompatActivity {
         btn_ViewOrderList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplication(), PaymentBookingActivity.class);
-                startActivity(intent);
+                onClickGotoHome();
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//                Fragment bookingFragment = new BookingFragment();
+//                fragmentTransaction.replace(R.id.frame_container,bookingFragment).commit();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, bookingFragment).commit();
             }
         });
         btn_DiscoverMoreStudio = findViewById(R.id.btn_DiscoverMoreStudio);
@@ -37,6 +49,10 @@ public class PaymentSuccessful extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void onClickGotoHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 
     private void initToolBar() {

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/MainListView"
     android:layout_width="match_parent"
-    android:layout_height="280dp"
+    android:layout_height="250dp"
     android:layout_marginBottom="10dp"
     android:paddingStart="15dp"
     android:paddingEnd="15dp"
@@ -11,17 +11,17 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="170dp"
         app:cardCornerRadius="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="170dp">
 
             <ImageView
                 android:id="@+id/ServiceImage"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="170dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder_image" />
         </LinearLayout>
