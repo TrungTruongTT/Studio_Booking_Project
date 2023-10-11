@@ -1,91 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/MainListView"
     android:layout_width="match_parent"
-    android:layout_marginBottom="40dp"
-    android:layout_height="wrap_content">
+    android:layout_height="250dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp">
 
-    <LinearLayout
-        android:background="@color/cardView"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="170dp"
+        app:cardCornerRadius="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="170dp">
 
-            <LinearLayout
-                android:id="@+id/StudioBanner"
-                android:layout_gravity="center"
+            <ImageView
+                android:id="@+id/ServiceImage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/StudioAvatarOrderImage"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/placeholder_image" />
-
-                <TextView
-                    android:id="@+id/txtNameOrderStudio"
-                    android:paddingStart="15dp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="start|top"
-                    android:text="Name Studio 1"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/txtOrderStudioRating"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    android:paddingEnd="15dp"
-                    android:gravity="end|top"
-                    android:text="⭐ 5.0"
-                    android:textColor="#EFA632"
-                    android:textSize="18sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/serviceFavoriteRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="vertical"
-                android:paddingBottom="10dp">
-
-                <Button
-                    android:id="@+id/BookingServiceBtn"
-                    android:layout_width="140dp"
-                    android:layout_height="50dp"
-                    style="@style/buttonSignUp"
-                    android:gravity="center"
-                    android:text="Chat"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-
+                android:layout_height="170dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_image" />
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/NameService"
+                style="@style/textBlackHeader"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Explored"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/ServiceRating"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="⭐: 5.0"
+                android:textColor="#EFA632"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ServicePrice"
+            style="@style/textBlackHeader"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="start|center"
+            android:lines="1"
+            android:text="$500"
+            android:textSize="15sp" />
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

@@ -22,20 +22,20 @@ public class OrderDetail implements Serializable {
     private Date postDate;
 
 
-    @SerializedName("servicePack")
-    private Service servicePack;
+//    @SerializedName("servicePack")
+//    private Service servicePack;
 
 
-    public OrderDetail(Order order, int orderDetailId, int price, int discount, int rating, String content, Date postDate, Service servicePack) {
-        this.order = order;
-        OrderDetailId = orderDetailId;
-        this.price = price;
-        this.discount = discount;
-        this.rating = rating;
-        this.content = content;
-        this.postDate = postDate;
-        this.servicePack = servicePack;
-    }
+//    public OrderDetail(Order order, int orderDetailId, int price, int discount, int rating, String content, Date postDate, Service servicePack) {
+//        this.order = order;
+//        OrderDetailId = orderDetailId;
+//        this.price = price;
+//        this.discount = discount;
+//        this.rating = rating;
+//        this.content = content;
+//        this.postDate = postDate;
+//        this.servicePack = servicePack;
+//    }
 
     public OrderDetail(int rating, String content) {
         this.rating = rating;
@@ -98,12 +98,12 @@ public class OrderDetail implements Serializable {
         this.discount = discount;
     }
 
-    public Service getServicePack() {
-        return servicePack;
-    }
-
-    public void setServicePack(Service servicePack) {
-        this.servicePack = servicePack;
-    }
+//    public Service getServicePack() {
+//        return servicePack;
+//    }
+//
+//    public void setServicePack(Service servicePack) {
+//        this.servicePack = servicePack;
+//    }
 
 }

@@ -17,10 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
 import com.example.demofacebook.Api.ApiService;
-import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.R;
-import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,37 +57,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             return;
         }
 
-        ApiService.apiService.getDetailByOrderId(orderInformation.getOrderId()).enqueue(new Callback<List<OrderDetail>>() {
-            @Override
-            public void onResponse(Call<List<OrderDetail>> call, Response<List<OrderDetail>> response) {
-                if (response.isSuccessful()) {
-                    List<OrderDetail> mOrderDetail;
-                    mOrderDetail = response.body();
-                    if (mOrderDetail != null) {
-                        int totalPrice = 0;
-                        for (int i = 0; i < mOrderDetail.size(); i++) {
-                            totalPrice = totalPrice + mOrderDetail.get(i).getServicePack().getPriceService();
-                        }
-//                        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
-//                        holder.totalPrice.setText("Total Price: " + numberFormat.format(totalPrice) + " VND");
-                        Picasso.get()
-                                .load(mOrderDetail.get(0).getServicePack().getMediaServicePackList().get(0).getFilePath())
-                                .placeholder(R.drawable.placeholder_image)
-                                .error(R.drawable.placeholder_image)
-                                .into(holder.urlImageService);
-//                        holder.orderServicePrice.setText(numberFormat.format(mOrderDetail.get(0).getServicePack().getPriceService()) + " VND");
-//                        holder.totalOrderDetail.setText("Service: " + mOrderDetail.size());
-                        holder.serviceName.setText(mOrderDetail.get(0).getServicePack().getServiceName());
-                    }else{
-                    }
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<OrderDetail>> call, Throwable t) {
-            }
-        });
 
         String dateTimeString = orderInformation.getOrderDate();
 

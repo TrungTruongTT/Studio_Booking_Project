@@ -215,7 +215,8 @@
                 tools:ignore="UselessParent">
 
                 <Button
-                    style="@style/sampleButton"
+                    style="@style/buttonSignUp"
+                    android:textAllCaps="false"
                     android:id="@+id/Update"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

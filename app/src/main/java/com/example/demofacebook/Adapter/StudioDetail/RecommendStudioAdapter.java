@@ -10,19 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
-import com.example.demofacebook.Model.Service;
+import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class RecommendStudioAdapter extends RecyclerView.Adapter<RecommendStudioAdapter.MyArrayAdapterHolder> {
-    private List<Service> mListService;
+    private List<Studio> mListStudio;
     private IClickItemServiceListener iClickItemServiceListener;
 
 
-    public RecommendStudioAdapter(List<Service> mListService, IClickItemServiceListener iClickItemServiceListener) {
-        this.mListService = mListService;
+    public RecommendStudioAdapter(List<Studio> mListStudio, IClickItemServiceListener iClickItemServiceListener) {
+        this.mListStudio = mListStudio;
         this.iClickItemServiceListener = iClickItemServiceListener;
     }
 
@@ -35,25 +35,13 @@ public class RecommendStudioAdapter extends RecyclerView.Adapter<RecommendStudio
 
     @Override
     public void onBindViewHolder(@NonNull MyArrayAdapterHolder holder, int position) {
-        Service service = mListService.get(position);
-        if (service == null) {
+        Studio studio = mListStudio.get(position);
+        if (studio == null) {
             return;
         }
 
-        /*Picasso.get()
-                .load(mediaItem.getStudio().getImage())
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
-                .into(holder.studioAvatarNewFeedImage);*/
-        /*Picasso.get()
-                .load(service.getMediaServicePackList())
-                .into(holder.imageService);*/
-        //holder.imageService.setImageResource(service.getMediaServicePack().getFilePath());
-
-
-        //Picasso.get().load(service.getMediaServicePackList().get(1).getFilePath()).into(holder.imageService);
-        if (!service.getMediaServicePackList().isEmpty()) {
-            Picasso.get().load(service.getMediaServicePackList().get(0).getFilePath())
+        if (!(studio.getAvatarStudio() == null)) {
+            Picasso.get().load(studio.getAvatarStudio())
                     .placeholder(R.drawable.placeholder_image)
                     .error(R.drawable.placeholder_image)
                     .into(holder.imageService);
@@ -64,35 +52,20 @@ public class RecommendStudioAdapter extends RecyclerView.Adapter<RecommendStudio
                     .into(holder.imageService);
         }
 
-
-        if (service.getMediaServicePackList() != null) {
-            if (service.getMediaServicePackList().size() != 0) {
-                Picasso.get().load(service.getMediaServicePackList().get(0).getFilePath())
-                        .placeholder(R.drawable.placeholder_image)
-                        .error(R.drawable.placeholder_image)
-                        .into(holder.imageService);
-            } else {
-                Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                        .placeholder(R.drawable.placeholder_image)
-                        .error(R.drawable.placeholder_image)
-                        .into(holder.imageService);
-            }
-        }
-
-        holder.serviceName.setText(service.getServiceName());
+        holder.serviceName.setText(studio.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickItemServiceListener.onClickItemService(service);
+                iClickItemServiceListener.onClickItemService(studio);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if (mListService != null) {
-            return mListService.size();
+        if (mListStudio != null) {
+            return mListStudio.size();
         }
         return 0;
     }

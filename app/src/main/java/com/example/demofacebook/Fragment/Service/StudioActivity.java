@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,14 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.demofacebook.Adapter.StudioDetail.FeedbackAdapter;
-import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
 import com.example.demofacebook.Adapter.StudioDetail.PhotoAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.RecommendStudioAdapter;
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.Feedback;
-import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.PickTimeActivity;
 import com.example.demofacebook.R;
@@ -44,9 +43,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ServicePage extends AppCompatActivity {
+public class StudioActivity extends AppCompatActivity {
     private Studio studio;
-    private Service service;
     private ViewPager viewPager;
 
     private List<String> photoList;
@@ -58,8 +56,7 @@ public class ServicePage extends AppCompatActivity {
     //service
     private RecyclerView recyclerViewService;
     private RecommendStudioAdapter recommendStudioAdapter;
-    private List<Service> mServiceList;
-    //chatBy Button
+    private List<Studio> mStudioListRecommend;
     private Context context;
     private Button addToCardbtn;
     private Button buttonFeedback;
@@ -84,52 +81,25 @@ public class ServicePage extends AppCompatActivity {
         addToCardbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickGotoChat(studio,service);
-                //ChatFragment chatfragment = new ChatFragment();
-                //chatfragment.setArguments(bundle);
-
-                //fragmentTransaction.replace(R.id.frame_container,chatfragment).commit();
+                onClickGotoChat(studio, studio);
             }
         });
 
-       /* addToCardbtn.setOnClickListener(view -> {
-            //addToCardbtn.setBackgroundResource(R.drawable.love_heart_svg);
 
-            //xử lý qua trang chat và lưu trên talkjs ở đây .....
-            //Intent intent = new Intent(ServicePage.this, HomeActivity.class);
-            Bundle bundle = new Bundle();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            bundle.putSerializable("studio", service.getStudio());
-            //intent.putExtras(bundle);
-            ChatFragment chatfragment = new ChatFragment();
-            chatfragment.setArguments(bundle);
-            fragmentTransaction.replace(R.id.frame_container,chatfragment).commit();
-            //getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, chatfragment).commit();
-        });*/
-
-        //Click on studio
-//        LinearLayout linearLayout = findViewById(R.id.userLayout);
-//        linearLayout.setOnClickListener(new View.OnClickListener() {
+        //view more recommend service btn
+//        buttonService = findViewById(R.id.ViewMoreRecommendServiceBtn);
+//        buttonService.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                onClickItemGoStudioDetail(studio);
+//                onClickViewMoreService();
 //            }
 //        });
+
         buttonFeedback = findViewById(R.id.ViewMoreFeedbackBtn);
         buttonFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onClickViewMoreFeedback();
-            }
-        });
-        //view more recommend service btn
-        buttonService = findViewById(R.id.ViewMoreRecommendServiceBtn);
-        buttonService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickViewMoreService();
             }
         });
         //load Feedback list
@@ -157,48 +127,50 @@ public class ServicePage extends AppCompatActivity {
         circleIndicator.setViewPager(viewPager);
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
     }
-    private void onClickGotoChat(Studio studio,Service service) {
+
+    private void onClickGotoChat(Studio studio, Studio service) {
         Intent intent = new Intent(this, HomeActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("studio", studio);
-        bundle.putSerializable("service",service);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    private void onClickViewMoreService() {
-        Intent intent = new Intent(this, RecommendServiceActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("studio", studio);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
+//    private void onClickViewMoreService() {
+//        Intent intent = new Intent(this, RecommendServiceActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("studio", studio);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+//    }
 
     private void onClickViewMoreFeedback() {
-        Intent intent = new Intent(this, FeedbackActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("studio", studio);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        Toast.makeText(context, "Api Null", Toast.LENGTH_SHORT).show();
+//        Intent intent = new Intent(this, FeedbackActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("studio", studio);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
     }
+
     private void callApiGetRecommendServicePack() {
-        ApiService.apiService.serviceCall().enqueue(new Callback<List<Service>>() {
+        ApiService.apiService.getAllStudio().enqueue(new Callback<List<Studio>>() {
             @Override
-            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+            public void onResponse(Call<List<Studio>> call, Response<List<Studio>> response) {
                 if (response.isSuccessful()) {
-                    mServiceList = response.body();
-                    if (mServiceList.size() == 0) {
+                    mStudioListRecommend = response.body();
+                    if (mStudioListRecommend.size() == 0) {
                         buttonService.setEnabled(false);
                         buttonService.setVisibility(View.INVISIBLE);
                     } else {
-                        List<Service> sort = mServiceList.stream().skip(0).limit(5).collect(Collectors.toList());
+                        List<Studio> sort = mStudioListRecommend.stream().skip(0).limit(5).collect(Collectors.toList());
                         recyclerViewService = findViewById(R.id.RecommendServiceRecyclerView);
                         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
                         recyclerViewService.setLayoutManager(linearLayoutManager2);
                         recommendStudioAdapter = new RecommendStudioAdapter(sort, new IClickItemServiceListener() {
                             @Override
-                            public void onClickItemService(Service service) {
-                                goDetailService(service);
+                            public void onClickItemService(Studio studio) {
+                                goDetailService(studio);
                             }
                         });
                         recyclerViewService.setAdapter(recommendStudioAdapter);
@@ -209,38 +181,35 @@ public class ServicePage extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Service>> call, Throwable t) {
+            public void onFailure(Call<List<Studio>> call, Throwable t) {
             }
         });
     }
 
-    private void goDetailService(Service service) {
-        Intent intent = new Intent(this, ServicePage.class);
+    private void goDetailService(Studio studio) {
+        Intent intent = new Intent(this, StudioActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("service", service);
-        Studio studio = new Studio(1, "https://i.imgur.com/DvpvklR.png", "Studio 1 test", 500, 5, "Description\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\nDescription\n", null);
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
     private void loadFeedback() {
-        ApiService.apiService.getServiceFeedbackServiceId(service.getServiceId()).enqueue(new Callback<List<Feedback>>() {
+        ApiService.apiService.getServiceFeedbackServiceId(studio.getStudioId()).enqueue(new Callback<List<Feedback>>() {
             @Override
             public void onResponse(Call<List<Feedback>> call, Response<List<Feedback>> response) {
                 if (response.isSuccessful()) {
-                    List<Feedback> responseValue = response.body();
-                    if (responseValue.size() == 0) {
+                    List<Feedback> feedbackList = response.body();
+                    if (feedbackList.isEmpty()) {
                         buttonFeedback.setEnabled(false);
                         buttonFeedback.setVisibility(View.INVISIBLE);
                     } else {
-                        mFeedbackList = responseValue.stream().skip(0).limit(3).collect(Collectors.toList());
+                        mFeedbackList = feedbackList.stream().skip(0).limit(3).collect(Collectors.toList());
                         loadFeedbackData(mFeedbackList);
                     }
 
-
                 } else {
-
+                    Toast.makeText(context, "Load Feedback Fail", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
@@ -253,62 +222,32 @@ public class ServicePage extends AppCompatActivity {
         recyclerViewFeedback = findViewById(R.id.FeedbackServiceRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewFeedback.setLayoutManager(linearLayoutManager);
-        feedbackAdapter = new FeedbackAdapter(this, data, new IClickItemFeedbackListener() {
-            @Override
-            public void onClickItemFeedback(Feedback feedback) {
-
-            }
-        });
+        feedbackAdapter = new FeedbackAdapter(data);
         recyclerViewFeedback.setAdapter(feedbackAdapter);
     }
 
 
     private void loadData() {
         if (getIntent().getExtras() == null) {
+            Toast.makeText(context, "Load Content Error Null Object", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (getIntent().getExtras() != null) {
-            studio = (Studio) getIntent().getExtras().get("studio");
-            if (studio == null) {
-                return;
-            } else {
-//                ImageView studioImage = findViewById(R.id.StudioAvatarImageService);
-//                if(studio.getImage() != null){
-//                    Picasso.get().load(studio.getImage())
-//                            .error(R.drawable.placeholder_image)
-//                            .into(studioImage);
-//                }else {
-//                    Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-//                            .error(R.drawable.placeholder_image)
-//                            .into(studioImage);
-//                }
-//
-//                TextView studioName = findViewById(R.id.StudioName);
-//                studioName.setText(studio.getTitle());
-//                TextView studioRating = findViewById(R.id.StudioRating);
-//                String rating = "⭐: " + String.valueOf(studio.getRating());
-//                studioRating.setText(rating);
-            }
-            service = (Service) getIntent().getExtras().get("service");
-            if (service == null) {
-                return;
-            } else {
-                TextView serviceName = findViewById(R.id.ServiceNameDetail);
-                serviceName.setText(service.getServiceName());
-                TextView servicePrice = findViewById(R.id.ServicePriceDetail);
-
-                NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
-                String formattedMoney = numberFormat.format(service.getPriceService());
-
-                servicePrice.setText("Price: " + formatMoney(service.getPriceService()) + " VND");
-//                TextView serviceDiscount = findViewById(R.id.ServicePriceDiscountDetail);
-//                serviceDiscount.setText("Discount: " + formatMoney(service.getDiscount()) + " VND");
-                TextView serviceDescription = findViewById(R.id.ServiceDescription);
-                serviceDescription.setText(Html.fromHtml(service.getServiceDescription()));
-            }
+        studio = (Studio) getIntent().getExtras().get("studio");
+        if (studio == null) {
+            Toast.makeText(context, "Load Content Error Null Object", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            TextView serviceName = findViewById(R.id.ServiceNameDetail);
+            serviceName.setText(studio.getName());
+            TextView servicePrice = findViewById(R.id.ServicePriceDetail);
+            servicePrice.setText("Price: " + formatMoney(studio.getBalance()) + " VND");
+            TextView serviceDescription = findViewById(R.id.ServiceDescription);
+            serviceDescription.setText(Html.fromHtml(studio.getDescription()));
+            TextView locationStudio = findViewById(R.id.location_Studio);
+            locationStudio.setText(studio.getAddress());
         }
-
     }
+
 
     private String formatMoney(int Money) {
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
@@ -322,28 +261,22 @@ public class ServicePage extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("");
-
         }
     }
 
     private List<String> getPhotoList() {
         List<String> myList = new ArrayList<>();
-        if (service.getMediaServicePackList() != null) {
-            if (service.getMediaServicePackList().size() != 0) {
-                for (int i = 0; i < service.getMediaServicePackList().size(); i++) {
-                    myList.add(service.getMediaServicePackList().get(i).getFilePath());
-                }
-                return myList;
-            }
-            else {
-                myList.add("https://i.imgur.com/DvpvklR.png");
-                myList.add("https://i.imgur.com/DvpvklR.png");
-                myList.add("https://i.imgur.com/DvpvklR.png");
-                myList.add("https://i.imgur.com/DvpvklR.png");
-            }
+        if (studio.getCoverImage() == null) {
+            myList.add("https://i.imgur.com/DvpvklR.png");
+            myList.add("https://i.imgur.com/DvpvklR.png");
+            myList.add("https://i.imgur.com/DvpvklR.png");
+            myList.add("https://i.imgur.com/DvpvklR.png");
+        } else {
+            myList.add(studio.getCoverImage());
         }
         return myList;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

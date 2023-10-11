@@ -28,7 +28,7 @@
 
 
                 <LinearLayout
-                    android:background="#021B79"
+                    android:background="#235a8f"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
@@ -64,15 +64,14 @@
                             android:textStyle="bold" />
 
                         <Button
+                            style="@style/buttonAppleLogin"
                             android:id="@+id/UploadAvtarImage"
                             android:layout_width="130dp"
                             android:layout_height="30dp"
                             android:layout_gravity="bottom"
-                            android:background="#3093F6"
+                            android:textAllCaps="false"
                             android:text="Upload Picture"
-                            android:textColor="#FFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -260,7 +259,8 @@
                         android:layout_gravity="center_horizontal">
 
                         <Button
-                            style="@style/Widget.AppCompat.Button.Borderless"
+                            style="@style/buttonGoogleLogin"
+                            android:textAllCaps="false"
                             android:id="@+id/CancelDialog"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -270,9 +270,8 @@
                             android:text="Cancel" />
 
                         <Button
-                            android:background="#021B79"
-                            android:textColor="#FFF"
-                            android:textStyle="bold"
+                            style="@style/buttonSignUp"
+                            android:textAllCaps="false"
                             android:id="@+id/UpdateDialog"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

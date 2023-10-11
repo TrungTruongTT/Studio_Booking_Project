@@ -15,13 +15,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
-import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.TokenResponse;
+import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initToolBar();
-        // Gắn kết các thành phần UI
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         Button buttonLogin = findViewById(R.id.btnLogin);
@@ -61,13 +58,11 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Kiểm tra tên đăng nhập và mật khẩu
                 String credential = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
                 if (validateEmail(credential) && validatePassword(password)) {
                     isValidCredentials(credential, password);
                 } else {
-                    // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
                     Toast.makeText(getApplicationContext(), "Please try again!!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -82,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     TokenResponse tokenResponse = response.body();
                     if (tokenResponse != null) {
-                        getCustomerByEmailOrPhone(credential);
+                        getCustomerByToken();
                         DataLocalManager.setTokenResponse(tokenResponse);
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         startActivity(intent);
@@ -97,27 +92,27 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Invalid Account", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Lost Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private void getCustomerByEmailOrPhone(String credential){
-        ApiService.apiServiceGuest.getCustomerByEmailorPhone(credential).enqueue(new Callback<List<CustomerAccount>>() {
+
+    private void getCustomerByToken() {
+        ApiService.apiService.getCustomerByToken().enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<List<CustomerAccount>> call, Response<List<CustomerAccount>> response) {
-                if(response.isSuccessful()){
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
                     //API trả về list
-                    List<CustomerAccount> mAccount = response.body();
-                    //lấy account duy nhất
-                    CustomerAccount account = mAccount.get(0);
-                    if(account!=null){
-                        Log.d("CustomerAccount", "User ID: " + account.getUser().getUserId());
-                        Log.d("CustomerAccount", "Full Name: " + account.getUser().getFullName());
-                        Log.d("CustomerAccount", "Email: " + account.getUser().getEmail());
-                        Log.d("CustomerAccount", "Image URL: " + account.getUser().getImage());
-                        DataLocalManager.setCustomerAccount(account);
+                    User user = response.body();
+                    if (user != null) {
+                        DataLocalManager.setCustomerAccount(user);
+                        Log.d("User", "User ID: " + DataLocalManager.getCustomerAccount().getUserId());
+                        Log.d("User", "Full Name: " + DataLocalManager.getCustomerAccount().getFullName());
+                        Log.d("User", "Email: " + DataLocalManager.getCustomerAccount().getEmail());
+                        Log.d("User", "Image URL: " + DataLocalManager.getCustomerAccount().getImage());
                     } else {
                         Toast.makeText(LoginActivity.this, "Invalid Load Token Fail", Toast.LENGTH_SHORT).show();
                     }
@@ -125,14 +120,16 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Fail Status", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
-            public void onFailure(Call<List<CustomerAccount>> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Lost Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private boolean validateEmail(String email){
-        if(email.isEmpty()){
+
+    private boolean validateEmail(String email) {
+        if (email.isEmpty()) {
             editTextEmail.setError("Email/Phone is required");
             return false;
         } else {
@@ -140,25 +137,15 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
     }
-    private boolean validatePassword(String pass){
-        if(pass.isEmpty()){
+
+    private boolean validatePassword(String pass) {
+        if (pass.isEmpty()) {
             editTextPassword.setError("Password is required");
             return false;
-        }else {
+        } else {
             editTextPassword.setError(null);
             return true;
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     private void initToolBar() {

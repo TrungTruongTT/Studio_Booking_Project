@@ -27,11 +27,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.demofacebook.Adapter.Chat.Booking.OrderDetailAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackOrderDetailListener;
 import com.example.demofacebook.Api.ApiService;
-import com.example.demofacebook.Fragment.Service.ServicePage;
 import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.BookingGroupItem;
 import com.example.demofacebook.Model.OrderDetail;
-import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.SlotBookingItem;
 import com.example.demofacebook.Model.Studio;
 
@@ -141,15 +139,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void onClickGoServiceDetail(OrderDetail orderDetail) {
-        Intent intent = new Intent(this, ServicePage.class);
-        Bundle bundle = new Bundle();
-        Service service = orderDetail.getServicePack();
-        bundle.putSerializable("service", service);
-        bundle.putSerializable("studio", studio);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
     private void openFeedbackDialog(int gravity, Studio studio, Button buttonFeedback) {
         final Dialog dialog = new Dialog(this);

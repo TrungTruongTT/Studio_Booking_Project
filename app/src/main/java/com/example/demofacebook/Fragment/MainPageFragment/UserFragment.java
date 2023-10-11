@@ -17,9 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.UserPage.ItemUserAdapter;
 import com.example.demofacebook.Adapter.UserPage.UserAdapter;
-import com.example.demofacebook.Login.LoginActivity;
 import com.example.demofacebook.Login.MainActivity;
-import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.MyInterface.IClickItemUserListener;
 import com.example.demofacebook.MyInterface.IClickItemUserOptionListener;
@@ -27,7 +25,6 @@ import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.example.demofacebook.UserPage.UserUpdateActivity;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,17 +113,13 @@ public class UserFragment extends Fragment {
 
     private User getUser() {
         User user;
-        String str = "2001-06-15";
-        Date dateOfBirth = Date.valueOf(str);
-        //String url = "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg";
         String url = "https://cdn-icons-png.flaticon.com/512/1144/1144760.png";
-
         //TokenResponse token = DataLocalManager.getTokenResponse();
-        CustomerAccount account = DataLocalManager.getCustomerAccount();
+        User account = DataLocalManager.getCustomerAccount();
         if (account != null) {
-            user = new User(account.getUser().getUserId(), account.getUser().getImage(), account.getUser().getFullName(), dateOfBirth, account.getUser().getPhone(), account.getUser().getEmail(), account.getUser().getPassword());
+            user = new User(account.getUserId(), account.getImage(), account.getFullName(), account.getPhone(), account.getEmail(), account.getPassword());
         } else {
-            user = new User(1, url, "PhiPhiPhi", dateOfBirth, "0966324244", "Phinhse150972@fpt.edu.vn", "Phinhse150972");
+            user = new User(1, url, "PhiPhiPhi", "0966324244", "Phinhse150972@fpt.edu.vn", "Phinhse150972");
         }
         return user;
         }

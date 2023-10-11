@@ -20,8 +20,6 @@ public class BookingViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
-            case 0:
-                return new ScheduledFragment();
             case 1:
                 return new CompletedFragment();
             case 2:

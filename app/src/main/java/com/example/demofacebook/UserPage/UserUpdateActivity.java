@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +24,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
-import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
@@ -203,11 +201,11 @@ public class UserUpdateActivity extends AppCompatActivity {
                 Boolean validation = invalidateMenuInput(name, password1, password2);
 
                 if (validation) {
-                    CustomerAccount customerAccount = DataLocalManager.getCustomerAccount();
-                    customerAccount.getUser().setFullName(name);
-                    customerAccount.getUser().setPassword(password1);
-                    customerAccount.getUser().setImage(url);
-                    updateUser(customerAccount);
+                    User user = DataLocalManager.getCustomerAccount();
+                    user.setFullName(name);
+                    user.setPassword(password1);
+                    user.setImage(url);
+//                    updateUser(customerAccount);
 
 
                     dialog.dismiss();
@@ -224,48 +222,48 @@ public class UserUpdateActivity extends AppCompatActivity {
 
         dialog.show();
     }
-    private void updateUser(CustomerAccount customerAccount) {
-        CustomerAccount T =  DataLocalManager.getCustomerAccount();
-        User T2 = DataLocalManager.getCustomerAccount().getUser();
-        CustomerAccount updateUser =
-                new CustomerAccount(customerAccount.getCustomerId(),
-                        customerAccount.getAddress(),
-                        new User(customerAccount.getUser().getImage()
-                                , customerAccount.getUser().getFullName(),
-                                customerAccount.getUser().getPassword()));
 
-        Log.w("TAG", updateUser + "");
-
-        Call<Void> call = ApiService.apiService.updateCustomer(updateUser.getCustomerId(), updateUser);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    T2.setFullName(updateUser.getUser().getFullName());
-                    T2.setImage(updateUser.getUser().getImage());
-                    T2.setPassword(updateUser.getUser().getPassword());
-                    T.setUser(T2);
-                    DataLocalManager.setCustomerAccount(T);
-                    user = DataLocalManager.getCustomerAccount().getUser();
-                    updateUserInfo();
-                    Log.w("TAG", DataLocalManager.getCustomerAccount().getUser().getFullName());
-
-                    Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_SHORT).show();
-                } else {
-
-
-                    Toast.makeText(getApplicationContext(), "not oke", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                // Request failed due to network error or other issues
-                // Handle error here
-            }
-        });
-
-    }
+    //    private void updateUser(CustomerAccount customerAccount) {
+//        CustomerAccount T =  DataLocalManager.getCustomerAccount();
+//        User T2 = DataLocalManager.getCustomerAccount().getUser();
+//        CustomerAccount updateUser =
+//                new CustomerAccount(customerAccount.getCustomerId(),
+//                        customerAccount.getAddress(),
+//                        new User(customerAccount.getUser().getImage()
+//                                , customerAccount.getUser().getFullName(),
+//                                customerAccount.getUser().getPassword()));
+//
+//
+//        Call<Void> call = ApiService.apiService.updateCustomer(updateUser.getCustomerId(), updateUser);
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()) {
+//                    T2.setFullName(updateUser.getUser().getFullName());
+//                    T2.setImage(updateUser.getUser().getImage());
+//                    T2.setPassword(updateUser.getUser().getPassword());
+//                    T.setUser(T2);
+//                    DataLocalManager.setCustomerAccount(T);
+//                    user = DataLocalManager.getCustomerAccount().getUser();
+//                    updateUserInfo();
+//                    Log.w("TAG", DataLocalManager.getCustomerAccount().getUser().getFullName());
+//
+//                    Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_SHORT).show();
+//                } else {
+//
+//
+//                    Toast.makeText(getApplicationContext(), "not oke", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                // Request failed due to network error or other issues
+//                // Handle error here
+//            }
+//        });
+//
+//    }
     private Boolean invalidateMenuInput(String name, String password1, String password2) {
         if (name.isEmpty()
                 || password1.isEmpty()

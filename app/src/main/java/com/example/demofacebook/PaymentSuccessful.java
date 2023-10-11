@@ -5,19 +5,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.demofacebook.Fragment.MainPageFragment.BookingFragment;
 import com.example.demofacebook.HomePage.HomeActivity;
-import com.example.demofacebook.Model.Service;
-import com.example.demofacebook.Model.Studio;
 
 public class PaymentSuccessful extends AppCompatActivity {
     Button btn_ViewOrderList;

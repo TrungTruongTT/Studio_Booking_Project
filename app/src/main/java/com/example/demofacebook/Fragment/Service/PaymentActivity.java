@@ -24,7 +24,7 @@ import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Api.CreateOrder;
 import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.OrderDetail;
-import com.example.demofacebook.Model.Service;
+import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
 
@@ -214,19 +214,19 @@ public class PaymentActivity extends AppCompatActivity {
         btnPay.setVisibility(View.INVISIBLE);
     }
 
-    private Service loadService(){
-        if(getIntent().getExtras() != null) {
-            Service service= (Service) getIntent().getExtras().get("service");
-            if (service != null) {
-                return service;
+    private Studio loadService() {
+        if (getIntent().getExtras() != null) {
+            Studio studio = (Studio) getIntent().getExtras().get("service");
+            if (studio != null) {
+                return studio;
             }
         }
         return null;
     }
 
-    private OrderDetail loadOrderDetail(){
-        if(getIntent().getExtras() != null) {
-            OrderDetail orderDetail= (OrderDetail) getIntent().getExtras().get("orderDetail");
+    private OrderDetail loadOrderDetail() {
+        if (getIntent().getExtras() != null) {
+            OrderDetail orderDetail = (OrderDetail) getIntent().getExtras().get("orderDetail");
             if (orderDetail != null) {
                 return orderDetail;
             }

@@ -67,7 +67,7 @@ public class PickTimeActivity extends AppCompatActivity {
     }
 
     private void loadTimeAvailable() {
-        List<TimePicker> timePickers = new ArrayList<TimePicker>();
+        List<TimePicker> timePickers = new ArrayList<>();
         timePickers.add(new TimePicker(1, "Test Studio", "https://artriva.com/images/portfolio/studio-b/studio-b-live.jpg",
                 "Test Studio", 120000000, "7:00 - 9:00"));
         timePickers.add(new TimePicker(2, "Test Studio 1", "https://artriva.com/images/portfolio/studio-b/studio-b-live.jpg",

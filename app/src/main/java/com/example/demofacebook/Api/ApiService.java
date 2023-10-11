@@ -1,16 +1,14 @@
 package com.example.demofacebook.Api;
 
 
-import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Feedback;
-import com.example.demofacebook.Model.Gallery;
 import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.OptSms;
 import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
-import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.TokenResponse;
+import com.example.demofacebook.Model.User;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -81,14 +79,34 @@ public interface ApiService {
     Call<> getListConersations(@Path("appId") APPID_TALKJS ,@Path("userId") int userID);*/
 
 
-    //services
-    @GET("/api/services")
-    //GET list services
-    Call<List<Service>> serviceCall();
+    //Login
+    @POST("/api/auth/login")
+    Call<TokenResponse> login(@Body Login_Request login);
+
+    @GET("/api/auth/current")
+    Call<User> getCustomerByToken();
+
+    //Sign In
+    @POST("/api/auth/customer")
+    Call<Void> createCustomer(@Body User user);
+
+    @POST("api/otp")
+    Call<OptSms> getOtp(
+            @Body OptSms optSms
+    );
+
+    @POST("api/otp/verify")
+    Call<String> sendOtp(
+            @Body OptSms optSms
+    );
+    //Studio
+
+    @GET("/api/studios")
+    Call<List<Studio>> getAllStudio();
+
 
     @GET("/api/services/{serviceId}")
-        //GetservicesByid
-    Call<Service> getServiceById(
+    Call<Studio> getServiceById(
             @Path("serviceId") int serviceId
     );
 
@@ -104,23 +122,13 @@ public interface ApiService {
     Call<List<Studio>> getStudio();
 
     @GET("/api/studios")
-        // GetStudioByname
     Call<List<Studio>> getStudioByName(
             @Query("name") String studioName
     );
     //account
-    @POST("/api/auth/login")
-    Call<TokenResponse> login(@Body Login_Request login);
-
-    @POST("/api/customers")
-    //register
-    Call<CustomerAccount> createCustomer(@Body CustomerAccount account);
-
-    @GET("/api/customers")
-    Call<List<CustomerAccount>> getCustomerByEmailorPhone(@Query("emailOrPhone") String emailOrPhone);
 
     @GET("/api/services/studio/all/{studioId}")
-    Call<List<Service>> getServiceByStudioId(
+    Call<List<Studio>> getServiceByStudioId(
             @Path("studioId") int studioId
     );
 
@@ -129,10 +137,10 @@ public interface ApiService {
             @Path("serviceId") int serviceId
     );
 
-    @GET("/api/albums/studio/{studioId}")
-    Call<List<Gallery>> getGalleryByStudioId(
-            @Path("studioId") int studioId
-    );
+//    @GET("/api/albums/studio/{studioId}")
+//    Call<List<Gallery>> getGalleryByStudioId(
+//            @Path("studioId") int studioId
+//    );
 
     @GET("/api/order-details/feedback/studio")
     Call<List<Feedback>> getServiceFeedbackStudioId(
@@ -163,22 +171,7 @@ public interface ApiService {
     @PATCH("api/customers/{customerId}")
     Call<Void> updateCustomer(
             @Path("customerId") int customerId,
-            @Body CustomerAccount customerAccount
+            @Body User user
     );
 
-    @POST("api/otp")
-    Call<OptSms> getOtp(
-            @Body OptSms optSms
-    );
-
-    @POST("api/otp/verify")
-    Call<String> sendOtp(
-            @Body OptSms optSms
-    );
-
-
-    //@Headers("Authorization: Bearer sk_test_KS0lVFwV4W6f8Vf4COh2fkfFABxyAXBf")
-    //@GET("/v1/{appId}/conversations/{conversationId}/messages")
-    /*serviceId name createDate price description soldCount status updateDate view discount rating updateBy createBy studio
-    servicePack_mediaService servicePack_orderDetail servicePack_favorite*/
 }

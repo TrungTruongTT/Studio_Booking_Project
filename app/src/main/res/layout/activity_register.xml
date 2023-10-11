@@ -75,20 +75,6 @@
                 android:paddingEnd="15dp"
                 android:textSize="15sp" />
 
-
-            <EditText
-                android:id="@+id/textUserName"
-                android:layout_width="match_parent"
-                style="@style/formInputText"
-                android:layout_height="45dp"
-                android:layout_marginTop="10dp"
-                android:hint="User Name"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textSize="15sp" />
-
             <EditText
                 android:id="@+id/textPass"
                 android:layout_width="match_parent"
@@ -124,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Term of Service "
+                    android:text="Term of Studio "
                     android:textColor="@color/primaryTextColor"
                     android:textSize="12sp"
                     android:textStyle="normal" />

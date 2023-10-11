@@ -15,14 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemServiceListener;
-import com.example.demofacebook.Adapter.StudioDetail.ServiceAdapter;
+import com.example.demofacebook.Adapter.StudioDetail.StudioAdapter;
 import com.example.demofacebook.Api.ApiService;
-import com.example.demofacebook.Fragment.Service.ServicePage;
-import com.example.demofacebook.Model.Service;
+import com.example.demofacebook.Fragment.Service.StudioActivity;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
 
@@ -36,8 +34,8 @@ public class SearchActivity extends AppCompatActivity {
     Toolbar toolbar;
     SearchView searchView;
     private RecyclerView recyclerViewStudio;
-    private ServiceAdapter serviceAdapter;
-    private List<Service> mListService;
+    private StudioAdapter studioAdapter;
+    private List<Studio> mListStudio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +49,20 @@ public class SearchActivity extends AppCompatActivity {
 
         //studioList
         recyclerViewStudio = findViewById(R.id.RecyclerViewStudioSearch);
-        ApiService.apiService.serviceCall().enqueue(new Callback<List<Service>>() {
+        ApiService.apiService.getAllStudio().enqueue(new Callback<List<Studio>>() {
             @Override
-            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+            public void onResponse(Call<List<Studio>> call, Response<List<Studio>> response) {
                 if (response.isSuccessful()) {
-                    mListService = response.body();
-                    serviceAdapter = new ServiceAdapter(mListService, new IClickItemServiceListener() {
+                    mListStudio = response.body();
+                    studioAdapter = new StudioAdapter(mListStudio, new IClickItemServiceListener() {
                         @Override
-                        public void onClickItemService(Service Service) {
-                            onClickItemGoDetail(Service);
+                        public void onClickItemService(Studio Studio) {
+                            onClickItemGoDetail(Studio);
                         }
                     });
-                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
                     recyclerViewStudio.setLayoutManager(gridLayoutManager);
-                    recyclerViewStudio.setAdapter(serviceAdapter);
+                    recyclerViewStudio.setAdapter(studioAdapter);
                     recyclerViewStudio.setVisibility(View.GONE);
 
                 } else {
@@ -73,7 +71,7 @@ public class SearchActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Service>> call, Throwable t) {
+            public void onFailure(Call<List<Studio>> call, Throwable t) {
 
             }
         });
@@ -103,13 +101,13 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                serviceAdapter.getFilter().filter(query);
+                studioAdapter.getFilter().filter(query);
                 return false;
             }
             @Override
             public boolean onQueryTextChange(String newText) {
                 recyclerViewStudio.setVisibility(View.VISIBLE);
-                serviceAdapter.getFilter().filter(newText);
+                studioAdapter.getFilter().filter(newText);
                 return false;
             }
         });
@@ -117,11 +115,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-    private void onClickItemGoDetail(Service service) {
-        Intent intent = new Intent(this, ServicePage.class);
+    private void onClickItemGoDetail(Studio studio) {
+        Intent intent = new Intent(this, StudioActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("service", service);
-        Studio studio = service.getStudio();
         bundle.putSerializable("studio", studio);
         intent.putExtras(bundle);
         startActivity(intent);
