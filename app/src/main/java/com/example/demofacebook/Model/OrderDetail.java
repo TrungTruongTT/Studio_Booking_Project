@@ -6,8 +6,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class OrderDetail implements Serializable {
-    @SerializedName("order")
-    private Order order;
     @SerializedName("orderDetailId")
     private int OrderDetailId;
     @SerializedName("price")
@@ -19,23 +17,12 @@ public class OrderDetail implements Serializable {
     @SerializedName("content")
     private String content;
     @SerializedName("postDate")
-    private Date postDate;
+    private String postDate;
+    @SerializedName("startTime")
+    private String startTime;
+    @SerializedName("endTime")
+    private String endTime;
 
-
-//    @SerializedName("servicePack")
-//    private Service servicePack;
-
-
-//    public OrderDetail(Order order, int orderDetailId, int price, int discount, int rating, String content, Date postDate, Service servicePack) {
-//        this.order = order;
-//        OrderDetailId = orderDetailId;
-//        this.price = price;
-//        this.discount = discount;
-//        this.rating = rating;
-//        this.content = content;
-//        this.postDate = postDate;
-//        this.servicePack = servicePack;
-//    }
 
     public OrderDetail(int rating, String content) {
         this.rating = rating;
@@ -58,20 +45,12 @@ public class OrderDetail implements Serializable {
         this.content = content;
     }
 
-    public Date getPostDate() {
+    public String getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(Date postDate) {
+    public void setPostDate(String postDate) {
         this.postDate = postDate;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public int getOrderDetailId() {
@@ -98,12 +77,19 @@ public class OrderDetail implements Serializable {
         this.discount = discount;
     }
 
-//    public Service getServicePack() {
-//        return servicePack;
-//    }
-//
-//    public void setServicePack(Service servicePack) {
-//        this.servicePack = servicePack;
-//    }
+    public String getStartTime() {
+        return startTime;
+    }
 
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 }

@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.OrderInformation;
@@ -32,14 +31,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private final List<OrderInformation> mList;
     private final Context context;
     private final IClickItemOrderListener iClickItemOrderListenerListener;
-    private final IClickItemChatOrderListener iClickItemChatOrderListener;
 
 
-    public OrderAdapter(List<OrderInformation> mListOrder, Context context, IClickItemOrderListener iClickItemOrderListenerListener, IClickItemChatOrderListener iClickItemChatOrderListener) {
+    public OrderAdapter(List<OrderInformation> mListOrder, Context context, IClickItemOrderListener iClickItemOrderListenerListener) {
         this.mList = mListOrder;
         this.context = context;
         this.iClickItemOrderListenerListener = iClickItemOrderListenerListener;
-        this.iClickItemChatOrderListener = iClickItemChatOrderListener;
     }
 
     @NonNull
@@ -56,16 +53,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         if (orderInformation == null) {
             return;
         }
-
-
         String dateTimeString = orderInformation.getOrderDate();
-
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
             java.util.Date utilDate = sdf.parse(dateTimeString);
-            SimpleDateFormat outputSdf = new SimpleDateFormat("EEE, MMM d, yyyy");
+            SimpleDateFormat outputSdf = new SimpleDateFormat("EEE, dd - MM - yyyy");
             String formattedDate = outputSdf.format(utilDate);
             holder.orderDate.setText(formattedDate);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -80,6 +75,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 holder.btn_CanceledOrder.setVisibility(View.INVISIBLE);
                 break;
         }
+       holder.serviceName.setText(orderInformation.getStudioId() + "");
+
+
+
 
         holder.btn_ViewOrder.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,30 +4,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.demofacebook.Model.SlotBooking;
+import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.R;
-import com.example.demofacebook.Model.TimePicker;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-public class TimePickerAdapter extends RecyclerView.Adapter<TimePickerAdapter.OrderViewHolder> implements Filterable {
-    private List<TimePicker> mList;
-    private final List<TimePicker> mListOld;
+public class TimePickerAdapter extends RecyclerView.Adapter<TimePickerAdapter.OrderViewHolder> {
+    private List<SlotBooking> mList;
+    private Studio studio;
 
-    public TimePickerAdapter(List<TimePicker> mList) {
+    private List<Boolean> checkboxStates;
+
+    public TimePickerAdapter(List<SlotBooking> mList, Studio studio) {
         this.mList = mList;
-        this.mListOld = mList;
+        this.studio = studio;
+        checkboxStates = new ArrayList<>(Collections.nCopies(mList.size(), false));
     }
 
 
@@ -40,21 +45,52 @@ public class TimePickerAdapter extends RecyclerView.Adapter<TimePickerAdapter.Or
 
     @Override
     public void onBindViewHolder(@NonNull TimePickerAdapter.OrderViewHolder holder, int position) {
-        TimePicker timePicker = mList.get(position);
-        if (timePicker == null) {
+        SlotBooking slotBooking = mList.get(position);
+        if (slotBooking == null) {
             return;
         }
         Picasso.get()
-                .load(timePicker.getStudioImage())
+                .load(studio.getAvatarStudio())
                 .placeholder(R.drawable.placeholder_image)
                 .into(holder.studioImage);
 
-        holder.studioName.setText(timePicker.getStudioName());
-        holder.studioDescription.setText(timePicker.getStudioDescription());
+        holder.studioName.setText(studio.getName());
+        holder.studioDescription.setText(studio.getName());
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
-        holder.studioPrice.setText(numberFormat.format(timePicker.getPrice()) + " VND");
-        holder.timePicked.setText(timePicker.getTime());
+        holder.studioPrice.setText(numberFormat.format(slotBooking.getPrice()) + " VND");
+        String starTime = formatTimeString(slotBooking.getStartTime());
+        String endTime = formatTimeString(slotBooking.getEndTime());
+        holder.timePicked.setText(starTime + " - " + endTime);
 
+        if (slotBooking.isBooked()) {
+            holder.checkBox.setChecked(true);
+            holder.checkBox.setEnabled(false);
+        }
+
+        holder.checkBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            checkboxStates.set(position, isChecked);
+        });
+
+    }
+    public List<SlotBooking> getCheckedItems() {
+        List<SlotBooking> checkedItems = new ArrayList<>();
+        for (int i = 0; i < checkboxStates.size(); i++) {
+            if (checkboxStates.get(i)) {
+                checkedItems.add(mList.get(i));
+            }
+        }
+        return checkedItems;
+    }
+    public String formatTimeString(String string) {
+        ZonedDateTime zonedDateTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            zonedDateTime = ZonedDateTime.parse(string);
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String timeOnly = zonedDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+            return timeOnly;
+        }
+        return null;
     }
 
     @Override
@@ -84,47 +120,5 @@ public class TimePickerAdapter extends RecyclerView.Adapter<TimePickerAdapter.Or
             timePicked = itemView.findViewById(R.id.timepicker_StudioTime);
             checkBox = itemView.findViewById(R.id.timepicker_CheckBox);
         }
-    }
-
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                String strDateMonth = charSequence.toString();
-                List<TimePicker> list = new ArrayList<>();
-                if (strDateMonth.isEmpty()) {
-                    mList = mListOld;
-                }
-                if (!strDateMonth.isEmpty()) {
-                    //sortBy Category - sortByItem
-                    if ("@!All".equals(strDateMonth)) {
-                        for (TimePicker timePicker : mListOld) {
-                            if (true) {
-                                list.add(timePicker);
-                            }
-                        }
-                    }
-                    //Search bar
-                    else {
-                        for (TimePicker timePicker : mListOld) {
-                            if (timePicker.getStudioName().toLowerCase().trim().contains(strDateMonth.toLowerCase().trim())) {
-                                list.add(timePicker);
-                            }
-                        }
-                    }
-                }
-                mList = list;
-                FilterResults filterResults = new FilterResults();
-                filterResults.values = mList;
-                return filterResults;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults results) {
-                mList = (List<TimePicker>) results.values;
-                notifyDataSetChanged();
-            }
-        };
     }
 }

@@ -3,7 +3,7 @@ package com.example.demofacebook.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 public class OrderInformation implements Serializable {
     @SerializedName("orderId")
@@ -12,18 +12,24 @@ public class OrderInformation implements Serializable {
     private String orderDate;
     @SerializedName("status")
     private String status;
-    @SerializedName("description")
-    private String description;
-    @SerializedName("checkIn")
-    private String checkIn;
+    @SerializedName("paymentDate")
+    private String paymentDate;
+    @SerializedName("totalPrice")
+    private String totalPrice;
+    @SerializedName("studioId")
+    private int studioId;
+    @SerializedName("orderDetails")
+    private List<OrderDetail> orderDetail;
 
 
-    public OrderInformation(int orderId, String orderDate, String status, String description, String checkIn) {
+    public OrderInformation(int orderId, String orderDate, String status, String paymentDate, String totalPrice, int studioId, List<OrderDetail> orderDetail) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.status = status;
-        this.description = description;
-        this.checkIn = checkIn;
+        this.paymentDate = paymentDate;
+        this.totalPrice = totalPrice;
+        this.studioId = studioId;
+        this.orderDetail = orderDetail;
     }
 
     public int getOrderId() {
@@ -50,19 +56,35 @@ public class OrderInformation implements Serializable {
         this.status = status;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
-    public String getCheckIn() {
-        return checkIn;
+    public String getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setCheckIn(String checkIn) {
-        this.checkIn = checkIn;
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public int getStudioId() {
+        return studioId;
+    }
+
+    public void setStudioId(int studioId) {
+        this.studioId = studioId;
+    }
+
+    public List<OrderDetail> getOrderDetail() {
+        return orderDetail;
+    }
+
+    public void setOrderDetail(List<OrderDetail> orderDetail) {
+        this.orderDetail = orderDetail;
     }
 }

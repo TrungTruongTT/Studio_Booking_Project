@@ -6,6 +6,7 @@ import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.OptSms;
 import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
+import com.example.demofacebook.Model.SlotBooking;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
@@ -104,15 +105,22 @@ public interface ApiService {
     @GET("/api/studios")
     Call<List<Studio>> getAllStudio();
 
+    @GET("/api/slot-bookings/{studioId} ")
+    Call<List<SlotBooking>> getSlotByStudioId(
+            @Path("studioId") int studioId,
+            @Query("date") String date
+    );
 
+
+    ///
     @GET("/api/services/{serviceId}")
     Call<Studio> getServiceById(
             @Path("serviceId") int serviceId
     );
 
-    //studio
+
     @GET("/api/studios/{id}")
-    // GetStudioByID
+        // GetStudioByID
     Call<Studio> getStudioByID(
             @Path("id") int studioID
     );
@@ -127,10 +135,6 @@ public interface ApiService {
     );
     //account
 
-    @GET("/api/services/studio/all/{studioId}")
-    Call<List<Studio>> getServiceByStudioId(
-            @Path("studioId") int studioId
-    );
 
     @GET("/api/order-details/feedback/service/{serviceId}")
     Call<List<Feedback>> getServiceFeedbackServiceId(
@@ -147,8 +151,8 @@ public interface ApiService {
             @Query("studioId") int studioId
     );
 
-    @GET("/api/orders/user")
-    Call<List<OrderInformation>> geOrderIdByUser(
+    @GET("/api/orders")
+    Call<List<OrderInformation>> geOrderByUser(
     );
 
     @GET("/api/order-details/order/{orderId}")

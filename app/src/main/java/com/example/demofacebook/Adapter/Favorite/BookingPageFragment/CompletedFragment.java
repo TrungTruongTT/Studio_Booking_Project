@@ -39,7 +39,7 @@ public class CompletedFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerViewOrder = view.findViewById(R.id.orderCompletedRecyclerView);
 
-        ApiService.apiService.geOrderIdByUser().enqueue(new Callback<List<OrderInformation>>() {
+        ApiService.apiService.geOrderByUser().enqueue(new Callback<List<OrderInformation>>() {
             @Override
             public void onResponse(Call<List<OrderInformation>> call, Response<List<OrderInformation>> response) {
                 if (response.isSuccessful()) {
@@ -65,15 +65,11 @@ public class CompletedFragment extends Fragment {
         orderAdapter = new OrderAdapter(value, getContext(), new IClickItemOrderListener() {
             @Override
             public void onClickItemOrder(OrderInformation orderInformation) {
-                Intent it = new Intent(getContext(), OrderDetailActivity.class);
-                it.putExtra("orderId", orderInformation.getOrderId());
-                it.putExtra("orderStatus", orderInformation.getStatus());
-                view.getContext().startActivity(it);
-            }
-        }, new IClickItemChatOrderListener() {
-            @Override
-            public void onClickItemChatOrder(OrderInformation orderInformation) {
-                Toast.makeText(getContext(), "Chat with order id: " + orderInformation.getOrderId(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), OrderDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("orderInformation", orderInformation);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         recyclerViewOrder.setAdapter(orderAdapter);

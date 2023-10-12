@@ -79,6 +79,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_BookingPrice"
                         style="@style/textBlackHeader"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -89,33 +90,6 @@
                         android:textSize="17sp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
-
-                    <TextView
-                        style="@style/textBlackHeader"
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="Subtotal"
-                        android:textSize="17sp" />
-
-                    <TextView
-                        style="@style/textBlackHeader"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:ellipsize="end"
-                        android:gravity="end"
-                        android:maxLines="1"
-                        android:text="190.000 VND"
-                        android:textSize="17sp" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -135,6 +109,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_BookingFee"
                         style="@style/textBlackHeader"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -182,6 +157,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_TotalPrice"
                         style="@style/textBlackHeader"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
