@@ -6,7 +6,9 @@ public class Feedback {
 
     @SerializedName("orderDetailId")
     private int feedbackId;
+    @SerializedName("userAvatar")
     private String avatarUser;
+    @SerializedName("userName")
     private String feedbackUserName;
     @SerializedName("rating")
     private int rating;

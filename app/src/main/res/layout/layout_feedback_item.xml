@@ -8,6 +8,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:padding="5dp"
         style="@style/formInputText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,14 +48,12 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
                 android:textColor="@color/BlackText"
                 android:id="@+id/FeedbackDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/feedbackString" />
 
             <TextView

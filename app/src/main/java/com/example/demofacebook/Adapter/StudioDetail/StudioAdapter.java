@@ -45,24 +45,15 @@ public class StudioAdapter extends RecyclerView.Adapter<StudioAdapter.MyArrayAda
         if (studio == null) {
             return;
         }
-
-        if (!(studio.getAvatarStudio() == null)) {
-            Picasso.get().load(studio.getAvatarStudio())
+        Picasso.get().load(studio.getAvatarStudio())
                     .placeholder(R.drawable.placeholder_image)
                     .error(R.drawable.placeholder_image)
                     .into(holder.imageService);
-        } else {
-            Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                    .placeholder(R.drawable.placeholder_image)
-                    .error(R.drawable.placeholder_image)
-                    .into(holder.imageService);
-        }
-
         holder.serviceName.setText(studio.getName());
         holder.ratingService.setText("⭐: " + studio.getTotalRating());
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
-        holder.servicePrice.setText(numberFormat.format(studio.getBalance()) + " VND");
+//        holder.servicePrice.setText(numberFormat.format(studio.getBalance()) + " VND");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,18 +96,6 @@ public class StudioAdapter extends RecyclerView.Adapter<StudioAdapter.MyArrayAda
                             return (int) (t1.getTotalRating() - service.getTotalRating());
                         });
                     }
-                    if ("@!Low Price".equals(strSearch)) {
-                        list = mListStudioOld;
-                        list.sort((service, t1) -> {
-                            return (int) (service.getBalance() - t1.getBalance());
-                        });
-                    }
-                    if ("@!High Price".equals(strSearch)) {
-                        list = mListStudioOld;
-                        list.sort((service, t1) -> {
-                            return (int) (t1.getBalance() - service.getBalance());
-                        });
-                    }
                     //Search bar
                     else {
                         for (Studio studio : mListStudioOld) {
@@ -145,14 +124,12 @@ public class StudioAdapter extends RecyclerView.Adapter<StudioAdapter.MyArrayAda
         ImageView imageService;
         TextView serviceName;
         TextView ratingService;
-        TextView servicePrice;
 
         public MyArrayAdapterHolder(@NonNull View itemView) {
             super(itemView);
             imageService = itemView.findViewById(R.id.ServiceImage);
             serviceName = itemView.findViewById(R.id.NameService);
             ratingService = itemView.findViewById(R.id.ServiceRating);
-            servicePrice = itemView.findViewById(R.id.ServicePrice);
         }
     }
 }

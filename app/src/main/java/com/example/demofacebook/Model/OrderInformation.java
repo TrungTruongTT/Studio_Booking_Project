@@ -20,14 +20,21 @@ public class OrderInformation implements Serializable {
     private int studioId;
     @SerializedName("orderDetails")
     private List<OrderDetail> orderDetail;
+    @SerializedName("studio")
+    private Studio studio;
 
-
-    public OrderInformation(int orderId, String orderDate, String status, String paymentDate, String totalPrice, int studioId, List<OrderDetail> orderDetail) {
+    public OrderInformation(int orderId, String orderDate, String status, String paymentDate, String totalPrice, int studioId, List<OrderDetail> orderDetail, Studio studio) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.status = status;
         this.paymentDate = paymentDate;
         this.totalPrice = totalPrice;
+        this.studioId = studioId;
+        this.orderDetail = orderDetail;
+        this.studio = studio;
+    }
+
+    public OrderInformation(int studioId, List<OrderDetail> orderDetail) {
         this.studioId = studioId;
         this.orderDetail = orderDetail;
     }
@@ -86,5 +93,27 @@ public class OrderInformation implements Serializable {
 
     public void setOrderDetail(List<OrderDetail> orderDetail) {
         this.orderDetail = orderDetail;
+    }
+
+    public Studio getStudio() {
+        return studio;
+    }
+
+    public void setStudio(Studio studio) {
+        this.studio = studio;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderInformation{" +
+                "orderId=" + orderId +
+                ", orderDate='" + orderDate + '\'' +
+                ", status='" + status + '\'' +
+                ", paymentDate='" + paymentDate + '\'' +
+                ", totalPrice='" + totalPrice + '\'' +
+                ", studioId=" + studioId +
+                ", orderDetail=" + orderDetail +
+                ", studio=" + studio +
+                '}';
     }
 }

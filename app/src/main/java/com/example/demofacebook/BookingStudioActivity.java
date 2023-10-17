@@ -7,14 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.Adapter.Chat.Booking.ExpandableListAdapter;
+import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.BookingGroupItem;
+import com.example.demofacebook.Model.OrderDetail;
+import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.Model.SlotBooking;
 import com.example.demofacebook.Model.SlotBookingItem;
 import com.example.demofacebook.Model.Studio;
@@ -27,6 +31,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BookingStudioActivity extends AppCompatActivity {
     private Button btn_Continue;
@@ -52,11 +60,7 @@ public class BookingStudioActivity extends AppCompatActivity {
         btn_Continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplication(), PaymentBookingActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("orderId", "1");
-                intent.putExtras(bundle);
-                startActivity(intent);
+                sendOrderApi();
             }
         });
 
@@ -74,6 +78,43 @@ public class BookingStudioActivity extends AppCompatActivity {
         mGroupList = new ArrayList<>(mListItems.keySet());
         expandableListAdapter = new ExpandableListAdapter(mGroupList, mListItems, getApplicationContext());
         expandableListView.setAdapter(expandableListAdapter);
+    }
+
+    private void sendOrderApi() {
+//        Intent intent = new Intent(getApplication(), PaymentBookingActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("orderId", 1);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+
+        List<OrderDetail> t = new ArrayList<>();
+        for (int i = 0; i < slotBookings.size(); i++) {
+            OrderDetail orderDetail3 = new OrderDetail(slotBookings.get(i).getSlotId(), 0);
+            t.add(orderDetail3);
+        }
+        OrderInformation orderInformation = new OrderInformation(studio.getStudioId(), t);
+
+        Call<OrderInformation> call = ApiService.apiService.createOrderByUser(orderInformation);
+        call.enqueue(new Callback<OrderInformation>() {
+            @Override
+            public void onResponse(Call<OrderInformation> call, Response<OrderInformation> response) {
+                if (response.isSuccessful()) {
+                    OrderInformation orderInformation = response.body();
+                    Intent intent = new Intent(getApplication(), PaymentBookingActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("orderId", orderInformation.getOrderId());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(BookingStudioActivity.this, "Send To Server Fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderInformation> call, Throwable t) {
+                Toast.makeText(BookingStudioActivity.this, "Send To Server Fail Check Internet", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void loadDataOrderDetail() {

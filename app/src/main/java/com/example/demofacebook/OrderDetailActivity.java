@@ -34,6 +34,7 @@ import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.Model.SlotBookingItem;
 import com.example.demofacebook.Model.Studio;
+import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -77,10 +78,10 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         orderDetailAdapter = new OrderDetailAdapter(mGroupList, mListItems, new IClickItemFeedbackOrderDetailListener() {
             @Override
-            public void onClickItemFeedbackOrderDetail(OrderDetail orderDetail, Button buttonFeedback) {
-                openFeedbackDialog(Gravity.CENTER, studio, buttonFeedback);
+            public void onClickItemFeedbackOrderDetail(int orderDetailId, Button buttonFeedback) {
+                openFeedbackDialog(Gravity.CENTER, studio, buttonFeedback, orderDetailId);
             }
-        }, getApplicationContext(), orderInformation.getStatus());
+        }, getApplicationContext(), orderInformation.getStatus(), orderInformation.getOrderDetail());
         expandableListView.setAdapter(orderDetailAdapter);
 
     }
@@ -107,7 +108,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     private void getData() {
         if (getIntent().getExtras() != null) {
             orderInformation = (OrderInformation) getIntent().getExtras().get("orderInformation");
-            studio = null;
+            studio = orderInformation.getStudio();
             orderId = orderInformation.getOrderId();
         }
         return;
@@ -136,10 +137,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private Map<BookingGroupItem, List<SlotBookingItem>> getListItems() {
         Map<BookingGroupItem, List<SlotBookingItem>> listMap = new HashMap<>();
-
-
-        BookingGroupItem groupItem = new BookingGroupItem(1, "https://static.wikia.nocookie.net/avatar/images/9/91/Avatar_Studios.png/revision/latest?cb=20210225004145" +
-                "s.io%2Fwp-content%2Fuploads%2Fsites%2F6%2F2021%2F02%2F23%2FAvatar_Studios_logo_large_02_22_21.jpg", "Avatar", "Avatar Studio",
+        BookingGroupItem groupItem = new BookingGroupItem(orderInformation.getOrderId(), studio.getAvatarStudio(), studio.getName(), studio.getName(),
                 formatDateString(orderInformation.getOrderDetail().get(0).getStartTime()));
 
         List<SlotBookingItem> items = new ArrayList<>();
@@ -148,7 +146,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
             String starTime = formatTimeString(t.getStartTime());
             String endTime = formatTimeString(t.getEndTime());
-            items.add(new SlotBookingItem(t.getOrderDetailId(), starTime + " - " + endTime));
+            items.add(new SlotBookingItem(t.getOrderDetailId(), starTime + " - " + endTime, t.getRating(), t.getContent(), t.getPostDate()));
         }
 
 
@@ -220,7 +218,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     }
 
 
-    private void openFeedbackDialog(int gravity, Studio studio, Button buttonFeedback) {
+    private void openFeedbackDialog(int gravity, Studio studio, Button buttonFeedback, int orderDetailId) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_feedback_form);
@@ -241,9 +239,9 @@ public class OrderDetailActivity extends AppCompatActivity {
             dialog.setCancelable(false);
         }
         ImageView studioImage = dialog.findViewById(R.id.StudioAvatarImageFeedback);
-//        Picasso.get().load(studio.getImage()).into(studioImage);
-//        TextView NameStudioFeedback = dialog.findViewById(R.id.NameStudioFeedback);
-//        NameStudioFeedback.setText(studio.getTitle());
+        Picasso.get().load(studio.getAvatarStudio()).into(studioImage);
+        TextView NameStudioFeedback = dialog.findViewById(R.id.NameStudioFeedback);
+        NameStudioFeedback.setText(studio.getName());
 
         RatingBar ratingStar = dialog.findViewById(R.id.RatingStarFeedback);
         EditText feedbackFormDescription = dialog.findViewById(R.id.FeedbackFormDescription);
@@ -259,8 +257,9 @@ public class OrderDetailActivity extends AppCompatActivity {
                     Toast.makeText(OrderDetailActivity.this, "Please Rating Service Star", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    boolean checkSubmission = submitFeedbackForm(description, ratingValue);
+                    boolean checkSubmission = submitFeedbackForm(orderDetailId, description, ratingValue);
                     if (checkSubmission) {
+                        Toast.makeText(OrderDetailActivity.this, "Thank You", Toast.LENGTH_SHORT).show();
                         buttonFeedback.setEnabled(false);
                         buttonFeedback.setVisibility(View.INVISIBLE);
                         dialog.dismiss();
@@ -272,36 +271,28 @@ public class OrderDetailActivity extends AppCompatActivity {
         closeBtn.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
-
-    //, OrderDetail orderDetailValue
-    private Boolean submitFeedbackForm(String description, float ratingValue) {
-//        int rating = (int) ratingValue;
-//        OrderDetail feedback = new OrderDetail(rating, description);
-//        SendFeedBack(orderDetailValue.getOrderDetailId(), feedback);
+    private Boolean submitFeedbackForm(int OrderDetailId, String description, float ratingValue) {
+        int rating = (int) ratingValue;
+        OrderDetail feedback = new OrderDetail(rating, description);
+        SendFeedBack(OrderDetailId, feedback);
         return true;
     }
 
-    private void SendFeedBack(int id, OrderDetail orderDetail) {
-        Log.w("updateData: ", id + "");
-        Call<OrderDetail> call = ApiService.apiService.createFeedback(id, orderDetail);
+    private void SendFeedBack(int OrderDetailId, OrderDetail orderDetail) {
+        Call<OrderDetail> call = ApiService.apiService.createFeedback(OrderDetailId, orderDetail);
         call.enqueue(new Callback<OrderDetail>() {
             @Override
             public void onResponse(Call<OrderDetail> call, Response<OrderDetail> response) {
                 if (response.isSuccessful()) {
-
-
                     Toast.makeText(OrderDetailActivity.this, "Thank You", Toast.LENGTH_SHORT).show();
                 } else {
-
-
                     Toast.makeText(OrderDetailActivity.this, "Send Feedback Fail", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OrderDetail> call, Throwable t) {
-                // Request failed due to network error or other issues
-                // Handle error here
+                Toast.makeText(OrderDetailActivity.this, "Send Feedback Fail Lost Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }

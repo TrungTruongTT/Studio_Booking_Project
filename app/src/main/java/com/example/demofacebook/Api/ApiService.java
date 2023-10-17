@@ -110,71 +110,34 @@ public interface ApiService {
             @Path("studioId") int studioId,
             @Query("date") String date
     );
-
-
-    ///
-    @GET("/api/services/{serviceId}")
-    Call<Studio> getServiceById(
-            @Path("serviceId") int serviceId
-    );
-
-
-    @GET("/api/studios/{id}")
-        // GetStudioByID
-    Call<Studio> getStudioByID(
-            @Path("id") int studioID
-    );
-
-    @GET("/api/studios?name=")
-        // GetStudioList
-    Call<List<Studio>> getStudio();
-
-    @GET("/api/studios")
-    Call<List<Studio>> getStudioByName(
-            @Query("name") String studioName
-    );
-    //account
-
-
-    @GET("/api/order-details/feedback/service/{serviceId}")
-    Call<List<Feedback>> getServiceFeedbackServiceId(
-            @Path("serviceId") int serviceId
-    );
-
-//    @GET("/api/albums/studio/{studioId}")
-//    Call<List<Gallery>> getGalleryByStudioId(
-//            @Path("studioId") int studioId
-//    );
-
-    @GET("/api/order-details/feedback/studio")
-    Call<List<Feedback>> getServiceFeedbackStudioId(
-            @Query("studioId") int studioId
-    );
-
+    //Order
     @GET("/api/orders")
-    Call<List<OrderInformation>> geOrderByUser(
+    Call<List<OrderInformation>> getOrderByUser(
     );
 
-    @GET("/api/order-details/order/{orderId}")
-    Call<List<OrderDetail>> getDetailByOrderId(
-            @Path("orderId") int orderId
+    @POST("/api/orders")
+    Call<OrderInformation> createOrderByUser(
+            @Body OrderInformation orderInformation
+    );
+    @GET("/api/order-details/studio/{studioId}")
+    Call<List<Feedback>> getServiceFeedbackStudioId(
+            @Path("studioId") int studioId
     );
 
-   @PATCH("/api/orders/{orderId}")
+   @PATCH("/api/orders/{orderId}/status/{status}")
     Call<Void> updateCancelStatus(
             @Path("orderId") int orderId,
-            @Query("status") String status
+            @Path("status") String status
     );
 
-    @POST("api/order-details/feedback/{orderDetailId}")
+    @POST("api/order-details/{orderDetailId}")
     Call<OrderDetail> createFeedback(
             @Path("orderDetailId") int orderDetailId,
             @Body OrderDetail orderDetail
     );
 
-    @PATCH("api/customers/{customerId}")
+    @PATCH("api/auth/customer")
     Call<Void> updateCustomer(
-            @Path("customerId") int customerId,
             @Body User user
     );
 

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,27 +97,24 @@ public class UserUpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText passwordConfirm = dialog.findViewById(R.id.dialogPasswordConfirm);
-                String password = passwordConfirm.getText().toString();
+                String password = passwordConfirm.getText().toString().trim();
                 String phone = user.getPhone();
+                Log.w("Phone", phone);
                 if (password != null) {
                     Login_Request loginAccount = new Login_Request(phone, password);
                     ApiService.apiServiceGuest.login(loginAccount).enqueue(new Callback<TokenResponse>() {
                         @Override
                         public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                             if (response.isSuccessful()) {
-                                TokenResponse tokenResponse = response.body();
-                                if (tokenResponse != null) {
-                                    openUpdateUserDialog(Gravity.TOP, user);
+                                openUpdateUserDialog(Gravity.TOP, user);
                              } else {
-                                    dialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "False", Toast.LENGTH_SHORT).show();
-                                }
+                                dialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Bad credentials", Toast.LENGTH_SHORT).show();
                             }
-                        }
-
+                            }
                         @Override
                         public void onFailure(Call<TokenResponse> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Check Connection", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Lost Connection", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }
                     });
@@ -182,11 +180,10 @@ public class UserUpdateActivity extends AppCompatActivity {
                 .placeholder(R.drawable.placeholder_image)
                 .error(R.drawable.placeholder_image)
                 .into(userImageDialog);
+
         editTextUserName.setText(user.getFullName());
         editTextPassword.setText(user.getPassword());
         editTextRePassword.setText(user.getPassword());
-
-        //set up 2 button cancel and update
 
         //Update
         Button btnOpenUpdateDialog = dialog.findViewById(R.id.UpdateDialog);
@@ -201,13 +198,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                 Boolean validation = invalidateMenuInput(name, password1, password2);
 
                 if (validation) {
-                    User user = DataLocalManager.getCustomerAccount();
-                    user.setFullName(name);
-                    user.setPassword(password1);
-                    user.setImage(url);
-//                    updateUser(customerAccount);
-
-
+                    updateUser(url, name, password1);
                     dialog.dismiss();
                 } else {
                     Toast.makeText(UserUpdateActivity.this, "Update UnSuccess", Toast.LENGTH_SHORT).show();
@@ -219,51 +210,45 @@ public class UserUpdateActivity extends AppCompatActivity {
         Button btnOpenCancelDialog = dialog.findViewById(R.id.CancelDialog);
         btnOpenCancelDialog.setOnClickListener(view -> dialog.dismiss());
 
-
         dialog.show();
     }
 
-    //    private void updateUser(CustomerAccount customerAccount) {
-//        CustomerAccount T =  DataLocalManager.getCustomerAccount();
-//        User T2 = DataLocalManager.getCustomerAccount().getUser();
-//        CustomerAccount updateUser =
-//                new CustomerAccount(customerAccount.getCustomerId(),
-//                        customerAccount.getAddress(),
-//                        new User(customerAccount.getUser().getImage()
-//                                , customerAccount.getUser().getFullName(),
-//                                customerAccount.getUser().getPassword()));
-//
-//
-//        Call<Void> call = ApiService.apiService.updateCustomer(updateUser.getCustomerId(), updateUser);
-//        call.enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                if (response.isSuccessful()) {
-//                    T2.setFullName(updateUser.getUser().getFullName());
-//                    T2.setImage(updateUser.getUser().getImage());
-//                    T2.setPassword(updateUser.getUser().getPassword());
-//                    T.setUser(T2);
-//                    DataLocalManager.setCustomerAccount(T);
-//                    user = DataLocalManager.getCustomerAccount().getUser();
-//                    updateUserInfo();
-//                    Log.w("TAG", DataLocalManager.getCustomerAccount().getUser().getFullName());
-//
-//                    Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_SHORT).show();
-//                } else {
-//
-//
-//                    Toast.makeText(getApplicationContext(), "not oke", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                // Request failed due to network error or other issues
-//                // Handle error here
-//            }
-//        });
-//
-//    }
+    private void updateUser(String url, String name, String password) {
+        User updateUser = new User(url, name, password);
+        Call<Void> call = ApiService.apiService.updateCustomer(updateUser);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    user.setImage(url);
+                    user.setFullName(name);
+                    user.setPassword(password);
+
+                    DataLocalManager.setCustomerAccount(user);
+
+
+//                    Log.d("User", "User ID: " + DataLocalManager.getCustomerAccount().getUserId());
+//                    Log.d("User", "Full Name: " + DataLocalManager.getCustomerAccount().getFullName());
+//                    Log.d("User", "Email: " + DataLocalManager.getCustomerAccount().getEmail());
+//                    Log.d("User", "Image URL: " + DataLocalManager.getCustomerAccount().getImage());
+                    updateUserInfo();
+
+                    Log.w("TAG", DataLocalManager.getCustomerAccount().getFullName());
+
+                    Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "not oke", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Request failed due to network error or other issues
+                // Handle error here
+            }
+        });
+    }
+
     private Boolean invalidateMenuInput(String name, String password1, String password2) {
         if (name.isEmpty()
                 || password1.isEmpty()
@@ -302,14 +287,14 @@ public class UserUpdateActivity extends AppCompatActivity {
             user = (User) getIntent().getExtras().get("user");
             if (user != null) {
                 Picasso.get()
-                        .load(user.getImage())
+                        .load(DataLocalManager.getCustomerAccount().getImage())
                         .placeholder(R.drawable.placeholder_image)
                         .error(R.drawable.placeholder_image)
                         .into(userImage);
 
-                userName.setText(user.getFullName());
-                phone.setText(user.getPhone());
-                email.setText(user.getEmail());
+                userName.setText(DataLocalManager.getCustomerAccount().getFullName());
+                phone.setText(DataLocalManager.getCustomerAccount().getPhone());
+                email.setText(DataLocalManager.getCustomerAccount().getEmail());
                 password.setText("**********");
             }
             if (user == null) {
@@ -322,14 +307,14 @@ public class UserUpdateActivity extends AppCompatActivity {
     private void updateUserInfo() {
         if (user != null) {
             Picasso.get()
-                    .load(user.getImage())
+                    .load(DataLocalManager.getCustomerAccount().getImage())
                     .placeholder(R.drawable.placeholder_image)
                     .error(R.drawable.placeholder_image)
                     .into(userImage);
 
-            userName.setText(user.getFullName());
-            phone.setText(user.getPhone());
-            email.setText(user.getEmail());
+            userName.setText(DataLocalManager.getCustomerAccount().getFullName());
+            phone.setText(DataLocalManager.getCustomerAccount().getPhone());
+            email.setText(DataLocalManager.getCustomerAccount().getEmail());
             password.setText("**********");
         }
     }

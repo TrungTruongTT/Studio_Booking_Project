@@ -81,19 +81,10 @@ public class StudioActivity extends AppCompatActivity {
         addToCardbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickGotoChat(studio, studio);
+                onClickGotoChat(studio);
             }
         });
 
-
-        //view more recommend service btn
-//        buttonService = findViewById(R.id.ViewMoreRecommendServiceBtn);
-//        buttonService.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onClickViewMoreService();
-//            }
-//        });
 
         buttonFeedback = findViewById(R.id.ViewMoreFeedbackBtn);
         buttonFeedback.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +122,7 @@ public class StudioActivity extends AppCompatActivity {
         photoAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
     }
 
-    private void onClickGotoChat(Studio studio, Studio service) {
+    private void onClickGotoChat(Studio studio) {
         Intent intent = new Intent(this, HomeActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("studio", studio);
@@ -139,21 +130,12 @@ public class StudioActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    private void onClickViewMoreService() {
-//        Intent intent = new Intent(this, RecommendServiceActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("studio", studio);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-//    }
-
     private void onClickViewMoreFeedback() {
-        Toast.makeText(context, "Api Null", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(this, FeedbackActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("studio", studio);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
+        Intent intent = new Intent(this, FeedbackActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("studio", studio);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void callApiGetRecommendServicePack() {
@@ -198,7 +180,7 @@ public class StudioActivity extends AppCompatActivity {
     }
 
     private void loadFeedback() {
-        ApiService.apiService.getServiceFeedbackServiceId(studio.getStudioId()).enqueue(new Callback<List<Feedback>>() {
+        ApiService.apiService.getServiceFeedbackStudioId(studio.getStudioId()).enqueue(new Callback<List<Feedback>>() {
             @Override
             public void onResponse(Call<List<Feedback>> call, Response<List<Feedback>> response) {
                 if (response.isSuccessful()) {
@@ -210,7 +192,6 @@ public class StudioActivity extends AppCompatActivity {
                         mFeedbackList = feedbackList.stream().skip(0).limit(3).collect(Collectors.toList());
                         loadFeedbackData(mFeedbackList);
                     }
-
                 } else {
                     Toast.makeText(context, "Load Feedback Fail", Toast.LENGTH_SHORT).show();
                 }
@@ -242,8 +223,8 @@ public class StudioActivity extends AppCompatActivity {
         } else {
             TextView serviceName = findViewById(R.id.ServiceNameDetail);
             serviceName.setText(studio.getName());
-            TextView servicePrice = findViewById(R.id.ServicePriceDetail);
-            servicePrice.setText("Price: " + formatMoney(studio.getBalance()) + " VND");
+//            TextView servicePrice = findViewById(R.id.ServicePriceDetail);
+//            servicePrice.setText("Price: " + formatMoney(studio.getBalance()) + " VND");
             TextView serviceDescription = findViewById(R.id.ServiceDescription);
             serviceDescription.setText(Html.fromHtml(studio.getDescription()));
             TextView locationStudio = findViewById(R.id.location_Studio);

@@ -73,12 +73,12 @@ public class PaymentBookingActivity extends AppCompatActivity {
 
     }
 
-    private String getOrderId() {
+    private int getOrderId() {
         if (getIntent().getExtras() != null) {
-            String orderId = (String) getIntent().getExtras().get("orderId");
+            int orderId = (int) getIntent().getExtras().get("orderId");
             return orderId;
         }
-        return null;
+        return 0;
     }
 
     private void initToolBar() {

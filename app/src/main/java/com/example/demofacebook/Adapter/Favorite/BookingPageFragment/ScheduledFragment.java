@@ -36,7 +36,7 @@ public class ScheduledFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ApiService.apiService.geOrderByUser().enqueue(new Callback<List<OrderInformation>>() {
+        ApiService.apiService.getOrderByUser().enqueue(new Callback<List<OrderInformation>>() {
             @Override
             public void onResponse(Call<List<OrderInformation>> call, Response<List<OrderInformation>> response) {
                 if (response.isSuccessful()) {

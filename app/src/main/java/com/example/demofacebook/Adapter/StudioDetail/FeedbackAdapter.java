@@ -39,36 +39,16 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
             return;
         }
 
-        if (feedback.getAvatarUser() != null) {
-            Picasso.get().
-                    load(feedback.getAvatarUser())
-                    .error(R.drawable.placeholder_image)
-                    .into(holder.userAvatar);
-        } else {
-            Picasso.get()
-                    .load("https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg")
-                    .placeholder(R.drawable.placeholder_image)
-                    .into(holder.userAvatar);
-        }
-        if (feedback.getFeedbackUserName() == null) {
-            holder.feedbackUserName.setText("Huynh Phi");
-        } else {
-            holder.feedbackUserName.setText(feedback.getFeedbackUserName());
-        }
 
-        if (Integer.valueOf(feedback.getRating()) == null) {
-            String rating = "⭐: " + 4;
-            holder.rating.setText(rating);
-        } else {
-            String rating = "⭐: " + feedback.getRating();
-            holder.rating.setText(rating);
-        }
+        Picasso.get().
+                load(feedback.getAvatarUser())
+                .error(R.drawable.placeholder_image)
+                .into(holder.userAvatar);
+        holder.feedbackUserName.setText(feedback.getFeedbackUserName());
+        String rating = "⭐: " + feedback.getRating();
+        holder.rating.setText(rating);
 
-        if (feedback.getFeedbackDescription() == null) {
-            holder.feedbackDescription.setText("Null Data");
-        } else {
-            holder.feedbackDescription.setText(feedback.getFeedbackDescription());
-        }
+        holder.feedbackDescription.setText(feedback.getFeedbackDescription());
 
         if (feedback.getFeedbackDate() != null) {
             String dateTimeString = feedback.getFeedbackDate();
@@ -77,14 +57,14 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.MyArra
                 java.util.Date utilDate = sdf.parse(dateTimeString);
                 SimpleDateFormat outputSdf = new SimpleDateFormat("dd-MM-yyyy");
                 String formattedDate = outputSdf.format(utilDate);
-                holder.feedbackDate.setText("Create at: " + formattedDate);
+                holder.feedbackDate.setText("Post: " + formattedDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         } else {
             String str = "2015-03-31";
             Date dateChange = Date.valueOf(str);
-            holder.feedbackDate.setText("Create at " + dateChange);
+            holder.feedbackDate.setText("Post " + dateChange);
         }
     }
 

@@ -13,12 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Chat.Booking.OrderAdapter;
-import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.OrderDetailActivity;
-import com.example.demofacebook.PaymentBookingActivity;
 import com.example.demofacebook.R;
 
 import java.util.List;
@@ -42,7 +40,7 @@ public class CanceledFragment extends Fragment {
     }
 
     private void loadData(@NonNull View view) {
-        ApiService.apiService.geOrderByUser().enqueue(new Callback<List<OrderInformation>>() {
+        ApiService.apiService.getOrderByUser().enqueue(new Callback<List<OrderInformation>>() {
             @Override
             public void onResponse(Call<List<OrderInformation>> call, Response<List<OrderInformation>> response) {
                 if (response.isSuccessful()) {

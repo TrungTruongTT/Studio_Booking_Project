@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
     }
 
     private List<String> getSortData() {
-        String[] sortList = {"Top Rating", "Low Price", "High Price"};
+        String[] sortList = {"Top Rating"};
         List<String> myList = new ArrayList<>();
         Collections.addAll(myList, sortList);
         return myList;

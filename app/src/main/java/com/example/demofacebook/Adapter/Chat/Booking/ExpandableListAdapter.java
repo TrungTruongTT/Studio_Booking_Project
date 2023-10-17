@@ -86,6 +86,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             name.setText(groupItem.getName());
             description.setText(groupItem.getDescription());
             date.setText(groupItem.getDate());
+
             Picasso.get()
                     .load(groupItem.getImage())
                     .placeholder(R.drawable.placeholder_image)

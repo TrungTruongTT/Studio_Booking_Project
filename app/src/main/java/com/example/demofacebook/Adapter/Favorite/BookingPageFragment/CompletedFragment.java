@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Chat.Booking.OrderAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
-import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.OrderDetailActivity;
@@ -39,12 +37,12 @@ public class CompletedFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerViewOrder = view.findViewById(R.id.orderCompletedRecyclerView);
 
-        ApiService.apiService.geOrderByUser().enqueue(new Callback<List<OrderInformation>>() {
+        ApiService.apiService.getOrderByUser().enqueue(new Callback<List<OrderInformation>>() {
             @Override
             public void onResponse(Call<List<OrderInformation>> call, Response<List<OrderInformation>> response) {
                 if (response.isSuccessful()) {
                     List<OrderInformation> value = response.body();
-                    orderList = value.stream().filter(p->p.getStatus().equals("completed")).collect(Collectors.toList());
+                    orderList = value.stream().filter(p->p.getStatus().equals("payed")).collect(Collectors.toList());
                     loadBookingData(view, orderList);
 
                 } else {

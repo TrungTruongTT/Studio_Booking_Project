@@ -79,13 +79,9 @@ public class LoginActivity extends AppCompatActivity {
                     if (tokenResponse != null) {
                         getCustomerByToken();
                         DataLocalManager.setTokenResponse(tokenResponse);
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
-                        Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                     } else {
                         // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
-                        Toast.makeText(LoginActivity.this, "Invalid Load Token Fail", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Invalid Request Token Fail", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     // Nếu thông tin đăng nhập không hợp lệ, hiển thị thông báo lỗi
@@ -109,10 +105,10 @@ public class LoginActivity extends AppCompatActivity {
                     User user = response.body();
                     if (user != null) {
                         DataLocalManager.setCustomerAccount(user);
-                        Log.d("User", "User ID: " + DataLocalManager.getCustomerAccount().getUserId());
-                        Log.d("User", "Full Name: " + DataLocalManager.getCustomerAccount().getFullName());
-                        Log.d("User", "Email: " + DataLocalManager.getCustomerAccount().getEmail());
-                        Log.d("User", "Image URL: " + DataLocalManager.getCustomerAccount().getImage());
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                        Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(LoginActivity.this, "Invalid Load Token Fail", Toast.LENGTH_SHORT).show();
                     }
@@ -130,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validateEmail(String email) {
         if (email.isEmpty()) {
-            editTextEmail.setError("Email/Phone is required");
+            editTextEmail.setError("Phone is required");
             return false;
         } else {
             editTextEmail.setError(null);

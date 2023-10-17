@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackOrderDetailListener;
 import com.example.demofacebook.Model.BookingGroupItem;
+import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.SlotBookingItem;
 import com.example.demofacebook.R;
 import com.squareup.picasso.Picasso;
@@ -24,13 +25,15 @@ public class OrderDetailAdapter extends BaseExpandableListAdapter {
     private IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener;
     private Context context;
     private String orderStatus;
+    private List<OrderDetail> orderDetailList;
 
-    public OrderDetailAdapter(List<BookingGroupItem> groupItems, Map<BookingGroupItem, List<SlotBookingItem>> bookingItems, IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener, Context context, String orderStatus) {
+    public OrderDetailAdapter(List<BookingGroupItem> groupItems, Map<BookingGroupItem, List<SlotBookingItem>> bookingItems, IClickItemFeedbackOrderDetailListener iClickItemFeedbackOrderDetailListener, Context context, String orderStatus, List<OrderDetail> orderDetailList) {
         this.groupItems = groupItems;
         this.bookingItems = bookingItems;
         this.iClickItemFeedbackOrderDetailListener = iClickItemFeedbackOrderDetailListener;
         this.context = context;
         this.orderStatus = orderStatus;
+        this.orderDetailList = orderDetailList;
     }
 
     @Override
@@ -109,11 +112,26 @@ public class OrderDetailAdapter extends BaseExpandableListAdapter {
 
             TextView time = view.findViewById(R.id.time_Item_OrderDetailStudio);
             Button feedback = view.findViewById(R.id.btn_Feedback);
+
             SlotBookingItem bookingItem = bookingItems.get(groupItems.get(i)).get(i1);
+
+            if (orderStatus.equals("pending") || orderStatus.equals("cancel")) {
+                feedback.setVisibility(View.INVISIBLE);
+
+            } else {
+                if (bookingItem.getPostDate() != null || bookingItem.getContent() != null) {
+                    feedback.setVisibility(View.INVISIBLE);
+                }
+                if (bookingItem.getPostDate() == null && bookingItem.getContent() == null) {
+                    feedback.setVisibility(View.VISIBLE);
+                }
+            }
+
+
             feedback.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    iClickItemFeedbackOrderDetailListener.onClickItemFeedbackOrderDetail(null, feedback);
+                    iClickItemFeedbackOrderDetailListener.onClickItemFeedbackOrderDetail(bookingItem.getId(), feedback);
                 }
             });
             time.setText(bookingItem.getTime());

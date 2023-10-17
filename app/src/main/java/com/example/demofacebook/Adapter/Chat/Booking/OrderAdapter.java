@@ -18,6 +18,7 @@ import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderLi
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.R;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,7 +76,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 holder.btn_CanceledOrder.setVisibility(View.INVISIBLE);
                 break;
         }
-       holder.serviceName.setText(orderInformation.getStudioId() + "");
+       holder.serviceName.setText(orderInformation.getStudio().getName() + "");
+        Picasso.get()
+                .load(orderInformation.getStudio().getAvatarStudio())
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
+                .into(holder.urlImageService);
 
 
 

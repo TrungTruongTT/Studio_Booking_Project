@@ -14,31 +14,28 @@ public class Studio implements Serializable {
     private String address;
     @SerializedName("description")
     private String description;
-    @SerializedName("status")
-    private String status;
     @SerializedName("totalRating")
     private Double totalRating;
-    @SerializedName("balance")
-    private int balance;
     @SerializedName("createDate")
     private String createDate;
     @SerializedName("avatarStudio")
     private String avatarStudio;
     @SerializedName("coverImage")
     private String coverImage;
+    @SerializedName("deleted")
+    private boolean deleted;
 
 
-    public Studio(int studioId, String name, String address, String description, String status, Double totalRating, int balance, String createDate, String avatarStudio, String coverImage) {
+    public Studio(int studioId, String name, String address, String description, Double totalRating, String createDate, String avatarStudio, String coverImage, boolean deleted) {
         this.studioId = studioId;
         this.name = name;
         this.address = address;
         this.description = description;
-        this.status = status;
         this.totalRating = totalRating;
-        this.balance = balance;
         this.createDate = createDate;
         this.avatarStudio = avatarStudio;
         this.coverImage = coverImage;
+        this.deleted = deleted;
     }
 
     public int getStudioId() {
@@ -72,29 +69,12 @@ public class Studio implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Double getTotalRating() {
         return totalRating;
     }
 
     public void setTotalRating(Double totalRating) {
         this.totalRating = totalRating;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
     }
 
     public String getCreateDate() {
@@ -121,6 +101,14 @@ public class Studio implements Serializable {
         this.coverImage = coverImage;
     }
 
+    public boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setStatus(boolean status) {
+        this.deleted = status;
+    }
+
     @Override
     public String toString() {
         return "Studio{" +
@@ -128,12 +116,11 @@ public class Studio implements Serializable {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
                 ", totalRating=" + totalRating +
-                ", balance=" + balance +
                 ", createDate='" + createDate + '\'' +
                 ", avatarStudio='" + avatarStudio + '\'' +
                 ", coverImage='" + coverImage + '\'' +
+                ", deleted=" + deleted +
                 '}';
     }
 }

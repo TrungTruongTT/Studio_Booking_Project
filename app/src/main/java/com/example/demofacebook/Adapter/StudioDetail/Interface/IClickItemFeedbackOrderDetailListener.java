@@ -5,5 +5,5 @@ import android.widget.Button;
 import com.example.demofacebook.Model.OrderDetail;
 
 public interface IClickItemFeedbackOrderDetailListener {
-    void onClickItemFeedbackOrderDetail(OrderDetail orderDetail , Button buttonFeedback);
+    void onClickItemFeedbackOrderDetail(int orderDetailId , Button buttonFeedback);
 }
