@@ -1,8 +1,7 @@
 package com.example.demofacebook.Adapter.StudioDetail.Interface;
 
-import com.example.demofacebook.Model.Service;
+import com.example.demofacebook.Model.Studio;
 
 public interface IClickItemServiceListener {
-    void onClickItemService(Service Service);
-
+    void onClickItemService(Studio Studio);
 }

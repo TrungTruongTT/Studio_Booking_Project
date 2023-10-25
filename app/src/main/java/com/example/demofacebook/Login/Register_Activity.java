@@ -3,15 +3,17 @@ package com.example.demofacebook.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.Api.ApiService;
-import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.OptSms;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
@@ -39,7 +41,6 @@ public class Register_Activity extends AppCompatActivity {
         Intent intent = new Intent(Register_Activity.this, ForgotPassword_Activity.class);
         startActivity(intent);
     }
-
     public static String convertToInternationalFormat(String phoneNumber) {
         // Remove any leading zeros from the phone number
         String trimmedNumber = phoneNumber.replaceFirst("^0+", "");
@@ -47,7 +48,6 @@ public class Register_Activity extends AppCompatActivity {
         // Add the country code "+84" to the trimmed number
         return "+84" + trimmedNumber;
     }
-
     private boolean validateEmail(String email){
         if(email.isEmpty()){
             textEmail.setError("Email is required");
@@ -60,7 +60,6 @@ public class Register_Activity extends AppCompatActivity {
             return true;
         }
     }
-
     private boolean validateUsername(String username){
         if(username.isEmpty()){
             textUserName.setError("Password is required0");
@@ -70,10 +69,9 @@ public class Register_Activity extends AppCompatActivity {
             return true;
         }
     }
-
     private boolean validatePhone(String phone){
         if(phone.isEmpty()){
-            textPhoneNumner.setError("Phone is required0");
+            textPhoneNumner.setError("Phone is required!");
             return false;
         }else if (!Regex.PHONE_NUMBER.matcher(phone).matches()){
             textPhoneNumner.setError("Please enter valid phone");
@@ -92,13 +90,30 @@ public class Register_Activity extends AppCompatActivity {
             return true;
         }
     }
+    private void initToolBar() {
+        Toolbar toolbar;
+        toolbar = findViewById(R.id.ToolBarSignInActivity);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Sign up");
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        initToolBar();
+
         textFullName = findViewById(R.id.textFullName);
-        textUserName = findViewById(R.id.textUserName);
         textEmail = findViewById(R.id.textEmail);
         textPhoneNumner = findViewById(R.id.textPhoneNum);
         textPassword = findViewById(R.id.textPass);
@@ -107,15 +122,14 @@ public class Register_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                     String fullName = textFullName.getText().toString();
-                    String userName = textUserName.getText().toString();
                     String email = textEmail.getText().toString();
                     String phoneNumber = textPhoneNumner.getText().toString();
                     String password = textPassword.getText().toString();
-                if (validateFullName(fullName) && validateUsername(userName) && validateEmail(email)
+                if (validateFullName(fullName) && validateEmail(email)
                         && validatePhone(phoneNumber) && validatePassword(password)) {
-                    User account = new User("null",fullName,userName,phoneNumber,email,password);
-                    CustomerAccount customer = new CustomerAccount(account);
-                    sendRequestToServer(customer);
+                    User account = new User(fullName, email.toLowerCase(), phoneNumber, password, "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg");
+//                    CustomerAccount customer = new CustomerAccount(account);
+                    sendRequestToServer(account);
                 } else {
                     // Hiển thị thông báo lỗi hoặc thực hiện các hành động khác nếu dữ liệu không hợp lệ
                     Toast.makeText(getApplicationContext(), "Please try again!!", Toast.LENGTH_SHORT).show();
@@ -125,7 +139,6 @@ public class Register_Activity extends AppCompatActivity {
         });
 
     }
-
     private boolean validatePassword(String pass){
         if (pass.isEmpty()) {
             textPassword.setError("Password is required");
@@ -139,12 +152,12 @@ public class Register_Activity extends AppCompatActivity {
         }
     }
 
-    private void sendRequestToServer(CustomerAccount customer) {
-        String phone = convertToInternationalFormat(customer.getUser().getPhone());
+    private void sendRequestToServer(User user) {
+        String phone = convertToInternationalFormat(user.getPhone());
+        Log.d("TAG", phone);
         OptSms phoneOpt = new OptSms(phone);
-        Log.w("opt", phoneOpt.getPhoneNumber());
 
-        Call<OptSms> call = ApiService.apiServiceGuesst.getOtp(phoneOpt);
+        Call<OptSms> call = ApiService.apiServiceGuest.getOtp(phoneOpt);
         call.enqueue(new Callback<OptSms>() {
             @Override
             public void onResponse(Call<OptSms> call, Response<OptSms> response) {
@@ -152,7 +165,7 @@ public class Register_Activity extends AppCompatActivity {
                     OptSms responseValue = response.body();
                     Intent intent = new Intent(Register_Activity.this, OtpConfirmActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("customer", customer);
+                    bundle.putSerializable("user", user);
                     bundle.putSerializable("idOtp", responseValue.getOtpId());
                     bundle.putSerializable("phoneNumberFormatted", responseValue.getPhoneNumber());
                     intent.putExtras(bundle);

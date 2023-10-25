@@ -40,8 +40,8 @@ public class PhotoAdapter extends PagerAdapter {
         if (photo != null) {
             Picasso.get()
                     .load(photo)
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(imageView);
         }
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -81,8 +81,8 @@ public class PhotoAdapter extends PagerAdapter {
 
         Picasso.get()
                 .load(photo)
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
                 .into(feedbackImage);
 
         closeBtn.setOnClickListener(view -> dialog.dismiss());

@@ -25,7 +25,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
-import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.Login_Request;
 import com.example.demofacebook.Model.TokenResponse;
 import com.example.demofacebook.Model.User;
@@ -98,27 +97,24 @@ public class UserUpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText passwordConfirm = dialog.findViewById(R.id.dialogPasswordConfirm);
-                String password = passwordConfirm.getText().toString();
+                String password = passwordConfirm.getText().toString().trim();
                 String phone = user.getPhone();
+                Log.w("Phone", phone);
                 if (password != null) {
                     Login_Request loginAccount = new Login_Request(phone, password);
-                    ApiService.apiServiceGuesst.login(loginAccount).enqueue(new Callback<TokenResponse>() {
+                    ApiService.apiServiceGuest.login(loginAccount).enqueue(new Callback<TokenResponse>() {
                         @Override
                         public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                             if (response.isSuccessful()) {
-                                TokenResponse tokenResponse = response.body();
-                                if (tokenResponse != null) {
-                                    openUpdateUserDialog(Gravity.TOP, user);
+                                openUpdateUserDialog(Gravity.TOP, user);
                              } else {
-                                    dialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "False", Toast.LENGTH_SHORT).show();
-                                }
+                                dialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Bad credentials", Toast.LENGTH_SHORT).show();
                             }
-                        }
-
+                            }
                         @Override
                         public void onFailure(Call<TokenResponse> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Check Connection", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Lost Connection", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }
                     });
@@ -138,8 +134,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-
-
     private void openUpdateUserDialog(int gravity, User user) {
         if (user == null) {
             return;
@@ -183,14 +177,13 @@ public class UserUpdateActivity extends AppCompatActivity {
         //set data to edit text
         Picasso.get()
                 .load(user.getImage())
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
                 .into(userImageDialog);
+
         editTextUserName.setText(user.getFullName());
         editTextPassword.setText(user.getPassword());
         editTextRePassword.setText(user.getPassword());
-
-        //set up 2 button cancel and update
 
         //Update
         Button btnOpenUpdateDialog = dialog.findViewById(R.id.UpdateDialog);
@@ -205,13 +198,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                 Boolean validation = invalidateMenuInput(name, password1, password2);
 
                 if (validation) {
-                    CustomerAccount customerAccount = DataLocalManager.getCustomerAccount();
-                    customerAccount.getUser().setFullName(name);
-                    customerAccount.getUser().setPassword(password1);
-                    customerAccount.getUser().setImage(url);
-                    updateUser(customerAccount);
-
-
+                    updateUser(url, name, password1);
                     dialog.dismiss();
                 } else {
                     Toast.makeText(UserUpdateActivity.this, "Update UnSuccess", Toast.LENGTH_SHORT).show();
@@ -223,40 +210,33 @@ public class UserUpdateActivity extends AppCompatActivity {
         Button btnOpenCancelDialog = dialog.findViewById(R.id.CancelDialog);
         btnOpenCancelDialog.setOnClickListener(view -> dialog.dismiss());
 
-
         dialog.show();
     }
 
-    private void updateUser(CustomerAccount customerAccount) {
-        CustomerAccount T =  DataLocalManager.getCustomerAccount();
-        User T2 = DataLocalManager.getCustomerAccount().getUser();
-        CustomerAccount updateUser =
-                new CustomerAccount(customerAccount.getCustomerId(),
-                        customerAccount.getAddress(),
-                        new User(customerAccount.getUser().getImage()
-                                , customerAccount.getUser().getFullName(),
-                                customerAccount.getUser().getPassword()));
-
-        Log.w("TAG", updateUser + "");
-
-        Call<Void> call = ApiService.apiService.updateCustomer(updateUser.getCustomerId(), updateUser);
+    private void updateUser(String url, String name, String password) {
+        User updateUser = new User(url, name, password);
+        Call<Void> call = ApiService.apiService.updateCustomer(updateUser);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    T2.setFullName(updateUser.getUser().getFullName());
-                    T2.setImage(updateUser.getUser().getImage());
-                    T2.setPassword(updateUser.getUser().getPassword());
-                    T.setUser(T2);
-                    DataLocalManager.setCustomerAccount(T);
-                    user = DataLocalManager.getCustomerAccount().getUser();
+                    user.setImage(url);
+                    user.setFullName(name);
+                    user.setPassword(password);
+
+                    DataLocalManager.setCustomerAccount(user);
+
+
+//                    Log.d("User", "User ID: " + DataLocalManager.getCustomerAccount().getUserId());
+//                    Log.d("User", "Full Name: " + DataLocalManager.getCustomerAccount().getFullName());
+//                    Log.d("User", "Email: " + DataLocalManager.getCustomerAccount().getEmail());
+//                    Log.d("User", "Image URL: " + DataLocalManager.getCustomerAccount().getImage());
                     updateUserInfo();
-                    Log.w("TAG", DataLocalManager.getCustomerAccount().getUser().getFullName());
+
+                    Log.w("TAG", DataLocalManager.getCustomerAccount().getFullName());
 
                     Toast.makeText(getApplicationContext(), "Update Success", Toast.LENGTH_SHORT).show();
                 } else {
-
-
                     Toast.makeText(getApplicationContext(), "not oke", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -267,7 +247,6 @@ public class UserUpdateActivity extends AppCompatActivity {
                 // Handle error here
             }
         });
-
     }
 
     private Boolean invalidateMenuInput(String name, String password1, String password2) {
@@ -281,7 +260,6 @@ public class UserUpdateActivity extends AppCompatActivity {
         }
         return true;
     }
-
     private void uploadUserAvatarImage() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -297,8 +275,8 @@ public class UserUpdateActivity extends AppCompatActivity {
             String url = "https://i.imgur.com/DvpvklR.png";
             Picasso.get()
                     .load(url)
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(userImageDialog);
 
         }
@@ -309,14 +287,14 @@ public class UserUpdateActivity extends AppCompatActivity {
             user = (User) getIntent().getExtras().get("user");
             if (user != null) {
                 Picasso.get()
-                        .load(user.getImage())
-                        .placeholder(R.drawable.download)
-                        .error(R.drawable.download)
+                        .load(DataLocalManager.getCustomerAccount().getImage())
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.placeholder_image)
                         .into(userImage);
 
-                userName.setText(user.getFullName());
-                phone.setText(user.getPhone());
-                email.setText(user.getEmail());
+                userName.setText(DataLocalManager.getCustomerAccount().getFullName());
+                phone.setText(DataLocalManager.getCustomerAccount().getPhone());
+                email.setText(DataLocalManager.getCustomerAccount().getEmail());
                 password.setText("**********");
             }
             if (user == null) {
@@ -329,14 +307,14 @@ public class UserUpdateActivity extends AppCompatActivity {
     private void updateUserInfo() {
         if (user != null) {
             Picasso.get()
-                    .load(user.getImage())
-                    .placeholder(R.drawable.download)
-                    .error(R.drawable.download)
+                    .load(DataLocalManager.getCustomerAccount().getImage())
+                    .placeholder(R.drawable.placeholder_image)
+                    .error(R.drawable.placeholder_image)
                     .into(userImage);
 
-            userName.setText(user.getFullName());
-            phone.setText(user.getPhone());
-            email.setText(user.getEmail());
+            userName.setText(DataLocalManager.getCustomerAccount().getFullName());
+            phone.setText(DataLocalManager.getCustomerAccount().getPhone());
+            email.setText(DataLocalManager.getCustomerAccount().getEmail());
             password.setText("**********");
         }
     }
@@ -355,19 +333,6 @@ public class UserUpdateActivity extends AppCompatActivity {
 
     private void configEditText(EditText editText) {
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        //editText.requestFocus();
-        InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
-    }
-
-    private void configEditPhoneText(EditText editText) {
-        editText.setInputType(InputType.TYPE_CLASS_PHONE);
-        //editText.requestFocus();
-        InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
-    }
-    private void configEditPasswordText(EditText editText) {
-        editText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
         //editText.requestFocus();
         InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);

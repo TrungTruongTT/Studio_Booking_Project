@@ -1,40 +1,23 @@
 package com.example.demofacebook.Fragment.MainPageFragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.Adapter.Chat.ChatAdapter;
-import com.example.demofacebook.Fragment.Service.PaymentActivity;
-import com.example.demofacebook.Model.CustomerAccount;
-import com.example.demofacebook.Model.Message;
-import com.example.demofacebook.Model.Service;
 import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Model.TalkjsModel;
+import com.example.demofacebook.Model.User;
 import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.google.gson.Gson;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ChatFragment extends Fragment {
@@ -124,57 +107,20 @@ public class ChatFragment extends Fragment {
     //zalo Pay in chat
     private Button btnZaloPay;
     private Studio studio;
-    private Service service;
-    private CustomerAccount account;
+    private User user;
     private WebView talkJsUI;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-       /* editMessage= view.findViewById(R.id.edit_message);
-        Button btnSend = view.findViewById(R.id.btn_send);
-        rcvMessage= view.findViewById(R.id.rcv_message);*/
-        //zalo Pay in chat
-        //Button btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
         studio = loadStudio();
-        service = loadService();
         initLoadView(view);
-        // Nhận Studio ID từ Bundle
-
-
-       /* LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        rcvMessage.setLayoutManager(linearLayoutManager);
-
-        sListMessage= new ArrayList<>();
-
-        messageAdapter = new ChatAdapter();
-
-        messageAdapter.setData(sListMessage);
-        rcvMessage.setAdapter(messageAdapter);
-
-
-        //bắt sự kiện send chat
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendMessage();
-            }
-        });*/
-
-       /* btnZaloPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OnClickPayZalo();
-            }
-        });*/
-
     }
 
     private void initLoadView(View view) {
         talkJsUI = view.findViewById(R.id.talkjs);
-        account = DataLocalManager.getCustomerAccount();
-        TalkjsModel meModel = new TalkjsModel(account.getUser().getUserId(), account.getUser().getFullName(),account.getUser().getEmail() ,account.getUser().getImage(),"HELLO!!");
+        user = DataLocalManager.getCustomerAccount();
+        TalkjsModel meModel = new TalkjsModel(user.getUserId(), user.getFullName(), user.getEmail(), user.getImage(), "HELLO!!");
         Gson gson = new Gson();
         String me = gson.toJson(meModel);
         // đổi từ base gốc
@@ -186,8 +132,8 @@ public class ChatFragment extends Fragment {
                 "            welcomeMessage: 'Hey there! How are you? :-)',\n" +
                 "        });", "var me = new Talk.User(JSON.parse('" + me + "'));");
         // Sử dụng dữ liệu Studio nhận được
-        if (studio != null && account !=null) {
-            TalkjsModel otherModel = new TalkjsModel(studio.getStudioId(), studio.getTitle(), studio.getAddress_Studio(), studio.getCoverImage(), "Can I Help You ??");
+        if (studio != null && user != null) {
+            TalkjsModel otherModel = new TalkjsModel(studio.getStudioId(), studio.getName(), studio.getAddress(), studio.getCoverImage(), "Can I Help You ??");
             String other = gson.toJson(otherModel);
             //đổi tiếp lần 2
             modifiedHtml = modifiedHtml.replace("var other = new Talk.User({\n" +
@@ -206,18 +152,8 @@ public class ChatFragment extends Fragment {
             Log.d("ModifiedHtml", modifiedHtml);
             talkJsUI.loadData(modifiedHtml, "text/html", "utf-8");
         }
-
-
-//        btnZaloPay = view.findViewById(R.id.btnZaloPayChat);
     }
 
-    private void OnClickPayZalo() {
-        Intent intent = new Intent(getActivity(), PaymentActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("service", service); //gửi dữ liệu qua payment
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
     @Nullable
     @Override
@@ -229,20 +165,10 @@ public class ChatFragment extends Fragment {
     private Studio loadStudio() {
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey("studio")) {
-            Studio studio = (Studio) bundle.getSerializable("studio");
-            return studio;
+            return (Studio) bundle.getSerializable("studio");
         } else {
             return null;
         }
     }
 
-    private Service loadService(){
-        Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey("service")) {
-            Service service = (Service) bundle.getSerializable("service");
-            return service;
-        } else {
-            return null;
-        }
-    }
 }

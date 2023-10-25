@@ -1,157 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="15dp"
+    android:layout_height="100dp"
+    android:layout_marginBottom="20dp"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
     android:orientation="horizontal">
 
+
     <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/orderDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:maxLines="2"
+            android:paddingEnd="10dp"
+            android:text="Date"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        style="@style/formInputText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardView"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:orientation="vertical">
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/urlImageService"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_image" />
 
         <LinearLayout
-            android:layout_marginBottom="10dp"
+            android:layout_height="70dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/OrderId"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:id="@+id/orderServiceName"
+                android:layout_height="40dp"
                 android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Order Id"
-                android:textStyle="bold"
-                android:textColor="@color/TextColor_Gallery"
-                android:textSize="20sp"
-                android:gravity="start|center" />
-
-            <TextView
-                android:id="@+id/orderStatus"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:ellipsize="end"
-                android:gravity="right|center"
-                android:maxLines="1"
-                android:textStyle="bold"
+                android:maxLines="2"
+                android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:text="Explored"
                 android:textColor="@color/TextColor_Gallery"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/urlImageService"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/download" />
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="vertical">
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/btn_ViewOrder"
+                    style="@style/buttonAppleLogin"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:text="View"
+                    android:textAllCaps="false"
+                    android:textSize="10dp"
+                    android:textStyle="normal" />
 
-                <TextView
-                    android:paddingBottom="7dp"
-                    android:id="@+id/orderServiceName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="Explored"
-                    android:textColor="@color/TextColor_Gallery"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/orderServicePrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="end|center"
-                    android:lines="1"
-                    android:text="$90.000"
-                    android:textColor="@color/GrayText"
-                    android:textSize="18sp"/>
-            </LinearLayout>
-        </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/orderTotalOrderDetail"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:ellipsize="end"
-            android:text="count"
-            android:gravity="start|center"
-            android:textColor="@color/BlackText"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/orderTotalPrice"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="Total: 100.000 USD"
-            android:textColor="@color/Price"
-            android:gravity="end|center"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:gravity="end"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/orderDate"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:gravity="center|start"
-                android:layout_height="match_parent"
-                android:text="Date"
-                android:textAllCaps="false"
-                android:textSize="15sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="end">
-
-
-<!--                <Button-->
-<!--                    android:id="@+id/OrderChatBtn"-->
-<!--                    android:layout_width="120dp"-->
-<!--                    android:layout_height="35dp"-->
-<!--                    android:background="@color/Chat_btn"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="Chat"-->
-<!--                    android:textAllCaps="false"-->
-<!--                    android:textSize="15sp" />-->
+                <Button
+                    android:id="@+id/btn_CanceledOrder"
+                    style="@style/buttonGoogleLogin"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:text="Cancel"
+                    android:textAllCaps="false"
+                    android:textSize="10dp"
+                    android:textStyle="normal" />
             </LinearLayout>
 
         </LinearLayout>
+
+
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

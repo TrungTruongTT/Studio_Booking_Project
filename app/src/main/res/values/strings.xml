@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Studio Booking Service</string>
+    <string name="app_name">Framemates</string>
 
     <string name="action_home">Home</string>
     <string name="action_chat">Chat</string>
@@ -67,19 +67,21 @@
     <string name="feedbackString">This studio is a hidden gem! From the moment I walked in, I was captivated by the vibrant energy and creativity that filled the space. The instructors are knowledgeable and passionate, guiding me to unlock my artistic potential. I highly recommend this studio for a truly inspiring experience!
     </string>
 
-    <string name="CopyRight">  ©2023 Booking Service.\n
+    <string name="CopyRight">  ©2023 Booking Studio.\n
         All rights reserved. This material, including but not limited to text, graphics, images, and any other content, is protected by copyright laws and international treaties.
         Unauthorized reproduction, distribution, or modification of this content is strictly prohibited without prior written permission from the copyright owner.
         \nLegal action will be taken against any infringement.
-        \n
-        \n
         \nFor permission requests or further inquiries, please contact BookingService@gmail.com.
     </string>
-    <string name="update_user_information">Update User Information</string>
+    <string name="update_user_information">Update Information</string>
     <string name="lbNameDialog">Name</string>
     <string name="lbDOBDialog">Birth Day</string>
     <string name="lbPhoneDialog">0966324244</string>
     <string name="lbEmailDialog">Phinhse150972@gmail.com</string>
     <string name="feedback_form_text">Feedback Form</string>
+    <string name="slogan_Framemates">Get started with Framemates.</string>
     <item name="pinView" type="id" />
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

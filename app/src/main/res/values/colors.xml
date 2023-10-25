@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryLight">#8b9dc3</color>
-    <color name="colorAccentDark">#dfe3ee</color>
-    <color name="colorAccentLight">#ffffff</color>
-    <color name="Custom_Color1">#38ef7d</color>
-    <color name="Custom_Color2">#11998e</color>
-    <color name="Custom_Color3">#75D39B</color>
+<!--    <color name="colorPrimaryLight">#8b9dc3</color>-->
+<!--    <color name="colorAccentDark">#dfe3ee</color>-->
+<!--    <color name="colorAccentLight">#ffffff</color>-->
+<!--    <color name="Custom_Color1">#38ef7d</color>-->
+<!--    <color name="Custom_Color2">#11998e</color>-->
+<!--    <color name="Custom_Color3">#75D39B</color>-->
 
-    <color name="colorPrimary">#38ef7d</color>
-    <color name="colorPrimaryDark">#11998e</color>
-    <color name="colorAccent">#75D39B</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#FFFFFF</color>
 
     <!--colors for modern ui-->
     <color name="whiteTextColor">#fff</color>
-    <color name="primaryTextColor">#FF018786</color>
+    <color name="primaryTextColor">#235a8f</color>
     <color name="loginBkColor">#f0f0f0</color>
 
     <!--color for card-->
@@ -22,21 +22,15 @@
     <!--colors for Home-->
     <!--    <color name="cardView">#2C4F2D</color>-->
     <color name="cardView">#FFFFFF</color>
-    <color name="backgroundColor">#e8e8e8</color>
+    <color name="sortItem">#f5f6fa</color>
+    <color name="sortItemSelected">#235a8f</color>
+    <color name="backgroundColor">#FFFFFF</color>
     <!--    <color name="backgroundColor">#FF0000</color>-->
 
 
     <!--ToolBar for App-->
-    <color name="ToolBar">#FFD154</color>
+    <color name="ToolBar">#ffffff</color>
 
-<!--    <color name="ToolBar">#11988D</color>-->
-    <color name="Home_ToolBar">#F68BA8</color>
-    <color name="Booking_ToolBar">#426695</color>
-    <color name="NewFeed_ToolBar">#048ABF</color>
-    <color name="Chat_ToolBar">#02730A</color>
-    <color name="User_ToolBar">#F29F05</color>
-    <color name="Search_ToolBar">#963074</color>
-    <color name="ToolBar_Color">#25c685</color>
 
     <!--Selected Item for App-->
     <color name="Selected_Item">#97BC62</color>
@@ -46,8 +40,7 @@
     <color name="UnSelected_Tab">#FEEDDA</color>
     <color name="Selected_Tab">#EE4E34</color>
 
-    #3D3D3D
-    #FFD154
+
     <!--Gallery Item for StudioDetail-->
     <color name="AppBarColor">#85FF85</color>
     <color name="BackgroundText_Gallery">#930330</color>
@@ -67,7 +60,7 @@
     <color name="Background_Tab_Layout">#87d3f8</color>
 
 
-    <!--Service Page -->
+    <!--Studio Page -->
     <color name="Title">#000000</color>
     <color name="Description">#000000</color>
     <color name="Price">#FF0000</color>
@@ -76,7 +69,7 @@
 
     <!--Text Page -->
     <color name="BlackText">#000000</color>
-    <color name="GrayText">#AEAFB1</color>
+    <color name="GrayText">#8f959e</color>
     <color name="GrayText2">#6D6D6D</color>
     <color name="RedText">#FF4141</color>
 
@@ -98,6 +91,14 @@
     <color name="Text_Chat_Color">#3D3D3D</color>
     <color name="Background_Chat_Color">#FFD154</color>
 
+    <!--Appbar -->
+    <color name="Text_Appbar_Color">#000000</color>
+
+    <!--Sort Home page -->
+    <color name="Text_Selected_Color">#FFFFFF</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 
 
 

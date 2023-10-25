@@ -1,59 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
-    style="@style/loginParent"
-    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
-    android:hapticFeedbackEnabled="true"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin">
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
 
-    <ScrollView style="@style/parent">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/ToolBarLoginActivity"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/Text_Appbar_Color" />
 
-        <RelativeLayout style="@style/parent">
+    <LinearLayout
+        style="@style/loginParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hapticFeedbackEnabled="true"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
+        <ScrollView style="@style/parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:weightSum="12">
+            <RelativeLayout style="@style/parent">
 
                 <LinearLayout
-                    style="@style/parent"
-                    android:layout_weight="3"
-                    android:background="@drawable/header_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:orientation="vertical">
 
-                    <ImageView
-                        style="@style/headerAppLogo"
-                        android:contentDescription="login background" />
+
+                    <include layout="@layout/layout_login" />
+
                 </LinearLayout>
+            </RelativeLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginRight="30dp"
-                android:orientation="vertical">
-
-
-                <ImageView
-                    style="@style/headerAppLogo"
-                    android:src="@drawable/logo_app" />
-
-                <include layout="@layout/layout_login" />
-
-            </LinearLayout>
-        </RelativeLayout>
-
-    </ScrollView>
-
-</RelativeLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

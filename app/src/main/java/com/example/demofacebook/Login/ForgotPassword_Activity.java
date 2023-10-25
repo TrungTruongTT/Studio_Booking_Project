@@ -10,7 +10,7 @@ import com.example.demofacebook.R;
 
 public class ForgotPassword_Activity extends AppCompatActivity {
 
-//chuyển về main
+    //chuyển về main
     public void viewLoginClicked(View v) {
         // Chuyển từ activity_main sang layout_register
         Intent intent = new Intent(ForgotPassword_Activity.this, MainActivity.class);

@@ -11,7 +11,7 @@
         android:id="@+id/FeedbackImage_View"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/download"
+        android:src="@drawable/placeholder_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -2,33 +2,28 @@ package com.example.demofacebook.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class Feedback {
 
     @SerializedName("orderDetailId")
     private int feedbackId;
+    @SerializedName("userAvatar")
     private String avatarUser;
+    @SerializedName("userName")
     private String feedbackUserName;
     @SerializedName("rating")
     private int rating;
     @SerializedName("content")
     private String feedbackDescription;
-    //    @SerializedName("servicePack_mediaService")
-    //    private int feedbackImage;
-    @SerializedName("servicePack_mediaService")
-    private List<Media_ServicePack> feedbackImage;
     @SerializedName("postDate")
     private String feedbackDate;
 
 
-    public Feedback(int feedbackId, String avatarUser, String feedbackUserName, int rating, String feedbackDescription, List<Media_ServicePack> feedbackImage, String feedbackDate) {
+    public Feedback(int feedbackId, String avatarUser, String feedbackUserName, int rating, String feedbackDescription, String feedbackDate) {
         this.feedbackId = feedbackId;
         this.avatarUser = avatarUser;
         this.feedbackUserName = feedbackUserName;
         this.rating = rating;
         this.feedbackDescription = feedbackDescription;
-        this.feedbackImage = feedbackImage;
         this.feedbackDate = feedbackDate;
     }
 
@@ -73,14 +68,6 @@ public class Feedback {
 
     public void setFeedbackDescription(String feedbackDescription) {
         this.feedbackDescription = feedbackDescription;
-    }
-
-    public List<Media_ServicePack> getFeedbackImage() {
-        return feedbackImage;
-    }
-
-    public void setFeedbackImage(List<Media_ServicePack> feedbackImage) {
-        this.feedbackImage = feedbackImage;
     }
 
     public String getFeedbackDate() {

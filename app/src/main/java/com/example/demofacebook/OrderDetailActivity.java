@@ -1,7 +1,6 @@
 package com.example.demofacebook;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,34 +15,37 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Chat.Booking.OrderDetailAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackOrderDetailListener;
-import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderDetailListener;
 import com.example.demofacebook.Api.ApiService;
-import com.example.demofacebook.Fragment.Service.PaymentActivity;
-import com.example.demofacebook.Fragment.Service.ServicePage;
 import com.example.demofacebook.HomePage.HomeActivity;
-import com.example.demofacebook.Model.Order;
+import com.example.demofacebook.Model.BookingGroupItem;
 import com.example.demofacebook.Model.OrderDetail;
-import com.example.demofacebook.Model.Service;
+import com.example.demofacebook.Model.OrderInformation;
+import com.example.demofacebook.Model.SlotBookingItem;
 import com.example.demofacebook.Model.Studio;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,285 +55,63 @@ import retrofit2.Response;
 public class OrderDetailActivity extends AppCompatActivity {
     private Studio studio;
     private int orderId;
-    private String orderStatus;
-    private RecyclerView recyclerView;
-    private OrderDetailAdapter orderDetailAdapter;
-    private List<OrderDetail> orderDetail;
+    private OrderInformation orderInformation;
 
-    Button cancelOrderBtn;
-    Button depositOrderBtn;
-    Button paidTheRestOrderBtn;
+    ExpandableListView expandableListView;
+    List<BookingGroupItem> mGroupList;
+    Map<BookingGroupItem, List<SlotBookingItem>> mListItems;
+    OrderDetailAdapter orderDetailAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
-        //Load Studio, OrderId
-        loadData();
-        //Init ToolBar
+        getData();
         initToolBar();
-        //LoadServiceList
-        getOrderData(orderId);
-        //Action Button
+
+        initData();
+
+        expandableListView = findViewById(R.id.ExpandableOrderDetailBooking);
+        mListItems = getListItems();
+        mGroupList = new ArrayList<>(mListItems.keySet());
+
+        orderDetailAdapter = new OrderDetailAdapter(mGroupList, mListItems, new IClickItemFeedbackOrderDetailListener() {
+            @Override
+            public void onClickItemFeedbackOrderDetail(int orderDetailId, Button buttonFeedback) {
+                openFeedbackDialog(Gravity.CENTER, studio, buttonFeedback, orderDetailId);
+            }
+        }, getApplicationContext(), orderInformation.getStatus(), orderInformation.getOrderDetail());
+        expandableListView.setAdapter(orderDetailAdapter);
+
     }
 
-    private void getOrderData(int orderId) {
-        ApiService.apiService.getDetailByOrderId(orderId).enqueue(new Callback<List<OrderDetail>>() {
-            @Override
-            public void onResponse(Call<List<OrderDetail>> call, Response<List<OrderDetail>> response) {
-                if (response.isSuccessful()) {
-                    orderDetail = response.body();
-                    loadServiceList(orderDetail);
-                    loadStudioData(orderDetail);
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<OrderDetail>> call, Throwable t) {
-            }
-        });
-    }
-
-    private void loadServiceList(List<OrderDetail> orderDetail) {
-        recyclerView = findViewById(R.id.orderDetailRecyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        orderDetailAdapter = new OrderDetailAdapter(orderDetail, new IClickItemOrderDetailListener() {
-            @Override
-            public void onClickItemOrderDetail(OrderDetail orderDetail) {
-                //click on service
-                onClickGoServiceDetail(orderDetail);
-            }
-        }, new IClickItemFeedbackOrderDetailListener() {
-            @Override
-            public void onClickItemFeedbackOrderDetail(OrderDetail orderDetail, Button button) {
-                //click on feedback btn
-                openFeedbackDialog(Gravity.CENTER, studio, orderDetail, button);
-            }
-        }, orderStatus);
-        recyclerView.setAdapter(orderDetailAdapter);
-    }
-
-
-    private void loadStudioData(List<OrderDetail> orderDetail) {
-        studio = orderDetail.get(0).getServicePack().getStudio();
-        Order order = orderDetail.get(0).getOrder();
-        //Studio Information
-        ImageView studioAvatar = findViewById(R.id.StudioAvatarImage_OrderDetail);
-        TextView studioName = findViewById(R.id.StudioName_OrderDetail);
-        TextView studioRating = findViewById(R.id.StudioRating_OrderDetail);
-        if (studio.getImage() != null) {
-            Picasso.get().load(studio.getImage())
-                    .error(R.drawable.download)
-                    .placeholder(R.drawable.download)
-                    .into(studioAvatar);
-        } else {
-            Picasso.get().load("https://i.imgur.com/DvpvklR.png")
-                    .error(R.drawable.download)
-                    .placeholder(R.drawable.download)
-                    .into(studioAvatar);
-        }
-        studioRating.setText("⭐: " + studio.getRating());
-        studioName.setText(studio.getTitle());
-        //Payment Detail Information
-//        TextView discount = findViewById(R.id.Discount_OrderDetail);
-        TextView totalPrice = findViewById(R.id.TotalPrice_OrderDetail);
-        TextView deposited = findViewById(R.id.Deposit_OrderDetail);
-        TextView startDate = findViewById(R.id.DateCheckInt_OrderDetail);
-        TextView orderId = findViewById(R.id.OrderId_OrderDetail);
-        TextView bookingDate = findViewById(R.id.BookingDate_OrderDetail);
-        TextView orderStatus = findViewById(R.id.OrderStatus_OrderDetail);
-        TextView note = findViewById(R.id.Description_OrderDetail);
-
-        int totalPriceValue = 0;
-        for (int i = 0; i < orderDetail.size(); i++) {
-            totalPriceValue = totalPriceValue + orderDetail.get(i).getServicePack().getPriceService();
-        }
-        totalPrice.setText(formatMoney(totalPriceValue) + " VND");
-
-        if (order.getDeposit() > 0) {
-            deposited.setText(formatMoney(order.getDeposit()) + " VND");
-        } else {
-            deposited.setText("Not deposited yet");
-        }
-
-        if (order.getCheckIn() != null) {
-            startDate.setText(order.getCheckIn().toString());
-        } else {
-            startDate.setText("Not deposited yet");
-        }
-
-        orderId.setText("" + order.getOrderId());
-        bookingDate.setText(order.getOrderDate().toString());
-        orderStatus.setText(order.getStatus());
-        note.setText(order.getDescription());
-    }
-
-    private String formatMoney(int Money) {
+    private void initData() {
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
-        return numberFormat.format(Money);
-    }
-    private void loadData() {
-        if (getIntent().getExtras() != null) {
-            orderId = (int) getIntent().getExtras().get("orderId");
-            orderStatus = (String) getIntent().getExtras().get("orderStatus");
 
-            cancelOrderBtn = findViewById(R.id.CancelOrderBtn);
-            depositOrderBtn = findViewById(R.id.DepositOrderBtn);
-            paidTheRestOrderBtn = findViewById(R.id.PaidTheRestOrderBtn);
-            switch (orderStatus) {
-                case "pending":
-                    cancelOrderBtn.setEnabled(true);
-                    cancelOrderBtn.setVisibility(View.VISIBLE);
-                    depositOrderBtn.setEnabled(true);
-                    depositOrderBtn.setVisibility(View.VISIBLE);
-                    paidTheRestOrderBtn.setEnabled(false);
-                    paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
-                    break;
-                case "deposited":
-                    cancelOrderBtn.setEnabled(true);
-                    cancelOrderBtn.setVisibility(View.VISIBLE);
-                    depositOrderBtn.setEnabled(false);
-                    depositOrderBtn.setVisibility(View.INVISIBLE);
-                    paidTheRestOrderBtn.setEnabled(false);
-                    paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
-                    break;
-                case "worked":
-                    cancelOrderBtn.setEnabled(false);
-                    cancelOrderBtn.setVisibility(View.INVISIBLE);
-                    depositOrderBtn.setEnabled(false);
-                    depositOrderBtn.setVisibility(View.INVISIBLE);
-                    paidTheRestOrderBtn.setEnabled(true);
-                    paidTheRestOrderBtn.setVisibility(View.VISIBLE);
-                    break;
-                case "completed":
-                case "cancel":
-                    cancelOrderBtn.setEnabled(false);
-                    cancelOrderBtn.setVisibility(View.INVISIBLE);
-                    depositOrderBtn.setEnabled(false);
-                    depositOrderBtn.setVisibility(View.INVISIBLE);
-                    paidTheRestOrderBtn.setEnabled(false);
-                    paidTheRestOrderBtn.setVisibility(View.INVISIBLE);
-                    break;
-            }
+        TextView bookingPrice = findViewById(R.id.tv_OrderDetail_BookingPrice);
+        TextView fees = findViewById(R.id.tv_OrderDetail_FeesPrice);
+        TextView totalPrice = findViewById(R.id.tv_OrderDetail_TotalPrice);
 
-
-            cancelOrderBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    confirmDialog();
-                }
-            });
-
-            depositOrderBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    depositOrderAction();
-                }
-            });
-
-            paidTheRestOrderBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    paidTheRestOrderAction();
-                }
-            });
+        int _totalPrice = 0;
+        for (int i = 0; i < orderInformation.getOrderDetail().size(); i++) {
+            _totalPrice = _totalPrice + orderInformation.getOrderDetail().get(i).getPrice();
         }
+
+        bookingPrice.setText(numberFormat.format(_totalPrice) + "VND");
+
+        int roundedPrice = customRound(_totalPrice * 0.05);
+        fees.setText(numberFormat.format(roundedPrice) + "VND");
+        totalPrice.setText(numberFormat.format(roundedPrice + _totalPrice) + "VND");
     }
 
-    void confirmDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Cancel order " + orderId + " ?");
-        builder.setMessage("Are you sure you want to cancel " + orderId + " ?");
-
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                cancelOrderAction();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        builder.create().show();
-    }
-
-    private void paidTheRestOrderAction() {
-        ApiService.apiService.updateCancelStatus(orderId, "completed").enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-                    finish();
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void depositOrderAction() {
-        payment();
-    }
-
-
-    private void payment() {
-        Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("orderDetail",orderDetail.get(0));
-        //bundle.putSerializable("studio", studio);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-//    private void updateDeposited(){
-//        ApiService.apiService.updateCancelStatus(orderId, "deposited").enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                if (response.isSuccessful()) {
-//                    Toast.makeText(getApplicationContext(), "Deposit Successful", Toast.LENGTH_SHORT).show();
-//                    finish();
-//                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-//                    startActivity(intent);
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                Toast.makeText(getApplicationContext(), "Lost Connection", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
-
-    private void cancelOrderAction() {
-        ApiService.apiService.updateCancelStatus(orderId, "cancel").enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Cancel Successful", Toast.LENGTH_SHORT).show();
-                    finish();
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Update Fail", Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Lost Connection", Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void getData() {
+        if (getIntent().getExtras() != null) {
+            orderInformation = (OrderInformation) getIntent().getExtras().get("orderInformation");
+            studio = orderInformation.getStudio();
+            orderId = orderInformation.getOrderId();
+        }
+        return;
     }
 
     private void initToolBar() {
@@ -339,11 +119,93 @@ public class OrderDetailActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.OrderDetailToolBar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.background_navbar));
+            getSupportActionBar().setBackgroundDrawable(getDrawable(R.drawable.item_color_appbar));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(String.valueOf("Order Id: " + orderId));
         }
     }
+
+    public static int customRound(double number) {
+        double fractionalPart = number - (int) number;
+
+        if (fractionalPart >= 0.5) {
+            return (int) Math.round(number);
+        } else {
+            return (int) Math.floor(number);
+        }
+    }
+
+    private Map<BookingGroupItem, List<SlotBookingItem>> getListItems() {
+        Map<BookingGroupItem, List<SlotBookingItem>> listMap = new HashMap<>();
+        BookingGroupItem groupItem = new BookingGroupItem(orderInformation.getOrderId(), studio.getAvatarStudio(), studio.getName(), studio.getName(),
+                formatDateString(orderInformation.getOrderDetail().get(0).getStartTime()));
+
+        List<SlotBookingItem> items = new ArrayList<>();
+        for (int i = 0; i < orderInformation.getOrderDetail().size(); i++) {
+            OrderDetail t = orderInformation.getOrderDetail().get(i);
+
+            String starTime = formatTimeString(t.getStartTime());
+            String endTime = formatTimeString(t.getEndTime());
+            items.add(new SlotBookingItem(t.getOrderDetailId(), starTime + " - " + endTime, t.getRating(), t.getContent(), t.getPostDate()));
+        }
+
+
+        listMap.put(groupItem, items);
+
+        return listMap;
+    }
+
+    private String formatMoney(int Money) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+        return numberFormat.format(Money);
+    }
+
+    public String formatDateString(String string) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            java.util.Date utilDate = sdf.parse(string);
+            SimpleDateFormat outputSdf = new SimpleDateFormat("EEE, dd - MM - yyyy");
+            String formattedDate = outputSdf.format(utilDate);
+            return formattedDate;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String formatTimeString(String string) {
+        ZonedDateTime zonedDateTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            zonedDateTime = ZonedDateTime.parse(string);
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String timeOnly = zonedDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+            return timeOnly;
+        }
+        return null;
+    }
+
+//    void confirmDialog() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Cancel order " + orderId + " ?");
+//        builder.setMessage("Are you sure you want to cancel " + orderId + " ?");
+//
+//        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                cancelOrderAction();
+//            }
+//        });
+//        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//            }
+//        });
+//        builder.create().show();
+//    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -355,17 +217,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void onClickGoServiceDetail(OrderDetail orderDetail) {
-        Intent intent = new Intent(this, ServicePage.class);
-        Bundle bundle = new Bundle();
-        Service service = orderDetail.getServicePack();
-        bundle.putSerializable("service", service);
-        bundle.putSerializable("studio", studio);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
-    private void openFeedbackDialog(int gravity, Studio studio, OrderDetail orderDetail, Button buttonFeedback) {
+    private void openFeedbackDialog(int gravity, Studio studio, Button buttonFeedback, int orderDetailId) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_feedback_form);
@@ -386,9 +239,9 @@ public class OrderDetailActivity extends AppCompatActivity {
             dialog.setCancelable(false);
         }
         ImageView studioImage = dialog.findViewById(R.id.StudioAvatarImageFeedback);
-        Picasso.get().load(studio.getImage()).into(studioImage);
+        Picasso.get().load(studio.getAvatarStudio()).into(studioImage);
         TextView NameStudioFeedback = dialog.findViewById(R.id.NameStudioFeedback);
-        NameStudioFeedback.setText(studio.getTitle());
+        NameStudioFeedback.setText(studio.getName());
 
         RatingBar ratingStar = dialog.findViewById(R.id.RatingStarFeedback);
         EditText feedbackFormDescription = dialog.findViewById(R.id.FeedbackFormDescription);
@@ -404,8 +257,9 @@ public class OrderDetailActivity extends AppCompatActivity {
                     Toast.makeText(OrderDetailActivity.this, "Please Rating Service Star", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    boolean checkSubmission = submitFeedbackForm(description, ratingValue, orderDetail);
+                    boolean checkSubmission = submitFeedbackForm(orderDetailId, description, ratingValue);
                     if (checkSubmission) {
+                        Toast.makeText(OrderDetailActivity.this, "Thank You", Toast.LENGTH_SHORT).show();
                         buttonFeedback.setEnabled(false);
                         buttonFeedback.setVisibility(View.INVISIBLE);
                         dialog.dismiss();
@@ -417,42 +271,34 @@ public class OrderDetailActivity extends AppCompatActivity {
         closeBtn.setOnClickListener(view -> dialog.dismiss());
         dialog.show();
     }
-
-    private Boolean submitFeedbackForm(String description, float ratingValue, OrderDetail orderDetailValue) {
+    private Boolean submitFeedbackForm(int OrderDetailId, String description, float ratingValue) {
         int rating = (int) ratingValue;
         OrderDetail feedback = new OrderDetail(rating, description);
-        updateData(orderDetailValue.getOrderDetailId(), feedback);
+        SendFeedBack(OrderDetailId, feedback);
         return true;
     }
 
-    private void updateData(int id, OrderDetail orderDetail) {
-        Log.w("updateData: ", id +"");
-        Call<OrderDetail> call = ApiService.apiService.createFeedback(id, orderDetail);
+    private void SendFeedBack(int OrderDetailId, OrderDetail orderDetail) {
+        Call<OrderDetail> call = ApiService.apiService.createFeedback(OrderDetailId, orderDetail);
         call.enqueue(new Callback<OrderDetail>() {
             @Override
             public void onResponse(Call<OrderDetail> call, Response<OrderDetail> response) {
                 if (response.isSuccessful()) {
-
-
                     Toast.makeText(OrderDetailActivity.this, "Thank You", Toast.LENGTH_SHORT).show();
                 } else {
-
-
                     Toast.makeText(OrderDetailActivity.this, "Send Feedback Fail", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<OrderDetail> call, Throwable t) {
-                // Request failed due to network error or other issues
-                // Handle error here
+                Toast.makeText(OrderDetailActivity.this, "Send Feedback Fail Lost Connection", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void configEditText(EditText editText) {
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        //editText.requestFocus();
         InputMethodManager mgr = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mgr.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
     }

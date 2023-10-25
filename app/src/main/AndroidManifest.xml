@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CLIPBOARD" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -21,23 +23,50 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Login.OtpConfirmActivity"
+            android:name=".Fragment.Service.StudioActivity"
             android:exported="false" />
         <activity
-            android:name=".Fragment.Service.PaymentActivity"
-            android:exported="true"
-            android:launchMode="singleTask">
+            android:name=".PaymentUnsuccessful"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentSuccessful"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentBookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookingStudioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PickTimeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomePage.ActivitySplashScreen"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="app"
-                    android:scheme="demozpdk" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Login.OtpConfirmActivity"
+            android:exported="false" />
+        <!--        <activity-->
+        <!--            android:name=".Fragment.Studio.PaymentActivity"-->
+        <!--            android:exported="true"-->
+        <!--            android:launchMode="singleTask">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.VIEW" />-->
+
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--                <category android:name="android.intent.category.BROWSABLE" />-->
+
+        <!--                <data-->
+        <!--                    android:host="app"-->
+        <!--                    android:scheme="demozpdk" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
         <activity
             android:name=".Login.LoginActivity"
             android:exported="false" />
@@ -45,36 +74,17 @@
             android:name=".Fragment.MainPageFragment.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".Fragment.StudioDetailFragment.GalleryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Fragment.StudioDetailFragment.GalleryItemActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FavoriteActivity"
-            android:exported="false" />
-        <activity
             android:name=".OrderDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Fragment.Service.RecommendServiceActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Fragment.Service.FeedbackActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Fragment.Service.ServicePage"
             android:exported="false" />
         <activity
             android:name=".UserPage.UserUpdateActivity"
             android:exported="false" />
+        <!--        <activity-->
+        <!--            android:name=".Fragment.Service.RecommendServiceActivity"-->
+        <!--            android:exported="false" />-->
         <activity
             android:name=".Search.SearchActivity"
             android:exported="false" /> <!-- HomePage -->
-        <activity
-            android:name=".HomePage.StudioPageActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme.NoActionbar" />
         <activity
             android:name=".HomePage.HomeActivity"
             android:exported="false" /> <!-- login -->
@@ -85,11 +95,10 @@
         <activity
             android:name=".Login.MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Fragment.Service.FeedbackActivity"
+            android:exported="false">
         </activity>
     </application>
 

@@ -21,7 +21,7 @@
 
     <style name="loginParent" parent="parent">
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/loginBkColor</item>
+        <item name="android:background">@color/white</item>
         <item name="android:focusableInTouchMode">true</item>
     </style>
 
@@ -46,12 +46,12 @@
     </style>
 
     <style name="headerTextPrimary" parent="headerText">
-        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="modifiedEditText" parent="parent">
         <item name="android:textSize">@dimen/newsMoreTextSize</item>
-        <item name="android:backgroundTint">@color/primaryTextColor</item>
+        <item name="android:backgroundTint">@color/black</item>
     </style>
 
     <style name="icon" parent="parent">
@@ -70,12 +70,90 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="sampleButton" parent="parent">
+        <item name="android:background">@drawable/login_button_background</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="sampleButtonRadius_Yes" parent="parent">
+        <item name="android:background">@drawable/sample_button_radius_background</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="sampleButtonRadius_No" parent="parent">
+        <item name="android:background">@drawable/sample_button_radius_background_2</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    //new---------------------------------------------------------------
+
+    <style name="splashScreenColor">
+        <item name="android:background">@drawable/item_color_splashscreen</item>
+    </style>
+
+    <style name="lobbyScreenCamera">
+        <item name="android:background">@drawable/item_camera_lobbyscreen</item>
+    </style>
+
+    <style name="buttonLogin">
+        <item name="android:background">@drawable/item_color_login</item>
+        <item name="android:textColor">@color/BlackText</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="buttonSignUp">
+        <item name="android:background">@drawable/item_color_signup</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="formInputText">
+        <item name="android:background">@drawable/item_input_data_form</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="formSearchForm">
+        <item name="android:background">@drawable/item_search_data_form</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="buttonGoogleLogin">
+        <item name="android:background">@drawable/item_color_google_login</item>
+        <item name="android:textColor">@color/BlackText</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="buttonFacebookLogin">
+        <item name="android:background">@drawable/item_color_facebook_login</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="buttonAppleLogin">
+        <item name="android:background">@drawable/item_color_apple_login</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="textBlackHeader">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="textGraySub">
+        <item name="android:textColor">@color/GrayText</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 
     <style name="AppTheme.NoActionbar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
-
 
 </resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PaymentUnsuccessful">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/ToolBarPaymentUnsuccessfulActivity"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/Text_Appbar_Color" />
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/baseline_cancel_24" />
+
+            <TextView
+                style="@style/textBlackHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Sorry, payment failed!"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/textGraySub"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="Unfortunately, your order cannnot be\n complete"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <Button
+        android:id="@+id/btn_BackHome"
+        style="@style/buttonAppleLogin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:text="Back to home"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/btn_DiscoverMoreStudio2"
+        style="@style/buttonGoogleLogin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:text="Discord more studio"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textStyle="normal" />
+</LinearLayout>

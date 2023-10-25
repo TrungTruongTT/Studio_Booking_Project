@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.UserPage.ItemUserAdapter;
 import com.example.demofacebook.Adapter.UserPage.UserAdapter;
-import com.example.demofacebook.Model.CustomerAccount;
+import com.example.demofacebook.Login.MainActivity;
 import com.example.demofacebook.Model.User;
 import com.example.demofacebook.MyInterface.IClickItemUserListener;
 import com.example.demofacebook.MyInterface.IClickItemUserOptionListener;
@@ -24,16 +25,13 @@ import com.example.demofacebook.R;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 import com.example.demofacebook.UserPage.UserUpdateActivity;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserFragment extends Fragment {
     User user;
-    //User RecyclerView
     RecyclerView recyclerViewUser;
     UserAdapter userAdapter;
-    //User Option RecyclerView
     RecyclerView recyclerViewUserOption;
     ItemUserAdapter itemUserAdapter;
 
@@ -43,6 +41,16 @@ public class UserFragment extends Fragment {
         user = getUser();
         loadUser(view, user);
         loadUserOption(view);
+        Button btn_Logout = view.findViewById(R.id.btn_Logout);
+        btn_Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DataLocalManager.setCustomerAccount(null);
+                DataLocalManager.setTokenResponse(null);
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -55,7 +63,7 @@ public class UserFragment extends Fragment {
         userAdapter = new UserAdapter(new IClickItemUserListener() {
             @Override
             public void onClickItemUser(User user) {
-                clickGoOption("Update Information");
+                clickGoOption("Edit Profile");
             }
         }, userValue);
         recyclerViewUser.setAdapter(userAdapter);
@@ -71,7 +79,7 @@ public class UserFragment extends Fragment {
             public void onClickItemUserOptionListener(String option) {
                 clickGoOption(option);
             }
-        }, getListOptionName1(), getListOptionIcon());
+        }, getAccountOption(), getListAccountOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
 
         //User Option 2
@@ -82,12 +90,19 @@ public class UserFragment extends Fragment {
             @Override
             public void onClickItemUserOptionListener(String option) {
             }
-        }, getListOptionName2(), getListOptionIcon());
+        }, getListOptionMore(), getListMoreOptionIcon());
         recyclerViewUserOption.setAdapter(itemUserAdapter);
     }
 
     private void clickGoOption(String option) {
-        if (option.equals("User Information")) {
+        if (option.equals("Edit Profile")) {
+            Intent intent = new Intent(getActivity(), UserUpdateActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("user", user);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        if (option.equals("Password")) {
             Intent intent = new Intent(getActivity(), UserUpdateActivity.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("user", user);
@@ -98,42 +113,52 @@ public class UserFragment extends Fragment {
 
     private User getUser() {
         User user;
-        String str = "2001-06-15";
-        Date dateOfBirth = Date.valueOf(str);
-        String url = "https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg";
+        String url = "https://cdn-icons-png.flaticon.com/512/1144/1144760.png";
         //TokenResponse token = DataLocalManager.getTokenResponse();
-        CustomerAccount account = DataLocalManager.getCustomerAccount();
+        User account = DataLocalManager.getCustomerAccount();
         if (account != null) {
-            user = new User(account.getUser().getUserId(), account.getUser().getImage(), account.getUser().getFullName(), dateOfBirth, account.getUser().getPhone(), account.getUser().getEmail(), account.getUser().getPassword());
+            user = new User(account.getUserId(), account.getImage(), account.getFullName(), account.getPhone(), account.getEmail(), account.getPassword());
+        } else {
+            user = new User(1, url, "PhiPhiPhi", "0966324244", "Phinhse150972@fpt.edu.vn", "Phinhse150972");
         }
-        else {
-            user = new User(1, url, "PhiPhiPhi", dateOfBirth, "0966324244", "Phinhse150972@fpt.edu.vn", "Phinhse150972");
-        }
-            return user;
+        return user;
         }
 
-    private List<String> getListOptionName1() {
+    private List<String> getAccountOption() {
         List<String> myList = new ArrayList<>();
-        String[] optionName = {"User Information", "Option 2"};
+        String[] optionName = {"Edit Profile", "Password", "Notification"};
         for (int i = 0; i < optionName.length; i++) {
             myList.add(optionName[i]);
         }
         return myList;
     }
 
-    private List<String> getListOptionName2() {
+    private List<String> getListOptionMore() {
         List<String> myList = new ArrayList<>();
-        String[] optionName = {"Option 1", "Option 2"};
+        String[] optionName = {"Rate & Review", "Help"};
         for (int i = 0; i < optionName.length; i++) {
             myList.add(optionName[i]);
         }
         return myList;
     }
 
-    private List<Drawable> getListOptionIcon() {
+    private List<Drawable> getListAccountOptionIcon() {
         List<Drawable> myList = new ArrayList<>();
-        Drawable img = getContext().getResources().getDrawable(R.drawable.baseline_settings_24);
-        Drawable[] optionName = {img, img};
+        Drawable editProfile = getContext().getResources().getDrawable(R.drawable.baseline_account_circle_24);
+        Drawable Password = getContext().getResources().getDrawable(R.drawable.baseline_lock_24);
+        Drawable Notifications = getContext().getResources().getDrawable(R.drawable.baseline_notifications_none_24);
+        Drawable[] optionName = {editProfile, Password, Notifications};
+        for (int i = 0; i < optionName.length; i++) {
+            myList.add(optionName[i]);
+        }
+        return myList;
+    }
+
+    private List<Drawable> getListMoreOptionIcon() {
+        List<Drawable> myList = new ArrayList<>();
+        Drawable rate = getContext().getResources().getDrawable(R.drawable.baseline_star_outline_24);
+        Drawable help = getContext().getResources().getDrawable(R.drawable.baseline_question_mark_24);
+        Drawable[] optionName = {rate, help};
         for (int i = 0; i < optionName.length; i++) {
             myList.add(optionName[i]);
         }
@@ -146,4 +171,5 @@ public class UserFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
         return view;
     }
+
 }

@@ -3,23 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+<!--    <item-->
+<!--        android:id="@+id/search"-->
+<!--        android:title="Search"-->
+<!--        android:icon="@drawable/search_white_48dp"-->
+<!--        app:showAsAction="always"-->
+<!--        />-->
+<!--    <item-->
+<!--        android:id="@+id/ringtone"-->
+<!--        android:title="Notification"-->
+<!--        android:icon="@drawable/baseline_notifications_24"-->
+<!--        app:showAsAction="always"-->
+<!--        />-->
 
-    <item
-        android:id="@+id/search"
-        android:title="Search"
-        android:icon="@drawable/search_white_48dp"
-        app:showAsAction="always"
-        />
-    <item
-        android:id="@+id/ringtone"
-        android:title="Search"
-        android:icon="@drawable/baseline_notifications_24"
-        app:showAsAction="always"
-        />
-    <item
-        android:id="@+id/favorite"
-        android:title="Favorite"
-        android:icon="@drawable/cute_heart"
-        app:showAsAction="always"
-        />
+<!--    <item-->
+<!--        android:id="@+id/favorite"-->
+<!--        android:title="Favorite"-->
+<!--        android:icon="@drawable/cute_heart"-->
+<!--        app:showAsAction="always"-->
+<!--        />-->
 </menu>

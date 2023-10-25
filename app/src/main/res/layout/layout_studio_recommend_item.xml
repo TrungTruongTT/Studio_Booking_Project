@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/MainListView"
+    android:layout_width="wrap_content"
+    android:layout_height="40dp"
+    android:layout_marginEnd="15dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="15dp"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:id="@+id/ServiceImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder_image" />
+
+
+    <TextView
+        android:id="@+id/NameService"
+        style="@style/textBlackHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="#f5f6fa"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingStart="5dp"
+        android:paddingEnd="10dp"
+        android:text="Explored"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

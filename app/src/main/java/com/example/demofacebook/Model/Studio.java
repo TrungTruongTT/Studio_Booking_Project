@@ -3,104 +3,39 @@ package com.example.demofacebook.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Studio implements Serializable {
+
     @SerializedName("studioId")
     private int studioId;
-    @SerializedName("avatarStudio")
-    private String image;
     @SerializedName("name")
-    private String title;
+    private String name;
     @SerializedName("address")
-
-    private String address_Studio;
-    private int totalAlbum;
-    @SerializedName("totalRating")
-    private double rating;
+    private String address;
     @SerializedName("description")
     private String description;
-
+    @SerializedName("totalRating")
+    private Double totalRating;
+    @SerializedName("createDate")
+    private String createDate;
+    @SerializedName("avatarStudio")
+    private String avatarStudio;
     @SerializedName("coverImage")
     private String coverImage;
-    private List<Service> serviceList;
+    @SerializedName("deleted")
+    private boolean deleted;
 
-    public Studio(int studioId, String image, String title, String address_Studio, double rating, String description, String coverImage) {
+
+    public Studio(int studioId, String name, String address, String description, Double totalRating, String createDate, String avatarStudio, String coverImage, boolean deleted) {
         this.studioId = studioId;
-        this.image = image;
-        this.title = title;
-        this.address_Studio = address_Studio;
-        this.rating = rating;
+        this.name = name;
+        this.address = address;
         this.description = description;
+        this.totalRating = totalRating;
+        this.createDate = createDate;
+        this.avatarStudio = avatarStudio;
         this.coverImage = coverImage;
-    }
-
-    public Studio(int studioId, String image, String title, int totalAlbum, double rating, String description, String coverImage, List<Service> serviceList) {
-        this.studioId = studioId;
-        this.image = image;
-        this.title = title;
-        this.totalAlbum = totalAlbum;
-        this.rating = rating;
-        this.description = description;
-        this.coverImage = coverImage;
-        this.serviceList = serviceList;
-    }
-
-
-    public Studio(int studioId, String image, String title, int totalAlbum, double rating, String description, String coverImage) {
-        this.studioId = studioId;
-        this.image = image;
-        this.title = title;
-        this.totalAlbum = totalAlbum;
-        this.rating = rating;
-        this.description = description;
-        this.coverImage = coverImage;
-    }
-
-    public Studio(int studioId, String image, String title, double rating, String description, String coverImage) {
-        this.studioId = studioId;
-        this.image = image;
-        this.title = title;
-        this.rating = rating;
-        this.description = description;
-        this.coverImage = coverImage;
-    }
-
-    @Override
-    public String toString() {
-        return "Studio{" +
-                "studioId=" + studioId +
-                ", image=" + image +
-                ", title='" + title + '\'' +
-                ", totalAlbum=" + totalAlbum +
-                ", rating=" + rating +
-                ", description='" + description + '\'' +
-                ", serviceList=" + serviceList +
-                '}';
-    }
-
-    public String getAddress_Studio() {
-        return address_Studio;
-    }
-
-    public void setAddress_Studio(String address_Studio) {
-        this.address_Studio = address_Studio;
-    }
-
-    public List<Service> getServiceList() {
-        return serviceList;
-    }
-
-    public void setServiceList(List<Service> serviceList) {
-        this.serviceList = serviceList;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+        this.deleted = deleted;
     }
 
     public int getStudioId() {
@@ -111,38 +46,52 @@ public class Studio implements Serializable {
         this.studioId = studioId;
     }
 
-    public String getImage() {
-        return image;
+    public String getName() {
+        return name;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTitle() {
-        return title;
+    public String getAddress() {
+        return address;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public int getTotalAlbum() {
-        return totalAlbum;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTotalAlbum(int totalAlbum) {
-        this.totalAlbum = totalAlbum;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public Double getTotalRating() {
+        return totalRating;
     }
 
-    public double getRating() {
-        return rating;
+    public void setTotalRating(Double totalRating) {
+        this.totalRating = totalRating;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public String getCreateDate() {
+        return createDate;
     }
 
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getAvatarStudio() {
+        return avatarStudio;
+    }
+
+    public void setAvatarStudio(String avatarStudio) {
+        this.avatarStudio = avatarStudio;
+    }
 
     public String getCoverImage() {
         return coverImage;
@@ -150,5 +99,28 @@ public class Studio implements Serializable {
 
     public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
+    }
+
+    public boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setStatus(boolean status) {
+        this.deleted = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Studio{" +
+                "studioId=" + studioId +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", description='" + description + '\'' +
+                ", totalRating=" + totalRating +
+                ", createDate='" + createDate + '\'' +
+                ", avatarStudio='" + avatarStudio + '\'' +
+                ", coverImage='" + coverImage + '\'' +
+                ", deleted=" + deleted +
+                '}';
     }
 }

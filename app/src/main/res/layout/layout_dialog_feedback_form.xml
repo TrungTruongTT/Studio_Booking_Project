@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
@@ -19,21 +18,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-            tools:ignore="UselessParent">
+           >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#FFD154"
+                android:background="#235a8f"
+                android:textStyle="bold"
                 android:gravity="center"
                 android:text="@string/feedback_form_text"
-                android:textColor="@color/TextColor_Gallery"
+                android:textColor="#FFF"
                 android:textSize="25sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/cardView"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -45,7 +44,7 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/download" />
+                    android:src="@drawable/placeholder_image" />
 
                 <TextView
                     android:id="@+id/NameStudioFeedback"
@@ -76,7 +75,7 @@
                 <EditText
                     android:id="@+id/FeedbackFormDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="180dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
@@ -128,7 +127,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:gravity="start"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -137,21 +135,23 @@
                     android:layout_gravity="center_horizontal">
 
                     <Button
+                        style="@style/buttonGoogleLogin"
                         android:id="@+id/CancelFeedbackDialog"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:background="#E8A2A2A2"
+                        android:textAllCaps="false"
                         android:text="Cancel" />
 
                     <Button
+                        style="@style/buttonSignUp"
                         android:id="@+id/SubmitFeedbackDialog"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="20dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:background="#FFD154"
+                        android:textAllCaps="false"
                         android:text="Submit" />
 
                 </LinearLayout>

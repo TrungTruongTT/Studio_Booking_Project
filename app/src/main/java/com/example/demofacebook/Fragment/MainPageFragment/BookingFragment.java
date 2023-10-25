@@ -32,12 +32,10 @@ public class BookingFragment extends Fragment {
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(String.valueOf(position + 1))
         ).attach();
+        tabLayout.getTabAt(0).setText("Pending");
+        tabLayout.getTabAt(1).setText("Completed");
+        tabLayout.getTabAt(2).setText("Canceled");
 
-        tabLayout.getTabAt(0).setText("PENDING");
-        tabLayout.getTabAt(1).setText("DEPOSITED");
-        tabLayout.getTabAt(2).setText("WORKED");
-        tabLayout.getTabAt(3).setText("COMPLETED");
-        tabLayout.getTabAt(4).setText("CANCELED");
 
     }
 

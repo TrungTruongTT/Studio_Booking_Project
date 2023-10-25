@@ -9,108 +9,110 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/Payment_Toolbar"
+        app:titleTextColor="@color/Text_Appbar_Color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Payment" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/txtTitle"
-            android:layout_width="345dp"
-            android:layout_height="54dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:gravity="center"
             android:text="ZALO PAYMENT"
             android:textColor="@color/BlackText"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/txtAmount"
-            android:layout_width="260dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="30dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="Số tiền"
-            android:inputType="number"
-            android:labelFor="@id/lblSoTien"
-            android:text="50000"
-            android:textAlignment="center"
-            android:textColor="#FF5722"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/lblSoTien"
-            app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
-        <TextView
-            android:id="@+id/lblSoTien"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="16dp"
-            android:text="Total Price"
-            android:textColor="@color/BlackText"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+            <TextView
+                android:id="@+id/lblSoTien"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Diposite :"
+                android:textColor="@color/BlackText"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/txtAmount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:hint="Amount"
+                android:inputType="number"
+                android:labelFor="@id/lblSoTien"
+                android:paddingStart="10dp"
+                android:textColor="#FF5722"
+                android:textSize="20sp" />
+        </LinearLayout>
+
 
         <Button
+            style="@style/sampleButton"
             android:id="@+id/btnCreateOrder"
-            android:layout_width="347dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="30dp"
-            android:background="#2196F3"
+            android:layout_marginTop="20dp"
             android:text="Create Order in ZALO"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtAmount" />
+            android:textColor="#FFF"
+            android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/lblZpTransToken"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:text="lbl_zptranstoken"
-            android:textColor="@color/BlackText"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCreateOrder" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Payment code: "
+                android:textColor="@color/BlackText"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/lblZpTransToken"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:text="lbl_zptranstoken"
+                android:textColor="@color/BlackText"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
 
         <Button
+            style="@style/sampleButton"
             android:id="@+id/btnPay"
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="30dp"
-            android:background="#2196F3"
             android:text="Payment ZALO"
             android:textColor="#FFFFFF"
-            android:textSize="26sp"
-            android:theme="@style/AppTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblZpTransToken" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/txtToken"
@@ -150,5 +152,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtResult" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 </LinearLayout>

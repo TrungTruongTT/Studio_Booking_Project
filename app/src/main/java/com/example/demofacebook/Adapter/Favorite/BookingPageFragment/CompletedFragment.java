@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,17 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demofacebook.Adapter.Chat.Booking.OrderAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
-import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.IClickItemChatOrderListener;
 import com.example.demofacebook.Api.ApiService;
-import com.example.demofacebook.Model.Order;
-import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.OrderDetailActivity;
 import com.example.demofacebook.R;
-import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,12 +37,12 @@ public class CompletedFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerViewOrder = view.findViewById(R.id.orderCompletedRecyclerView);
 
-        ApiService.apiService.geOrderIdByUser().enqueue(new Callback<List<OrderInformation>>() {
+        ApiService.apiService.getOrderByUser().enqueue(new Callback<List<OrderInformation>>() {
             @Override
             public void onResponse(Call<List<OrderInformation>> call, Response<List<OrderInformation>> response) {
                 if (response.isSuccessful()) {
                     List<OrderInformation> value = response.body();
-                    orderList = value.stream().filter(p->p.getStatus().equals("completed")).collect(Collectors.toList());
+                    orderList = value.stream().filter(p->p.getStatus().equals("payed")).collect(Collectors.toList());
                     loadBookingData(view, orderList);
 
                 } else {
@@ -67,18 +60,14 @@ public class CompletedFragment extends Fragment {
         recyclerViewOrder = view.findViewById(R.id.orderCompletedRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewOrder.setLayoutManager(linearLayoutManager);
-        orderAdapter = new OrderAdapter(value, new IClickItemOrderListener() {
+        orderAdapter = new OrderAdapter(value, getContext(), new IClickItemOrderListener() {
             @Override
             public void onClickItemOrder(OrderInformation orderInformation) {
-                Intent it = new Intent(getContext(), OrderDetailActivity.class);
-                it.putExtra("orderId", orderInformation.getOrderId());
-                it.putExtra("orderStatus", orderInformation.getStatus());
-                view.getContext().startActivity(it);
-            }
-        }, new IClickItemChatOrderListener() {
-            @Override
-            public void onClickItemChatOrder(OrderInformation orderInformation) {
-                Toast.makeText(getContext(), "Chat with order id: " + orderInformation.getOrderId(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), OrderDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("orderInformation", orderInformation);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         recyclerViewOrder.setAdapter(orderAdapter);

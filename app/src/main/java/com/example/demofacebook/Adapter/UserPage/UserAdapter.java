@@ -42,8 +42,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyArrayAdapter
 
         Picasso.get()
                 .load(user.getImage())
-                .placeholder(R.drawable.download)
-                .error(R.drawable.download)
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
                 .into(holder.userImage);
 
         holder.userName.setText(user.getFullName());

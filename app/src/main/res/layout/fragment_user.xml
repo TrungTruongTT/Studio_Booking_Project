@@ -11,7 +11,7 @@
         android:id="@+id/RecyclerUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp" />
+        />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -23,50 +23,55 @@
             android:orientation="vertical">
 
             <TextView
+                android:textStyle="bold"
                 android:textColor="@color/BlackText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Information"
-                android:textSize="30sp" />
+                android:layout_marginBottom="15dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:text="Account"
+                android:textSize="25sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Recycler1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp" />
+                android:layout_marginBottom="20dp" />
 
             <TextView
+                android:textStyle="bold"
                 android:textColor="@color/BlackText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Setting"
-                android:textSize="30sp" />
+                android:layout_marginBottom="15dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:text="More"
+                android:textSize="25sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RecyclerSetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp" />
+                android:layout_marginBottom="10dp" />
 
-<!--            <TextView-->
-<!--                android:textColor="@color/BackText"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:text="Title 3"-->
-<!--                android:textSize="30sp" />-->
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/RecyclerResource"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content" />-->
-
+            <Button
+                android:id="@+id/btn_Logout"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:text="Log out"
+                android:textAllCaps="false"
+                android:textColor="@color/GrayText"
+                android:textSize="14sp"
+                android:textStyle="normal" />
         </LinearLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 

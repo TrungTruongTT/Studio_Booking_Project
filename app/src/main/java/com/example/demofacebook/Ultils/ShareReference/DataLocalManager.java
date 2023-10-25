@@ -2,8 +2,8 @@ package com.example.demofacebook.Ultils.ShareReference;
 
 import android.content.Context;
 
-import com.example.demofacebook.Model.CustomerAccount;
 import com.example.demofacebook.Model.TokenResponse;
+import com.example.demofacebook.Model.User;
 import com.google.gson.Gson;
 
 import java.util.Set;
@@ -46,30 +46,29 @@ public class DataLocalManager {
     public static Set<String> getNameUserInstalled(){
         return DataLocalManager.getInstance().mySharedReferences.getStringSetValue(PREF_NAME_USER);
     }
-    //lưu token
-    public static void setTokenResponse(TokenResponse token){
-        Gson gson = new Gson();
-        String strJsonTokenResponse = gson.toJson(token);
-        DataLocalManager.getInstance().mySharedReferences.putStringValue(PREF_TOKEN_RESPONSE,strJsonTokenResponse);
-    }
-
-    public static TokenResponse getTokenResponse(){
-        String strTokenRes= DataLocalManager.getInstance().mySharedReferences.getStringValue(PREF_TOKEN_RESPONSE);
+    public static TokenResponse getTokenResponse() {
+        String strTokenRes = DataLocalManager.getInstance().mySharedReferences.getStringValue(PREF_TOKEN_RESPONSE);
         Gson gson = new Gson();
         TokenResponse token = gson.fromJson(strTokenRes, TokenResponse.class);
         return token;
     }
 
-    public static void setCustomerAccount(CustomerAccount account){
+    //lưu token
+    public static void setTokenResponse(TokenResponse token){
         Gson gson = new Gson();
-        String strJsonTokenResponse = gson.toJson(account);
-        DataLocalManager.getInstance().mySharedReferences.putStringValue(PREF_CUSTOMER_ACCOUNT,strJsonTokenResponse);
+        String strJsonTokenResponse = gson.toJson(token);
+        DataLocalManager.getInstance().mySharedReferences.putStringValue(PREF_TOKEN_RESPONSE, strJsonTokenResponse);
     }
 
-    public static CustomerAccount getCustomerAccount(){
-        String strTokenRes= DataLocalManager.getInstance().mySharedReferences.getStringValue(PREF_CUSTOMER_ACCOUNT);
+    public static User getCustomerAccount() {
+        String strTokenRes = DataLocalManager.getInstance().mySharedReferences.getStringValue(PREF_CUSTOMER_ACCOUNT);
         Gson gson = new Gson();
-        CustomerAccount account = gson.fromJson(strTokenRes, CustomerAccount.class);
-        return account;
+        return gson.fromJson(strTokenRes, User.class);
+    }
+
+    public static void setCustomerAccount(User user) {
+        Gson gson = new Gson();
+        String strJsonTokenResponse = gson.toJson(user);
+        DataLocalManager.getInstance().mySharedReferences.putStringValue(PREF_CUSTOMER_ACCOUNT, strJsonTokenResponse);
     }
 }
