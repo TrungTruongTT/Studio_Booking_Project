@@ -2,6 +2,7 @@ package com.example.demofacebook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.demofacebook.Adapter.Chat.Booking.ExpandableListAdapter;
+import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.Booking.ExpandableListAdapter;
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
 import com.example.demofacebook.Model.BookingGroupItem;
-import com.example.demofacebook.Model.OrderDetail;
+import com.example.demofacebook.Model.CreateOrderDetail;
+import com.example.demofacebook.Model.ModelCreateOrder;
 import com.example.demofacebook.Model.OrderInformation;
 import com.example.demofacebook.Model.SlotBooking;
 import com.example.demofacebook.Model.SlotBookingItem;
@@ -25,7 +27,6 @@ import com.example.demofacebook.Model.Studio;
 
 import java.text.NumberFormat;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,14 +88,14 @@ public class BookingStudioActivity extends AppCompatActivity {
 //        intent.putExtras(bundle);
 //        startActivity(intent);
 
-        List<OrderDetail> t = new ArrayList<>();
+        List<CreateOrderDetail> t = new ArrayList<>();
         for (int i = 0; i < slotBookings.size(); i++) {
-            OrderDetail orderDetail3 = new OrderDetail(slotBookings.get(i).getSlotId(), 0);
-            t.add(orderDetail3);
+            CreateOrderDetail createOrderDetail = new CreateOrderDetail(0, slotBookings.get(i).getSlotId());
+            t.add(createOrderDetail);
         }
-        OrderInformation orderInformation = new OrderInformation(studio.getStudioId(), t);
-
-        Call<OrderInformation> call = ApiService.apiService.createOrderByUser(orderInformation);
+        ModelCreateOrder modelCreateOrder = new ModelCreateOrder(studio.getStudioId(), t);
+        Log.w("sendOrderApi: ", modelCreateOrder.toString());
+        Call<OrderInformation> call = ApiService.apiService.createOrderByUser(modelCreateOrder);
         call.enqueue(new Callback<OrderInformation>() {
             @Override
             public void onResponse(Call<OrderInformation> call, Response<OrderInformation> response) {
@@ -103,6 +104,7 @@ public class BookingStudioActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplication(), PaymentBookingActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("orderId", orderInformation.getOrderId());
+                    bundle.putSerializable("studio", studio);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
@@ -119,7 +121,7 @@ public class BookingStudioActivity extends AppCompatActivity {
 
     private void loadDataOrderDetail() {
         TextView bookingPrice = findViewById(R.id.tv_BookingPrice);
-        TextView fees = findViewById(R.id.tv_BookingFee);
+//        TextView fees = findViewById(R.id.tv_BookingFee);
         TextView total = findViewById(R.id.tv_TotalPrice);
         double percentFees = 0.05;
 
@@ -131,8 +133,9 @@ public class BookingStudioActivity extends AppCompatActivity {
         int roundedPrice = customRound(totalPrice * percentFees);
 
         bookingPrice.setText(numberFormat.format(totalPrice) + "VND");
-        fees.setText(numberFormat.format(roundedPrice) + "VND");
-        total.setText(numberFormat.format(roundedPrice + totalPrice) + "VND");
+//        fees.setText(numberFormat.format(roundedPrice) + "VND");
+//        total.setText(numberFormat.format(roundedPrice + _totalPrice) + "VND");
+        total.setText(numberFormat.format(totalPrice) + "VND");
     }
 
     public static int customRound(double number) {
@@ -166,12 +169,13 @@ public class BookingStudioActivity extends AppCompatActivity {
     private Map<BookingGroupItem, List<SlotBookingItem>> getListItems() {
         Map<BookingGroupItem, List<SlotBookingItem>> listMap = new HashMap<>();
 
-        BookingGroupItem groupItem = new BookingGroupItem(studio.getStudioId(), studio.getAvatarStudio(), studio.getName(), studio.getName(), formatDateString(slotBookings.get(0).getSlotDate()));
+        BookingGroupItem groupItem = new BookingGroupItem(studio.getStudioId(), studio.getAvatarStudio(),
+                studio.getName(), studio.getName(), formatDateString(slotBookings.get(0).getSlotDate()));
 
         List<SlotBookingItem> items = new ArrayList<>();
         for (int i = 0; i < slotBookings.size(); i++) {
-            String starTime = formatTimeString(slotBookings.get(i).getStartTime());
-            String endTime = formatTimeString(slotBookings.get(i).getEndTime());
+            String starTime = slotBookings.get(i).getStartTime();
+            String endTime = slotBookings.get(i).getEndTime();
             items.add(new SlotBookingItem(slotBookings.get(i).getSlotId(), starTime + " - " + endTime));
         }
         listMap.put(groupItem, items);
@@ -179,17 +183,17 @@ public class BookingStudioActivity extends AppCompatActivity {
         return listMap;
     }
 
-    public String formatTimeString(String string) {
-        ZonedDateTime zonedDateTime = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            zonedDateTime = ZonedDateTime.parse(string);
-        }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            String timeOnly = zonedDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-            return timeOnly;
-        }
-        return null;
-    }
+//    public String formatTimeString(String string) {
+//        ZonedDateTime zonedDateTime = null;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//            zonedDateTime = ZonedDateTime.parse(string);
+//        }
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//            String timeOnly = zonedDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+//            return timeOnly;
+//        }
+//        return null;
+//    }
 
     public String formatDateString(String string) {
         ZonedDateTime zonedDateTime = null;

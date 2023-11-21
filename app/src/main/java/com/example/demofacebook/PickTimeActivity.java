@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -138,8 +139,8 @@ public class PickTimeActivity extends AppCompatActivity {
                 int year = c.getYear();
                 int month = c.getMonth();
                 int day = c.getDayOfMonth();
-                btn_PickDate.setText("Day: " + day + " - " + month + " - " + year);
-                loadTimeAvailable(studio.getStudioId(), year + "-" + month + "-" + day);
+                btn_PickDate.setText("Day: " + day + " - " + (month + 1) + " - " + year);
+                loadTimeAvailable(studio.getStudioId(), year + "-" + (month + 1) + "-" + day);
                 dialog.dismiss();
             }
         });

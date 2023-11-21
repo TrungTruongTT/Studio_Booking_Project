@@ -1,8 +1,10 @@
 package com.example.demofacebook.Api;
 
 
+import com.example.demofacebook.Model.CreateOrderDetail;
 import com.example.demofacebook.Model.Feedback;
 import com.example.demofacebook.Model.Login_Request;
+import com.example.demofacebook.Model.ModelCreateOrder;
 import com.example.demofacebook.Model.OptSms;
 import com.example.demofacebook.Model.OrderDetail;
 import com.example.demofacebook.Model.OrderInformation;
@@ -117,7 +119,7 @@ public interface ApiService {
 
     @POST("/api/orders")
     Call<OrderInformation> createOrderByUser(
-            @Body OrderInformation orderInformation
+            @Body ModelCreateOrder modelCreateOrder
     );
     @GET("/api/order-details/studio/{studioId}")
     Call<List<Feedback>> getServiceFeedbackStudioId(

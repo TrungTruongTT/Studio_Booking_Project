@@ -65,7 +65,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="VietCombank\nNguyen Huynh Phi"
+                            android:text="TP Bank\nNguyen Thien Dong Vuong"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -74,10 +74,10 @@
                             style="@style/textBlackHeader"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="0966324244"
+                            android:text="0405 4866 001"
                             android:textSize="18sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -86,30 +86,30 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="80dp"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/textBlackHeader"
-                        android:layout_width="350dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
+                        android:layout_marginEnd="15dp"
                         android:text="Description:"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
                         android:id="@+id/tv_TextForCopy"
                         style="@style/textBlackHeader"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="0966324244"
-                        android:textSize="18sp"
+                        android:layout_marginEnd="15dp"
+                        android:maxLines="2"
+                        android:gravity="center|start"
+                        android:text="UserName_Gmail_Studio"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -120,7 +120,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:src="@drawable/momo_qr" />
+                android:src="@drawable/tp_bank_qr" />
 
 
         </LinearLayout>

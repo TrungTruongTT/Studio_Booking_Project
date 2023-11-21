@@ -58,8 +58,8 @@ public class TimePickerAdapter extends RecyclerView.Adapter<TimePickerAdapter.Or
         holder.studioDescription.setText(studio.getName());
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
         holder.studioPrice.setText(numberFormat.format(slotBooking.getPrice()) + " VND");
-        String starTime = formatTimeString(slotBooking.getStartTime());
-        String endTime = formatTimeString(slotBooking.getEndTime());
+        String starTime = slotBooking.getStartTime();
+        String endTime = slotBooking.getEndTime();
         holder.timePicked.setText(starTime + " - " + endTime);
 
         if (slotBooking.isBooked()) {
@@ -81,17 +81,17 @@ public class TimePickerAdapter extends RecyclerView.Adapter<TimePickerAdapter.Or
         }
         return checkedItems;
     }
-    public String formatTimeString(String string) {
-        ZonedDateTime zonedDateTime = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            zonedDateTime = ZonedDateTime.parse(string);
-        }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            String timeOnly = zonedDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-            return timeOnly;
-        }
-        return null;
-    }
+//    public String formatTimeString(String string) {
+//        ZonedDateTime zonedDateTime = null;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//            zonedDateTime = ZonedDateTime.parse(string);
+//        }
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//            String timeOnly = zonedDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+//            return timeOnly;
+//        }
+//        return null;
+//    }
 
     @Override
     public int getItemCount() {

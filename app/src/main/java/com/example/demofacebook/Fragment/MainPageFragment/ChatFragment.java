@@ -73,10 +73,10 @@ public class ChatFragment extends Fragment {
             "        });\n" +
             "        var other = new Talk.User({\n" +
             "                    id: '654321',\n" +
-            "                    name: 'Sebastian',\n" +
+            "                    name: 'FrameMates',\n" +
             "                    email: 'Sebastian@example.com',\n" +
-            "                    photoUrl: 'https://talkjs.com/images/avatar-5.jpg',\n" +
-            "                    welcomeMessage: 'Hey, how can I help?',\n" +
+            "                    photoUrl: 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png',\n" +
+            "                    welcomeMessage: 'Contact Us On https://www.facebook.com/profile.php?id=61551204997881',\n" +
             "                });\n" +
             "        // Tạo một conversation mới từ TalkJS\n" +
             "        var conversation = talkSession.getOrCreateConversation(\n" +

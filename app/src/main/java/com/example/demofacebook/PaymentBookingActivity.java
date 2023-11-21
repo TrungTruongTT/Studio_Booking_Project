@@ -16,10 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.demofacebook.HomePage.HomeActivity;
+import com.example.demofacebook.Model.Studio;
 import com.example.demofacebook.Ultils.ShareReference.DataLocalManager;
 
 public class PaymentBookingActivity extends AppCompatActivity {
     Button btn_Continue;
+    Studio studio;
     Button btn_Cancel;
 
     @Override
@@ -44,9 +46,11 @@ public class PaymentBookingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        studio = loadStudio();
         TextView textForCopy = findViewById(R.id.tv_TextForCopy);
-        String text = getOrderId() + "_" + DataLocalManager.getCustomerAccount().getPhone();
+        String text = DataLocalManager.getCustomerAccount().getFullName() + "_" + DataLocalManager.getCustomerAccount().getEmail() + "_" + studio.getName();
+
+
         textForCopy.setText(text);
         textForCopy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +64,7 @@ public class PaymentBookingActivity extends AppCompatActivity {
 
 
         TextView bankNumber = findViewById(R.id.tv_BankNumber);
-        bankNumber.setText("0966324244");
+        bankNumber.setText("0405 4866 001");
         bankNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +83,16 @@ public class PaymentBookingActivity extends AppCompatActivity {
             return orderId;
         }
         return 0;
+    }
+
+    private Studio loadStudio() {
+        if (getIntent().getExtras() != null) {
+            Studio studio = (Studio) getIntent().getExtras().get("studio");
+            if (studio != null) {
+                return studio;
+            }
+        }
+        return null;
     }
 
     private void initToolBar() {

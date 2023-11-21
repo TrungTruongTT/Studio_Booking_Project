@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.demofacebook.Adapter.Chat.Booking.BookingViewPagerAdapter;
+import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.Booking.BookingViewPagerAdapter;
 import com.example.demofacebook.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;

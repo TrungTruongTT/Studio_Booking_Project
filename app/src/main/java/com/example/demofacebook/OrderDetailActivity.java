@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.demofacebook.Adapter.Chat.Booking.OrderDetailAdapter;
+import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.Booking.OrderDetailAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemFeedbackOrderDetailListener;
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.HomePage.HomeActivity;
@@ -90,7 +89,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
 
         TextView bookingPrice = findViewById(R.id.tv_OrderDetail_BookingPrice);
-        TextView fees = findViewById(R.id.tv_OrderDetail_FeesPrice);
+//        TextView fees = findViewById(R.id.tv_OrderDetail_FeesPrice);
         TextView totalPrice = findViewById(R.id.tv_OrderDetail_TotalPrice);
 
         int _totalPrice = 0;
@@ -101,8 +100,9 @@ public class OrderDetailActivity extends AppCompatActivity {
         bookingPrice.setText(numberFormat.format(_totalPrice) + "VND");
 
         int roundedPrice = customRound(_totalPrice * 0.05);
-        fees.setText(numberFormat.format(roundedPrice) + "VND");
-        totalPrice.setText(numberFormat.format(roundedPrice + _totalPrice) + "VND");
+//        fees.setText(numberFormat.format(roundedPrice) + "VND");
+//        totalPrice.setText(numberFormat.format(roundedPrice + _totalPrice) + "VND");
+        totalPrice.setText(numberFormat.format(_totalPrice) + "VND");
     }
 
     private void getData() {
@@ -138,14 +138,14 @@ public class OrderDetailActivity extends AppCompatActivity {
     private Map<BookingGroupItem, List<SlotBookingItem>> getListItems() {
         Map<BookingGroupItem, List<SlotBookingItem>> listMap = new HashMap<>();
         BookingGroupItem groupItem = new BookingGroupItem(orderInformation.getOrderId(), studio.getAvatarStudio(), studio.getName(), studio.getName(),
-                formatDateString(orderInformation.getOrderDetail().get(0).getStartTime()));
+                orderInformation.getOrderDetail().get(0).getStartTime());
 
         List<SlotBookingItem> items = new ArrayList<>();
         for (int i = 0; i < orderInformation.getOrderDetail().size(); i++) {
             OrderDetail t = orderInformation.getOrderDetail().get(i);
 
-            String starTime = formatTimeString(t.getStartTime());
-            String endTime = formatTimeString(t.getEndTime());
+            String starTime = t.getStartTime();
+            String endTime = t.getEndTime();
             items.add(new SlotBookingItem(t.getOrderDetailId(), starTime + " - " + endTime, t.getRating(), t.getContent(), t.getPostDate()));
         }
 
@@ -160,31 +160,31 @@ public class OrderDetailActivity extends AppCompatActivity {
         return numberFormat.format(Money);
     }
 
-    public String formatDateString(String string) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-            java.util.Date utilDate = sdf.parse(string);
-            SimpleDateFormat outputSdf = new SimpleDateFormat("EEE, dd - MM - yyyy");
-            String formattedDate = outputSdf.format(utilDate);
-            return formattedDate;
+//    public String formatDateString(String string) {
+//        try {
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+//            java.util.Date utilDate = sdf.parse(string);
+//            SimpleDateFormat outputSdf = new SimpleDateFormat("EEE, dd - MM - yyyy");
+//            String formattedDate = outputSdf.format(utilDate);
+//            return formattedDate;
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public String formatTimeString(String string) {
-        ZonedDateTime zonedDateTime = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            zonedDateTime = ZonedDateTime.parse(string);
-        }
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            String timeOnly = zonedDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-            return timeOnly;
-        }
-        return null;
-    }
+//    public String formatTimeString(String string) {
+//        ZonedDateTime zonedDateTime = null;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//            zonedDateTime = ZonedDateTime.parse(string);
+//        }
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//            String timeOnly = zonedDateTime.toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+//            return timeOnly;
+//        }
+//        return null;
+//    }
 
 //    void confirmDialog() {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this);

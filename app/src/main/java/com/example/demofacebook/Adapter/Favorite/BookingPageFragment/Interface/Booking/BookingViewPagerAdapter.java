@@ -1,4 +1,4 @@
-package com.example.demofacebook.Adapter.Chat.Booking;
+package com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.Booking;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

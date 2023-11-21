@@ -200,7 +200,7 @@
                     android:padding="10dp">
 
                     <ImageView
-                        android:src="@drawable/momo_logo"
+                        android:src="@drawable/tp_bank"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         />
@@ -213,7 +213,7 @@
                         android:ellipsize="end"
                         android:gravity="start"
                         android:maxLines="1"
-                        android:text="MoMo"
+                        android:text="TP Bank"
                         android:textSize="17sp" />
 
                 </LinearLayout>

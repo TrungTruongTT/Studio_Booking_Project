@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        sortItemData(view);
+//        sortItemData(view);
         studioItemData(view);
 
         LinearLayout btn_SearchHomeFragment = view.findViewById(R.id.btn_SearchHomeFragment);
@@ -65,18 +65,18 @@ public class HomeFragment extends Fragment {
         callApiGetStudio(); // gọi API List Services
     }
 
-    private void sortItemData(@NonNull View view) {
-        RecyclerView recyclerViewSort = view.findViewById(R.id.RecyclerSort);
-        LinearLayoutManager linearLayoutManagerSort = new LinearLayoutManager(view.getContext(), RecyclerView.HORIZONTAL, false);
-        recyclerViewSort.setLayoutManager(linearLayoutManagerSort);
-        SortHomeAdapter sortHomeAdapter = new SortHomeAdapter(getSortData(), new IClickItemSortListener() {
-            @Override
-            public void onClickItemSort(String sortBy) {
-                studioAdapter.getFilter().filter("@!" + sortBy);
-            }
-        });
-        recyclerViewSort.setAdapter(sortHomeAdapter);
-    }
+//    private void sortItemData(@NonNull View view) {
+//        RecyclerView recyclerViewSort = view.findViewById(R.id.RecyclerSort);
+//        LinearLayoutManager linearLayoutManagerSort = new LinearLayoutManager(view.getContext(), RecyclerView.HORIZONTAL, false);
+//        recyclerViewSort.setLayoutManager(linearLayoutManagerSort);
+//        SortHomeAdapter sortHomeAdapter = new SortHomeAdapter(getSortData(), new IClickItemSortListener() {
+//            @Override
+//            public void onClickItemSort(String sortBy) {
+//                studioAdapter.getFilter().filter("@!" + sortBy);
+//            }
+//        });
+//        recyclerViewSort.setAdapter(sortHomeAdapter);
+//    }
 
     private void goDetailService(Studio studio) {
         Log.d("toString", studio.toString());

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demofacebook.Adapter.Chat.Booking.OrderAdapter;
+import com.example.demofacebook.Adapter.Favorite.BookingPageFragment.Interface.Booking.OrderAdapter;
 import com.example.demofacebook.Adapter.StudioDetail.Interface.IClickItemOrderListener;
 import com.example.demofacebook.Api.ApiService;
 import com.example.demofacebook.Model.OrderInformation;
